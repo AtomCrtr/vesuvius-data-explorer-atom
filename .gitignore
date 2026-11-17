@@ -6,7 +6,6 @@ __pycache__/
 *.egg-info/
 .env
 .DS_Store
-.streamlit/secrets.toml
 data/
 *.zarr/
 *.tif

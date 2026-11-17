@@ -47,8 +47,8 @@ Option : `python -m pip install -e '.[vcdelta3d]'` ajoute le codec `vc-delta3d` 
 nécessaire pour les copies `*.vcd3d.zarr` récentes. Sans lui, ces volumes donnent un message
 indiquant cette commande.
 
-L'installation du cœur seul fournit NumPy, Zarr, fsspec, s3fs, tifffile et Dask, sans Streamlit,
-matplotlib, napari ni Qt.
+L'installation du cœur seul fournit NumPy, Zarr, fsspec, s3fs, tifffile, Dask, Pillow et SciPy,
+sans napari ni Qt.
 
 ## Explorer avec napari
 
@@ -311,19 +311,6 @@ Les replis sont détectés **localement** : une feuille enroulée a des normales
 directions, ce qui faisait signaler environ la moitié de chaque segment réel par l'ancienne
 comparaison à une normale moyenne. Cela reste une heuristique, pas une preuve de topologie. Les
 seuils sont provisoires, calibrés sur 30 segments réels.
-
-## Démo Streamlit (gelée)
-
-L'application Streamlit d'origine reste disponible pour une démonstration rapide, sans nouveau
-développement ; napari couvre désormais ses fonctions (statistiques de coupe : T4 ; métriques de
-surface : T5) et elle sera retirée prochainement.
-
-```bash
-python -m pip install -e '.[streamlit]'
-streamlit run app.py
-```
-
-Commencer par **Démonstration synthétique** pour voir l'application sans données externes.
 
 ## Trouver un volume réel
 
