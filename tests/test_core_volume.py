@@ -1,6 +1,7 @@
 """Real local Zarr stores exercise metadata discovery and bounded lazy reads."""
 
 import json
+from copy import deepcopy
 from dataclasses import FrozenInstanceError
 
 import dask.array as da
@@ -93,7 +94,8 @@ def test_numeric_fallback(tmp_path):
     root = zarr.open_group(str(tmp_path / "fallback.zarr"), mode="w")
     for key, shape in [("2", (2, 3, 4)), ("0", (8, 12, 16)), ("1", (4, 6, 8))]:
         root.create_array(key, shape=shape, chunks=(1, 2, 2), dtype="uint8")
-    levels = volume.list_levels(root)
+    with pytest.warns(UserWarning, match="échelles unitaires.*pas.*mesures physiques"):
+        levels = volume.list_levels(root)
     assert [level.key for level in levels] == ["0", "1", "2"]
     assert all(level.scale == (1.0, 1.0, 1.0) for level in levels)
 
@@ -173,8 +175,14 @@ def test_malformed_metadata_falls_back_with_french_warning(tmp_path, metadata):
 
 
 @pytest.mark.parametrize("materialize", ["compute", "read_slice"])
-def test_open_multiscale_reads_no_chunks(pyramid, monkeypatch, materialize):
-    path, _ = pyramid
+@pytest.mark.parametrize("namespace", ["multiscales", "ome"])
+def test_open_multiscale_reads_no_chunks(pyramid, monkeypatch, materialize, namespace):
+    path, root = pyramid
+    if namespace == "ome":
+        metadata = root.attrs["multiscales"]
+        metadata[0].pop("version", None)
+        root.attrs["ome"] = {"version": "0.5", "multiscales": metadata}
+        del root.attrs["multiscales"]
     from zarr.storage import LocalStore
 
     original_get = LocalStore.get
@@ -242,3 +250,82 @@ def test_explicit_non_zyx_axes_are_rejected(pyramid):
     root.attrs["multiscales"] = metadata
     with pytest.raises(ValueError, match="axes.*z, y, x"):
         volume.list_levels(root)
+
+
+def test_ngff05_matches_ngff04_levels_and_composed_scales(pyramid):
+    path, root = pyramid
+    metadata = root.attrs["multiscales"]
+    metadata[0]["datasets"][1]["coordinateTransformations"][0]["scale"] = [7.91] * 3
+    metadata[0]["coordinateTransformations"] = [{"type": "scale", "scale": [2, 3, 4]}]
+    root.attrs["multiscales"] = metadata
+    expected = volume.list_levels(root)
+    assert expected[0].scale == pytest.approx((15.82, 23.73, 31.64))
+    metadata[0].pop("version", None)
+    root.attrs["ome"] = {"version": "0.5", "multiscales": metadata}
+    del root.attrs["multiscales"]
+    assert volume.list_levels(volume.open_volume_store(str(path))) == expected
+    assert [level.key for level in expected] == ["fine", "medium", "coarse"]
+
+
+def test_ngff05_takes_precedence_over_ngff04(pyramid):
+    _, root = pyramid
+    metadata = deepcopy(root.attrs["multiscales"])
+    metadata[0].pop("version", None)
+    metadata[0]["datasets"][1]["coordinateTransformations"][0]["scale"] = [7.91] * 3
+    root.attrs["ome"] = {"version": "0.5", "multiscales": metadata}
+    assert volume.list_levels(root)[0].scale == (7.91, 7.91, 7.91)
+
+
+@pytest.mark.parametrize(
+    "ome",
+    [
+        None,
+        1,
+        [],
+        {},
+        {"multiscales": None},
+        {"multiscales": []},
+        {"multiscales": "invalid"},
+        {"multiscales": [{"datasets": None}]},
+        {"multiscales": [{"datasets": [{"path": "0", "coordinateTransformations": None}]}]},
+    ],
+)
+def test_malformed_ngff05_warns_and_uses_numeric_fallback(tmp_path, ome):
+    root = zarr.open_group(str(tmp_path / "ngff05.zarr"), mode="w", zarr_format=3)
+    root.create_array("0", shape=(2, 3, 4), chunks=(1, 2, 2), dtype="uint8")
+    # A malformed 0.5 namespace must not silently select conflicting 0.4 scales.
+    root.attrs["multiscales"] = [
+        {
+            "datasets": [
+                {"path": "0", "coordinateTransformations": [{"type": "scale", "scale": [99] * 3}]}
+            ]
+        }
+    ]
+    root.attrs["ome"] = ome
+    with pytest.warns(UserWarning, match="multiscales.*mal formées.*repli"):
+        levels = volume.list_levels(root)
+    assert len(levels) == 1
+    assert levels[0].key == "0"
+    assert levels[0].scale == (1.0, 1.0, 1.0)
+
+
+def test_ngff05_rejects_explicit_non_zyx_axes(pyramid):
+    _, root = pyramid
+    metadata = root.attrs["multiscales"]
+    metadata[0]["axes"] = ["x", "y", "z"]
+    root.attrs["ome"] = {"version": "0.5", "multiscales": metadata}
+    del root.attrs["multiscales"]
+    with pytest.raises(ValueError, match="axes.*z, y, x"):
+        volume.list_levels(root)
+
+
+def test_missing_local_volume_has_french_error_without_zarr_trace(tmp_path):
+    import traceback
+
+    path = str(tmp_path / "absent.zarr")
+    with pytest.raises(FileNotFoundError) as error:
+        volume.open_volume_store(path)
+    assert str(error.value) == f"Volume introuvable : {path}"
+    rendered = "".join(traceback.format_exception(error.value))
+    assert "does not exist" not in rendered
+    assert not (tmp_path / "absent.zarr").exists()

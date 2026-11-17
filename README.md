@@ -56,14 +56,17 @@ do not read voxel chunks. `read_slice` computes only the requested 2D window, at
 Calling `.compute()` on an entire Dask level explicitly materializes that entire level;
 slice it first. Storage chunks intersecting a small ROI can still be larger than the ROI.
 
-Shapes, chunks and scales use **(z, y, x)**. The supported OME-NGFF metadata layout is the
-root `multiscales` attribute (as in NGFF 0.4); the NGFF 0.5 `ome.multiscales` namespace is
-not implemented in T1. `scale` combines each dataset's `coordinateTransformations` with
-any pyramid-level scale; its units remain those of the source metadata. Explicitly
+Shapes, chunks and scales use **(z, y, x)**. Both **OME-NGFF 0.4** (root `multiscales`)
+and **OME-NGFF 0.5** (`ome.multiscales`) metadata layouts are supported. The `ome` namespace
+takes precedence when present; an invalid namespace warns and falls back to group arrays,
+rather than silently selecting conflicting 0.4 metadata. `scale` combines each dataset's
+`coordinateTransformations` with any pyramid-level scale; its units remain those of the source
+metadata. Explicitly
 different axis orders are rejected. If axes are absent, the legacy ZYX convention is assumed.
 Missing multiscale metadata falls back to group arrays (including numeric `0`, `1`, `2`),
-with scale `(1.0, 1.0, 1.0)`; malformed metadata also emits a French warning. A unit fallback
-does not establish physical voxel spacing. The first OME pyramid is used when several exist.
+with scale `(1.0, 1.0, 1.0)`. Numeric fallback without metadata and malformed metadata emit
+French warnings; unit scales are not physical measurements and do not establish voxel spacing.
+The first OME pyramid is used when several exist.
 Both Zarr v2 and v3 stores are supported through the Zarr 3 Python API.
 
 `volume_summary` returns `level_count` and a `levels` list containing `key`, `shape`, `dtype`,

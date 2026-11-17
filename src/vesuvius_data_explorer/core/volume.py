@@ -44,7 +44,10 @@ def open_volume_store(path: str) -> Any:
         raise ValueError(
             "Utiliser l'URI s3:// publique ou un chemin local ; HTTPS non pris en charge."
         )
-    return zarr.open(path, mode="r")
+    try:
+        return zarr.open(path, mode="r")
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Volume introuvable : {path}") from None
 
 
 def _is_3d_array(value: Any) -> bool:
@@ -121,9 +124,11 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
 def list_levels(root: Any) -> list[Level]:
     """Read metadata only, returning levels from finest to coarsest.
 
+    NGFF 0.5 (ome.multiscales) takes precedence over NGFF 0.4 (multiscales).
     Malformed OME metadata emits a French warning and falls back to group
-    arrays with unit scales. Missing axes assume the legacy (z, y, x) order;
-    explicitly different axes are rejected rather than silently relabelled.
+    arrays with unit scales. Numeric fallback without OME metadata warns that
+    unit scales are not physical measurements. Missing axes assume the legacy
+    (z, y, x) order; explicitly different axes are rejected.
     """
     if _is_3d_array(root):
         return [_level(root, "__root__", (1.0, 1.0, 1.0))]
@@ -131,9 +136,17 @@ def list_levels(root: Any) -> list[Level]:
         raise ValueError("Le tableau doit être 3D (z, y, x).")
     attrs = dict(getattr(root, "attrs", {}))
     levels: list[Level] = []
-    if "multiscales" in attrs:
+    has_metadata = "ome" in attrs or "multiscales" in attrs
+    if has_metadata:
         try:
-            levels = _metadata_levels(root, attrs["multiscales"])
+            if "ome" in attrs:
+                ome = attrs["ome"]
+                if not isinstance(ome, dict):
+                    raise ValueError("Le champ ome doit être un objet contenant multiscales.")
+                metadata = ome.get("multiscales")
+            else:
+                metadata = attrs["multiscales"]
+            levels = _metadata_levels(root, metadata)
         except _AxisOrderError:
             raise
         except (KeyError, TypeError, ValueError, OverflowError) as exc:
@@ -153,6 +166,13 @@ def list_levels(root: Any) -> list[Level]:
                 levels.append(_level(node, key, (1.0, 1.0, 1.0)))
     if not levels:
         raise ValueError("Aucun tableau 3D détecté ; vérifier le chemin de la racine .zarr.")
+    if not has_metadata and any(level.key.isdigit() for level in levels):
+        warn(
+            "Métadonnées multiscales absentes : repli numérique avec des échelles unitaires ; "
+            "ce ne sont pas des mesures physiques.",
+            UserWarning,
+            stacklevel=2,
+        )
     return sorted(levels, key=lambda level: prod(level.shape), reverse=True)
 
 
