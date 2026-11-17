@@ -1,0 +1,181 @@
+{
+  "uri": "s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr",
+  "napari_version": "0.10.0",
+  "first_layer_s": 30.577199437999298,
+  "first_image_s": 64.04694226600077,
+  "navigation_operations": [
+    {
+      "operation": "zoom x1.5",
+      "at_s": 65.2432,
+      "settled_s": 0.8976
+    },
+    {
+      "operation": "pan +300,+300 voxels",
+      "at_s": 66.1427,
+      "settled_s": 0.8975
+    },
+    {
+      "operation": "zoom x2",
+      "at_s": 67.0419,
+      "settled_s": 25.7234
+    },
+    {
+      "operation": "restore view",
+      "at_s": 92.7716,
+      "settled_s": 0.8687
+    }
+  ],
+  "heartbeat_p95_ms": 56.353496000156156,
+  "heartbeat_max_ms": 3020.55992699934,
+  "status": "Volume ouvert.",
+  "layer_count": 1,
+  "error": null,
+  "layer": {
+    "name": "20251211183505-2.399um-0.2m-78keV-masked.zarr",
+    "multiscale": true,
+    "levels": 6,
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "contrast_limits": [
+      0.0,
+      122.0
+    ],
+    "summary": {
+      "level_count": 6,
+      "levels": [
+        {
+          "key": "0",
+          "shape": [
+            33592,
+            15761,
+            15761
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            128,
+            128,
+            128
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "estimated_bytes": 8344559192632
+        },
+        {
+          "key": "1",
+          "shape": [
+            16796,
+            7881,
+            7881
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            128,
+            128,
+            128
+          ],
+          "scale": [
+            2.0,
+            2.0,
+            2.0
+          ],
+          "estimated_bytes": 1043202264156
+        },
+        {
+          "key": "2",
+          "shape": [
+            8398,
+            3941,
+            3941
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            128,
+            128,
+            128
+          ],
+          "scale": [
+            4.0,
+            4.0,
+            4.0
+          ],
+          "estimated_bytes": 130433377438
+        },
+        {
+          "key": "3",
+          "shape": [
+            4199,
+            1971,
+            1971
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            128,
+            128,
+            128
+          ],
+          "scale": [
+            8.0,
+            8.0,
+            8.0
+          ],
+          "estimated_bytes": 16312447359
+        },
+        {
+          "key": "4",
+          "shape": [
+            2100,
+            986,
+            986
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            128,
+            128,
+            128
+          ],
+          "scale": [
+            16.0,
+            16.0,
+            16.0
+          ],
+          "estimated_bytes": 2041611600
+        },
+        {
+          "key": "5",
+          "shape": [
+            1050,
+            493,
+            493
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            128,
+            128,
+            128
+          ],
+          "scale": [
+            32.0,
+            32.0,
+            32.0
+          ],
+          "estimated_bytes": 255201450
+        }
+      ]
+    }
+  },
+  "renderer_summary": [
+    "Backend:  PyQt6",
+    "pyqt6:    ('PyQt6', '6.12.1', '6.12.1')",
+    "GL version:  '4.5 (Compatibility Profile) Mesa 25.0.7-2+deb13u1'"
+  ],
+  "method": "Native Xorg display; actual npe2 widget, button activation, visual screenshot inspection; zoom/pan driven by napari camera API, Qt heartbeat timer.",
+  "source_documentation": "https://github.com/ScrollPrize/open-data",
+  "source_listing": "Anonymous S3 listing of vesuvius-challenge-open-data/PHerc0332/volumes, followed by metadata and ROI read verification.",
+  "timing_note": "Navigation settled_s includes an intentional minimum 0.8 second dwell. Heartbeat includes rendering/screenshots; it is not a frame-rate benchmark."
+}

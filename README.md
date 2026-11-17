@@ -139,7 +139,7 @@ For large TIFFs the prototype requires memory-mappable pages, to avoid silently 
 - Synthetic demos are labelled as synthetic, and must **not** be cited as real CT evidence.
 - No segmentation training, ink recognition, papyrus text extraction, full surface quality validation or whole-scroll unwrapping in v0.1.
 - `read_slice` bounds the **returned image** to ≤512×512, but Zarr chunk fetches can exceed that window.
-- The full original CT datasets and any third-party licensed imagery **are not included** in this repository.
+- Full original CT datasets are not included. The [real-data validation screenshot](docs/validation/T2-donnees-reelles.md) contains a separately attributed CT excerpt under the source data's CC BY-NC 4.0 license.
 - Read the [data license and attribution requirements](https://scrollprize.org/data) before reusing real scans. The official portal notes CC BY-NC 4.0 unless otherwise stated, plus dataset-specific acknowledgements.
 
 ### Roadmap
