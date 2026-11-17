@@ -22,8 +22,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: sudo apt-get update && sudo apt-get install -y xvfb libegl1 libopengl0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxkbcommon-x11-0
+      - run: sudo apt-get update && sudo apt-get install -y xvfb libegl1 libopengl0 libxcb-shape0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxkbcommon-x11-0
       - run: python -m pip install -e '.[napari,dev]' pytest-qt
       - run: npe2 validate vesuvius-data-explorer
+      - name: Check Qt XCB runtime before pytest captures stderr
+        run: |
+          xvfb-run -a python -u - <<'PY'
+          import subprocess
+          from pathlib import Path
+          from PyQt6.QtCore import QLibraryInfo
+          from PyQt6.QtWidgets import QApplication
+
+          plugins = Path(QLibraryInfo.path(QLibraryInfo.LibraryPath.PluginsPath))
+          xcb_plugin = plugins / "platforms" / "libqxcb.so"
+          linked = subprocess.run(["ldd", str(xcb_plugin)], capture_output=True, text=True, check=True)
+          missing = [line for line in linked.stdout.splitlines() if "not found" in line]
+          if missing:
+              raise SystemExit("Missing Qt XCB libraries:\n" + "\n".join(missing))
+          print("Qt XCB shared libraries resolved.", flush=True)
+          app = QApplication([])
+          print(f"QApplication started with platform: {app.platformName()}", flush=True)
+          app.quit()
+          PY
       - run: xvfb-run -a pytest -q
       - run: ruff check .

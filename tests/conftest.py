@@ -15,11 +15,9 @@ def napari_pyramid(tmp_path):
         ("medium", (8, 16, 24), [1, 2, 4]),
         ("coarse", (4, 8, 12), [2, 4, 8]),
     ]:
-        root.create_array(
-            key,
-            data=np.arange(np.prod(shape), dtype=np.uint16).reshape(shape),
-            chunks=(1, 4, 4),
-        )
+        data = np.arange(np.prod(shape), dtype=np.uint16).reshape(shape)
+        array = root.create_array(key, shape=shape, dtype=data.dtype, chunks=(1, 4, 4))
+        array[:] = data
         datasets.append(
             {
                 "path": key,
