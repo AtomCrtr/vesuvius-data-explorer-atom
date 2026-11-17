@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vesuvius-data-explorer"
+version = "0.1.0"
+description = "Explore Herculaneum CT volumes and assess sampled papyrus surfaces without bulk downloads."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+keywords = ["vesuvius", "zarr", "streamlit", "tomography", "papyrus", "open-science"]
+dependencies = [
+  "numpy>=1.26,<3",
+  "zarr>=3.0.10,<4",
+  "fsspec>=2024.6",
+  "s3fs>=2024.6",
+  "streamlit>=1.36",
+  "matplotlib>=3.8",
+  "tifffile>=2024.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.7"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vesuvius_data_explorer"]
