@@ -50,6 +50,14 @@ def volume():
     return pyramid(sheets())
 
 
+def test_default_draws_36_patches_or_all_usable_ones(volume):
+    profile = normal_profiles(plane(rows=60, cols=60), *pyramid(sheets((96, 128, 128))))
+    assert len(profile.patch_profiles) == 36 and not profile.warnings
+    small = normal_profiles(plane(), *volume)  # 30 x 30 grid: 25 patches of 6 x 6
+    assert len(small.patch_profiles) == 25
+    assert "25 patch(s) utilisable(s) sur 36" in small.warnings[0]
+
+
 def test_level_and_range_follow_the_voxel_size(volume):
     _, shapes = volume
     assert choose_level(shapes, None) == 0
@@ -61,7 +69,7 @@ def test_level_and_range_follow_the_voxel_size(volume):
 
 
 def test_aligned_segment_peaks_at_zero(volume):
-    profile = normal_profiles(plane(), *volume)
+    profile = normal_profiles(plane(), *volume, patches=12)
     metrics = alignment_metrics(profile)
     assert profile.level == 0 and len(profile.patch_profiles) == 12 and profile.points == 432
     assert metrics["peak_offset"] == 0
@@ -86,17 +94,19 @@ def test_coarser_level_with_known_voxel_size(volume):
 
 
 def test_incoherent_patches_flatten_the_profile(volume):
-    aligned = alignment_metrics(normal_profiles(plane(), *volume))
+    aligned = alignment_metrics(normal_profiles(plane(), *volume, patches=12))
     shifts = np.random.default_rng(1).uniform(-12, 12, 12)
-    scrambled = alignment_metrics(normal_profiles(plane(), *volume, patch_shifts=shifts))
+    scrambled = alignment_metrics(normal_profiles(plane(), *volume, patches=12,
+                                                  patch_shifts=shifts))
     assert scrambled["peak_prominence"] < aligned["peak_prominence"] / 2
     assert scrambled["bootstrap_width"] > aligned["bootstrap_width"]
 
 
 def test_budget_reduces_patches_then_refuses(volume):
-    full = normal_profiles(plane(), *volume)
+    full = normal_profiles(plane(), *volume, patches=12)
     per_patch = full.voxels_read // len(full.patch_profiles)
-    reduced = normal_profiles(plane(), *volume, max_voxels=3 * per_patch + per_patch // 2)
+    reduced = normal_profiles(plane(), *volume, patches=12,
+                              max_voxels=3 * per_patch + per_patch // 2)
     assert len(reduced.patch_profiles) == 3 and reduced.voxels_read <= 3.5 * per_patch
     assert "Budget : 3 patch(s)" in reduced.warnings[-1]
     with pytest.raises(ValueError, match="insuffisant"):
@@ -105,7 +115,7 @@ def test_budget_reduces_patches_then_refuses(volume):
 
 def test_patches_outside_the_volume_are_excluded(volume):
     # x from 40 to 98: only the first 12 columns (two patch columns) are inside x < 64.
-    profile = normal_profiles(plane(x0=40.0), *volume)
+    profile = normal_profiles(plane(x0=40.0), *volume, patches=12)
     assert (profile.patch_centers[:, 2] < 64).all()
     assert len(profile.patch_profiles) == 10
     assert "10 patch(s) utilisable(s) sur 12" in profile.warnings[0]
@@ -120,7 +130,7 @@ def test_qc_check_is_informational_until_enabled(volume, tmp_path):
     result = {r["check_id"]: r for r in report["results"]}["surface.alignment"]
     assert result["status"] == "pass" and result["value"] == pytest.approx(-10, abs=1)
     assert "non notée" in result["message"]
-    assert report["parameters"]["alignment"]["patches"] == 12
+    assert report["parameters"]["alignment"]["patches"] == 25  # all usable patches (36 asked)
     assert report["parameters"]["volume_shape"] == [96, 64, 64]
     config = tmp_path / "on.toml"
     config.write_text('["surface.alignment"]\nenabled = 1\n')
@@ -177,5 +187,5 @@ def test_real_segment_sits_close_to_its_sheet():
     profile = normal_profiles(surface, arrays, [level.shape for level in levels],
                               pixel_size_um=8.64)
     metrics = alignment_metrics(profile)
-    assert len(profile.patch_profiles) == 12 and profile.level == 0
+    assert len(profile.patch_profiles) == 22 and profile.level == 0  # every usable patch
     assert abs(metrics["peak_offset"]) <= 6

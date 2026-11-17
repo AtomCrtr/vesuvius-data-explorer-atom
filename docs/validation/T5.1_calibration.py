@@ -25,6 +25,7 @@ from vesuvius_data_explorer.core.volume import open_multiscale
 SHIFTS_UM = (0.0, 25.0, -25.0, 50.0, -50.0)
 # Large enough for every requested patch (the 8 Mi-voxel default cut most profiles to 4-7).
 MAX_VOXELS = int(os.environ.get("MAX_VOXELS", str(128 * 2**20)))
+PATCHES = int(os.environ.get("PATCHES", "36"))  # 12 for the first calibration run
 CLASSES = {"~8 µm": (7.0, 10.0), "~2,4 µm": (2.0, 2.5), "~1,1 µm": (1.0, 1.2)}
 PER_CLASS = 7
 
@@ -58,11 +59,11 @@ def measure(item):
             shifted = shift_surface(surface, shift_um / pixel) if shift_um else surface
             rows[f"{shift_um:+g}"] = alignment_metrics(
                 normal_profiles(shifted, arrays, shapes, pixel_size_um=pixel,
-                                max_voxels=MAX_VOXELS))
+                                max_voxels=MAX_VOXELS, patches=PATCHES))
         rng = np.random.default_rng(0)
         rows["random"] = alignment_metrics(normal_profiles(
             surface, arrays, shapes, pixel_size_um=pixel, max_voxels=MAX_VOXELS,
-            patch_shifts=rng.uniform(-50, 50, 12) / pixel))
+            patches=PATCHES, patch_shifts=rng.uniform(-50, 50, PATCHES) / pixel))
         keep = ("peak_offset", "peak_prominence", "bootstrap_width", "edge_offset", "level",
                 "patches", "voxels_read")
         return {"class": name, "sample": segment.sample_id, "segment": segment.segment_id,

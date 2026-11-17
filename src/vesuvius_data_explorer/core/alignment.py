@@ -22,8 +22,10 @@ from .tifxyz import TifxyzSurface, in_volume
 DEFAULT_HALF_RANGE_UM = 200.0
 DEFAULT_HALF_RANGE_VOXELS = 24.0  # When the physical voxel size is unknown.
 MAX_SAMPLING_UM = 10.0
-# 12 patches of real segments read 7 to 23 Mi-voxels (T5.1 calibration); 8 Mi cut most to 4-7.
-DEFAULT_MAX_VOXELS = 32 * 2**20
+# T5.1 calibration on 21 real segments: 12 patches recover a 25 µm shift in 69 % of cases,
+# 36 patches in 88 % (criterion: 80 %). 36 patches read 52 Mi-voxels (median), 65 Mi at most.
+DEFAULT_PATCHES = 36
+DEFAULT_MAX_VOXELS = 80 * 2**20
 
 
 @dataclass(frozen=True)
@@ -75,7 +77,8 @@ def shift_surface(surface: TifxyzSurface, offset: float) -> TifxyzSurface:
 
 
 def normal_profiles(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=None,
-                    half_range_um=DEFAULT_HALF_RANGE_UM, patches=12, patch_size=6, seed=0,
+                    half_range_um=DEFAULT_HALF_RANGE_UM, patches=DEFAULT_PATCHES, patch_size=6,
+                    seed=0,
                     max_voxels=DEFAULT_MAX_VOXELS, patch_shifts=None) -> AlignmentProfile:
     """Mean intensity profiles along the normals of ``patches`` random patches of the segment.
 

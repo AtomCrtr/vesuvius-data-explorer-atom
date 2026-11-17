@@ -25,6 +25,7 @@ from qtpy.QtWidgets import (
 
 from vesuvius_data_explorer.core.alignment import (
     DEFAULT_MAX_VOXELS,
+    DEFAULT_PATCHES,
     alignment_metrics,
     normal_profiles,
 )
@@ -80,10 +81,11 @@ def prepare_overlay(source, max_bytes, volume_shape, overlap_ratio):
     }
 
 
-def measure_alignment(surface, arrays, shapes, pixel_size_um, max_voxels):
+def measure_alignment(surface, arrays, shapes, pixel_size_um, max_voxels,
+                      patches=DEFAULT_PATCHES):
     """Worker body (no Qt): alignment profile and its metrics."""
     profile = normal_profiles(surface, arrays, shapes, pixel_size_um=pixel_size_um,
-                              max_voxels=max_voxels)
+                              max_voxels=max_voxels, patches=patches)
     return {"profile": profile, "metrics": alignment_metrics(profile),
             "pixel_size_um": pixel_size_um}
 
@@ -241,6 +243,11 @@ class SurfaceWidget(QWidget):
         self.goto_button.setEnabled(False)
         self.align_button = QPushButton("Mesurer l'alignement")
         self.align_button.setEnabled(False)
+        self.patches_spin = QSpinBox()
+        self.patches_spin.setRange(4, 100)
+        self.patches_spin.setValue(DEFAULT_PATCHES)
+        self.patches_spin.setToolTip("36 par défaut : avec 12, la mesure retrouve moins bien un "
+                                     "décalage connu (calibration T5.1).")
         self.profile_plot = ProfilePlot()
         self.profile_plot.setVisible(False)
         self.align_label = QLabel()
@@ -256,6 +263,7 @@ class SurfaceWidget(QWidget):
         form.addRow("Segment", self.segment_combo)
         form.addRow("Chemin", self.path_input)
         form.addRow("Budget", self.budget_spin)
+        form.addRow("Patchs (alignement)", self.patches_spin)
         layout = QVBoxLayout(self)
         layout.addLayout(form)
         for control in (self.overlay_button, self.goto_button, self.info_label,
@@ -419,7 +427,8 @@ class SurfaceWidget(QWidget):
         shapes = [tuple(level["shape"]) for level in layer.metadata["volume_summary"]["levels"]]
         self._start(measure_alignment,
                     (self._overlay["surface"], list(layer.data), shapes,
-                     layer.metadata.get("pixel_size_um"), DEFAULT_MAX_VOXELS),
+                     layer.metadata.get("pixel_size_um"), DEFAULT_MAX_VOXELS,
+                     self.patches_spin.value()),
                     self._show_alignment, "Mesure de l'alignement…")
 
     def _show_alignment(self, result):

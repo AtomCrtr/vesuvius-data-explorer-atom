@@ -266,7 +266,8 @@ def test_alignment_is_measured_off_the_gui_thread_and_plotted(
     patches = viewer.layers["Alignement — patchs seg"]
     assert tuple(patches.scale) == tuple(layer.scale)
     viewer.dims.ndisplay = 3
-    assert len(patches.data) == 12
+    assert len(patches.data) == 25  # 30 x 30 grid: every usable 6 x 6 patch (36 asked)
+    assert widget.patches_spin.value() == 36
 
 
 @pytest.mark.parametrize("error, expected", [
