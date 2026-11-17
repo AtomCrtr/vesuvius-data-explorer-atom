@@ -16,7 +16,8 @@ fusion après validation.
 
 | # | Tâche | Statut |
 |---|---|---|
-| T1 | [Cœur sans interface + accès aux données réelles](tasks/T1-core-donnees-reelles.md) | À faire |
+| T1 | [Cœur sans interface + accès aux données réelles](tasks/T1-core-donnees-reelles.md) | Fusionnée (PR #3) |
+| T1.1 | [Corrections de revue : OME-NGFF 0.5, chemin inexistant](tasks/T1.1-corrections-revue-t1.md) | À faire (avant T2/T3) |
 | T2 | [Plugin napari minimal : ouvrir un OME-Zarr réel multi-échelles](tasks/T2-plugin-napari-minimal.md) | Spécifiée (après T1) |
 | T3 | [Moteur QC + CLI `vesuvius-qc` → rapport JSON/HTML](tasks/T3-moteur-qc-cli.md) | Spécifiée (après T1, parallèle à T2) |
 | T4 | Panneaux QC dans napari : métriques de la vue, anomalies affichées sur l'image | À spécifier |
