@@ -1,0 +1,1628 @@
+[
+ {
+  "sample": "PHerc0332",
+  "volume": "20251211183505",
+  "path": "PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   33592,
+   15761,
+   15761
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 2.2,
+  "roi_ok": true,
+  "roi_s": 0.5,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0332",
+  "volume": "20231201141544",
+  "path": "samples/PHerc0332/volumes/20231201141544-3.240um-70keV-masked.zarr/",
+  "pixel_um": 3.24,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHerc0332/volumes/20231201141544-3.240um-70keV-m"
+ },
+ {
+  "sample": "PHerc0332",
+  "volume": "20231117143551",
+  "path": "samples/PHerc0332/volumes/20231117143551-7.910um-53keV-masked.zarr/",
+  "pixel_um": 7.91,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHerc0332/volumes/20231117143551-7.910um-53keV-m"
+ },
+ {
+  "sample": "PHerc0332",
+  "volume": "20231027191953",
+  "path": "samples/PHerc0332/volumes/20231027191953-3.240um-53keV-masked.zarr/",
+  "pixel_um": 3.24,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHerc0332/volumes/20231027191953-3.240um-53keV-m"
+ },
+ {
+  "sample": "PHerc0846A",
+  "volume": "20260319102732",
+  "path": "PHerc0846A/volumes/20260319102732-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15137,
+   29587,
+   29587
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 2.3,
+  "roi_ok": true,
+  "roi_s": 0.5,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0846A",
+  "volume": "20250728152254",
+  "path": "PHerc0846A/volumes/20250728152254-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   14019,
+   7726,
+   7726
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 2.2,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0175A",
+  "volume": "20250521115057",
+  "path": "PHerc0175A/volumes/20250521115057-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   12748,
+   9363,
+   9363
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 2.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0500P2",
+  "volume": "20250526151718",
+  "path": "PHerc0500P2/volumes/20250526151718-2.215um-0.4m-111keV-masked.zarr/",
+  "pixel_um": 2.215,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   28096,
+   18209,
+   18209
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 2.2,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0500P2",
+  "volume": "20250528085330",
+  "path": "PHerc0500P2/volumes/20250528085330-4.317um-1.2m-111keV-masked.zarr/",
+  "pixel_um": 4.317,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15838,
+   9423,
+   9423
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0500P2",
+  "volume": "20250820143440",
+  "path": "PHerc0500P2/volumes/20250820143440-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   7057,
+   4196,
+   4196
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0500P2",
+  "volume": "20250821110041",
+  "path": "PHerc0500P2/volumes/20250821110041-0.550um-0.1m-65keV-masked.zarr/",
+  "pixel_um": 0.55,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   12320,
+   10813,
+   3891
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.3,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0343",
+  "volume": "20250521140437",
+  "path": "PHerc0343/volumes/20250521140437-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   17998,
+   8595,
+   8595
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.8,
+  "ok": true
+ },
+ {
+  "sample": "PHercMANBp",
+  "volume": "20260427100434",
+  "path": "PHercMANBp/volumes/20260427100434-1.129um-0.2m-59keV-masked.zarr/",
+  "pixel_um": 1.129,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   35024,
+   22137,
+   20286
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "roi_ok": true,
+  "roi_s": 0.6,
+  "ok": true
+ },
+ {
+  "sample": "PHercMANBp",
+  "volume": "20251216152116",
+  "path": "PHercMANBp/volumes/20251216152116-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   17148,
+   12577,
+   12577
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0814",
+  "volume": "20260309142202",
+  "path": "PHerc0814/volumes/20260309142202-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   74568,
+   23891,
+   23891
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.2,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0814",
+  "volume": "20250804134230",
+  "path": "PHerc0814/volumes/20250804134230-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   19390,
+   5784,
+   5784
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0814",
+  "volume": "20260521123630",
+  "path": "PHerc0814/volumes/20260521123630-1.129um-0.2m-59keV-masked.zarr/",
+  "pixel_um": 1.129,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   46721,
+   22078,
+   20284
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.2,
+  "roi_ok": true,
+  "roi_s": 0.3,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0826",
+  "volume": "20250821151701",
+  "path": "PHerc0826/volumes/20250821151701-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   16920,
+   8169,
+   8169
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0483B",
+  "volume": "20251124083638",
+  "path": "PHerc0483B/volumes/20251124083638-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   11880,
+   8343,
+   8343
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0211",
+  "volume": "20250821151803",
+  "path": "PHerc0211/volumes/20250821151803-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   19416,
+   7948,
+   7948
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0490A",
+  "volume": "20250521151210",
+  "path": "PHerc0490A/volumes/20250521151210-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   11698,
+   9101,
+   9101
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0306B",
+  "volume": "20250521133212",
+  "path": "PHerc0306B/volumes/20250521133212-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15898,
+   8849,
+   8849
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0813",
+  "volume": "20250821151723",
+  "path": "PHerc0813/volumes/20250821151723-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   16993,
+   7947,
+   7947
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1218",
+  "volume": "20250521120456",
+  "path": "PHerc1218/volumes/20250521120456-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   23247,
+   7593,
+   7593
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0125",
+  "volume": "20250821151825",
+  "path": "PHerc0125/volumes/20250821151825-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20840,
+   8387,
+   8387
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.5,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0175B",
+  "volume": "20250521125822",
+  "path": "PHerc0175B/volumes/20250521125822-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15897,
+   9613,
+   9613
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHercMAN5",
+  "volume": "20260311104824",
+  "path": "PHercMAN5/volumes/20260311104824-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   31640,
+   17495,
+   17495
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHercParis3",
+  "volume": "20260427095331",
+  "path": "PHercParis3/volumes/20260427095331-2.400um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.4,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   68417,
+   42403,
+   42403
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0343P",
+  "volume": "20260304131111",
+  "path": "PHerc0343P/volumes/20260304131111-2.215um-0.4m-111keV-masked.zarr/",
+  "pixel_um": 2.215,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20714,
+   13155,
+   13155
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0343P",
+  "volume": "20250521134555",
+  "path": "PHerc0343P/volumes/20250521134555-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   5398,
+   5057,
+   5057
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.3,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0846B",
+  "volume": "20250804142305",
+  "path": "PHerc0846B/volumes/20250804142305-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   13926,
+   7859,
+   7859
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1451",
+  "volume": "20250521151225",
+  "path": "PHerc1451/volumes/20250521151225-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   17998,
+   5815,
+   5815
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1451",
+  "volume": "20260319101107",
+  "path": "PHerc1451/volumes/20260319101107-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   59944,
+   20811,
+   20811
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.3,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0358",
+  "volume": "20250821151737",
+  "path": "PHerc0358/volumes/20250821151737-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   14744,
+   7783,
+   7783
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHercMANB",
+  "volume": "20260323091048",
+  "path": "PHercMANB/volumes/20260323091048-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   72681,
+   26723,
+   26723
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0841",
+  "volume": "20260319124803",
+  "path": "PHerc0841/volumes/20260319124803-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15121,
+   30469,
+   30469
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0841",
+  "volume": "20250821151531",
+  "path": "PHerc0841/volumes/20250821151531-9.366um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.366,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   19400,
+   7703,
+   7703
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.5,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0191",
+  "volume": "20250821151635",
+  "path": "PHerc0191/volumes/20250821151635-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   18977,
+   8387,
+   8387
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1299",
+  "volume": "20260309130042",
+  "path": "PHerc1299/volumes/20260309130042-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   49233,
+   20579,
+   20579
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0800",
+  "volume": "20250521135224",
+  "path": "PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   24298,
+   9867,
+   9867
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20260319133050",
+  "path": "PHerc0139/volumes/20260319133050-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15137,
+   26061,
+   26061
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.5,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20251107135911",
+  "path": "PHerc0139/volumes/20251107135911-9.362um-1.2m-113keV-pag50-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20961,
+   6621,
+   6621
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20251107132835",
+  "path": "PHerc0139/volumes/20251107132835-9.362um-1.2m-113keV-pag0-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20961,
+   6621,
+   6621
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20260102150214",
+  "path": "PHerc0139/volumes/20260102150214-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   76953,
+   26511,
+   26511
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.2,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20250822062710",
+  "path": "PHerc0139/volumes/20250822062710-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15137,
+   26061,
+   26061
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20250820105138",
+  "path": "PHerc0139/volumes/20250820105138-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   19393,
+   26105,
+   26105
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20250728140407",
+  "path": "PHerc0139/volumes/20250728140407-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20974,
+   6621,
+   6621
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20260413113053",
+  "path": "PHerc0139/volumes/20260413113053-1.129um-0.2m-59keV-masked.zarr/",
+  "pixel_um": 1.129,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   19297,
+   35971,
+   32318
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20260319133554",
+  "path": "PHerc0139/volumes/20260319133554-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   19368,
+   26105,
+   26105
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0139",
+  "volume": "20260930100252",
+  "path": "PHerc0139/volumes/20260930100252-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   76945,
+   26511,
+   26511
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.2,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0490B",
+  "volume": "20250521151215",
+  "path": "PHerc0490B/volumes/20250521151215-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   10648,
+   8343,
+   8343
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0483A",
+  "volume": "20250521140913",
+  "path": "PHerc0483A/volumes/20250521140913-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15898,
+   8849,
+   8849
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1667",
+  "volume": "20231107190228",
+  "path": "samples/PHerc1667/volumes/20231107190228-3.240um-88keV-masked.zarr/",
+  "pixel_um": 3.24,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHerc1667/volumes/20231107190228-3.240um-88keV-m"
+ },
+ {
+  "sample": "PHerc1667",
+  "volume": "20260323082859",
+  "path": "PHerc1667/volumes/20260323082859-1.129um-0.2m-59keV-masked.zarr/",
+  "pixel_um": 1.129,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   42209,
+   22122,
+   20276
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1667",
+  "volume": "20231117161658",
+  "path": "samples/PHerc1667/volumes/20231117161658-7.910um-53keV-masked.zarr/",
+  "pixel_um": 7.91,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHerc1667/volumes/20231117161658-7.910um-53keV-m"
+ },
+ {
+  "sample": "PHerc1667",
+  "volume": "20251217075048",
+  "path": "PHerc1667/volumes/20251217075048-2.399um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.399,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   37076,
+   15229,
+   15229
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0257",
+  "volume": "20250821151750",
+  "path": "PHerc0257/volumes/20250821151750-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   18872,
+   8388,
+   8388
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "roi_ok": true,
+  "roi_s": 0.6,
+  "ok": true
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20260608103018",
+  "path": "PHercParis4/volumes/20260608103018-1.129um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 1.129,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   59969,
+   36006,
+   32354
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20230206171837",
+  "path": "samples/PHercParis4/volumes/20230206171837-7.910um-54keV-masked.zarr/",
+  "pixel_um": 7.91,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHercParis4/volumes/20230206171837-7.910um-54keV"
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20260310170716",
+  "path": "PHercParis4/volumes/20260310170716-45.532um-11.0m-74keV-masked.zarr/",
+  "pixel_um": 45.532,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   4071,
+   2264,
+   2264
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20260310173927",
+  "path": "PHercParis4/volumes/20260310173927-45.532um-11.0m-110keV-masked.zarr/",
+  "pixel_um": 45.532,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   4066,
+   2264,
+   2264
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20230205180739",
+  "path": "samples/PHercParis4/volumes/20230205180739-7.910um-54keV-masked.zarr/",
+  "pixel_um": 7.91,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHercParis4/volumes/20230205180739-7.910um-54keV"
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20260411134726",
+  "path": "PHercParis4/volumes/20260411134726-2.400um-0.2m-78keV-masked.zarr/",
+  "pixel_um": 2.4,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   75784,
+   32693,
+   32693
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHercParis4",
+  "volume": "20260323153942",
+  "path": "samples/PHercParis4/volumes/20260323153942-2.400um-0.2m-137keV-masked.zarr/",
+  "pixel_um": 2.4,
+  "zarr": null,
+  "ok": false,
+  "error": "GroupNotFoundError: No group found in store StorePath(FsspecStore, '<FsspecStore(S3FileSystem, vesuvius-challenge-open-data/samples/PHercParis4/volumes/20260323153942-2.400um-0.2m-"
+ },
+ {
+  "sample": "PHerc0268",
+  "volume": "20251110183117",
+  "path": "PHerc0268/volumes/20251110183117-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   14833,
+   12145,
+   12145
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.3,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1545",
+  "volume": "20250821151648",
+  "path": "PHerc1545/volumes/20250821151648-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20961,
+   7506,
+   7506
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1447",
+  "volume": "20250521151220",
+  "path": "PHerc1447/volumes/20250521151220-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   24297,
+   8343,
+   8343
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.2,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1203",
+  "volume": "20260319130212",
+  "path": "PHerc1203/volumes/20260319130212-2.403um-0.2m-77keV-masked.zarr/",
+  "pixel_um": 2.403,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   15137,
+   26493,
+   26493
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "ok": true
+ },
+ {
+  "sample": "PHerc1203",
+  "volume": "20250820131727",
+  "path": "PHerc1203/volumes/20250820131727-9.362um-1.2m-113keV-masked.zarr/",
+  "pixel_um": 9.362,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   18977,
+   6844,
+   6844
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "roi_ok": true,
+  "roi_s": 0.7,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0172",
+  "volume": "20241024131839",
+  "path": "PHerc0172/volumes/20241024131839-7.910um-53keV-masked.zarr/",
+  "pixel_um": 7.91,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   20820,
+   6700,
+   9100
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0172",
+  "volume": "20241024131838",
+  "path": "PHerc0172/volumes/20241024131838-7.910um-53keV-masked.zarr/",
+  "pixel_um": 7.91,
+  "zarr": 2,
+  "codec": "blosc",
+  "cname": "zstd",
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   21000,
+   6700,
+   9100
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 0.9,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0009B",
+  "volume": "20250521125136",
+  "path": "PHerc0009B/volumes/20250521125136-8.640um-1.2m-116keV-masked.zarr/",
+  "pixel_um": 8.64,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   9598,
+   7837,
+   7837
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.1,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0009B",
+  "volume": "20250820154339",
+  "path": "PHerc0009B/volumes/20250820154339-2.401um-0.3m-77keV-masked.zarr/",
+  "pixel_um": 2.401,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   29112,
+   28259,
+   28259
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.0,
+  "roi_ok": true,
+  "roi_s": 0.4,
+  "ok": true
+ },
+ {
+  "sample": "PHerc0009B",
+  "volume": "20260319104112",
+  "path": "PHerc0009B/volumes/20260319104112-2.401um-0.3m-77keV-masked.zarr/",
+  "pixel_um": 2.401,
+  "zarr": 2,
+  "codec": null,
+  "cname": null,
+  "chunks": [
+   128,
+   128,
+   128
+  ],
+  "levels": 6,
+  "shape0": [
+   29112,
+   28259,
+   28259
+  ],
+  "ome_ngff": "0.4",
+  "open_s": 1.3,
+  "ok": true
+ }
+]
