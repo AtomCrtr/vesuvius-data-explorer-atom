@@ -25,6 +25,8 @@ vesuvius-qc = "vesuvius_data_explorer.cli:main"
 [project.optional-dependencies]
 napari = ["napari[all]>=0.5"]
 streamlit = ["streamlit>=1.36", "matplotlib>=3.8"]
+# Optional codec of recent Vesuvius Challenge volumes (zarr v3 shards); registers itself with zarr.
+vcdelta3d = ["vc-delta3d[zarr]>=0.3.2"]
 dev = ["pytest>=8", "ruff>=0.7", "jsonschema>=4.23"]
 
 [project.entry-points."napari.manifest"]

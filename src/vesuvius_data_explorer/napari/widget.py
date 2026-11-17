@@ -105,6 +105,7 @@ class OpenVolumeWidget(QWidget):
                 "Aucun tableau",
                 "Le tableau",
                 "Ordre des axes",
+                "Codec de compression",
             )
         ):
             self.status_label.setText(message)

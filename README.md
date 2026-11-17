@@ -13,8 +13,9 @@ de commande, sans téléchargement massif.**
 
 ## Fonctionnalités
 
-- 🧊 **Ouvrir un volume OME-Zarr** local ou S3 public (OME-NGFF 0.4 et 0.5, Zarr v2 et v3), en
-  multi-échelles paresseux : rien n'est lu tant que rien n'est affiché.
+- 🧊 **Ouvrir un volume OME-Zarr** local, S3 public ou HTTPS officiel (OME-NGFF 0.4 et 0.5, Zarr v2
+  et v3, codec `vc-delta3d` en option), en multi-échelles paresseux : rien n'est lu tant que rien
+  n'est affiché.
 - 🔬 **Explorer dans napari** : navigation 2D multi-résolution, rendu 3D du niveau grossier,
   chargement en arrière-plan.
 - ✅ **Contrôle qualité reproductible** : cohérence des niveaux, valeurs non finies, saturation,
@@ -36,6 +37,11 @@ python -m pip install -e '.[napari]' # interface napari
 # ou : python -m pip install -e .   # cœur, moteur QC et CLI seuls (sans Qt ni napari)
 ```
 
+Option : `python -m pip install -e '.[vcdelta3d]'` ajoute le codec `vc-delta3d` (paquet
+[`vc-delta3d`](https://github.com/ScrollPrize/vc-delta3d), licence MIT, code natif précompilé),
+nécessaire pour les copies `*.vcd3d.zarr` récentes. Sans lui, ces volumes donnent un message
+indiquant cette commande.
+
 L'installation du cœur seul fournit NumPy, Zarr, fsspec, s3fs, tifffile et Dask, sans Streamlit,
 matplotlib, napari ni Qt.
 
@@ -46,17 +52,25 @@ napari -w vesuvius-data-explorer
 ```
 
 Dans le widget **Vesuvius — Ouvrir un volume**, saisir le chemin d'un dossier local
-`/chemin/volume.zarr` ou une URI S3 publique, puis cliquer sur **Ouvrir**. Un dossier `.zarr` local
+`/chemin/volume.zarr`, une URI S3 publique ou une URL HTTPS officielle, puis cliquer sur **Ouvrir**. Un dossier `.zarr` local
 peut aussi être glissé dans napari ; ce lecteur npe2 est synchrone, donc les métadonnées et la petite
 coupe de contraste peuvent retarder un glisser-déposer : préférer le widget, qui travaille en
-arrière-plan. Les URI S3 passent uniquement par le widget ; les URL HTTPS ne sont pas prises en
-charge.
+arrière-plan. Les URI S3 et HTTPS passent uniquement par le widget.
 
 Exemple réel vérifié dans le [bucket public officiel](https://github.com/ScrollPrize/open-data), pour
 PHerc0332 (l'accès et les noms peuvent évoluer) :
 
 ```text
 s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr
+```
+
+**HTTPS.** Huit volumes du catalogue officiel, dont **Scroll 1**, sont publiés hors du bucket S3, sur
+`https://data.aws.ash2txt.org`. Ce domaine est le seul accepté en HTTPS (liste
+`ALLOWED_HTTPS_HOSTS` de `core/volume.py`) ; les autres URL et le HTTP non chiffré sont refusés.
+Exemple vérifié :
+
+```text
+https://data.aws.ash2txt.org/samples/PHercParis4/volumes/20230205180739-7.910um-54keV-masked.zarr
 ```
 
 L'ouverture des métadonnées et l'estimation du contraste s'exécutent dans un thread de travail ; le
@@ -115,7 +129,8 @@ vesuvius-qc surface /chemin/grille-tifxyz --window 256 -o surface.json
 ```
 
 Le chemin S3 ci-dessus est un **gabarit**, pas une source de données : utiliser une URI complète et
-vérifiée. Les chemins locaux et S3 anonymes sont pris en charge ; HTTPS est refusé. Le niveau par
+vérifiée. Chemins locaux, S3 anonyme et HTTPS officiel (`data.aws.ash2txt.org`) sont pris en
+charge ; les autres URL sont refusées. Le niveau par
 défaut est le plus grossier. Les échantillons sont des fenêtres carrées de coupe `z`, de côté
 `min(256, y, x)`, tirées avec `numpy.random.default_rng(seed)` ; axes et localisations sont en
 `(z, y, x)`. Le rapport contient les seuils effectifs et toutes les fenêtres signalées. Les anomalies
@@ -255,6 +270,10 @@ Commencer par **Démonstration synthétique** pour voir l'application sans donn�
 2. Choisir un **échantillon réel** et copier le chemin S3 complet d'un volume `.zarr` existant : le
    projet ne code volontairement **aucune** URL d'échantillon supposée.
 3. Commencer par le niveau le plus **grossier**, puis affiner.
+
+Le catalogue officiel `s3://vesuvius-challenge-open-data/metadata.json` recense échantillons,
+volumes et segments ; voir l'[investigation I1](docs/investigations/I1-ecosysteme-donnees.md)
+pour son contenu et l'état de lecture des 74 volumes publiés.
 
 L'accès S3 public est anonyme (`anon=True`). Une petite ROI peut nécessiter le téléchargement de
 chunks compressés entiers. Aucun volume complet n'est téléchargé.

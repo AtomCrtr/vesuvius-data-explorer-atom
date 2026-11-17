@@ -13,6 +13,17 @@ jobs:
       - run: python -m pip install -e '.[dev]'
       - run: pytest -q
       - run: ruff check .
+  vcdelta3d:
+    # Optional codec of recent Vesuvius Challenge volumes: write and read a sharded volume.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e '.[dev,vcdelta3d]'
+      - run: python -c "import vc_delta3d"
+      - run: pytest -q tests/test_data_access.py -rs
   napari:
     runs-on: ubuntu-latest
     env:

@@ -5,9 +5,11 @@ Only the requested 2D window is materialized. Coordinate order is Z, Y, X.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from math import isfinite, prod
 from typing import Any
+from urllib.parse import urlsplit
 from warnings import warn
 
 import dask.array as da
@@ -25,31 +27,71 @@ class Level:
     scale_from_metadata: bool = True
 
 
-def open_volume_store(path: str) -> Any:
-    """Open a local or anonymous public S3 Zarr root, read-only.
+# HTTPS hosts serving official Vesuvius Challenge volumes outside the open-data S3 bucket
+# (catalogue access root, see docs/investigations/I1-ecosysteme-donnees.md).
+ALLOWED_HTTPS_HOSTS = frozenset({"data.aws.ash2txt.org"})
+CODEC_EXTRAS = {"vc-delta3d": "vcdelta3d"}
 
-    Use a complete `.zarr` URL, not the bucket root or a sample directory.
-    HTTPS directory listings aren't reliable; use the documented S3 URI.
+
+def _not_found_errors() -> tuple[type[BaseException], ...]:
+    import zarr.errors
+
+    names = ("NodeNotFoundError", "GroupNotFoundError", "ArrayNotFoundError")
+    return (FileNotFoundError,) + tuple(
+        getattr(zarr.errors, name) for name in names if hasattr(zarr.errors, name)
+    )
+
+
+def _is_unknown_codec(exc: BaseException) -> bool:
+    return type(exc).__name__ == "UnknownCodecError"
+
+
+def _codec_error(exc: BaseException) -> ValueError:
+    """French, actionable message for a codec zarr-python cannot decode."""
+    match = re.search(r"codec '([^']+)'", str(exc))
+    codec = match.group(1) if match else "inconnu"
+    extra = CODEC_EXTRAS.get(codec)
+    hint = (f"installer l'extra : pip install 'vesuvius-data-explorer[{extra}]'" if extra else
+            "installer le paquet Python qui fournit ce codec à zarr")
+    return ValueError(f"Codec de compression « {codec} » non pris en charge : {hint}.")
+
+
+def open_volume_store(path: str) -> Any:
+    """Open a local, anonymous public S3 or allowed HTTPS Zarr root, read-only.
+
+    Use a complete `.zarr` URL, not the bucket root or a sample directory. HTTPS is
+    accepted only for the official hosts in ``ALLOWED_HTTPS_HOSTS``; it needs no
+    directory listing because levels come from the OME metadata.
     """
     import zarr
 
     path = path.strip()
     if not path:
         raise ValueError("Indiquer le chemin d'un volume .zarr.")
-    if path.startswith("s3://"):
-        # Supported Zarr 3 remote store API. Anonymous access to the public bucket.
-        store = zarr.storage.FsspecStore.from_url(
-            path.rstrip("/"), storage_options={"anon": True}, read_only=True
-        )
-        return zarr.open(store=store, mode="r")
-    if path.startswith(("https://", "http://")):
-        raise ValueError(
-            "Utiliser l'URI s3:// publique ou un chemin local ; HTTPS non pris en charge."
-        )
     try:
+        if path.startswith("s3://"):
+            # Supported Zarr 3 remote store API. Anonymous access to the public bucket.
+            store = zarr.storage.FsspecStore.from_url(
+                path.rstrip("/"), storage_options={"anon": True}, read_only=True
+            )
+            return zarr.open(store=store, mode="r")
+        if path.startswith(("https://", "http://")):
+            host = urlsplit(path).hostname or ""
+            if not path.startswith("https://") or host not in ALLOWED_HTTPS_HOSTS:
+                allowed = ", ".join(sorted(ALLOWED_HTTPS_HOSTS))
+                raise ValueError(
+                    "Utiliser l'URI s3:// publique, un chemin local ou une URL HTTPS officielle "
+                    f"({allowed}) ; cette URL n'est pas prise en charge."
+                )
+            store = zarr.storage.FsspecStore.from_url(path.rstrip("/"), read_only=True)
+            return zarr.open(store=store, mode="r")
         return zarr.open(path, mode="r")
-    except FileNotFoundError:
+    except _not_found_errors():
         raise FileNotFoundError(f"Volume introuvable : {path}") from None
+    except ValueError as exc:
+        if _is_unknown_codec(exc):
+            raise _codec_error(exc) from None
+        raise
 
 
 def _is_3d_array(value: Any) -> bool:
@@ -153,7 +195,16 @@ def list_levels(root: Any) -> list[Level]:
             levels = _metadata_levels(root, metadata)
         except _AxisOrderError:
             raise
-        except (KeyError, TypeError, ValueError, OverflowError) as exc:
+        except ValueError as exc:
+            if _is_unknown_codec(exc):
+                raise _codec_error(exc) from None
+            warn(
+                f"Métadonnées multiscales mal formées : {exc} ; "
+                "repli sur les tableaux du groupe avec une échelle unitaire.",
+                UserWarning,
+                stacklevel=2,
+            )
+        except (KeyError, TypeError, OverflowError) as exc:
             warn(
                 f"Métadonnées multiscales mal formées : {exc} ; "
                 "repli sur les tableaux du groupe avec une échelle unitaire.",
@@ -161,9 +212,13 @@ def list_levels(root: Any) -> list[Level]:
                 stacklevel=2,
             )
     if not levels:
-        candidates = sorted(
-            root.array_keys(), key=lambda s: (not s.isdigit(), int(s) if s.isdigit() else s)
-        )
+        try:
+            keys = list(root.array_keys())
+        except ValueError as exc:
+            if _is_unknown_codec(exc):
+                raise _codec_error(exc) from None
+            raise
+        candidates = sorted(keys, key=lambda s: (not s.isdigit(), int(s) if s.isdigit() else s))
         for key in candidates:
             node = root[key]
             if _is_3d_array(node):
