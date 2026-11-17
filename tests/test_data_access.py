@@ -92,6 +92,16 @@ def test_vc_delta3d_without_package_gives_install_hint_not_bad_metadata(tmp_path
     assert not [w for w in caught if "mal formées" in str(w.message)]
 
 
+@pytest.mark.parametrize("message", [
+    "Unknown codec: 'vc-delta3d'",                                  # zarr 3.1
+    "An implementation for codec 'vc-delta3d' is not available.",   # zarr 3.4
+])
+def test_codec_name_is_read_from_both_zarr_message_formats(message):
+    error = type("UnknownCodecError", (ValueError,), {})(message)
+    assert "« vc-delta3d »" in str(volume._codec_error(error))
+    assert "[vcdelta3d]" in str(volume._codec_error(error))
+
+
 def test_unknown_codec_without_metadata_gives_generic_hint(tmp_path):
     path = tmp_path / "v.zarr"
     _with_codec(path, "codec-inexistant")

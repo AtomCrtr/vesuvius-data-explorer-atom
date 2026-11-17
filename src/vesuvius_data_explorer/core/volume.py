@@ -48,7 +48,8 @@ def _is_unknown_codec(exc: BaseException) -> bool:
 
 def _codec_error(exc: BaseException) -> ValueError:
     """French, actionable message for a codec zarr-python cannot decode."""
-    match = re.search(r"codec '([^']+)'", str(exc))
+    # zarr 3.1: "Unknown codec: 'name'"; zarr 3.4: "An implementation for codec 'name' ..."
+    match = re.search(r"codec:?\s*['\"]([^'\"]+)['\"]", str(exc), re.IGNORECASE)
     codec = match.group(1) if match else "inconnu"
     extra = CODEC_EXTRAS.get(codec)
     hint = (f"installer l'extra : pip install 'vesuvius-data-explorer[{extra}]'" if extra else

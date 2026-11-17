@@ -38,7 +38,8 @@ python -m pip install -e '.[napari]' # interface napari
 ```
 
 Option : `python -m pip install -e '.[vcdelta3d]'` ajoute le codec `vc-delta3d` (paquet
-[`vc-delta3d`](https://github.com/ScrollPrize/vc-delta3d), licence MIT, code natif précompilé),
+[`vc-delta3d`](https://github.com/ScrollPrize/vc-delta3d), licence MIT, code natif précompilé,
+**Python 3.12 ou plus**),
 nécessaire pour les copies `*.vcd3d.zarr` récentes. Sans lui, ces volumes donnent un message
 indiquant cette commande.
 
