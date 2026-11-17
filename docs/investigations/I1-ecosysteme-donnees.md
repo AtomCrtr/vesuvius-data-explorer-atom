@@ -14,7 +14,7 @@
 | Volumes publiés ailleurs (HTTPS) | **8, dont Scroll 1** : refusés à l'origine, **acceptés depuis T4.1** (domaine officiel) |
 | Copies au codec `vc-delta3d` | **8** (toutes PHercParis4, en double d'une version standard) : lisibles avec l'extra `[vcdelta3d]` (T4.1, Python ≥ 3.12) |
 | Catalogue officiel | **Oui** : `metadata.json` (« Vesuvius Atlas »), avec schéma JSON |
-| Surfaces VC3D (TIFXYZ) | **Refusées par notre lecteur** (TIFF compressés LZW) ; lisibles avec Pillow |
+| Surfaces VC3D (TIFXYZ) | **Refusées par notre lecteur** (local seulement ; LZW minoritaire, voir le correctif en section 3) ; lisibles avec Pillow |
 
 ## 1. Le catalogue officiel « Vesuvius Atlas »
 
@@ -68,6 +68,12 @@ Python 3.12, la copie `20260310170716-…-fast-q1-c64-v0.3.2.vcd3d.zarr` s'ouvre
 fenêtre 64 × 64 se décode. Le paquet exige **Python 3.12 ou plus**.
 
 ## 3. Surfaces VC3D (TIFXYZ)
+
+> **Correctif (17 novembre 2026, spécification T5).** Le segment étudié ci-dessous est compressé en
+> LZW, mais ce n'est pas le cas général : sur un tirage aléatoire, 24 copies transformées sur 25 et
+> 10 copies d'origine sur 15 sont **non compressées**. Les copies à superposer sont les
+> `tifxyz-transformed` (1 642, dans le repère du volume visé). Détails :
+> [T5](../tasks/T5-surfaces-vc3d.md#faits-établis-catalogue-et-fichiers-réels).
 
 1 706 segments TIFXYZ sont associés à un volume lisible (186 dans leur volume d'origine, 1 520
 transformés vers un autre volume). Étude du plus petit : PHerc0800, segment `20251029010146`, sur le
