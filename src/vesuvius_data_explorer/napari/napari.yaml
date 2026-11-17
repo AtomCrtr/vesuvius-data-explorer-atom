@@ -9,6 +9,9 @@ contributions:
     - id: vesuvius-data-explorer.open_volume
       title: Ouvrir un volume
       python_name: vesuvius_data_explorer.napari.widget:OpenVolumeWidget
+    - id: vesuvius-data-explorer.quality_control
+      title: Contrôle qualité
+      python_name: vesuvius_data_explorer.napari.qc_widget:QCWidget
   readers:
     - command: vesuvius-data-explorer.get_reader
       filename_patterns: ['*.zarr']
@@ -16,3 +19,5 @@ contributions:
   widgets:
     - command: vesuvius-data-explorer.open_volume
       display_name: Vesuvius — Ouvrir un volume
+    - command: vesuvius-data-explorer.quality_control
+      display_name: Vesuvius — Contrôle qualité
