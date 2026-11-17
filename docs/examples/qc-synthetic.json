@@ -4,8 +4,8 @@
     "name": "vesuvius-data-explorer",
     "version": "0.1.0"
   },
-  "created_at": "2026-11-17T18:19:58.459694+00:00",
-  "duration_s": 0.09053318400037824,
+  "created_at": "2026-11-17T18:59:09.052131+00:00",
+  "duration_s": 0.008154410000003054,
   "target": {
     "kind": "volume",
     "uri": "synthetic://clean-multiscale-example",
@@ -22,6 +22,10 @@
       "Le plafond concerne les voxels matérialisés des ROI ; les chunks ou shards compressés peuvent imposer davantage de lectures/décodage physique."
     ],
     "thresholds": {
+      "volume.background": {
+        "value": 0.0,
+        "enabled": 1.0
+      },
       "volume.levels.shape_ratio": {
         "tolerance_voxels": 1.0
       },
@@ -70,7 +74,7 @@
     "physical_io_note": "Le plafond concerne les voxels matérialisés des ROI ; les chunks ou shards compressés peuvent imposer davantage de lectures/décodage physique."
   },
   "summary": {
-    "pass": 9,
+    "pass": 10,
     "warn": 0,
     "fail": 0,
     "error": 0,
@@ -136,6 +140,17 @@
       "locations": []
     },
     {
+      "check_id": "volume.background",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "value": 0.0,
+        "enabled": 1.0
+      },
+      "message": "Information : pourcentage de voxels de fond (valeur 0), exclus des contrôles de saturation, de zones vides et de contraste.",
+      "locations": []
+    },
+    {
       "check_id": "volume.saturation",
       "status": "pass",
       "value": 0.0,
@@ -143,7 +158,7 @@
         "warn": 1.0,
         "fail": 5.0
       },
-      "message": "Pourcentage de voxels aux extrêmes du dtype.",
+      "message": "Pourcentage de voxels hors fond aux extrêmes du dtype.",
       "locations": []
     },
     {
@@ -154,7 +169,7 @@
         "warn": 10.0,
         "fail": 50.0
       },
-      "message": "Pourcentage de ROI entièrement constantes.",
+      "message": "Pourcentage de ROI (hors fond) entièrement constantes.",
       "locations": []
     },
     {
@@ -166,7 +181,7 @@
         "fail": 75.0,
         "range_fraction": 0.01
       },
-      "message": "Pourcentage de ROI de faible contraste.",
+      "message": "Pourcentage de ROI de faible contraste (voxels hors fond).",
       "locations": []
     }
   ]

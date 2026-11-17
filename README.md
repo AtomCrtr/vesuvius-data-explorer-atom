@@ -191,6 +191,17 @@ HTTP, ni les octets transférés, ni les tentatives répétées. Pour un tableau
 non instrumentable ou une surface mappée, les nombres de chunks/objets valent `null`.
 Les contrôles de métadonnées ne lisent aucun chunk.
 
+**Volumes masqués.** Les volumes `*-masked.zarr` mettent à une valeur unique (0) tout ce qui est
+hors du rouleau. Ces voxels de **fond** sont exclus de `volume.saturation`, `volume.empty` et
+`volume.low_contrast` : sinon le fond serait compté comme saturé (0 est le minimum d'un dtype
+non signé). Une ROI entièrement dans le fond est ignorée et signalée dans le message ; si toutes le
+sont, ces contrôles sont `skipped`. Le contrôle informatif `volume.background` (toujours `pass`)
+indique la part de fond échantillonnée. Réglage par TOML : `["volume.background"]` avec
+`value` (défaut 0, toute valeur finie) et `enabled` (1 par défaut, 0 pour désactiver l'exclusion).
+
+`volume.levels.scale_consistency` est `skipped` lorsque les échelles sont le repli unitaire faute de
+métadonnées OME exploitables : il n'y a alors rien à comparer.
+
 Les seuils sont **provisoires**, à valider sur données réelles avec le Product Owner. Ils sont
 centralisés dans `qc/thresholds.py`. Un fichier TOML peut en surcharger une partie :
 

@@ -4,6 +4,10 @@ import tomllib
 from types import MappingProxyType
 
 _DEFAULTS = {
+    # Masked scans set everything outside the scroll to one value (0 in Vesuvius data).
+    # Those voxels are background, excluded from saturation, empty and contrast checks.
+    # enabled = 0 disables the exclusion; value may be any finite number.
+    'volume.background': {'value': 0.0, 'enabled': 1.0},
     'volume.levels.shape_ratio': {'tolerance_voxels': 1.0},
     'volume.levels.scale_consistency': {'relative_tolerance': 0.05},
     'volume.chunks.size': {'min_bytes': 32768.0, 'max_bytes': 67108864.0},
@@ -32,7 +36,11 @@ def load_thresholds(path=None):
                     value = float(value)
                 except OverflowError as exc:
                     raise ValueError('Seuil numérique trop grand.') from exc
-                if not math.isfinite(value) or value < 0:
+                if not math.isfinite(value):
+                    raise ValueError('Les seuils doivent être finis.')
+                if check_id == 'volume.background' and name == 'enabled' and value not in (0, 1):
+                    raise ValueError('volume.background.enabled vaut 0 ou 1.')
+                if value < 0 and not (check_id == 'volume.background' and name == 'value'):
                     raise ValueError('Les seuils doivent être finis et positifs ou nuls.')
                 values[check_id][name] = float(value)
     for check_id, threshold in values.items():

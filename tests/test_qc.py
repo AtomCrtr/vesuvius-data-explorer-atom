@@ -328,3 +328,72 @@ def test_cli_corrupt_compressed_chunk_is_input_error(tmp_path, capsys):
     captured = capsys.readouterr()
     assert captured.out == ''
     assert 'vesuvius-qc' in captured.err
+
+
+@pytest.fixture
+def masked_volume(tmp_path):
+    """Healthy masked scan: a scroll disc (60–200) on a background of zeros, no saturation."""
+    root = zarr.open_group(str(tmp_path / 'masked.zarr'), mode='w')
+    datasets = []
+    for index, side in enumerate((128, 64, 32)):
+        rng = np.random.default_rng(index)
+        _, y, x = np.ogrid[:side, :side, :side]
+        inside = (y - side / 2) ** 2 + (x - side / 2) ** 2 < (0.35 * side) ** 2
+        data = np.where(inside, rng.integers(60, 200, (side,) * 3), 0).astype('uint8')
+        root.create_array(str(index), shape=data.shape, dtype=data.dtype, chunks=(32,) * 3)
+        root[str(index)][:] = data
+        datasets.append({'path': str(index), 'coordinateTransformations': [
+            {'type': 'scale', 'scale': [2**index] * 3}]})
+    root.attrs['multiscales'] = [{'axes': ['z', 'y', 'x'], 'datasets': datasets}]
+    return root
+
+
+def test_masked_background_is_reported_not_failed(masked_volume):
+    results = checked(run_volume(masked_volume, uri='masked', level='0', samples=16))
+    assert {r['status'] for r in results.values()} == {'pass'}
+    assert results['volume.background']['value'] > 20
+
+
+def test_real_saturation_inside_masked_volume_still_fails(masked_volume):
+    masked_volume['0'][:, 40:88, 40:88] = 255
+    results = checked(run_volume(masked_volume, uri='masked', level='0', samples=16))
+    assert results['volume.saturation']['status'] == 'fail'
+    assert results['volume.saturation']['locations']
+
+
+def test_background_rois_are_ignored_not_counted_empty(masked_volume):
+    masked_volume['2'][:] = 0
+    results = checked(run_volume(masked_volume, uri='masked', samples=4))
+    for check_id in ('volume.saturation', 'volume.empty', 'volume.low_contrast'):
+        assert results[check_id]['status'] == 'skipped'
+        assert 'fond ignorée' in results[check_id]['message']
+    assert results['volume.background']['value'] == 100
+
+
+def test_background_exclusion_can_be_disabled(masked_volume, tmp_path):
+    config = tmp_path / 'no-background.toml'
+    config.write_text('["volume.background"]\nenabled = 0\n')
+    results = checked(run_volume(masked_volume, uri='masked', level='0', samples=16,
+                                 thresholds=load_thresholds(config)))
+    assert results['volume.background']['status'] == 'skipped'
+    assert results['volume.saturation']['status'] == 'fail'
+
+
+def test_background_threshold_validation(tmp_path):
+    config = tmp_path / 'background.toml'
+    config.write_text('["volume.background"]\nvalue = -1000\n')
+    assert load_thresholds(config)['volume.background']['value'] == -1000
+    config.write_text('["volume.background"]\nenabled = 2\n')
+    with pytest.raises(ValueError):
+        load_thresholds(config)
+
+
+def test_unit_fallback_scales_skip_scale_consistency(tmp_path):
+    root = zarr.open_group(str(tmp_path / 'nometa.zarr'), mode='w')
+    for index, side in enumerate((64, 32, 16)):
+        root.create_array(str(index), shape=(side,) * 3, dtype='uint8', chunks=(16,) * 3)
+        root[str(index)][:] = np.random.default_rng(index).integers(20, 220, (side,) * 3)
+    with pytest.warns(UserWarning, match='échelles unitaires'):
+        results = checked(run_volume(root, uri='nometa', samples=2))
+    assert results['volume.levels.scale_consistency']['status'] == 'skipped'
+    assert results['volume.levels.shape_ratio']['status'] == 'pass'

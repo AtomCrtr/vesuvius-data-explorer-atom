@@ -9,7 +9,7 @@ python docs/examples/generate_qc_example.py
 ```
 
 La graine est 0. Le budget de 2 048 voxels réduit quatre ROI demandées à deux ROI de 32² au niveau
-2 ; les neuf contrôles passent. Une seule clé de chunk est demandée (deux coupes du même chunk).
+2 ; les dix contrôles passent (dont `volume.background`, informatif, à 0 %). Une seule clé de chunk est demandée (deux coupes du même chunk).
 Les rapports régénérés sont identiques sauf `created_at` et `duration_s`.
 
 Pour le test de trou de surface, `demo_surface(size=75)` donne 94,67 % de points valides et déclenche

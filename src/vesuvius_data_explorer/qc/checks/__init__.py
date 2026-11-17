@@ -62,8 +62,13 @@ def shape_ratio(context, thresholds):
 @register('metadata', 'volume.levels.scale_consistency')
 def scale_consistency(context, thresholds):
     key = 'volume.levels.scale_consistency'
+    levels = context['levels']
+    if not all(level.scale_from_metadata for level in levels):
+        return CheckResult(key, 'skipped', None, thresholds[key],
+                           'Échelles unitaires de repli (métadonnées absentes ou invalides) : '
+                           'cohérence non évaluable.')
     tolerance = thresholds[key]['relative_tolerance']
-    bad = [b for a, b in zip(context['levels'], context['levels'][1:])
+    bad = [b for a, b in zip(levels, levels[1:])
            if any(abs((sb / sa) / (na / nb) - 1) > tolerance
                   for sa, sb, na, nb in zip(a.scale, b.scale, a.shape, b.shape))]
     return _metadata_result(key, bad, thresholds, 'Cohérence échelles/formes (tolérance relative).')
@@ -100,27 +105,64 @@ def finite(context, thresholds):
                    'Pourcentage de voxels non finis.')
 
 
+def _foreground(data, thresholds):
+    """Voxels outside the masked background; the whole ROI when exclusion is disabled."""
+    background = thresholds['volume.background']
+    if not background['enabled']:
+        return data.ravel()
+    return data[data != background['value']]
+
+
+def _foreground_samples(samples, thresholds):
+    """(location, foreground voxels) for ROIs that are not entirely background."""
+    pairs = [(loc, _foreground(data, thresholds)) for loc, data in samples]
+    return [(loc, voxels) for loc, voxels in pairs if voxels.size]
+
+
+def _background_note(samples, kept):
+    ignored = len(samples) - len(kept)
+    return f' {ignored} ROI entièrement dans le fond ignorée(s).' if ignored else ''
+
+
+@register('samples', 'volume.background')
+def background(context, thresholds):
+    key = 'volume.background'
+    threshold = thresholds[key]
+    samples = context['samples']
+    if not threshold['enabled']:
+        return CheckResult(key, 'skipped', None, threshold, 'Exclusion du fond désactivée.')
+    total = sum(data.size for _, data in samples)
+    if not total:
+        return CheckResult(key, 'skipped', None, threshold, 'Aucun voxel échantillonné.')
+    count = sum(np.count_nonzero(data == threshold['value']) for _, data in samples)
+    return CheckResult(key, 'pass', 100 * count / total, threshold,
+                       f'Information : pourcentage de voxels de fond (valeur {threshold["value"]:g}), '
+                       'exclus des contrôles de saturation, de zones vides et de contraste.')
+
+
 @register('samples', 'volume.saturation')
 def saturation(context, thresholds):
     key = 'volume.saturation'
-    samples = context['samples']
     if not np.issubdtype(np.dtype(context['dtype']), np.integer):
         return CheckResult(key, 'skipped', None, thresholds[key], 'Saturation réservée aux entiers.')
     limits = np.iinfo(context['dtype'])
-    scores = [(loc, np.count_nonzero((data == limits.min) | (data == limits.max)), data.size)
-              for loc, data in samples]
+    kept = _foreground_samples(context['samples'], thresholds)
+    scores = [(loc, np.count_nonzero((v == limits.min) | (v == limits.max)), v.size)
+              for loc, v in kept]
     total = sum(size for _, _, size in scores)
     bad = [loc for loc, n, size in scores if 100 * n / size > thresholds[key]['warn']]
     return _graded(key, 100 * sum(n for _, n, _ in scores) / total if total else None,
-                   bad, thresholds, 'Pourcentage de voxels aux extrêmes du dtype.')
+                   bad, thresholds, 'Pourcentage de voxels hors fond aux extrêmes du dtype.'
+                   + _background_note(context['samples'], kept))
 
 
 @register('samples', 'volume.empty')
 def empty(context, thresholds):
-    samples = context['samples']
-    bad = [loc for loc, data in samples if np.isfinite(data).all() and np.all(data == data.flat[0])]
-    return _graded('volume.empty', 100 * len(bad) / len(samples) if samples else None,
-                   bad, thresholds, 'Pourcentage de ROI entièrement constantes.')
+    kept = _foreground_samples(context['samples'], thresholds)
+    bad = [loc for loc, v in kept if np.isfinite(v).all() and np.all(v == v[0])]
+    return _graded('volume.empty', 100 * len(bad) / len(kept) if kept else None,
+                   bad, thresholds, 'Pourcentage de ROI (hors fond) entièrement constantes.'
+                   + _background_note(context['samples'], kept))
 
 
 @register('samples', 'volume.low_contrast')
@@ -132,10 +174,11 @@ def low_contrast(context, thresholds):
                            'Plage physique du dtype flottant inconnue : contraste non évalué.')
     limits = np.iinfo(dtype)
     cutoff = (float(limits.max) - float(limits.min)) * thresholds[key]['range_fraction']
-    samples = context['samples']
-    bad = [loc for loc, data in samples if np.std(data.astype(np.float64)) < cutoff]
-    return _graded(key, 100 * len(bad) / len(samples) if samples else None,
-                   bad, thresholds, 'Pourcentage de ROI de faible contraste.')
+    kept = _foreground_samples(context['samples'], thresholds)
+    bad = [loc for loc, v in kept if np.std(v.astype(np.float64)) < cutoff]
+    return _graded(key, 100 * len(bad) / len(kept) if kept else None,
+                   bad, thresholds, 'Pourcentage de ROI de faible contraste (voxels hors fond).'
+                   + _background_note(context['samples'], kept))
 
 
 @register('surface', 'surface.valid')
