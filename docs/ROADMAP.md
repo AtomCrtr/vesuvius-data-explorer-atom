@@ -18,7 +18,7 @@ fusion après validation.
 |---|---|---|
 | T1 | [Cœur sans interface + accès aux données réelles](tasks/T1-core-donnees-reelles.md) | À faire |
 | T2 | [Plugin napari minimal : ouvrir un OME-Zarr réel multi-échelles](tasks/T2-plugin-napari-minimal.md) | Spécifiée (après T1) |
-| T3 | Moteur QC + CLI `vesuvius-qc` → rapport JSON/HTML | À spécifier |
+| T3 | [Moteur QC + CLI `vesuvius-qc` → rapport JSON/HTML](tasks/T3-moteur-qc-cli.md) | Spécifiée (après T1, parallèle à T2) |
 | T4 | Panneaux QC dans napari : métriques de la vue, anomalies affichées sur l'image | À spécifier |
 | T5 | Superposition des surfaces TIFXYZ sur le volume, avec leurs indicateurs | À spécifier |
 
