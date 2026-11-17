@@ -22,9 +22,7 @@ def napari_get_reader(path):
 
 
 def _read_local_volume(path: str) -> list[tuple]:
-    from napari.settings import get_settings
-
-    get_settings().experimental.async_ = True
+    # The user's napari preferences (including experimental.async_) are left untouched.
     return read_volume(path)
 
 

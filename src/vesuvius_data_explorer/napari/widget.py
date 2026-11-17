@@ -16,6 +16,10 @@ from qtpy.QtWidgets import (
 from .reader import read_volume
 
 
+def _async_enabled() -> bool:
+    return bool(get_settings().experimental.async_)
+
+
 class OpenVolumeWidget(QWidget):
     def __init__(self, napari_viewer: Viewer):
         super().__init__()
@@ -24,6 +28,7 @@ class OpenVolumeWidget(QWidget):
         self.path_input = QLineEdit()
         self.path_input.setPlaceholderText("Chemin local ou s3://…/volume.zarr")
         self.open_button = QPushButton("Ouvrir")
+        self.async_button = QPushButton("Activer le chargement asynchrone (préférence napari)")
         self.summary_table = QTableWidget(0, 6)
         self.summary_table.setHorizontalHeaderLabels(
             ["Niveau", "Forme (z, y, x)", "dtype", "Chunks", "Échelle", "Taille estimée (octets)"]
@@ -31,14 +36,39 @@ class OpenVolumeWidget(QWidget):
         self.status_label = QLabel("Indiquer le chemin d'un volume .zarr.")
         self.status_label.setWordWrap(True)
         layout = QVBoxLayout(self)
-        for control in (self.path_input, self.open_button, self.summary_table, self.status_label):
+        controls = (
+            self.path_input,
+            self.open_button,
+            self.async_button,
+            self.summary_table,
+            self.status_label,
+        )
+        for control in controls:
             layout.addWidget(control)
         self.open_button.clicked.connect(self._open)
+        self.async_button.clicked.connect(self._enable_async)
+        self.async_button.setVisible(not _async_enabled())
+
+    def _enable_async(self):
+        # Explicit user action: napari saves this preference for later sessions.
+        get_settings().experimental.async_ = True
+        self.async_button.setVisible(False)
+        self.status_label.setText(
+            "Chargement asynchrone activé (préférence napari enregistrée). Cliquer sur Ouvrir."
+        )
 
     def _open(self):
-        # Napari otherwise performs viewport Dask computations on the GUI thread.
-        # This public preference also updates already-open viewers.
-        get_settings().experimental.async_ = True
+        # Without napari's async preference, viewport Dask computations (S3 reads) run on
+        # the GUI thread and freeze it. The preference is global and persisted, so the
+        # plugin never changes it silently: it asks, and reads nothing until enabled.
+        if not _async_enabled():
+            self.async_button.setVisible(True)
+            self.status_label.setText(
+                "Le chargement asynchrone de napari est désactivé : sans lui, la navigation "
+                "dans le volume bloquerait l'interface. Cliquer sur « Activer le chargement "
+                "asynchrone » (préférence napari conservée pour les sessions suivantes)."
+            )
+            return
         self.open_button.setEnabled(False)
         self.status_label.setText("Ouverture en cours…")
         # Both metadata I/O and the bounded contrast sample run off the GUI thread.

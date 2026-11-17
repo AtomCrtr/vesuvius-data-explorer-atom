@@ -1,8 +1,17 @@
 """Small on-disk OME pyramid, shared by reader and GUI integration tests."""
 
-import numpy as np
-import pytest
-import zarr
+import os
+import tempfile
+
+# Keep napari's persisted preferences away from the developer's real settings file:
+# the singleton reads NAPARI_CONFIG the first time napari.settings is used.
+os.environ["NAPARI_CONFIG"] = os.path.join(
+    tempfile.mkdtemp(prefix="napari-test-settings-"), "settings.yaml"
+)
+
+import numpy as np  # noqa: E402
+import pytest  # noqa: E402
+import zarr  # noqa: E402
 
 
 @pytest.fixture
@@ -26,3 +35,11 @@ def napari_pyramid(tmp_path):
         )
     root.attrs["multiscales"] = [{"axes": ["z", "y", "x"], "datasets": datasets}]
     return path
+
+
+@pytest.fixture
+def async_loading(make_napari_viewer):
+    """Enable napari async loading after make_napari_viewer has reset the settings."""
+    from napari.settings import get_settings
+
+    get_settings().experimental.async_ = True

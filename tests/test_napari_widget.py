@@ -12,6 +12,7 @@ from vesuvius_data_explorer.napari.widget import OpenVolumeWidget  # noqa: E402
 
 
 def test_async_widget_adds_one_multiscale_layer(
+    async_loading,
     napari_pyramid, make_napari_viewer, qtbot, monkeypatch
 ):
     from vesuvius_data_explorer.napari import widget as widget_module
@@ -61,6 +62,7 @@ def test_async_widget_adds_one_multiscale_layer(
     ],
 )
 def test_widget_errors_are_french_and_leave_viewer_empty(
+    async_loading,
     source, message, tmp_path, make_napari_viewer, qtbot
 ):
     import zarr
@@ -88,6 +90,7 @@ def test_manifest_instantiates_widget(make_napari_viewer):
 
 
 def test_open_and_navigation_never_compute_dask_on_gui_thread(
+    async_loading,
     napari_pyramid, make_napari_viewer, qtbot, monkeypatch
 ):
     import dask.array as da
@@ -125,7 +128,9 @@ def test_registered_reader_adds_one_image_layer(napari_pyramid, make_napari_view
 
 
 @pytest.mark.parametrize("x_size", [3, 4])
-def test_short_x_axis_is_not_interpreted_as_rgb(x_size, tmp_path, make_napari_viewer, qtbot):
+def test_short_x_axis_is_not_interpreted_as_rgb(
+    async_loading, x_size, tmp_path, make_napari_viewer, qtbot
+):
     import numpy as np
     import zarr
 
@@ -144,3 +149,49 @@ def test_short_x_axis_is_not_interpreted_as_rgb(x_size, tmp_path, make_napari_vi
     assert viewer.layers[0].ndim == 3
     assert not viewer.layers[0].rgb
     qtbot.waitUntil(lambda: viewer.layers[0].loaded, timeout=20000)
+
+
+def test_open_without_async_reads_nothing_and_keeps_preference(
+    napari_pyramid, make_napari_viewer, qtbot, monkeypatch
+):
+    from napari.settings import get_settings
+
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    calls = []
+    monkeypatch.setattr(widget_module, "read_volume", lambda path: calls.append(path))
+    viewer = make_napari_viewer()
+    assert get_settings().experimental.async_ is False
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    assert not widget.async_button.isHidden()
+    widget.path_input.setText(str(napari_pyramid))
+    qtbot.mouseClick(widget.open_button, Qt.LeftButton)
+    assert calls == []
+    assert len(viewer.layers) == 0
+    assert "asynchrone" in widget.status_label.text()
+    assert get_settings().experimental.async_ is False
+
+
+def test_async_button_enables_preference_only_on_click(make_napari_viewer, qtbot):
+    from napari.settings import get_settings
+
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    assert get_settings().experimental.async_ is False
+    qtbot.mouseClick(widget.async_button, Qt.LeftButton)
+    assert get_settings().experimental.async_ is True
+    assert widget.async_button.isHidden()
+    assert "activé" in widget.status_label.text()
+
+
+def test_registered_reader_does_not_change_async_preference(
+    napari_pyramid, make_napari_viewer, qtbot
+):
+    from napari.settings import get_settings
+
+    viewer = make_napari_viewer()
+    layers = viewer.open(str(napari_pyramid), plugin="vesuvius-data-explorer")
+    qtbot.waitUntil(lambda: layers[0].loaded, timeout=20000)
+    assert get_settings().experimental.async_ is False

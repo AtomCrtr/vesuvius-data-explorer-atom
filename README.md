@@ -59,9 +59,15 @@ s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-
 
 Dans le widget, l'ouverture des métadonnées et l'estimation du contraste s'exécutent
 dans un thread de travail.
-Le bouton reste désactivé pendant cette étape. Le plugin active la préférence napari
-**Render Layers Asynchronously** pour empêcher les lectures de vue sur le thread graphique ;
-elle peut être désactivée dans les Préférences, au prix de lectures alors bloquantes. Le tableau affiche niveau, forme, dtype, chunks,
+Le bouton reste désactivé pendant cette étape.
+
+**Chargement asynchrone.** Sans la préférence napari **Render Layers Asynchronously**
+(`experimental.async_`), les lectures de la vue (y compris S3) s'exécutent sur le thread graphique
+et bloquent l'interface. Cette préférence est globale et enregistrée par napari pour les sessions
+suivantes : le plugin **ne la modifie jamais de lui-même**. Si elle est désactivée, le widget ne lit
+rien et affiche le bouton **Activer le chargement asynchrone (préférence napari)** ; elle peut aussi
+être activée ou désactivée dans les Préférences de napari. Le glisser-déposer d'un dossier local
+respecte la préférence existante. Le tableau affiche niveau, forme, dtype, chunks,
 échelle et taille estimée avant compression. Le calque unique conserve les tableaux Dask
 multi-échelles, l'échelle du niveau le plus fin en **(z, y, x)**, l'URI source et le résumé.
 Le contraste est explicite : percentiles 1/99 d'une seule coupe centrale du niveau le plus
