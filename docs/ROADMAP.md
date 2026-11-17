@@ -34,7 +34,7 @@ fusion après validation.
 | T3 | [Moteur QC + CLI `vesuvius-qc` → rapport JSON/HTML](tasks/T3-moteur-qc-cli.md) | Fusionnée (PR #7), avec gestion du fond masqué |
 | T4 | [QC dans napari : rapport, navigation vers les anomalies, mesure de la vue](tasks/T4-panneaux-qc-napari.md) | Fusionnée (PR #9) |
 | I1 | [Investigation : formats réels, catalogue officiel, surfaces VC3D](investigations/I1-ecosysteme-donnees.md) | Terminée |
-| T4.1 | [Accès aux données : HTTPS officiel (Scroll 1), codec `vc-delta3d` optionnel](tasks/T4.1-acces-donnees.md) | En revue |
+| T4.1 | [Accès aux données : HTTPS officiel (Scroll 1), codec `vc-delta3d` optionnel](tasks/T4.1-acces-donnees.md) | En revue (PR #11) |
 | T4.2 | Sélecteur de volume à partir du catalogue officiel `metadata.json`, taille de voxel en µm | À spécifier |
 | T5 | Surfaces VC3D (TIFXYZ LZW, `meta.json`, points à −1, ordre [x, y, z]) superposées au volume, avec leurs indicateurs | À re-spécifier d'après I1 |
 | T6 | Performance S3, périmètre réduit : cache local, préchargement, contraste hors fond | À spécifier |

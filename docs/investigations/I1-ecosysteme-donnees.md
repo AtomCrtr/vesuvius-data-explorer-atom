@@ -11,8 +11,8 @@
 | Question | Réponse |
 |---|---|
 | Volumes du bucket ouvert | **66 / 66 lisibles**, sans avertissement |
-| Volumes publiés ailleurs (HTTPS) | **8, dont Scroll 1** : lisibles techniquement, mais **refusés par notre outil** |
-| Copies au codec `vc-delta3d` | **8** (toutes PHercParis4, en double d'une version standard) : **illisibles** sans paquet supplémentaire |
+| Volumes publiés ailleurs (HTTPS) | **8, dont Scroll 1** : refusés à l'origine, **acceptés depuis T4.1** (domaine officiel) |
+| Copies au codec `vc-delta3d` | **8** (toutes PHercParis4, en double d'une version standard) : lisibles avec l'extra `[vcdelta3d]` (T4.1, Python ≥ 3.12) |
 | Catalogue officiel | **Oui** : `metadata.json` (« Vesuvius Atlas »), avec schéma JSON |
 | Surfaces VC3D (TIFXYZ) | **Refusées par notre lecteur** (TIFF compressés LZW) ; lisibles avec Pillow |
 
@@ -62,8 +62,10 @@ listé les 6 niveaux en 2,6 s et lu une ROI en 0,8 s : seul notre refus volontai
 64³) avec le codec `vc-delta3d`, métadonnées OME-NGFF 0.5. Toutes concernent PHercParis4 et chacune
 existe aussi en version standard. Erreur obtenue : `UnknownCodecError: … 'vc-delta3d' is not
 available`. Le paquet `vc-delta3d[zarr]` (PyPI, licence MIT, roues précompilées) déclare enregistrer
-ce codec auprès de zarr-python automatiquement. **Non vérifié** : l'installation de ce paquet natif a
-été refusée par le contrôle des permissions de l'environnement de travail.
+ce codec auprès de zarr-python automatiquement. Son installation a été refusée dans l'environnement
+de travail de l'orchestrateur ; **vérifié ensuite en CI (T4.1)** : avec l'extra `[vcdelta3d]` sous
+Python 3.12, la copie `20260310170716-…-fast-q1-c64-v0.3.2.vcd3d.zarr` s'ouvre (8 niveaux) et une
+fenêtre 64 × 64 se décode. Le paquet exige **Python 3.12 ou plus**.
 
 ## 3. Surfaces VC3D (TIFXYZ)
 
