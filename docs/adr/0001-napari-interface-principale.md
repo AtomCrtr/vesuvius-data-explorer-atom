@@ -30,6 +30,8 @@ l'annotation et les vues synchronisées.
 3. Le **cœur** (lecture de données, métriques) ne dépend d'aucune interface graphique.
 4. **Streamlit est gelé** : l'app existante reste comme démo légère, sans nouveau développement,
    jusqu'à ce que le plugin napari couvre ses fonctions ; elle sera alors supprimée.
+   *Suivi (17 novembre 2026) : supprimée après T5, napari couvrant les statistiques de coupe (T4) et
+   les métriques de surface (T5).*
 
 ### Règles d'architecture
 

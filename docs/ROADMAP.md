@@ -15,12 +15,14 @@ fusion après validation.
 ## Décisions du Product Owner
 
 - **Interface :** napari, application de bureau ([ADR 0001](adr/0001-napari-interface-principale.md)).
+  L'app Streamlit d'origine est retirée depuis T5.
 - **Fond masqué :** la valeur 0 des volumes `*-masked.zarr` est du fond, exclue des contrôles
   d'intensité (réglable par TOML). Validé sur PHerc0332 ([T3](validation/T3-donnees-reelles.md)).
 - **Seuils QC :** provisoires, à réviser sur davantage de volumes réels. `surface.valid` est
   informatif depuis T5 ; `surface.holes` note les trous intérieurs.
 - **Surfaces (T5) :** seules les copies `tifxyz-transformed` sont superposées ; budget de 64 Mio par
-  grille, lecture décimée au-delà ; Pillow et scipy dans le cœur.
+  grille, lecture décimée au-delà ; Pillow et scipy dans le cœur. Écarts acceptés : trace sur la
+  coupe calculée par le plugin ; `surface.normal_flips` local (warn 0,5 %, fail 2 %).
 - **Accès aux données :** HTTPS accepté pour le seul domaine officiel `data.aws.ash2txt.org` ;
   codec `vc-delta3d` pris en charge en option (extra `[vcdelta3d]`, Python 3.12 ou plus).
 - **Positionnement :** pas de concurrence avec `vesuvius-gui` sur la vitesse de navigation ; la valeur
@@ -38,9 +40,7 @@ fusion après validation.
 | I1 | [Investigation : formats réels, catalogue officiel, surfaces VC3D](investigations/I1-ecosysteme-donnees.md) | Terminée |
 | T4.1 | [Accès aux données : HTTPS officiel (Scroll 1), codec `vc-delta3d` optionnel](tasks/T4.1-acces-donnees.md) | Fusionnée (PR #11) |
 | T4.2 | [Sélecteur de volume par le catalogue officiel, taille de voxel en µm](tasks/T4.2-catalogue-volumes.md) | Fusionnée (PR #12) |
-| T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | En revue |
+| T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | Fusionnée (PR #14) |
+| R1 | Retrait de l'app Streamlit (`app.py`, extra `[streamlit]`) | En revue |
 | T5.1 | Alignement surface–volume quantitatif (profil d'intensité le long des normales), exploratoire | À spécifier après T5 |
 | T6 | Performance S3, périmètre réduit : cache local, préchargement, contraste hors fond | À spécifier |
-
-L'app Streamlit (`app.py`) est gelée ; T4 et T5 couvrent ses fonctions (statistiques de coupe,
-métriques de surface) : son retrait est la prochaine petite tâche.

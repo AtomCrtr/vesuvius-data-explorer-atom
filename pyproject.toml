@@ -9,7 +9,7 @@ description = "Explore Herculaneum CT volumes and assess sampled papyrus surface
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
-keywords = ["vesuvius", "zarr", "streamlit", "tomography", "papyrus", "open-science"]
+keywords = ["vesuvius", "zarr", "napari", "tomography", "papyrus", "open-science"]
 dependencies = [
   "numpy>=1.26,<3",
   "zarr>=3.0.10,<4",
@@ -28,7 +28,6 @@ vesuvius-qc = "vesuvius_data_explorer.cli:main"
 
 [project.optional-dependencies]
 napari = ["napari[all]>=0.5"]
-streamlit = ["streamlit>=1.36", "matplotlib>=3.8"]
 # Optional codec of recent Vesuvius Challenge volumes (zarr v3 shards); registers itself with zarr.
 # vc-delta3d is published for Python >= 3.12 only.
 vcdelta3d = ["vc-delta3d[zarr]>=0.3.2; python_version >= '3.12'"]

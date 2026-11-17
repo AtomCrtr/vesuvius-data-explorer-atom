@@ -15,6 +15,8 @@ import vesuvius_data_explorer.core
 import vesuvius_data_explorer.core.demo
 import vesuvius_data_explorer.core.surface
 import vesuvius_data_explorer.core.volume
+import vesuvius_data_explorer.core.catalog
+import vesuvius_data_explorer.core.tifxyz
 import vesuvius_data_explorer.qc
 import vesuvius_data_explorer.qc.checks
 import vesuvius_data_explorer.qc.locate
