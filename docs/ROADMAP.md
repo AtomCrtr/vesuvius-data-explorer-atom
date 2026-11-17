@@ -41,6 +41,6 @@ fusion après validation.
 | T4.1 | [Accès aux données : HTTPS officiel (Scroll 1), codec `vc-delta3d` optionnel](tasks/T4.1-acces-donnees.md) | Fusionnée (PR #11) |
 | T4.2 | [Sélecteur de volume par le catalogue officiel, taille de voxel en µm](tasks/T4.2-catalogue-volumes.md) | Fusionnée (PR #12) |
 | T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | Fusionnée (PR #14) |
-| R1 | Retrait de l'app Streamlit (`app.py`, extra `[streamlit]`) | En revue |
-| T5.1 | Alignement surface–volume quantitatif (profil d'intensité le long des normales), exploratoire | À spécifier après T5 |
+| R1 | Retrait de l'app Streamlit (`app.py`, extra `[streamlit]`) | Fusionnée (PR #15) |
+| T5.1 | [Alignement surface–volume : profil d'intensité le long des normales](tasks/T5.1-alignement-surface-volume.md), exploratoire | Spécifiée, à valider par le PO |
 | T6 | Performance S3, périmètre réduit : cache local, préchargement, contraste hors fond | À spécifier |
