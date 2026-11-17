@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "vesuvius-data-explorer",
+    "version": "0.1.0"
+  },
+  "created_at": "2026-11-17T18:59:09.052131+00:00",
+  "duration_s": 0.008154410000003054,
+  "target": {
+    "kind": "volume",
+    "uri": "synthetic://clean-multiscale-example",
+    "level": "2"
+  },
+  "parameters": {
+    "samples": 4,
+    "samples_actual": 2,
+    "seed": 0,
+    "max_voxels": 2048,
+    "roi_width": 32,
+    "warnings": [
+      "Budget : nombre de ROI réduit de 4 à 2.",
+      "Le plafond concerne les voxels matérialisés des ROI ; les chunks ou shards compressés peuvent imposer davantage de lectures/décodage physique."
+    ],
+    "thresholds": {
+      "volume.background": {
+        "value": 0.0,
+        "enabled": 1.0
+      },
+      "volume.levels.shape_ratio": {
+        "tolerance_voxels": 1.0
+      },
+      "volume.levels.scale_consistency": {
+        "relative_tolerance": 0.05
+      },
+      "volume.chunks.size": {
+        "min_bytes": 32768.0,
+        "max_bytes": 67108864.0
+      },
+      "volume.finite": {
+        "warn": 0.0,
+        "fail": 1.0
+      },
+      "volume.saturation": {
+        "warn": 1.0,
+        "fail": 5.0
+      },
+      "volume.empty": {
+        "warn": 10.0,
+        "fail": 50.0
+      },
+      "volume.low_contrast": {
+        "warn": 25.0,
+        "fail": 75.0,
+        "range_fraction": 0.01
+      },
+      "surface.valid": {
+        "warn": 95.0,
+        "fail": 80.0
+      },
+      "surface.stretch": {
+        "warn": 2.0,
+        "fail": 4.0
+      },
+      "surface.normal_flips": {
+        "warn": 1.0,
+        "fail": 5.0
+      }
+    }
+  },
+  "budget": {
+    "voxels_read": 2048,
+    "chunks_touched": 1,
+    "store_objects_touched": 1,
+    "physical_io_note": "Le plafond concerne les voxels matérialisés des ROI ; les chunks ou shards compressés peuvent imposer davantage de lectures/décodage physique."
+  },
+  "summary": {
+    "pass": 10,
+    "warn": 0,
+    "fail": 0,
+    "error": 0,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "check_id": "volume.levels.present",
+      "status": "pass",
+      "value": 3.0,
+      "threshold": {},
+      "message": "3 niveau(x) 3D détecté(s).",
+      "locations": []
+    },
+    {
+      "check_id": "volume.levels.dtype",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {},
+      "message": "Types des niveaux identiques.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.levels.shape_ratio",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "tolerance_voxels": 1.0
+      },
+      "message": "Rapport des formes : moitié ± tolérance en voxels.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.levels.scale_consistency",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "relative_tolerance": 0.05
+      },
+      "message": "Cohérence échelles/formes (tolérance relative).",
+      "locations": []
+    },
+    {
+      "check_id": "volume.chunks.size",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "min_bytes": 32768.0,
+        "max_bytes": 67108864.0
+      },
+      "message": "Taille non compressée des chunks dans les bornes.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.finite",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "warn": 0.0,
+        "fail": 1.0
+      },
+      "message": "Pourcentage de voxels non finis.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.background",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "value": 0.0,
+        "enabled": 1.0
+      },
+      "message": "Information : pourcentage de voxels de fond (valeur 0), exclus des contrôles de saturation, de zones vides et de contraste.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.saturation",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "warn": 1.0,
+        "fail": 5.0
+      },
+      "message": "Pourcentage de voxels hors fond aux extrêmes du dtype.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.empty",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "warn": 10.0,
+        "fail": 50.0
+      },
+      "message": "Pourcentage de ROI (hors fond) entièrement constantes.",
+      "locations": []
+    },
+    {
+      "check_id": "volume.low_contrast",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": {
+        "warn": 25.0,
+        "fail": 75.0,
+        "range_fraction": 0.01
+      },
+      "message": "Pourcentage de ROI de faible contraste (voxels hors fond).",
+      "locations": []
+    }
+  ]
+}

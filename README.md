@@ -2,8 +2,8 @@
 
 **Interface-independent Python core for bounded exploration of Herculaneum scroll CT data and surface-coordinate diagnostics, with an optional Streamlit demo.**
 
-napari is the planned primary interface ([ADR 0001](docs/adr/0001-napari-interface-principale.md)).
-The existing Streamlit demo is frozen; the napari plugin and QC CLI are future tasks.
+napari is the primary exploration interface ([ADR 0001](docs/adr/0001-napari-interface-principale.md)).
+The existing Streamlit demo is frozen; the QC CLI is a separate task.
 
 [Official Vesuvius Challenge data](https://scrollprize.org/data) · [Data browser](https://scrollprize.org/data_browser) · [S3 layout documentation](https://github.com/ScrollPrize/open-data)
 
@@ -36,6 +36,50 @@ Start with **Démonstration synthétique** to see the app without any external d
 For the core only, use `python -m pip install -e .`. This installs NumPy, Zarr, fsspec,
 s3fs, tifffile and Dask, without Streamlit, matplotlib, napari or Qt.
 
+### Explorer avec napari
+
+```bash
+python -m pip install -e '.[napari]'
+napari -w vesuvius-data-explorer
+```
+
+Dans le widget **Vesuvius — Ouvrir un volume**, saisir le chemin d'un dossier local
+`/chemin/volume.zarr` ou une URI S3 publique puis cliquer sur **Ouvrir**. Un dossier local
+`.zarr` peut aussi être glissé dans napari. Le protocole lecteur npe2 est synchrone :
+les métadonnées et la petite coupe de contraste peuvent donc retarder un glisser-déposer ;
+utiliser le widget pour une ouverture en arrière-plan. Les URI S3 passent uniquement par le widget ;
+les URL HTTPS ne sont pas prises en charge.
+
+Exemple réel vérifié dans le [bucket public officiel](https://github.com/ScrollPrize/open-data),
+pour le volume PHerc0332 (l'accès et les noms peuvent évoluer) :
+
+```text
+s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr
+```
+
+Dans le widget, l'ouverture des métadonnées et l'estimation du contraste s'exécutent
+dans un thread de travail.
+Le bouton reste désactivé pendant cette étape.
+
+**Chargement asynchrone.** Sans la préférence napari **Render Layers Asynchronously**
+(`experimental.async_`), les lectures de la vue (y compris S3) s'exécutent sur le thread graphique
+et bloquent l'interface. Cette préférence est globale et enregistrée par napari pour les sessions
+suivantes : le plugin **ne la modifie jamais de lui-même**. Si elle est désactivée, le widget ne lit
+rien et affiche le bouton **Activer le chargement asynchrone (préférence napari)** ; elle peut aussi
+être activée ou désactivée dans les Préférences de napari. Le glisser-déposer d'un dossier local
+respecte la préférence existante. Le tableau affiche niveau, forme, dtype, chunks,
+échelle et taille estimée avant compression. Le calque unique conserve les tableaux Dask
+multi-échelles, l'échelle du niveau le plus fin en **(z, y, x)**, l'URI source et le résumé.
+Le contraste est explicite : percentiles 1/99 d'une seule coupe centrale du niveau le plus
+grossier, bornée à 512 × 512 ; les valeurs non finies sont ignorées et une coupe vide ou
+constante utilise les bornes du dtype. Ajuster ensuite le contraste dans napari si nécessaire.
+
+Limites connues : les chunks téléchargés peuvent dépasser la fenêtre de contraste ; le premier
+rendu et la navigation demandent des lectures supplémentaires selon la vue et le réseau.
+En 3D, napari affiche le niveau le plus grossier du multi-échelles. La fluidité 2D dépend de
+la taille des chunks, du GPU et de la connexion. Qt et un environnement graphique local sont
+nécessaires ; l'installation du cœur seul reste sans dépendance graphique.
+
 ### Use the core without a GUI
 
 ```python
@@ -56,14 +100,17 @@ do not read voxel chunks. `read_slice` computes only the requested 2D window, at
 Calling `.compute()` on an entire Dask level explicitly materializes that entire level;
 slice it first. Storage chunks intersecting a small ROI can still be larger than the ROI.
 
-Shapes, chunks and scales use **(z, y, x)**. The supported OME-NGFF metadata layout is the
-root `multiscales` attribute (as in NGFF 0.4); the NGFF 0.5 `ome.multiscales` namespace is
-not implemented in T1. `scale` combines each dataset's `coordinateTransformations` with
-any pyramid-level scale; its units remain those of the source metadata. Explicitly
+Shapes, chunks and scales use **(z, y, x)**. Both **OME-NGFF 0.4** (root `multiscales`)
+and **OME-NGFF 0.5** (`ome.multiscales`) metadata layouts are supported. The `ome` namespace
+takes precedence when present; an invalid namespace warns and falls back to group arrays,
+rather than silently selecting conflicting 0.4 metadata. `scale` combines each dataset's
+`coordinateTransformations` with any pyramid-level scale; its units remain those of the source
+metadata. Explicitly
 different axis orders are rejected. If axes are absent, the legacy ZYX convention is assumed.
 Missing multiscale metadata falls back to group arrays (including numeric `0`, `1`, `2`),
-with scale `(1.0, 1.0, 1.0)`; malformed metadata also emits a French warning. A unit fallback
-does not establish physical voxel spacing. The first OME pyramid is used when several exist.
+with scale `(1.0, 1.0, 1.0)`. Numeric fallback without metadata and malformed metadata emit
+French warnings; unit scales are not physical measurements and do not establish voxel spacing.
+The first OME pyramid is used when several exist.
 Both Zarr v2 and v3 stores are supported through the Zarr 3 Python API.
 
 `volume_summary` returns `level_count` and a `levels` list containing `key`, `shape`, `dtype`,
@@ -98,7 +145,7 @@ For large TIFFs the prototype requires memory-mappable pages, to avoid silently 
 - Synthetic demos are labelled as synthetic, and must **not** be cited as real CT evidence.
 - No segmentation training, ink recognition, papyrus text extraction, full surface quality validation or whole-scroll unwrapping in v0.1.
 - `read_slice` bounds the **returned image** to ≤512×512, but Zarr chunk fetches can exceed that window.
-- The full original CT datasets and any third-party licensed imagery **are not included** in this repository.
+- Full original CT datasets are not included. The [real-data validation screenshot](docs/validation/T2-donnees-reelles.md) contains a separately attributed CT excerpt under the source data's CC BY-NC 4.0 license.
 - Read the [data license and attribution requirements](https://scrollprize.org/data) before reusing real scans. The official portal notes CC BY-NC 4.0 unless otherwise stated, plus dataset-specific acknowledgements.
 
 ### Roadmap
@@ -118,15 +165,27 @@ ruff check .
 ```
 
 The default suite uses synthetic data and temporary local Zarr stores, with no network
-access required. The `network` marker is excluded by default, even if the environment
-variable below is set. CI installs only `.[dev]` and runs both commands above.
+access required. Les tests de widget sont ignorés si napari est absent (`pytest.importorskip`).
+Un job CI `napari` séparé installe `.[napari,dev]` et `pytest-qt`, valide le manifeste npe2
+et exécute la suite avec Qt sous affichage virtuel Xvfb (le backend offscreen de PyQt6 ne fournit pas toujours
+un contexte OpenGL). Pour le reproduire :
+
+```bash
+python -m pip install -e '.[napari,dev]' pytest-qt
+npe2 validate vesuvius-data-explorer
+QT_QPA_PLATFORM=xcb xvfb-run -a pytest -q
+```
+
+The `network` marker is excluded by default, even if the environment
+variable below is set. The lightweight CI job installs only `.[dev]` and runs both commands above.
 
 To opt into the real public S3 metadata test:
 
 1. Find an existing volume in the [official data browser](https://scrollprize.org/data_browser)
    and consult the [official S3 layout documentation](https://github.com/ScrollPrize/open-data).
 2. Copy its complete `s3://` URI in the public `vesuvius-challenge-open-data` bucket.
-   No concrete artifact URI is supplied here: it must come from those official sources.
+   The example in the napari section was verified in that bucket; verify availability
+   again when choosing a sample.
 3. In Bash, enter that exact URI when prompted:
 
    ```bash
@@ -147,3 +206,89 @@ it is never replaced with a guessed URI. No voxel chunks are intentionally read 
 - ScrollPrize — [villa / vesuvius](https://github.com/ScrollPrize/villa)
 
 Cite **the correct original dataset** for any published results (legacy EduceLab-Scrolls vs newer Vesuvius Challenge datasets), following the official [citation guidance](https://scrollprize.org/data). Code is MIT-licensed; this does **not** change the licenses of upstream datasets.
+
+## Contrôle qualité en ligne de commande
+
+Le cœur, le moteur QC et la CLI fonctionnent sans extra graphique :
+
+```bash
+pip install -e .
+vesuvius-qc volume /chemin/volume.zarr --samples 16 --seed 0 -o rapport.json --html rapport.html
+vesuvius-qc volume s3://bucket/volume.zarr --level 3 --max-voxels 65536
+vesuvius-qc surface /chemin/grille-tifxyz --window 256 -o surface.json
+```
+
+Le chemin S3 ci-dessus est un **gabarit**, pas une source de données. Utiliser une URI complète
+vérifiée. Les chemins locaux et S3 anonymes sont pris en charge ; HTTPS est refusé. Le niveau
+par défaut est le plus grossier. Les échantillons sont des fenêtres carrées de coupe `z`, de côté
+`min(256, y, x)`, tirées avec `numpy.random.default_rng(seed)` ; les axes et localisations sont
+`(z, y, x)`. Le rapport contient les seuils effectifs et toutes les fenêtres signalées. Les anomalies
+de métadonnées localisent la première fenêtre du niveau concerné ; elles concernent ce niveau
+entier. Les localisations des surfaces désignent la fenêtre de grille `(ligne, colonne)` au niveau
+`surface`, sans transformation implicite vers le volume CT.
+
+Codes de sortie : **0** si aucun `fail` ni `error` (les avertissements sont autorisés), **1** si un
+contrôle échoue ou lève une exception, **2** si l'entrée ou les arguments sont invalides. Sans
+`-o`, seul le JSON est écrit sur stdout ; les messages de budget vont sur stderr. Une exception
+dans un contrôle est isolée et les autres contrôles continuent.
+
+`--max-voxels` impose un plafond dur de **voxels effectivement matérialisés dans les ROI**, par
+défaut 16 777 216. Le moteur réduit le nombre de fenêtres sans élargir leur taille ; si aucune ne
+rentre, les contrôles d'échantillons sont `skipped` et les métadonnées sont toujours évaluées.
+Une surface compte les trois grilles de coordonnées (`3 × lignes × colonnes`) ; son option
+`--max-voxels` réduit la fenêtre, ou refuse un budget inférieur à `3 × 8 × 8`.
+
+Ce plafond ne borne **pas les octets physiques téléchargés ou décodés** : Zarr lit des chunks et
+parfois des shards beaucoup plus grands que la ROI. `budget.chunks_touched` compte les clés de
+chunks uniques réellement demandées au store Zarr, avec les lectures synchrones, asynchrones et
+par plages. Une clé absente compte comme demande ; ce nombre ne représente ni les requêtes
+HTTP, ni les octets transférés, ni les tentatives répétées. Pour un tableau shardé, ce champ vaut
+`null` et `store_objects_touched` indique les clés de shards demandées. Pour un tableau générique
+non instrumentable ou une surface mappée, les nombres de chunks/objets valent `null`.
+Les contrôles de métadonnées ne lisent aucun chunk.
+
+**Volumes masqués.** Les volumes `*-masked.zarr` mettent à une valeur unique (0) tout ce qui est
+hors du rouleau. Ces voxels de **fond** sont exclus de `volume.saturation`, `volume.empty` et
+`volume.low_contrast` : sinon le fond serait compté comme saturé (0 est le minimum d'un dtype
+non signé). Une ROI entièrement dans le fond est ignorée et signalée dans le message ; si toutes le
+sont, ces contrôles sont `skipped`. Le contrôle informatif `volume.background` (toujours `pass`)
+indique la part de fond échantillonnée. Réglage par TOML : `["volume.background"]` avec
+`value` (défaut 0, toute valeur finie) et `enabled` (1 par défaut, 0 pour désactiver l'exclusion).
+
+`volume.levels.scale_consistency` est `skipped` lorsque les échelles sont le repli unitaire faute de
+métadonnées OME exploitables : il n'y a alors rien à comparer.
+
+Les seuils sont **provisoires**, à valider sur données réelles avec le Product Owner. Ils sont
+centralisés dans `qc/thresholds.py`. Un fichier TOML peut en surcharger une partie :
+
+```toml
+["volume.saturation"]
+warn = 1.0
+fail = 5.0
+
+["surface.valid"]
+warn = 95.0
+fail = 80.0
+```
+
+```bash
+vesuvius-qc volume /chemin/volume.zarr --config seuils.toml -o rapport.json
+```
+
+Les noms inconnus, valeurs non finies, booléens, pourcentages hors bornes et seuils inversés sont
+refusés. Les comparaisons `warn`/`fail` sont strictes. La saturation et le faible contraste sont
+`skipped` pour les dtypes flottants : ils n'ont pas de plage physique d'intensité définie par le
+dtype. Les autres mesures non définies (p. ex. normales d'une grille entièrement manquante) sont
+`null` et `skipped`, jamais NaN/Infinity dans le JSON.
+
+Le format versionné est décrit par [`report.schema.json`](src/vesuvius_data_explorer/qc/report.schema.json).
+Chaque rapport est validé à la création par un validateur structurel stdlib du sous-ensemble du
+schéma utilisé ici, puis sérialisé avec `allow_nan=False` ; les tests emploient aussi `jsonschema`
+(extra `dev`) comme validateur indépendant. Le HTML est autonome et échappe les URI, messages
+et localisations. Les [exemples synthétiques](docs/examples/README.md) sont reproductibles.
+
+Tests hors réseau : `pytest -q`. Le test réseau reste explicitement optionnel :
+
+```bash
+VESUVIUS_TEST_ZARR='s3://URI-complete-verifiee.zarr' pytest -q -m network tests/test_qc.py
+```

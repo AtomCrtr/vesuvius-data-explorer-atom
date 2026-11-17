@@ -21,6 +21,8 @@ class Level:
     dtype: str
     chunks: tuple[int, int, int]
     scale: tuple[float, float, float] = (1.0, 1.0, 1.0)
+    # False when scale is the unit fallback (no usable OME metadata), not a measurement.
+    scale_from_metadata: bool = True
 
 
 def open_volume_store(path: str) -> Any:
@@ -44,7 +46,10 @@ def open_volume_store(path: str) -> Any:
         raise ValueError(
             "Utiliser l'URI s3:// publique ou un chemin local ; HTTPS non pris en charge."
         )
-    return zarr.open(path, mode="r")
+    try:
+        return zarr.open(path, mode="r")
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Volume introuvable : {path}") from None
 
 
 def _is_3d_array(value: Any) -> bool:
@@ -55,11 +60,13 @@ class _AxisOrderError(ValueError):
     """Explicit non-ZYX axes must never silently fall back to ZYX."""
 
 
-def _level(node: Any, key: str, scale: tuple[float, float, float]) -> Level:
+def _level(
+    node: Any, key: str, scale: tuple[float, float, float], from_metadata: bool = True
+) -> Level:
     shape = tuple(int(n) for n in node.shape)
     # NumPy arrays and the legacy array-like API have no storage chunk grid.
     chunks = tuple(int(n) for n in getattr(node, "chunks", shape))
-    return Level(key, shape, str(node.dtype), chunks, scale)
+    return Level(key, shape, str(node.dtype), chunks, scale, from_metadata)
 
 
 def _dataset_scale(dataset: dict) -> tuple[float, float, float]:
@@ -121,19 +128,29 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
 def list_levels(root: Any) -> list[Level]:
     """Read metadata only, returning levels from finest to coarsest.
 
+    NGFF 0.5 (ome.multiscales) takes precedence over NGFF 0.4 (multiscales).
     Malformed OME metadata emits a French warning and falls back to group
-    arrays with unit scales. Missing axes assume the legacy (z, y, x) order;
-    explicitly different axes are rejected rather than silently relabelled.
+    arrays with unit scales. Numeric fallback without OME metadata warns that
+    unit scales are not physical measurements. Missing axes assume the legacy
+    (z, y, x) order; explicitly different axes are rejected.
     """
     if _is_3d_array(root):
-        return [_level(root, "__root__", (1.0, 1.0, 1.0))]
+        return [_level(root, "__root__", (1.0, 1.0, 1.0), False)]
     if hasattr(root, "shape"):
         raise ValueError("Le tableau doit être 3D (z, y, x).")
     attrs = dict(getattr(root, "attrs", {}))
     levels: list[Level] = []
-    if "multiscales" in attrs:
+    has_metadata = "ome" in attrs or "multiscales" in attrs
+    if has_metadata:
         try:
-            levels = _metadata_levels(root, attrs["multiscales"])
+            if "ome" in attrs:
+                ome = attrs["ome"]
+                if not isinstance(ome, dict):
+                    raise ValueError("Le champ ome doit être un objet contenant multiscales.")
+                metadata = ome.get("multiscales")
+            else:
+                metadata = attrs["multiscales"]
+            levels = _metadata_levels(root, metadata)
         except _AxisOrderError:
             raise
         except (KeyError, TypeError, ValueError, OverflowError) as exc:
@@ -150,9 +167,16 @@ def list_levels(root: Any) -> list[Level]:
         for key in candidates:
             node = root[key]
             if _is_3d_array(node):
-                levels.append(_level(node, key, (1.0, 1.0, 1.0)))
+                levels.append(_level(node, key, (1.0, 1.0, 1.0), False))
     if not levels:
         raise ValueError("Aucun tableau 3D détecté ; vérifier le chemin de la racine .zarr.")
+    if not has_metadata and any(level.key.isdigit() for level in levels):
+        warn(
+            "Métadonnées multiscales absentes : repli numérique avec des échelles unitaires ; "
+            "ce ne sont pas des mesures physiques.",
+            UserWarning,
+            stacklevel=2,
+        )
     return sorted(levels, key=lambda level: prod(level.shape), reverse=True)
 
 
@@ -249,3 +273,42 @@ def normalized_preview(data: np.ndarray) -> np.ndarray:
     if high > low:
         out[ok] = np.clip((arr[ok] - low) / (high - low), 0, 1)
     return out
+
+
+def estimate_contrast(levels_arrays: list[Any], max_side: int = 512) -> tuple[float, float]:
+    """Estimate finite 1/99 percentiles from one central coarse Z slice.
+
+    The returned sample is bounded to max_side² pixels (at most 512²), although
+    intersecting storage chunks may be larger. Empty, non-finite or degenerate
+    samples use dtype bounds, clamped to finite Python floats when necessary.
+    """
+    if not isinstance(max_side, int) or not 1 <= max_side <= 512:
+        raise ValueError("Largeur de fenêtre autorisée : 1 à 512 pixels.")
+    if not levels_arrays:
+        raise ValueError("Au moins un niveau est requis pour estimer le contraste.")
+    coarse = levels_arrays[-1]
+    if len(getattr(coarse, "shape", ())) != 3:
+        raise ValueError("Le tableau doit être 3D (z, y, x).")
+    dtype = np.dtype(coarse.dtype)
+    if dtype.kind == "b":
+        fallback = (0.0, 1.0)
+    elif dtype.kind in "iu":
+        bounds = np.iinfo(dtype)
+        fallback = (float(bounds.min), float(bounds.max))
+    elif dtype.kind == "f":
+        bound = min(np.finfo(dtype).max, np.finfo(float).max)
+        fallback = (-float(bound), float(bound))
+    else:
+        raise ValueError("Le contraste nécessite un tableau numérique réel.")
+    z, y, x = (int(n) for n in coarse.shape)
+    if min(z, y, x) == 0:
+        return fallback
+    sample = read_slice(
+        coarse, "z", z // 2, max(0, (y - max_side) // 2), max(0, (x - max_side) // 2),
+        width=max_side,
+    )
+    finite = sample[np.isfinite(sample)]
+    if not finite.size:
+        return fallback
+    low, high = (float(value) for value in np.percentile(finite.astype(np.float64), (1, 99)))
+    return (low, high) if isfinite(low) and isfinite(high) and low < high else fallback

@@ -19,9 +19,16 @@ dependencies = [
   "dask[array]>=2024.6",
 ]
 
+[project.scripts]
+vesuvius-qc = "vesuvius_data_explorer.cli:main"
+
 [project.optional-dependencies]
+napari = ["napari[all]>=0.5"]
 streamlit = ["streamlit>=1.36", "matplotlib>=3.8"]
-dev = ["pytest>=8", "ruff>=0.7"]
+dev = ["pytest>=8", "ruff>=0.7", "jsonschema>=4.23"]
+
+[project.entry-points."napari.manifest"]
+vesuvius-data-explorer = "vesuvius_data_explorer.napari:napari.yaml"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
