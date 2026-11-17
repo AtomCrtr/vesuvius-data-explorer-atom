@@ -285,7 +285,7 @@ def test_committed_synthetic_example_is_schema_valid():
     examples = Path(__file__).parents[1] / 'docs/examples'
     report = json.loads((examples / 'qc-synthetic.json').read_text())
     checked(report)
-    assert report['summary'] == {'pass': 9, 'warn': 0, 'fail': 0, 'error': 0, 'skipped': 0}
+    assert report['summary'] == {'pass': 10, 'warn': 0, 'fail': 0, 'error': 0, 'skipped': 0}
     assert report['budget']['voxels_read'] == 2048
 
 
