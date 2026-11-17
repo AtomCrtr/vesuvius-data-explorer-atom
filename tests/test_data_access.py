@@ -133,3 +133,16 @@ def test_vc_delta3d_volume_round_trip_when_installed(tmp_path):
 def test_scroll1_over_official_https():
     levels = list_levels(open_volume_store(SCROLL1))
     assert len(levels) == 6 and levels[0].shape == (14258, 7888, 8096)
+
+
+@pytest.mark.network
+def test_real_vcd3d_volume_when_installed():
+    """A catalogued vc-delta3d copy (PHercParis4, 45.5 µm) decodes like any other volume."""
+    pytest.importorskip("vc_delta3d")
+    uri = ("s3://vesuvius-challenge-open-data/PHercParis4/volumes/"
+           "20260310170716-45.532um-11.0m-74keV-masked-fast-q1-c64-v0.3.2.vcd3d.zarr")
+    arrays, levels = volume.open_multiscale(uri)
+    assert levels[0].shape == (4071, 2264, 2264)
+    z, y, x = levels[-1].shape
+    roi = volume.read_slice(arrays[-1], "z", z // 2, y // 2 - 32, x // 2 - 32, width=64)
+    assert roi.shape == (64, 64) and roi.max() > 0
