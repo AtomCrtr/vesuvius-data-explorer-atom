@@ -150,3 +150,78 @@ it is never replaced with a guessed URI. No voxel chunks are intentionally read 
 - ScrollPrize — [villa / vesuvius](https://github.com/ScrollPrize/villa)
 
 Cite **the correct original dataset** for any published results (legacy EduceLab-Scrolls vs newer Vesuvius Challenge datasets), following the official [citation guidance](https://scrollprize.org/data). Code is MIT-licensed; this does **not** change the licenses of upstream datasets.
+
+## Contrôle qualité en ligne de commande
+
+Le cœur, le moteur QC et la CLI fonctionnent sans extra graphique :
+
+```bash
+pip install -e .
+vesuvius-qc volume /chemin/volume.zarr --samples 16 --seed 0 -o rapport.json --html rapport.html
+vesuvius-qc volume s3://bucket/volume.zarr --level 3 --max-voxels 65536
+vesuvius-qc surface /chemin/grille-tifxyz --window 256 -o surface.json
+```
+
+Le chemin S3 ci-dessus est un **gabarit**, pas une source de données. Utiliser une URI complète
+vérifiée. Les chemins locaux et S3 anonymes sont pris en charge ; HTTPS est refusé. Le niveau
+par défaut est le plus grossier. Les échantillons sont des fenêtres carrées de coupe `z`, de côté
+`min(256, y, x)`, tirées avec `numpy.random.default_rng(seed)` ; les axes et localisations sont
+`(z, y, x)`. Le rapport contient les seuils effectifs et toutes les fenêtres signalées. Les anomalies
+de métadonnées localisent la première fenêtre du niveau concerné ; elles concernent ce niveau
+entier. Les localisations des surfaces désignent la fenêtre de grille `(ligne, colonne)` au niveau
+`surface`, sans transformation implicite vers le volume CT.
+
+Codes de sortie : **0** si aucun `fail` ni `error` (les avertissements sont autorisés), **1** si un
+contrôle échoue ou lève une exception, **2** si l'entrée ou les arguments sont invalides. Sans
+`-o`, seul le JSON est écrit sur stdout ; les messages de budget vont sur stderr. Une exception
+dans un contrôle est isolée et les autres contrôles continuent.
+
+`--max-voxels` impose un plafond dur de **voxels effectivement matérialisés dans les ROI**, par
+défaut 16 777 216. Le moteur réduit le nombre de fenêtres sans élargir leur taille ; si aucune ne
+rentre, les contrôles d'échantillons sont `skipped` et les métadonnées sont toujours évaluées.
+Une surface compte les trois grilles de coordonnées (`3 × lignes × colonnes`) ; son option
+`--max-voxels` réduit la fenêtre, ou refuse un budget inférieur à `3 × 8 × 8`.
+
+Ce plafond ne borne **pas les octets physiques téléchargés ou décodés** : Zarr lit des chunks et
+parfois des shards beaucoup plus grands que la ROI. `budget.chunks_touched` compte les clés de
+chunks uniques réellement demandées au store Zarr, avec les lectures synchrones, asynchrones et
+par plages. Une clé absente compte comme demande ; ce nombre ne représente ni les requêtes
+HTTP, ni les octets transférés, ni les tentatives répétées. Pour un tableau shardé, ce champ vaut
+`null` et `store_objects_touched` indique les clés de shards demandées. Pour un tableau générique
+non instrumentable ou une surface mappée, les nombres de chunks/objets valent `null`.
+Les contrôles de métadonnées ne lisent aucun chunk.
+
+Les seuils sont **provisoires**, à valider sur données réelles avec le Product Owner. Ils sont
+centralisés dans `qc/thresholds.py`. Un fichier TOML peut en surcharger une partie :
+
+```toml
+["volume.saturation"]
+warn = 1.0
+fail = 5.0
+
+["surface.valid"]
+warn = 95.0
+fail = 80.0
+```
+
+```bash
+vesuvius-qc volume /chemin/volume.zarr --config seuils.toml -o rapport.json
+```
+
+Les noms inconnus, valeurs non finies, booléens, pourcentages hors bornes et seuils inversés sont
+refusés. Les comparaisons `warn`/`fail` sont strictes. La saturation et le faible contraste sont
+`skipped` pour les dtypes flottants : ils n'ont pas de plage physique d'intensité définie par le
+dtype. Les autres mesures non définies (p. ex. normales d'une grille entièrement manquante) sont
+`null` et `skipped`, jamais NaN/Infinity dans le JSON.
+
+Le format versionné est décrit par [`report.schema.json`](src/vesuvius_data_explorer/qc/report.schema.json).
+Chaque rapport est validé à la création par un validateur structurel stdlib du sous-ensemble du
+schéma utilisé ici, puis sérialisé avec `allow_nan=False` ; les tests emploient aussi `jsonschema`
+(extra `dev`) comme validateur indépendant. Le HTML est autonome et échappe les URI, messages
+et localisations. Les [exemples synthétiques](docs/examples/README.md) sont reproductibles.
+
+Tests hors réseau : `pytest -q`. Le test réseau reste explicitement optionnel :
+
+```bash
+VESUVIUS_TEST_ZARR='s3://URI-complete-verifiee.zarr' pytest -q -m network tests/test_qc.py
+```
