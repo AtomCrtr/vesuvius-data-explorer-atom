@@ -21,6 +21,8 @@ class Level:
     dtype: str
     chunks: tuple[int, int, int]
     scale: tuple[float, float, float] = (1.0, 1.0, 1.0)
+    # False when scale is the unit fallback (no usable OME metadata), not a measurement.
+    scale_from_metadata: bool = True
 
 
 def open_volume_store(path: str) -> Any:
@@ -58,11 +60,13 @@ class _AxisOrderError(ValueError):
     """Explicit non-ZYX axes must never silently fall back to ZYX."""
 
 
-def _level(node: Any, key: str, scale: tuple[float, float, float]) -> Level:
+def _level(
+    node: Any, key: str, scale: tuple[float, float, float], from_metadata: bool = True
+) -> Level:
     shape = tuple(int(n) for n in node.shape)
     # NumPy arrays and the legacy array-like API have no storage chunk grid.
     chunks = tuple(int(n) for n in getattr(node, "chunks", shape))
-    return Level(key, shape, str(node.dtype), chunks, scale)
+    return Level(key, shape, str(node.dtype), chunks, scale, from_metadata)
 
 
 def _dataset_scale(dataset: dict) -> tuple[float, float, float]:
@@ -131,7 +135,7 @@ def list_levels(root: Any) -> list[Level]:
     (z, y, x) order; explicitly different axes are rejected.
     """
     if _is_3d_array(root):
-        return [_level(root, "__root__", (1.0, 1.0, 1.0))]
+        return [_level(root, "__root__", (1.0, 1.0, 1.0), False)]
     if hasattr(root, "shape"):
         raise ValueError("Le tableau doit être 3D (z, y, x).")
     attrs = dict(getattr(root, "attrs", {}))
@@ -163,7 +167,7 @@ def list_levels(root: Any) -> list[Level]:
         for key in candidates:
             node = root[key]
             if _is_3d_array(node):
-                levels.append(_level(node, key, (1.0, 1.0, 1.0)))
+                levels.append(_level(node, key, (1.0, 1.0, 1.0), False))
     if not levels:
         raise ValueError("Aucun tableau 3D détecté ; vérifier le chemin de la racine .zarr.")
     if not has_metadata and any(level.key.isdigit() for level in levels):
