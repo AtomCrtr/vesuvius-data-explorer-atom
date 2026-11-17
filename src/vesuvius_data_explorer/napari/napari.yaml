@@ -1,0 +1,18 @@
+name: vesuvius-data-explorer
+display_name: Vesuvius Data Explorer
+schema_version: 0.2.1
+contributions:
+  commands:
+    - id: vesuvius-data-explorer.get_reader
+      title: Ouvrir un volume OME-Zarr local
+      python_name: vesuvius_data_explorer.napari.reader:napari_get_reader
+    - id: vesuvius-data-explorer.open_volume
+      title: Ouvrir un volume
+      python_name: vesuvius_data_explorer.napari.widget:OpenVolumeWidget
+  readers:
+    - command: vesuvius-data-explorer.get_reader
+      filename_patterns: ['*.zarr']
+      accepts_directories: true
+  widgets:
+    - command: vesuvius-data-explorer.open_volume
+      display_name: Vesuvius — Ouvrir un volume
