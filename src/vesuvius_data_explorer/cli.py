@@ -57,8 +57,10 @@ def main(argv=None):
         for warning in report['parameters']['warnings']:
             print(warning, file=sys.stderr)
         return int(bool(report['summary']['fail'] or report['summary']['error']))
-    except (ValueError, OSError, KeyError, TypeError) as exc:
-        print(f'vesuvius-qc : {exc}', file=sys.stderr)
+    except Exception as exc:
+        # Dependency-specific I/O and codec exceptions all denote input/output
+        # failure here. Pure-check exceptions are already isolated in qc/checks.
+        print(f'vesuvius-qc : {type(exc).__name__} : {exc}', file=sys.stderr)
         return 2
 
 

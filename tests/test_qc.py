@@ -144,7 +144,7 @@ def test_threshold_config_safe_validation(tmp_path):
     config.write_text('["volume.saturation"]\nwarn = 0.5\nfail = 2.0\n')
     assert load_thresholds(config)['volume.saturation']['fail'] == 2
     for text in ('[unknown]\nwarn=1', '["volume.saturation"]\nwarn=nan',
-                 '["volume.saturation"]\nwarn=6\nfail=2', '["surface.valid"]\nwarn=true'):
+                 '["volume.saturation"]\nwarn=6\nfail=2', '["surface.valid"]\nwarn=true', '["volume.finite"]\nwarn=' + '9' * 400):
         config.write_text(text)
         with pytest.raises(ValueError):
             load_thresholds(config)
@@ -297,3 +297,32 @@ def test_installed_console_script_emits_only_json_on_stdout(clean_volume):
     assert result.returncode == 0, result.stderr
     checked(json.loads(result.stdout))
     assert 'physique' in result.stderr
+
+
+def test_large_integer_budget_remains_a_valid_json_integer(clean_volume):
+    report = run_volume(clean_volume, uri='synthetic', samples=1, max_voxels=10**400)
+    checked(report)
+    assert report['budget']['voxels_read'] == 1024
+
+
+def test_cli_truncated_surface_coordinate_is_input_error(tmp_path, capsys):
+    from vesuvius_data_explorer.cli import main
+
+    (tmp_path / 'x.npy').touch()
+    assert main(['surface', str(tmp_path)]) == 2
+    captured = capsys.readouterr()
+    assert captured.out == ''
+    assert 'vesuvius-qc' in captured.err
+
+
+def test_cli_corrupt_compressed_chunk_is_input_error(tmp_path, capsys):
+    from vesuvius_data_explorer.cli import main
+
+    folder = tmp_path / 'corrupt.zarr'
+    zarr.create_array(str(folder), data=np.full((32,) * 3, 127, dtype='uint8'),
+                      chunks=(32,) * 3, zarr_format=3)
+    (folder / 'c/0/0/0').write_bytes(b'corrupt')
+    assert main(['volume', str(folder), '--samples', '1']) == 2
+    captured = capsys.readouterr()
+    assert captured.out == ''
+    assert 'vesuvius-qc' in captured.err

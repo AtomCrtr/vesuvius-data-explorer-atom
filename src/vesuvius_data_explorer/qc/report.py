@@ -28,7 +28,7 @@ def validate_report(report):
             raise ValueError(f'{path} : type invalide.')
         if 'enum' in rule and value not in rule['enum']:
             raise ValueError(f'{path} : valeur inconnue.')
-        if isinstance(value, (int, float)) and (not math.isfinite(value) or value < rule.get('minimum', -math.inf)):
+        if isinstance(value, (int, float)) and ((isinstance(value, float) and not math.isfinite(value)) or value < rule.get('minimum', -math.inf)):
             raise ValueError(f'{path} : nombre invalide.')
         if isinstance(value, dict):
             if any(key not in value for key in rule.get('required', [])):

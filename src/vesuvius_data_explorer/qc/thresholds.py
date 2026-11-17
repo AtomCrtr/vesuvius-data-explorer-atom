@@ -28,6 +28,10 @@ def load_thresholds(path=None):
             for name, value in thresholds.items():
                 if name not in values[check_id] or isinstance(value, bool) or not isinstance(value, (int, float)):
                     raise ValueError(f'Seuil inconnu ou non numérique : {check_id}.{name}')
+                try:
+                    value = float(value)
+                except OverflowError as exc:
+                    raise ValueError('Seuil numérique trop grand.') from exc
                 if not math.isfinite(value) or value < 0:
                     raise ValueError('Les seuils doivent être finis et positifs ou nuls.')
                 values[check_id][name] = float(value)
