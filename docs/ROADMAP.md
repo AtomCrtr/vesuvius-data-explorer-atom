@@ -35,8 +35,9 @@ fusion après validation.
 | T4 | [QC dans napari : rapport, navigation vers les anomalies, mesure de la vue](tasks/T4-panneaux-qc-napari.md) | Fusionnée (PR #9) |
 | I1 | [Investigation : formats réels, catalogue officiel, surfaces VC3D](investigations/I1-ecosysteme-donnees.md) | Terminée |
 | T4.1 | [Accès aux données : HTTPS officiel (Scroll 1), codec `vc-delta3d` optionnel](tasks/T4.1-acces-donnees.md) | Fusionnée (PR #11) |
-| T4.2 | [Sélecteur de volume par le catalogue officiel, taille de voxel en µm](tasks/T4.2-catalogue-volumes.md) | En revue |
-| T5 | Surfaces VC3D (TIFXYZ LZW, `meta.json`, points à −1, ordre [x, y, z]) superposées au volume, avec leurs indicateurs | À re-spécifier d'après I1 |
+| T4.2 | [Sélecteur de volume par le catalogue officiel, taille de voxel en µm](tasks/T4.2-catalogue-volumes.md) | Fusionnée (PR #12) |
+| T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | Spécifiée, à valider par le PO |
+| T5.1 | Alignement surface–volume quantitatif (profil d'intensité le long des normales), exploratoire | À spécifier après T5 |
 | T6 | Performance S3, périmètre réduit : cache local, préchargement, contraste hors fond | À spécifier |
 
 L'app Streamlit (`app.py`) est gelée et sera retirée lorsque T4 et T5 couvriront ses fonctions
