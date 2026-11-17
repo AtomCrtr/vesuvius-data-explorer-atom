@@ -269,3 +269,42 @@ def normalized_preview(data: np.ndarray) -> np.ndarray:
     if high > low:
         out[ok] = np.clip((arr[ok] - low) / (high - low), 0, 1)
     return out
+
+
+def estimate_contrast(levels_arrays: list[Any], max_side: int = 512) -> tuple[float, float]:
+    """Estimate finite 1/99 percentiles from one central coarse Z slice.
+
+    The returned sample is bounded to max_side² pixels (at most 512²), although
+    intersecting storage chunks may be larger. Empty, non-finite or degenerate
+    samples use dtype bounds, clamped to finite Python floats when necessary.
+    """
+    if not isinstance(max_side, int) or not 1 <= max_side <= 512:
+        raise ValueError("Largeur de fenêtre autorisée : 1 à 512 pixels.")
+    if not levels_arrays:
+        raise ValueError("Au moins un niveau est requis pour estimer le contraste.")
+    coarse = levels_arrays[-1]
+    if len(getattr(coarse, "shape", ())) != 3:
+        raise ValueError("Le tableau doit être 3D (z, y, x).")
+    dtype = np.dtype(coarse.dtype)
+    if dtype.kind == "b":
+        fallback = (0.0, 1.0)
+    elif dtype.kind in "iu":
+        bounds = np.iinfo(dtype)
+        fallback = (float(bounds.min), float(bounds.max))
+    elif dtype.kind == "f":
+        bound = min(np.finfo(dtype).max, np.finfo(float).max)
+        fallback = (-float(bound), float(bound))
+    else:
+        raise ValueError("Le contraste nécessite un tableau numérique réel.")
+    z, y, x = (int(n) for n in coarse.shape)
+    if min(z, y, x) == 0:
+        return fallback
+    sample = read_slice(
+        coarse, "z", z // 2, max(0, (y - max_side) // 2), max(0, (x - max_side) // 2),
+        width=max_side,
+    )
+    finite = sample[np.isfinite(sample)]
+    if not finite.size:
+        return fallback
+    low, high = (float(value) for value in np.percentile(finite.astype(np.float64), (1, 99)))
+    return (low, high) if isfinite(low) and isfinite(high) and low < high else fallback

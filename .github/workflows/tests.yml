@@ -13,3 +13,17 @@ jobs:
       - run: python -m pip install -e '.[dev]'
       - run: pytest -q
       - run: ruff check .
+  napari:
+    runs-on: ubuntu-latest
+    env:
+      QT_QPA_PLATFORM: xcb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: sudo apt-get update && sudo apt-get install -y xvfb libegl1 libopengl0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxkbcommon-x11-0
+      - run: python -m pip install -e '.[napari,dev]' pytest-qt
+      - run: npe2 validate vesuvius-data-explorer
+      - run: xvfb-run -a pytest -q
+      - run: ruff check .

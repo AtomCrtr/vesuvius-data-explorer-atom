@@ -2,8 +2,8 @@
 
 **Interface-independent Python core for bounded exploration of Herculaneum scroll CT data and surface-coordinate diagnostics, with an optional Streamlit demo.**
 
-napari is the planned primary interface ([ADR 0001](docs/adr/0001-napari-interface-principale.md)).
-The existing Streamlit demo is frozen; the napari plugin and QC CLI are future tasks.
+napari is the primary exploration interface ([ADR 0001](docs/adr/0001-napari-interface-principale.md)).
+The existing Streamlit demo is frozen; the QC CLI is a separate task.
 
 [Official Vesuvius Challenge data](https://scrollprize.org/data) · [Data browser](https://scrollprize.org/data_browser) · [S3 layout documentation](https://github.com/ScrollPrize/open-data)
 
@@ -35,6 +35,44 @@ Start with **Démonstration synthétique** to see the app without any external d
 
 For the core only, use `python -m pip install -e .`. This installs NumPy, Zarr, fsspec,
 s3fs, tifffile and Dask, without Streamlit, matplotlib, napari or Qt.
+
+### Explorer avec napari
+
+```bash
+python -m pip install -e '.[napari]'
+napari -w vesuvius-data-explorer
+```
+
+Dans le widget **Vesuvius — Ouvrir un volume**, saisir le chemin d'un dossier local
+`/chemin/volume.zarr` ou une URI S3 publique puis cliquer sur **Ouvrir**. Un dossier local
+`.zarr` peut aussi être glissé dans napari. Le protocole lecteur npe2 est synchrone :
+les métadonnées et la petite coupe de contraste peuvent donc retarder un glisser-déposer ;
+utiliser le widget pour une ouverture en arrière-plan. Les URI S3 passent uniquement par le widget ;
+les URL HTTPS ne sont pas prises en charge.
+
+Exemple réel vérifié dans le [bucket public officiel](https://github.com/ScrollPrize/open-data),
+pour le volume PHerc0332 (l'accès et les noms peuvent évoluer) :
+
+```text
+s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr
+```
+
+Dans le widget, l'ouverture des métadonnées et l'estimation du contraste s'exécutent
+dans un thread de travail.
+Le bouton reste désactivé pendant cette étape. Le plugin active la préférence napari
+**Render Layers Asynchronously** pour empêcher les lectures de vue sur le thread graphique ;
+elle peut être désactivée dans les Préférences, au prix de lectures alors bloquantes. Le tableau affiche niveau, forme, dtype, chunks,
+échelle et taille estimée avant compression. Le calque unique conserve les tableaux Dask
+multi-échelles, l'échelle du niveau le plus fin en **(z, y, x)**, l'URI source et le résumé.
+Le contraste est explicite : percentiles 1/99 d'une seule coupe centrale du niveau le plus
+grossier, bornée à 512 × 512 ; les valeurs non finies sont ignorées et une coupe vide ou
+constante utilise les bornes du dtype. Ajuster ensuite le contraste dans napari si nécessaire.
+
+Limites connues : les chunks téléchargés peuvent dépasser la fenêtre de contraste ; le premier
+rendu et la navigation demandent des lectures supplémentaires selon la vue et le réseau.
+En 3D, napari affiche le niveau le plus grossier du multi-échelles. La fluidité 2D dépend de
+la taille des chunks, du GPU et de la connexion. Qt et un environnement graphique local sont
+nécessaires ; l'installation du cœur seul reste sans dépendance graphique.
 
 ### Use the core without a GUI
 
@@ -121,15 +159,27 @@ ruff check .
 ```
 
 The default suite uses synthetic data and temporary local Zarr stores, with no network
-access required. The `network` marker is excluded by default, even if the environment
-variable below is set. CI installs only `.[dev]` and runs both commands above.
+access required. Les tests de widget sont ignorés si napari est absent (`pytest.importorskip`).
+Un job CI `napari` séparé installe `.[napari,dev]` et `pytest-qt`, valide le manifeste npe2
+et exécute la suite avec Qt sous affichage virtuel Xvfb (le backend offscreen de PyQt6 ne fournit pas toujours
+un contexte OpenGL). Pour le reproduire :
+
+```bash
+python -m pip install -e '.[napari,dev]' pytest-qt
+npe2 validate vesuvius-data-explorer
+QT_QPA_PLATFORM=xcb xvfb-run -a pytest -q
+```
+
+The `network` marker is excluded by default, even if the environment
+variable below is set. The lightweight CI job installs only `.[dev]` and runs both commands above.
 
 To opt into the real public S3 metadata test:
 
 1. Find an existing volume in the [official data browser](https://scrollprize.org/data_browser)
    and consult the [official S3 layout documentation](https://github.com/ScrollPrize/open-data).
 2. Copy its complete `s3://` URI in the public `vesuvius-challenge-open-data` bucket.
-   No concrete artifact URI is supplied here: it must come from those official sources.
+   The example in the napari section was verified in that bucket; verify availability
+   again when choosing a sample.
 3. In Bash, enter that exact URI when prompted:
 
    ```bash

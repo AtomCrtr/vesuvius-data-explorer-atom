@@ -21,7 +21,11 @@ dependencies = [
 
 [project.optional-dependencies]
 streamlit = ["streamlit>=1.36", "matplotlib>=3.8"]
+napari = ["napari[all]>=0.5"]
 dev = ["pytest>=8", "ruff>=0.7"]
+
+[project.entry-points."napari.manifest"]
+vesuvius-data-explorer = "vesuvius_data_explorer.napari:napari.yaml"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
