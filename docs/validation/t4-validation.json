@@ -1,0 +1,57 @@
+{
+  "uri": "s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr",
+  "open_s": 5.9,
+  "without_background": {
+    "duration_s": 6.7,
+    "summary": {
+      "pass": 7,
+      "warn": 1,
+      "fail": 1,
+      "error": 0,
+      "skipped": 1
+    },
+    "rectangles": 20,
+    "status": "Rapport affiché : 20 anomalie(s) localisée(s) sur l'image.",
+    "config": "[\"volume.background\"] enabled = 0"
+  },
+  "navigated_to": {
+    "location": {
+      "level": "5",
+      "axis": "z",
+      "index": 893,
+      "origin": [
+        151,
+        121
+      ],
+      "size": [
+        256,
+        256
+      ]
+    },
+    "dims_point": [
+      28584.0,
+      7880.0,
+      7880.0
+    ],
+    "camera_center": [
+      0.0,
+      8919.011156186612,
+      7959.923935091278
+    ],
+    "zoom": 0.04264308459171373
+  },
+  "render_after_nav_s": 2.1,
+  "measure_view": "Niveau 5, coupe z=893, fenêtre 493 × 493 : finis 100 %, p1 0, p99 124, écart-type 37.54, fond non exclu.",
+  "default_config": {
+    "duration_s": 5.2,
+    "summary": {
+      "pass": 10,
+      "warn": 0,
+      "fail": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "rectangles": 0,
+    "status": "Rapport affiché : 0 anomalie(s) localisée(s) sur l'image."
+  }
+}

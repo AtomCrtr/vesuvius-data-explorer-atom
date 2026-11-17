@@ -17,6 +17,7 @@ import vesuvius_data_explorer.core.surface
 import vesuvius_data_explorer.core.volume
 import vesuvius_data_explorer.qc
 import vesuvius_data_explorer.qc.checks
+import vesuvius_data_explorer.qc.locate
 import vesuvius_data_explorer.cli
 
 for name in sys.modules:

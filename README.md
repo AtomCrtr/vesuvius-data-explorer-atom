@@ -207,6 +207,29 @@ it is never replaced with a guessed URI. No voxel chunks are intentionally read 
 
 Cite **the correct original dataset** for any published results (legacy EduceLab-Scrolls vs newer Vesuvius Challenge datasets), following the official [citation guidance](https://scrollprize.org/data). Code is MIT-licensed; this does **not** change the licenses of upstream datasets.
 
+## Contrôle qualité dans napari
+
+Le widget **Vesuvius — Contrôle qualité** (`napari -w vesuvius-data-explorer`, menu Plugins)
+travaille sur un volume ouvert par **Vesuvius — Ouvrir un volume** :
+
+- **Lancer le QC** : mêmes contrôles que `vesuvius-qc` (niveau, nombre de ROI, graine, budget de
+  voxels, fichier de seuils TOML optionnel), exécutés hors du thread de l'interface ;
+- **Charger un rapport JSON** produit par `vesuvius-qc volume` : validé par le schéma ; si l'URI du
+  rapport diffère du volume affiché, un avertissement est affiché. Les rapports de surface ne sont
+  pas encore affichables ;
+- les résultats apparaissent dans un tableau (échecs en premier) et les anomalies localisées dans
+  un calque **QC — anomalies** : un rectangle par ROI fautive (rouge : `fail`, orange : `warn`),
+  visible sur sa coupe. Relancer remplace ce calque ;
+- sélectionner un contrôle puis une localisation amène la vue sur la coupe et centre la caméra sur
+  le rectangle ;
+- **Mesurer la vue** lit la région affichée, au niveau le plus fin qui tient dans 512 × 512, et
+  affiche % de valeurs finies, p1, p99, écart-type et % de fond. Mesure 2D uniquement.
+
+Les localisations sont converties du niveau `k` vers les coordonnées monde par le rapport des formes
+(`qc/locate.py`, sans dépendance graphique), avec ou sans métadonnées d'échelle. Au niveau le plus
+grossier, une ROI couvre une grande partie de la coupe : choisir un niveau plus fin pour localiser
+précisément. Validation sur PHerc0332 : [docs/validation/T4-donnees-reelles.md](docs/validation/T4-donnees-reelles.md).
+
 ## Contrôle qualité en ligne de commande
 
 Le cœur, le moteur QC et la CLI fonctionnent sans extra graphique :
