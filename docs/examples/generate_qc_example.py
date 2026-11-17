@@ -16,7 +16,8 @@ def main():
         datasets = []
         for index, side in enumerate((128, 64, 32)):
             data = np.random.default_rng(index).integers(20, 220, (side,) * 3, dtype='uint8')
-            root.create_array(str(index), data=data, chunks=(32,) * 3)
+            root.create_array(str(index), shape=data.shape, dtype=data.dtype, chunks=(32,) * 3)
+            root[str(index)][:] = data
             datasets.append({'path': str(index), 'coordinateTransformations': [
                 {'type': 'scale', 'scale': [2**index] * 3}]})
         root.attrs['multiscales'] = [{'axes': ['z', 'y', 'x'], 'datasets': datasets}]

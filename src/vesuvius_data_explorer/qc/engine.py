@@ -51,6 +51,9 @@ def _instrument(array):
             super().__init__(store)
             self.keys = set()
 
+        def with_read_only(self, read_only=False):
+            return self._with_store(self._store.with_read_only(read_only))
+
         def _with_store(self, store):
             wrapper = type(self)(store)
             wrapper.keys = self.keys
