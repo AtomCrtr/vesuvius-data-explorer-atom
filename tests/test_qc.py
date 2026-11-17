@@ -112,19 +112,30 @@ def test_zero_budget_reads_no_voxels(clean_volume):
 
 
 def test_surface_hole_and_flipped_region(tmp_path):
-    # The default size180 has only0.93% missing; size75 contains5.33% missing.
-    coords = demo_surface(size=75)
-    for name, data in zip('xyz', coords):
+    # demo_surface misses rows 60-74 x columns 50-69: an interior hole of 300 points, i.e.
+    # 3 % of a 100 x 100 grid, but only part of the outline of a 75 x 75 grid.
+    for size, status in ((100, 'warn'), (75, 'pass')):
+        for name, data in zip('xyz', demo_surface(size=size)):
+            np.save(tmp_path / f'{name}.npy', data)
+        report = run_surface(tmp_path)
+        results = checked(report)
+        assert results['surface.holes']['status'] == status
+        assert results['surface.valid']['status'] == 'pass'
+        assert report['budget']['voxels_read'] == size * size * 3
+    assert results['surface.holes']['value'] == 0  # 75 x 75: the gap reaches the border
+    for name, data in zip('xyz', demo_surface(size=100)):
         np.save(tmp_path / f'{name}.npy', data)
-    report = run_surface(tmp_path, window=75)
-    assert checked(report)['surface.valid']['status'] == 'warn'
-    assert report['budget']['voxels_read'] == 75 * 75 * 3
+    [hole] = checked(run_surface(tmp_path))['surface.holes']['locations']
+    assert hole['origin'] == [60, 50] and hole['size'] == [15, 20]
+    assert hole['center'][1:] == pytest.approx([67, 59.5], abs=1)  # (z, y, x) = (z, row, col)
     y, x = np.mgrid[:64, :64].astype(float)
     x[:, 48:] = 96 - x[:, 48:]
     for name, data in zip('xyz', (x, y, np.zeros_like(x))):
         np.save(tmp_path / f'{name}.npy', data)
-    result = checked(run_surface(tmp_path, window=64))['surface.normal_flips']
-    assert result['status'] == 'fail'
+    # One fold: a single seam of opposite neighbouring normals, 63 of 7812 cell pairs.
+    result = checked(run_surface(tmp_path))['surface.normal_flips']
+    assert result['status'] == 'warn'
+    assert result['value'] == pytest.approx(100 * 63 / 7812)
     assert result['locations']
 
 
@@ -146,7 +157,7 @@ def test_threshold_config_safe_validation(tmp_path):
     config.write_text('["volume.saturation"]\nwarn = 0.5\nfail = 2.0\n')
     assert load_thresholds(config)['volume.saturation']['fail'] == 2
     for text in ('[unknown]\nwarn=1', '["volume.saturation"]\nwarn=nan',
-                 '["volume.saturation"]\nwarn=6\nfail=2', '["surface.valid"]\nwarn=true', '["volume.finite"]\nwarn=' + '9' * 400):
+                 '["volume.saturation"]\nwarn=6\nfail=2', '["surface.holes"]\nwarn=true', '["volume.finite"]\nwarn=' + '9' * 400):
         config.write_text(text)
         with pytest.raises(ValueError):
             load_thresholds(config)
@@ -237,12 +248,20 @@ def test_shards_are_not_misreported_as_logical_chunks(tmp_path):
 def test_surface_budget_and_degenerate_metrics_are_json_safe(tmp_path):
     for name in 'xyz':
         np.save(tmp_path / f'{name}.npy', np.full((64, 64), np.nan))
-    report = run_surface(tmp_path, window=64, max_voxels=3 * 16 * 16)
+    # 16 rows of 64 float64 fit in the budget: one row and one column out of 4 are kept.
+    report = run_surface(tmp_path, max_bytes=16 * 64 * 8, window=64, max_voxels=768)
     results = checked(report)
-    assert report['budget']['voxels_read'] == 768
-    assert results['surface.valid']['status'] == 'fail'
+    assert report['schema_version'] == '1.1'
+    assert report['parameters']['stride'] == 4 and report['parameters']['grid_shape'] == [64, 64]
+    assert report['budget']['voxels_read'] == 3 * 16 * 16
+    assert results['surface.valid']['status'] == 'pass' and results['surface.valid']['value'] == 0
+    assert results['surface.holes']['status'] == 'pass'
     assert results['surface.stretch']['status'] == 'skipped'
     assert results['surface.normal_flips']['status'] == 'skipped'
+    assert results['surface.bounds']['status'] == 'skipped'
+    warnings = ' '.join(report['parameters']['warnings'])
+    assert 'window ignorée' in warnings and 'max_voxels ignorée' in warnings
+    assert 'une ligne et une colonne sur 4' in warnings
 
 
 @pytest.mark.parametrize('values', [
@@ -255,6 +274,14 @@ def test_runtime_validation_rejects_invalid_reports(clean_volume, values):
     report.update(values)
     with pytest.raises(ValueError):
         validate_report(report)
+
+
+def test_ignored_surface_valid_threshold_warns(tmp_path):
+    config = tmp_path / 'old.toml'
+    config.write_text('["surface.valid"]\nwarn = 95\nfail = 80\n')
+    with pytest.warns(UserWarning, match='surface.valid'):
+        thresholds = load_thresholds(config)
+    assert 'surface.valid' not in thresholds
 
 
 def test_cli_rejects_non_3d_and_bad_config(tmp_path, capsys):

@@ -1,0 +1,602 @@
+[
+ {
+  "sample": "PHerc0500P2",
+  "segment": "20250611171745",
+  "volume": "20250528085330",
+  "grid": [
+   507,
+   212
+  ],
+  "stride": 1,
+  "seconds": 1.8,
+  "valid": 62.61955267760783,
+  "holes": 0.8266167651435896,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0694403700141875,
+  "flips": 0.3287396032295622,
+  "oob": null,
+  "bounds": "skipped",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260623165742",
+  "volume": "20260608103018",
+  "grid": [
+   607,
+   1703
+  ],
+  "stride": 1,
+  "seconds": 2.6,
+  "valid": 87.77977810260215,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0337115878538548,
+  "flips": 0.01715467094020878,
+  "oob": 65.20435354717554,
+  "bounds": "pass",
+  "overlap": 0.34812635436303097
+ },
+ {
+  "sample": "PHerc0172",
+  "segment": "20251115002746",
+  "volume": "20241024131838",
+  "grid": [
+   558,
+   2777
+  ],
+  "stride": 1,
+  "seconds": 3.2,
+  "valid": 83.83682915087192,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0166965761126188,
+  "flips": 0.0029021454593999526,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc0814",
+  "segment": "20250925182632",
+  "volume": "20250804134230",
+  "grid": [
+   239,
+   1084
+  ],
+  "stride": 1,
+  "seconds": 2.0,
+  "valid": 36.66028501289197,
+  "holes": 3.752495414517486,
+  "holes_status": "warn",
+  "n_holes": 20,
+  "stretch": 1.0222939427383586,
+  "flips": 0.024827056978095764,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260316000000",
+  "volume": "20260102150214",
+  "grid": [
+   1164,
+   1356
+  ],
+  "stride": 1,
+  "seconds": 3.3,
+  "valid": 84.58778092023233,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0154290481364512,
+  "flips": 0.0,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260623170305",
+  "volume": "20230205180739",
+  "grid": [
+   743,
+   2102
+  ],
+  "stride": 1,
+  "seconds": 3.6,
+  "valid": 87.9409855127399,
+  "holes": 0.00043685418389813725,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0363676111255662,
+  "flips": 0.007306872954303913,
+  "oob": 3.1064108631548293,
+  "bounds": "pass",
+  "overlap": 0.9676968011613061
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260701183145",
+  "volume": "20230205180739",
+  "grid": [
+   937,
+   1683
+  ],
+  "stride": 1,
+  "seconds": 3.0,
+  "valid": 87.77555199176142,
+  "holes": 0.003323120757151392,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0599144794073367,
+  "flips": 0.11878503605780123,
+  "oob": 30.948385162495168,
+  "bounds": "warn",
+  "overlap": 0.7125658529346294
+ },
+ {
+  "sample": "PHerc1667",
+  "segment": "20260612121456",
+  "volume": "20260323082859",
+  "grid": [
+   628,
+   9204
+  ],
+  "stride": 1,
+  "seconds": 7.5,
+  "valid": 76.00203940684887,
+  "holes": 0.21551435312417447,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.1513478301492248,
+  "flips": 0.15511456617656105,
+  "oob": 40.55694931234966,
+  "bounds": "pass",
+  "overlap": 0.5941535925523842
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260115000000",
+  "volume": "20251107132835",
+  "grid": [
+   294,
+   397
+  ],
+  "stride": 1,
+  "seconds": 0.9,
+  "valid": 89.7290906286948,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0177846901006562,
+  "flips": 0.07187685420576076,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc1667",
+  "segment": "20260128140000",
+  "volume": "20231107190228",
+  "grid": [
+   1294,
+   1208
+  ],
+  "stride": 1,
+  "seconds": 2.5,
+  "valid": 67.01082172431087,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0839415739963971,
+  "flips": 0.05521234225900915,
+  "oob": 0.015847542819392428,
+  "bounds": "pass",
+  "overlap": 0.9994760282944721
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260108000000",
+  "volume": "20250728140407",
+  "grid": [
+   301,
+   390
+  ],
+  "stride": 1,
+  "seconds": 1.0,
+  "valid": 88.26901780390153,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0207653749628063,
+  "flips": 0.06094974327968131,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260215000000",
+  "volume": "20251107135911",
+  "grid": [
+   345,
+   322
+  ],
+  "stride": 1,
+  "seconds": 1.0,
+  "valid": 83.10108920694933,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.020281586198395,
+  "flips": 0.009315425797153864,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260701183130",
+  "volume": "20230205180739",
+  "grid": [
+   925,
+   2403
+  ],
+  "stride": 1,
+  "seconds": 3.4,
+  "valid": 92.33750604537121,
+  "holes": 0.0007308267599526424,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.039615478200666,
+  "flips": 0.09654618309026958,
+  "oob": 30.089819265221404,
+  "bounds": "pass",
+  "overlap": 0.7115266667536636
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20231210121321",
+  "volume": "20260608103018",
+  "grid": [
+   782,
+   614
+  ],
+  "stride": 1,
+  "seconds": 1.4,
+  "valid": 87.83645875854945,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0243735554344162,
+  "flips": 0.002265327023801433,
+  "oob": 45.87416566882832,
+  "bounds": "pass",
+  "overlap": 0.5415979613251387
+ },
+ {
+  "sample": "PHerc0009B",
+  "segment": "20250919133208",
+  "volume": "20250820154339",
+  "grid": [
+   341,
+   251
+  ],
+  "stride": 1,
+  "seconds": 0.8,
+  "valid": 77.63316236520194,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0217466481037296,
+  "flips": 0.052634790833918164,
+  "oob": 1.4041265971375683,
+  "bounds": "pass",
+  "overlap": 0.9828253507498791
+ },
+ {
+  "sample": "PHerc0172",
+  "segment": "20251210153304",
+  "volume": "20241024131839",
+  "grid": [
+   546,
+   660
+  ],
+  "stride": 1,
+  "seconds": 1.3,
+  "valid": 91.2032412032412,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0188177775314198,
+  "flips": 0.05310739478384372,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260623155240",
+  "volume": "20230205180739",
+  "grid": [
+   762,
+   2614
+  ],
+  "stride": 1,
+  "seconds": 3.0,
+  "valid": 87.69672488337581,
+  "holes": 0.0005152243057638716,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.029237415822409,
+  "flips": 0.002929451905292543,
+  "oob": 3.0326258885518285,
+  "bounds": "pass",
+  "overlap": 0.9685211694103397
+ },
+ {
+  "sample": "PHerc1667",
+  "segment": "20251223230000",
+  "volume": "20231107190228",
+  "grid": [
+   1379,
+   1181
+  ],
+  "stride": 1,
+  "seconds": 2.6,
+  "valid": 76.42839029128717,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0460961352900624,
+  "flips": 0.029995742539768548,
+  "oob": 0.029565072080931173,
+  "bounds": "pass",
+  "overlap": 0.99948623853211
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260219000000",
+  "volume": "20250820105138",
+  "grid": [
+   345,
+   373
+  ],
+  "stride": 1,
+  "seconds": 0.9,
+  "valid": 87.12204219606015,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0171116967991791,
+  "flips": 0.024318737587311023,
+  "oob": 21.641558070874922,
+  "bounds": "pass",
+  "overlap": 0.7895783611774065
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20250223000000",
+  "volume": "20250820105138",
+  "grid": [
+   351,
+   487
+  ],
+  "stride": 1,
+  "seconds": 1.0,
+  "valid": 86.83433077683591,
+  "holes": 0.0006737046344141802,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0174980071927866,
+  "flips": 0.013260525116794625,
+  "oob": 19.425730300743776,
+  "bounds": "pass",
+  "overlap": 0.8010476378730974
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260701183142",
+  "volume": "20230205180739",
+  "grid": [
+   949,
+   2331
+  ],
+  "stride": 1,
+  "seconds": 3.3,
+  "valid": 88.52860085736798,
+  "holes": 0.002246729731689408,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0559708738879887,
+  "flips": 0.08336618037675367,
+  "oob": 30.633060962295964,
+  "bounds": "pass",
+  "overlap": 0.7117003142811484
+ },
+ {
+  "sample": "PHerc0343P",
+  "segment": "20250902170441",
+  "volume": "20250521134555",
+  "grid": [
+   165,
+   126
+  ],
+  "stride": 1,
+  "seconds": 1.0,
+  "valid": 65.2958152958153,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.028721385413862,
+  "flips": 0.0,
+  "oob": null,
+  "bounds": "skipped",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc1667",
+  "segment": "20260115160000",
+  "volume": "20231107190228",
+  "grid": [
+   1320,
+   1191
+  ],
+  "stride": 1,
+  "seconds": 2.5,
+  "valid": 70.59830038419459,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.05039957762742,
+  "flips": 0.02840179311193201,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260302000001",
+  "volume": "20251107132835",
+  "grid": [
+   258,
+   189
+  ],
+  "stride": 1,
+  "seconds": 0.8,
+  "valid": 89.58205159755548,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0154376162770231,
+  "flips": 0.001162993545385823,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20260115000001",
+  "volume": "20250820105138",
+  "grid": [
+   349,
+   474
+  ],
+  "stride": 1,
+  "seconds": 1.0,
+  "valid": 87.92269655314159,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0242756853001207,
+  "flips": 0.061745525183849036,
+  "oob": 20.540128019140994,
+  "bounds": "pass",
+  "overlap": 0.7885485738343332
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260701183131",
+  "volume": "20230205180739",
+  "grid": [
+   921,
+   2063
+  ],
+  "stride": 1,
+  "seconds": 4.2,
+  "valid": 92.35514517455842,
+  "holes": 0.002279450356135625,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0385782646388253,
+  "flips": 0.07106245806929076,
+  "oob": 30.169270143249623,
+  "bounds": "pass",
+  "overlap": 0.7121098931255813
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20231016151002",
+  "volume": "20260411134726",
+  "grid": [
+   1598,
+   2598
+  ],
+  "stride": 1,
+  "seconds": 50.4,
+  "valid": 84.41999766837107,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0310773499477945,
+  "flips": 0.0008577870552213283,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHerc0139",
+  "segment": "20250108000004",
+  "volume": "20251107135911",
+  "grid": [
+   351,
+   361
+  ],
+  "stride": 1,
+  "seconds": 2.0,
+  "valid": 85.1117898209311,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0175939685525368,
+  "flips": 0.03325402326844896,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260623144957",
+  "volume": "20260411134726",
+  "grid": [
+   2432,
+   9332
+  ],
+  "stride": 2,
+  "seconds": 50.4,
+  "valid": 91.33189139801927,
+  "holes": 0.0004631359242186125,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0343523170755513,
+  "flips": 0.010219759639374945,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ },
+ {
+  "sample": "PHercParis4",
+  "segment": "20260623154006",
+  "volume": "20260411134726",
+  "grid": [
+   2488,
+   10340
+  ],
+  "stride": 2,
+  "seconds": 51.0,
+  "valid": 88.50065614757412,
+  "holes": 0.0,
+  "holes_status": "pass",
+  "n_holes": 0,
+  "stretch": 1.0280233237335834,
+  "flips": 0.0015668465136520744,
+  "oob": 0.0,
+  "bounds": "pass",
+  "overlap": 1.0
+ }
+]

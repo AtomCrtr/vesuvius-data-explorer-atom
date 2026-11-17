@@ -25,7 +25,9 @@ de commande, sans téléchargement massif.**
   masqué**. Rapport JSON (schéma versionné) et HTML.
 - 🎯 **Anomalies sur l'image** : dans napari, chaque anomalie est un rectangle sur sa coupe ; un clic
   y amène la vue.
-- 📐 **Grilles de surface TIFXYZ** : points manquants, étirement, normales inversées (heuristique).
+- 📐 **Surfaces VC3D (tifxyz)** superposées au volume dans napari, pour vérifier leur alignement coupe
+  par coupe ; indicateurs : trous intérieurs, points hors volume comparés au catalogue, étirement,
+  replis (heuristique).
 - 🧪 Cœur Python **sans dépendance graphique**, tests déterministes, intégration continue.
 
 ## Installation
@@ -123,8 +125,8 @@ Le widget **Vesuvius — Contrôle qualité** (menu Plugins) travaille sur un vo
 - **Lancer le QC** : mêmes contrôles que `vesuvius-qc` (niveau, nombre de ROI, graine, budget de
   voxels, fichier de seuils TOML optionnel), exécutés hors du thread de l'interface ;
 - **Charger un rapport JSON** produit par `vesuvius-qc volume` : validé par le schéma ; si son URI
-  diffère du volume affiché, un avertissement apparaît. Les rapports de surface ne sont pas encore
-  affichables ;
+  diffère du volume affiché, un avertissement apparaît. Les segments se superposent avec le widget
+  **Vesuvius — Surfaces** (ci-dessous) ;
 - les résultats s'affichent dans un tableau (échecs en premier) et les anomalies localisées dans un
   calque **QC — anomalies** : un rectangle par ROI fautive (rouge : `fail`, orange : `warn`), visible
   sur sa coupe. Relancer remplace ce calque ;
@@ -139,6 +141,28 @@ pour ses niveaux. Au niveau le plus grossier, une ROI couvre une grande partie d
 un niveau plus fin pour localiser précisément.
 Validation sur PHerc0332 : [docs/validation/T4-donnees-reelles.md](docs/validation/T4-donnees-reelles.md).
 
+## Surfaces VC3D dans napari
+
+Le widget **Vesuvius — Surfaces** travaille sur un volume ouvert par **Vesuvius — Ouvrir un volume** :
+
+- **Lister les segments du catalogue** (volume choisi dans le catalogue officiel) : segments publiés
+  **dans le repère de ce volume** (copies `tifxyz-transformed`), avec leur couverture. Les copies
+  remplacées, issues d'un recalage plus ancien, sont masquées. Un dossier local ou une URI de segment
+  peut aussi être saisi ;
+- **Superposer** lit le segment hors du thread de l'interface, dans un budget par grille (64 Mio par
+  défaut ; au-delà, lecture d'une ligne et d'une colonne sur N, par requêtes partielles, pour les
+  fichiers non compressés) ;
+- le calque **Surface — …** montre la **trace du segment sur la coupe affichée** : les points à moins
+  d'un demi-pas de grille de la coupe, recalculés à chaque changement de coupe (tous les points en
+  vue 3D). Points hors du volume masqués, 200 000 points au plus. Le calque **Trous — …** marque en
+  rouge le centre des trous intérieurs ;
+- **Aller à la surface** amène la vue sur la coupe centrale du segment et le cadre ;
+- la fiche donne la taille de la grille, les octets lus et les indicateurs (`vesuvius-qc surface`).
+
+Points et image partagent le même repère : voxels **(z, y, x)** du niveau 0 et même échelle de
+calque. Validation sur PHerc0800 et 30 segments réels :
+[docs/validation/T5-surfaces.md](docs/validation/T5-surfaces.md).
+
 ## Contrôle qualité en ligne de commande
 
 Le cœur, le moteur QC et la CLI fonctionnent sans extra graphique :
@@ -146,7 +170,7 @@ Le cœur, le moteur QC et la CLI fonctionnent sans extra graphique :
 ```bash
 vesuvius-qc volume /chemin/volume.zarr --samples 16 --seed 0 -o rapport.json --html rapport.html
 vesuvius-qc volume s3://bucket/volume.zarr --level 3 --max-voxels 65536
-vesuvius-qc surface /chemin/grille-tifxyz --window 256 -o surface.json
+vesuvius-qc surface s3://vesuvius-challenge-open-data/…/segment.tifxyz --max-bytes 67108864 -o surface.json
 ```
 
 Le chemin S3 ci-dessus est un **gabarit**, pas une source de données : utiliser une URI complète et
@@ -156,8 +180,8 @@ défaut est le plus grossier. Les échantillons sont des fenêtres carrées de c
 `min(256, y, x)`, tirées avec `numpy.random.default_rng(seed)` ; axes et localisations sont en
 `(z, y, x)`. Le rapport contient les seuils effectifs et toutes les fenêtres signalées. Les anomalies
 de métadonnées concernent un niveau entier et pointent sa première fenêtre. Les localisations de
-surface désignent une fenêtre de grille `(ligne, colonne)`, sans transformation implicite vers le
-volume CT.
+surface désignent une fenêtre de grille `(ligne, colonne)` du fichier complet ; celles des trous
+portent aussi leur centre `center` en voxels `(z, y, x)` du volume visé.
 
 **Codes de sortie** : **0** si aucun `fail` ni `error` (avertissements autorisés), **1** si un contrôle
 échoue ou lève une exception, **2** si l'entrée ou les arguments sont invalides. Sans `-o`, seul le
@@ -167,8 +191,11 @@ exception dans un contrôle est isolée : les autres contrôles continuent.
 **Budget de lecture.** `--max-voxels` impose un plafond strict de **voxels effectivement matérialisés
 dans les ROI** (16 777 216 par défaut). Le moteur réduit le nombre de fenêtres sans changer leur
 taille ; si aucune ne tient, les contrôles d'échantillons sont `skipped` et les métadonnées restent
-évaluées. Une surface compte ses trois grilles de coordonnées (`3 × lignes × colonnes`) ; son budget
-réduit la fenêtre, ou est refusé s'il est inférieur à `3 × 8 × 8`.
+évaluées. Une surface a son propre budget, `--max-bytes`, en octets lus **par grille** (64 Mio par
+défaut) : au-delà, un fichier non compressé est lu une ligne et une colonne sur N (le plus petit N
+qui tient), un fichier compressé est refusé. `voxels_read` compte alors les coordonnées lues
+(`3 × lignes × colonnes`). Les options `--window` et `--max-voxels` d'avant T5 sont ignorées pour
+une surface, avec un avertissement.
 
 Ce plafond ne borne **pas les octets téléchargés ou décodés** : Zarr lit des chunks, voire des shards,
 bien plus grands que la ROI. `budget.chunks_touched` compte les clés de chunks uniques réellement
@@ -200,9 +227,9 @@ fail = 5.0
 value = 0      # valeur du fond (toute valeur finie)
 enabled = 1    # 0 pour désactiver l'exclusion du fond
 
-["surface.valid"]
-warn = 95.0
-fail = 80.0
+["surface.holes"]
+warn = 1.0
+fail = 5.0
 ```
 
 ```bash
@@ -256,26 +283,40 @@ dépréciés : importer depuis `.core`.
 
 ## Grilles de surface TIFXYZ
 
-Un dossier de segment contient trois grilles de coordonnées :
+Un segment VC3D est un dossier de trois grilles de coordonnées et d'un fichier de métadonnées :
 
 ```
-mon-segment/
-  x.npy   # ou x.tif
-  y.npy   # ou y.tif
-  z.npy   # ou z.tif
+segment.tifxyz/
+  x.tif  y.tif  z.tif   # float32, coordonnées [x, y, z] en voxels du niveau 0 du volume visé
+  meta.json             # bbox, scale (0,05 : un point tous les 20 voxels), format, uuid
 ```
 
-Les TIFF doivent être projetables en mémoire (pages non compressées) pour ne jamais charger en
-silence d'énormes fichiers compressés ; sinon, convertir un **petit** extrait en `.npy`. Les mesures
-sont dans les unités de la source, **pas en millimètres par défaut**. Le taux de normales inversées
-compare chaque normale à une référence globale et peut signaler une courbure naturelle : ce n'est
-**pas un détecteur fiable de repliement**.
+`core.tifxyz.load_tifxyz` les lit (dossier local, S3 anonyme, HTTPS officiel) et renvoie les points
+en **(z, y, x)**, avec NaN pour les points invalides **(−1, −1, −1)** ; les autres valeurs négatives
+sont des points valides hors du volume. La plupart des fichiers publiés ne sont pas compressés ; les
+autres (LZW avec prédicteur flottant) sont décodés par Pillow quand `imagecodecs` est absent. Des
+grilles locales `x.npy`, `y.npy`, `z.npy` sont aussi acceptées.
+
+Indicateurs (`core.tifxyz.tifxyz_metrics`, contrôles `surface.*`) :
+
+| Contrôle | Mesure | Notation |
+|---|---|---|
+| `surface.valid` | points valides | **informatif** : les bords irréguliers d'un segment sain le font baisser |
+| `surface.holes` | points manquants **non reliés au bord** de la grille | warn > 1 %, fail > 5 % |
+| `surface.bounds` | points valides hors du volume | informatif ; warn si l'écart avec la couverture du catalogue dépasse 2 points |
+| `surface.stretch` | pas p95 / pas médian | warn > 2, fail > 4 |
+| `surface.normal_flips` | cellules **voisines** aux normales opposées (replis) | warn > 0,5 %, fail > 2 % |
+
+Les replis sont détectés **localement** : une feuille enroulée a des normales dans toutes les
+directions, ce qui faisait signaler environ la moitié de chaque segment réel par l'ancienne
+comparaison à une normale moyenne. Cela reste une heuristique, pas une preuve de topologie. Les
+seuils sont provisoires, calibrés sur 30 segments réels.
 
 ## Démo Streamlit (gelée)
 
 L'application Streamlit d'origine reste disponible pour une démonstration rapide, sans nouveau
-développement ; elle sera retirée quand napari couvrira ses fonctions (statistiques de coupe : fait ;
-métriques de surface : T5).
+développement ; napari couvre désormais ses fonctions (statistiques de coupe : T4 ; métriques de
+surface : T5) et elle sera retirée prochainement.
 
 ```bash
 python -m pip install -e '.[streamlit]'
@@ -362,7 +403,7 @@ remplacée par une URI devinée.
 - Les seuils QC sont des heuristiques provisoires, validées sur un seul volume réel à ce jour.
 - Aucun jeu de données CT complet n'est inclus. Les captures de validation
   ([T2](docs/validation/T2-donnees-reelles.md), [T4](docs/validation/T4-donnees-reelles.md),
-  [T4.2](docs/validation/T4.2-catalogue.md))
+  [T4.2](docs/validation/T4.2-catalogue.md), [T5](docs/validation/T5-surfaces.md))
   contiennent des extraits CT attribués séparément, sous la licence CC BY-NC 4.0 des données sources.
 - Lire la [licence et les obligations d'attribution des données](https://scrollprize.org/data) avant
   de réutiliser des scans réels : CC BY-NC 4.0 sauf mention contraire, avec des remerciements

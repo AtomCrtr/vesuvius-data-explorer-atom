@@ -17,6 +17,10 @@ dependencies = [
   "s3fs>=2024.6",
   "tifffile>=2024.8",
   "dask[array]>=2024.6",
+  # tifxyz surfaces: Pillow decodes LZW + floating-point predictor without imagecodecs;
+  # scipy labels the holes of a segment.
+  "pillow>=10.0",
+  "scipy>=1.11",
 ]
 
 [project.scripts]

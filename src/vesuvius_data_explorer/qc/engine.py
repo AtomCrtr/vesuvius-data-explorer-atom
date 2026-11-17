@@ -1,22 +1,23 @@
 """Deterministic bounded acquisition followed by pure registered checks."""
 from datetime import datetime, timezone
 from importlib.metadata import version
-from math import isqrt, prod
 from time import perf_counter
 
 import numpy as np
 
-from ..core.surface import load_surface_patch, surface_metrics
+from ..core.tifxyz import DEFAULT_MAX_BYTES, load_tifxyz, tifxyz_metrics
 from ..core.volume import get_array, list_levels, read_slice
 from .checks import run_checks
 from .model import STATUSES, Location
 from .report import validate_report
 from .thresholds import load_thresholds
 
+SCHEMA_VERSION = '1.1'
+
 
 def _report(kind, uri, level, parameters, budget, results, started):
     report = {
-        'schema_version': '1.0',
+        'schema_version': SCHEMA_VERSION,
         'tool': {'name': 'vesuvius-data-explorer', 'version': version('vesuvius-data-explorer')},
         'created_at': datetime.now(timezone.utc).isoformat(),
         'duration_s': perf_counter() - started,
@@ -140,28 +141,42 @@ def run_volume(root, *, uri='', level=None, samples=16, seed=0, max_voxels=16777
     return _report('volume', uri, selected.key, parameters, budget, results, started)
 
 
-def run_surface(folder, *, window=256, max_voxels=16777216, thresholds=None):
+def run_surface(source, *, max_bytes=DEFAULT_MAX_BYTES, thresholds=None, volume_shape=None,
+                overlap_ratio=None, window=None, max_voxels=None, surface=None):
+    """QC of a tifxyz segment read within ``max_bytes`` per grid.
+
+    ``volume_shape`` (z, y, x) enables surface.bounds; ``overlap_ratio`` is the catalogue
+    coverage of that volume. ``window`` and ``max_voxels`` belong to the pre-T5 patch reader:
+    accepted, ignored, and reported. ``surface`` reuses an already loaded segment.
+    """
     started = perf_counter()
-    if not isinstance(window, int) or isinstance(window, bool) or not 8 <= window <= 512:
-        raise ValueError('Fenêtre autorisée : 8 à 512 pixels.')
-    if not isinstance(max_voxels, int) or isinstance(max_voxels, bool) or max_voxels < 0:
-        raise ValueError('Budget invalide.')
-    actual_window = min(window, isqrt(max_voxels // 3))
-    if actual_window < 8:
-        raise ValueError('Budget insuffisant pour trois grilles de 8×8 coordonnées.')
     thresholds = thresholds if thresholds is not None else load_thresholds()
-    coords = load_surface_patch(folder, limit=actual_window)
-    location = Location('surface', 'z', 0, (0, 0), coords[0].shape)
-    metrics = surface_metrics(*coords)
-    results = run_checks('surface', {'metrics': metrics, 'location': location}, thresholds)
-    warnings = ['Localisation surface : fenêtre de grille (ligne, colonne), niveau surface ; '
-                'aucune transformation implicite vers les coordonnées physiques CT.']
-    if actual_window != window:
-        warnings.append(f'Budget : fenêtre réduite de {window} à {actual_window}.')
-    budget = {'voxels_read': sum(prod(coord.shape) for coord in coords), 'chunks_touched': None,
+    if surface is None:
+        surface = load_tifxyz(str(source), max_bytes=max_bytes)
+    metrics = tifxyz_metrics(surface, volume_shape)
+    rows, cols = surface.points.shape[:2]
+    location = Location('surface', 'z', 0, (0, 0), surface.grid_shape)
+    context = {'metrics': metrics, 'location': location, 'overlap_ratio': overlap_ratio}
+    results = run_checks('surface', context, thresholds)
+    warnings = ['Localisation surface : fenêtre de grille (ligne, colonne) du fichier complet ; '
+                'centre éventuel en voxels (z, y, x) du niveau 0 du volume visé.']
+    warnings += list(surface.warnings)
+    if surface.stride > 1:
+        warnings.append('Grille décimée : les trous plus petits que le pas de lecture peuvent '
+                        'échapper à surface.holes.')
+    for name, value in (('window', window), ('max_voxels', max_voxels)):
+        if value is not None:
+            warnings.append(f'Option {name} ignorée pour une surface depuis T5 '
+                            '(budget en octets par grille : max_bytes).')
+    budget = {'voxels_read': 3 * rows * cols, 'chunks_touched': None,
               'store_objects_touched': None,
-              'physical_io_note': 'Trois grilles mappées en mémoire ; compte des coordonnées '
-                                  'matérialisées, pas des pages disque du système.'}
+              'physical_io_note': f'{surface.bytes_read} octets de grilles lus (en-têtes TIFF et '
+                                  'meta.json en sus) ; voxels_read compte les coordonnées '
+                                  'matérialisées.'}
     parameters = _parameters(thresholds, samples=1, samples_actual=1, seed=0,
-                             max_voxels=max_voxels, roi_width=actual_window, warnings=warnings)
-    return _report('surface', folder, 'surface', parameters, budget, results, started)
+                             max_voxels=3 * (max_bytes // 4), roi_width=cols, warnings=warnings,
+                             max_bytes=max_bytes, stride=surface.stride,
+                             grid_shape=list(surface.grid_shape),
+                             volume_shape=None if volume_shape is None else list(volume_shape),
+                             overlap_ratio=overlap_ratio)
+    return _report('surface', source, 'surface', parameters, budget, results, started)
