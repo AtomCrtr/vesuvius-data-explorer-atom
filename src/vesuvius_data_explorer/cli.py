@@ -4,6 +4,7 @@ import json
 import sys
 from pathlib import Path
 
+from .core.tifxyz import DEFAULT_MAX_BYTES
 from .core.volume import open_volume_store
 from .qc import run_surface, run_volume
 from .qc.report import render_html
@@ -25,7 +26,7 @@ def main(argv=None):
     for kind in ('volume', 'surface'):
         command = commands.add_parser(kind)
         command.add_argument('uri')
-        command.add_argument('--max-voxels', type=int, default=16777216)
+        command.add_argument('--max-voxels', type=int, default=None if kind == 'surface' else 16777216)
         command.add_argument('--config')
         command.add_argument('-o', '--output')
         command.add_argument('--html')
@@ -34,7 +35,10 @@ def main(argv=None):
             command.add_argument('--samples', type=int, default=16)
             command.add_argument('--seed', type=int, default=0)
         else:
-            command.add_argument('--window', type=int, default=256)
+            command.add_argument('--max-bytes', type=int, default=DEFAULT_MAX_BYTES,
+                                 help='budget de lecture par grille, en octets')
+            # Pre-T5 options of the patch reader: accepted, ignored, reported as warnings.
+            command.add_argument('--window', type=int, default=None, help=argparse.SUPPRESS)
     try:
         args = parser.parse_args(argv)
         if args.output and args.html and Path(args.output).resolve() == Path(args.html).resolve():
@@ -45,8 +49,8 @@ def main(argv=None):
             report = run_volume(root, uri=args.uri, level=args.level, samples=args.samples,
                                 seed=args.seed, max_voxels=args.max_voxels, thresholds=thresholds)
         else:
-            report = run_surface(args.uri, window=args.window, max_voxels=args.max_voxels,
-                                 thresholds=thresholds)
+            report = run_surface(args.uri, max_bytes=args.max_bytes, window=args.window,
+                                 max_voxels=args.max_voxels, thresholds=thresholds)
         document = json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + '\n'
         if args.output:
             Path(args.output).write_text(document, encoding='utf-8')

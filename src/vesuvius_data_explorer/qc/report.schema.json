@@ -3,7 +3,8 @@
   "properties": {
     "schema_version": {
       "enum": [
-        "1.0"
+        "1.0",
+        "1.1"
       ]
     },
     "tool": {
@@ -91,6 +92,43 @@
               "type": "number"
             }
           }
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "stride": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "grid_shape": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "volume_shape": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "overlap_ratio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
         }
       },
       "required": [
@@ -190,7 +228,7 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:vesuvius-data-explorer:qc-report:1.0",
+  "$id": "urn:vesuvius-data-explorer:qc-report:1.1",
   "$defs": {
     "location": {
       "type": "object",
@@ -226,6 +264,14 @@
           },
           "minItems": 2,
           "maxItems": 2
+        },
+        "center": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [

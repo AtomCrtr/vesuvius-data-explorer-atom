@@ -25,3 +25,13 @@ def test_npy_patch_loading(tmp_path):
         np.save(tmp_path / f'{name}.npy', arr)
     a, b, c = load_surface_patch(tmp_path, limit=16)
     assert a.shape == b.shape == c.shape == (16, 16)
+
+
+def test_winding_sheet_is_not_flipped_but_a_fold_is():
+    # Half a turn of a cylinder: normals cover 180 degrees, as on a real scroll wrap.
+    angle, height = np.meshgrid(np.linspace(0, np.pi, 60), np.arange(20.0))
+    x, y, z = 30 * np.cos(angle), 30 * np.sin(angle), height
+    assert surface_metrics(x, y, z)['normal_flip_pct'] == pytest.approx(0)
+    folded = x.copy()
+    folded[:, 30:] = 2 * folded[:, 29:30] - folded[:, 30:]  # mirror: the sheet doubles back
+    assert surface_metrics(folded, y, z)['normal_flip_pct'] > 0

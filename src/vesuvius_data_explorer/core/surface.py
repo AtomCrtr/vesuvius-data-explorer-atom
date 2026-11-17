@@ -39,8 +39,33 @@ def load_surface_patch(folder: str | Path, limit: int = 256) -> tuple[np.ndarray
     return tuple(coords)
 
 
+def local_flip_pct(points: np.ndarray, valid: np.ndarray) -> float:
+    """Percentage of adjacent grid cells whose normals point in opposite directions.
+
+    A papyrus sheet winds around the scroll, so its normals legitimately cover every direction:
+    comparing them with one global reference (the pre-T5 heuristic) flags about half of a healthy
+    segment. A fold or a flipped patch shows instead as neighbouring cells with opposite normals.
+    Heuristic, not a topology proof.
+    """
+    horizontal = points[:-1, 1:] - points[:-1, :-1]
+    vertical = points[1:, :-1] - points[:-1, :-1]
+    cells_ok = valid[:-1, :-1] & valid[1:, :-1] & valid[:-1, 1:]
+    normals = np.cross(horizontal, vertical)
+    norms = np.linalg.norm(normals, axis=-1)
+    good = cells_ok & (norms > 1e-9)
+    unit = np.zeros_like(normals)
+    unit[good] = normals[good] / norms[good, None]
+    pairs = flips = 0
+    for a, b, ok in ((unit[:, :-1], unit[:, 1:], good[:, :-1] & good[:, 1:]),
+                     (unit[:-1], unit[1:], good[:-1] & good[1:])):
+        dots = np.einsum("...k,...k->...", a, b)[ok]
+        pairs += dots.size
+        flips += int(np.count_nonzero(dots < 0))
+    return float(100 * flips / pairs) if pairs else float("nan")
+
+
 def surface_metrics(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> dict[str, float]:
-    """Patch diagnostics; normal flips are a heuristic, not a full topology proof."""
+    """Patch diagnostics; normal flips are a local heuristic, not a full topology proof."""
     if x.shape != y.shape or x.shape != z.shape or x.ndim != 2:
         raise ValueError("Trois grilles de coordonnées 2D identiques requises.")
     if min(x.shape) < 2:
@@ -55,20 +80,7 @@ def surface_metrics(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> dict[str, fl
     v_lengths = np.linalg.norm(v[v_ok], axis=-1)
     steps = np.concatenate([h_lengths, v_lengths])
 
-    horizontal = points[:-1, 1:] - points[:-1, :-1]
-    vertical = points[1:, :-1] - points[:-1, :-1]
-    cells_ok = valid[:-1, :-1] & valid[1:, :-1] & valid[:-1, 1:]
-    normals = np.cross(horizontal[cells_ok], vertical[cells_ok])
-    norms = np.linalg.norm(normals, axis=-1)
-    good = norms > 1e-9
-    flip_pct = float("nan")
-    if good.any():
-        unit = normals[good] / norms[good, None]
-        reference = np.median(unit, axis=0)
-        reference_norm = np.linalg.norm(reference)
-        if reference_norm > 1e-9:
-            flip_pct = float(100 * (np.sum(unit @ reference < 0) / len(unit)))
-
+    flip_pct = local_flip_pct(points, valid)
     return {
         "valid_pct": float(100 * np.mean(valid)),
         "median_step": float(np.median(steps)) if steps.size else float("nan"),

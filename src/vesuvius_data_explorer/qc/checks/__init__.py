@@ -183,8 +183,20 @@ def low_contrast(context, thresholds):
 
 @register('surface', 'surface.valid')
 def surface_valid(context, thresholds):
-    return _graded('surface.valid', context['metrics']['valid_pct'], [context['location']],
-                   thresholds, 'Pourcentage de points valides dans la fenêtre.', lower=True)
+    # Informational since T5: the irregular outline of a healthy segment lowers this ratio.
+    value = context['metrics']['valid_pct']
+    return CheckResult('surface.valid', 'pass', float(value) if isfinite(value) else None, {},
+                       'Pourcentage de points valides (informatif : les bords irréguliers du '
+                       'segment le font baisser sans défaut ; voir surface.holes).')
+
+
+@register('surface', 'surface.holes')
+def surface_holes(context, thresholds):
+    locations = [Location('surface', 'z', 0, hole['origin'], hole['size'], hole['center'])
+                 for hole in context['metrics']['holes']]
+    return _graded('surface.holes', context['metrics']['hole_pct'], locations, thresholds,
+                   'Pourcentage de points manquants à l\'intérieur du segment (trous non reliés '
+                   'au bord de la grille).')
 
 
 @register('surface', 'surface.stretch')
@@ -198,4 +210,26 @@ def surface_stretch(context, thresholds):
 @register('surface', 'surface.normal_flips')
 def surface_normal_flips(context, thresholds):
     return _graded('surface.normal_flips', context['metrics']['normal_flip_pct'],
-                   [context['location']], thresholds, 'Pourcentage de normales inversées (heuristique).')
+                   [context['location']], thresholds,
+                   'Pourcentage de cellules voisines aux normales opposées (replis ; heuristique).')
+
+
+@register('surface', 'surface.bounds')
+def surface_bounds(context, thresholds):
+    key = 'surface.bounds'
+    threshold = thresholds[key]
+    outside = context['metrics']['out_of_bounds_pct']
+    if outside is None:
+        return CheckResult(key, 'skipped', None, threshold,
+                           'Forme du volume inconnue : points hors volume non évalués.')
+    message = f'{outside:.4g} % des points valides hors du volume'
+    overlap = context.get('overlap_ratio')
+    if overlap is None:
+        return CheckResult(key, 'pass', float(outside), threshold,
+                           message + ' (informatif : couverture du catalogue inconnue).')
+    gap = abs((100 - outside) - 100 * overlap)
+    status = 'warn' if gap > threshold['tolerance_points'] else 'pass'
+    message += (f' ; couverture annoncée par le catalogue {100 * overlap:.4g} %, écart '
+                f'{gap:.2g} point(s)')
+    message += ' : catalogue incohérent avec les données.' if status == 'warn' else '.'
+    return CheckResult(key, status, float(outside), threshold, message)

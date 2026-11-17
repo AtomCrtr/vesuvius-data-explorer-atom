@@ -15,6 +15,8 @@ class Location:
     index: int
     origin: tuple[int, int]
     size: tuple[int, int]
+    # Optional point in level-0 voxels (z, y, x) of a volume, e.g. a surface hole centre.
+    center: tuple[float, float, float] | None = None
 
     def __post_init__(self):
         if self.axis not in ('z', 'y', 'x') or self.index < 0:
@@ -25,10 +27,17 @@ class Location:
             raise ValueError('Fenêtre invalide.')
         object.__setattr__(self, 'origin', tuple(self.origin))
         object.__setattr__(self, 'size', tuple(self.size))
+        if self.center is not None:
+            if len(self.center) != 3 or not all(isfinite(c) for c in self.center):
+                raise ValueError('Centre ZYX invalide.')
+            object.__setattr__(self, 'center', tuple(float(c) for c in self.center))
 
     def to_dict(self):
-        return {'level': self.level, 'axis': self.axis, 'index': self.index,
+        data = {'level': self.level, 'axis': self.axis, 'index': self.index,
                 'origin': list(self.origin), 'size': list(self.size)}
+        if self.center is not None:
+            data['center'] = list(self.center)
+        return data
 
 
 @dataclass(frozen=True)

@@ -61,10 +61,42 @@ class CatalogVolume:
 
 
 @dataclass(frozen=True)
+class CatalogSegment:
+    """A VC3D segment already transformed into the voxel frame of one catalogued volume."""
+
+    sample_id: str
+    segment_id: str
+    name: str
+    target_volume_id: str
+    uri: str
+    overlap_ratio: float | None  # Share of the segment inside that volume (catalogue).
+    transform_revision: int | None
+    superseded: bool
+
+    @property
+    def label(self) -> str:
+        label = self.segment_id
+        if self.name and self.name != self.segment_id:
+            label += f" ({self.name.removeprefix(self.segment_id).strip('-') or self.name})"
+        if self.overlap_ratio is not None:
+            label += f" — couverture {100 * self.overlap_ratio:.0f} %"
+        if self.superseded:
+            label += " (remplacé)"
+        return label
+
+
+@dataclass(frozen=True)
 class Catalog:
     volumes: tuple[CatalogVolume, ...]
     source: str
     stale: bool = False  # True when the network failed and an older cached copy was used
+    segments: tuple[CatalogSegment, ...] = ()
+
+    def segments_for(self, volume_id: str, include_superseded: bool = False) -> list[CatalogSegment]:
+        """Segments in the frame of ``volume_id``. Superseded copies come from an earlier, worse
+        registration of the volumes: hidden unless asked for."""
+        return [segment for segment in self.segments if segment.target_volume_id == volume_id
+                and (include_superseded or not segment.superseded)]
 
     def samples(self) -> list[str]:
         return sorted({volume.sample_id for volume in self.volumes})
@@ -158,7 +190,55 @@ def parse_catalog(data: Any, source: str = CATALOG_URI, stale: bool = False) -> 
                     )
                 )
     volumes.sort(key=lambda v: (v.sample_id, v.volume_id, v.codec != "standard", v.name))
-    return Catalog(tuple(volumes), source=source, stale=stale)
+    return Catalog(tuple(volumes), source=source, stale=stale, segments=_segments(data))
+
+
+def _segments(data: dict) -> tuple[CatalogSegment, ...]:
+    """Only ``tifxyz-transformed`` copies: their points are in the target volume's level-0
+    voxels. Original ``tifxyz`` may use a downsampled frame (``original_volume_downscale``)."""
+    segments = []
+    for sample_id, sample in data["samples"].items():
+        if not isinstance(sample, dict) or not isinstance(sample.get("segments"), dict):
+            continue
+        for segment_id, segment in sample["segments"].items():
+            if not isinstance(segment, dict):
+                continue
+            coverage = (segment.get("properties") or {}).get("volume_coverage") or {}
+            for entry in segment.get("data") or []:
+                if not isinstance(entry, dict) or entry.get("type") != "tifxyz-transformed":
+                    continue
+                parameters = entry.get("parameters") or {}
+                target = parameters.get("target_volume")
+                if not isinstance(target, str):
+                    continue
+                uris = [_uri(origin.get("path", ""), origin.get("access_roots"))
+                        for origin in entry.get("origins") or []
+                        if isinstance(origin, dict) and isinstance(origin.get("path"), str)]
+                uris = sorted((uri for uri in uris if uri), key=lambda u: not u.startswith("s3://"))
+                if not uris:
+                    continue
+                target_coverage = coverage.get(target) if isinstance(coverage, dict) else None
+                overlap = _number((target_coverage or {}).get("overlap_ratio")
+                                  if isinstance(target_coverage, dict) else None)
+                revision = parameters.get("transform_revision")  # int or digit string
+                if isinstance(revision, str) and revision.isdigit():
+                    revision = int(revision)
+                properties = entry.get("properties") or {}
+                segments.append(
+                    CatalogSegment(
+                        sample_id=str(sample_id),
+                        segment_id=str(segment_id),
+                        name=str(segment.get("long_id") or segment_id),
+                        target_volume_id=target,
+                        uri=uris[0],
+                        overlap_ratio=overlap,
+                        transform_revision=revision if isinstance(revision, int) else None,
+                        superseded=bool(isinstance(properties, dict)
+                                        and properties.get("superseded_by")),
+                    )
+                )
+    segments.sort(key=lambda s: (s.target_volume_id, s.segment_id, s.superseded, s.uri))
+    return tuple(segments)
 
 
 def default_cache_dir() -> Path:

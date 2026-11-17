@@ -17,8 +17,10 @@ fusion après validation.
 - **Interface :** napari, application de bureau ([ADR 0001](adr/0001-napari-interface-principale.md)).
 - **Fond masqué :** la valeur 0 des volumes `*-masked.zarr` est du fond, exclue des contrôles
   d'intensité (réglable par TOML). Validé sur PHerc0332 ([T3](validation/T3-donnees-reelles.md)).
-- **Seuils QC :** provisoires, à réviser sur davantage de volumes réels. `surface.valid` signale à
-  tort les segments VC3D sains (bords irréguliers, I1) : à revoir en T5.
+- **Seuils QC :** provisoires, à réviser sur davantage de volumes réels. `surface.valid` est
+  informatif depuis T5 ; `surface.holes` note les trous intérieurs.
+- **Surfaces (T5) :** seules les copies `tifxyz-transformed` sont superposées ; budget de 64 Mio par
+  grille, lecture décimée au-delà ; Pillow et scipy dans le cœur.
 - **Accès aux données :** HTTPS accepté pour le seul domaine officiel `data.aws.ash2txt.org` ;
   codec `vc-delta3d` pris en charge en option (extra `[vcdelta3d]`, Python 3.12 ou plus).
 - **Positionnement :** pas de concurrence avec `vesuvius-gui` sur la vitesse de navigation ; la valeur
@@ -36,9 +38,9 @@ fusion après validation.
 | I1 | [Investigation : formats réels, catalogue officiel, surfaces VC3D](investigations/I1-ecosysteme-donnees.md) | Terminée |
 | T4.1 | [Accès aux données : HTTPS officiel (Scroll 1), codec `vc-delta3d` optionnel](tasks/T4.1-acces-donnees.md) | Fusionnée (PR #11) |
 | T4.2 | [Sélecteur de volume par le catalogue officiel, taille de voxel en µm](tasks/T4.2-catalogue-volumes.md) | Fusionnée (PR #12) |
-| T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | Spécifiée, à valider par le PO |
+| T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | En revue |
 | T5.1 | Alignement surface–volume quantitatif (profil d'intensité le long des normales), exploratoire | À spécifier après T5 |
 | T6 | Performance S3, périmètre réduit : cache local, préchargement, contraste hors fond | À spécifier |
 
-L'app Streamlit (`app.py`) est gelée et sera retirée lorsque T4 et T5 couvriront ses fonctions
-(statistiques de coupe : T4 ; métriques de surface : T5).
+L'app Streamlit (`app.py`) est gelée ; T4 et T5 couvrent ses fonctions (statistiques de coupe,
+métriques de surface) : son retrait est la prochaine petite tâche.

@@ -1,6 +1,7 @@
 """Provisional heuristics; all numeric QC decision thresholds live here."""
 import math
 import tomllib
+import warnings
 from types import MappingProxyType
 
 _DEFAULTS = {
@@ -15,10 +16,17 @@ _DEFAULTS = {
     'volume.saturation': {'warn': 1.0, 'fail': 5.0},
     'volume.empty': {'warn': 10.0, 'fail': 50.0},
     'volume.low_contrast': {'warn': 25.0, 'fail': 75.0, 'range_fraction': 0.01},
-    'surface.valid': {'warn': 95.0, 'fail': 80.0},
+    # Interior holes only: invalid points on the irregular outline of a segment are normal.
+    'surface.holes': {'warn': 1.0, 'fail': 5.0},
     'surface.stretch': {'warn': 2.0, 'fail': 4.0},
-    'surface.normal_flips': {'warn': 1.0, 'fail': 5.0},
+    # Share of adjacent cells with opposite normals (local, since T5). On 30 real segments:
+    # 0 to 0.33 %; one fold across a 64 x 64 grid: 0.8 %.
+    'surface.normal_flips': {'warn': 0.5, 'fail': 2.0},
+    # Valid points inside the volume vs the catalogue coverage ratio, in percentage points.
+    'surface.bounds': {'tolerance_points': 2.0},
 }
+# surface.valid is informational since T5 (irregular outlines lower it on healthy segments).
+_IGNORED = {'surface.valid'}
 
 
 def load_thresholds(path=None):
@@ -27,6 +35,10 @@ def load_thresholds(path=None):
         with open(path, 'rb') as stream:
             overrides = tomllib.load(stream)
         for check_id, thresholds in overrides.items():
+            if check_id in _IGNORED:
+                warnings.warn(f'Seuils {check_id} ignorés : ce contrôle est informatif depuis T5 '
+                              '(voir surface.holes).', UserWarning, stacklevel=2)
+                continue
             if check_id not in values or not isinstance(thresholds, dict):
                 raise ValueError(f'Contrôle inconnu : {check_id}')
             for name, value in thresholds.items():
@@ -45,13 +57,14 @@ def load_thresholds(path=None):
                 values[check_id][name] = float(value)
     for check_id, threshold in values.items():
         if 'warn' in threshold:
-            lower = check_id == 'surface.valid'
-            if (threshold['warn'] < threshold['fail']) == lower and threshold['warn'] != threshold['fail']:
+            if threshold['warn'] > threshold['fail']:
                 raise ValueError(f'Ordre des seuils invalide : {check_id}')
             if check_id != 'surface.stretch' and max(threshold['warn'], threshold['fail']) > 100:
                 raise ValueError('Un pourcentage ne peut dépasser 100.')
         if 'min_bytes' in threshold and not 0 < threshold['min_bytes'] <= threshold['max_bytes']:
             raise ValueError('Bornes de chunk invalides.')
+        if threshold.get('tolerance_points', 0) > 100:
+            raise ValueError('Une tolérance en points de pourcentage ne peut dépasser 100.')
         for name in ('relative_tolerance', 'range_fraction'):
             if name in threshold and threshold[name] > 1:
                 raise ValueError('Une fraction doit rester entre 0 et 1.')

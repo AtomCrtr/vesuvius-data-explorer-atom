@@ -265,7 +265,8 @@ class QCWidget(QWidget):
     def _show_report(self, report):
         layer = self._target
         if report["target"]["kind"] != "volume":
-            self._show_error("Rapport de surface : son affichage sur le volume est prévu en T5.")
+            self._show_error("Rapport de surface : utiliser « Vesuvius — Surfaces » pour superposer "
+                             "le segment et calculer ses indicateurs.")
             return
         notes = []
         if str(report["target"]["uri"]).rstrip("/") != str(layer.metadata["source"]).rstrip("/"):

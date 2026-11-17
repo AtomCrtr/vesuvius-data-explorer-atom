@@ -2,7 +2,12 @@
 
 - **Origine :** [investigation I1](../investigations/I1-ecosysteme-donnees.md), recommandation 3, et
   mesures complémentaires sur le catalogue du 16 novembre 2026 (section « Faits » ci-dessous).
-- **Statut :** spécification à valider par le PO.
+- **Statut :** validée par le PO le 17 novembre 2026 ; implémentée par l'orchestrateur.
+- **Écarts constatés à l'implémentation** (détails dans la
+  [validation](../validation/T5-surfaces.md)) : la trace sur la coupe est calculée par le plugin
+  (`out_of_slice_display` ne fonctionne plus dans napari 0.10) ; `surface.normal_flips` compare les
+  cellules voisines, car la mesure existante signalait la moitié de chaque segment réel ; seuils
+  recalibrés (warn 0,5 %, fail 2 %).
 - **Découpage :** **T5** = lecture, association au volume, superposition dans napari, indicateurs
   révisés. **T5.1** (plus tard) = indicateur quantitatif d'alignement surface–volume (profil
   d'intensité le long des normales), exploratoire.
