@@ -195,3 +195,156 @@ def test_registered_reader_does_not_change_async_preference(
     layers = viewer.open(str(napari_pyramid), plugin="vesuvius-data-explorer")
     qtbot.waitUntil(lambda: layers[0].loaded, timeout=20000)
     assert get_settings().experimental.async_ is False
+
+
+def _catalog_for(path, **overrides):
+    from vesuvius_data_explorer.core.catalog import Catalog, CatalogVolume
+
+    fields = dict(
+        sample_id="PHerc0332",
+        sample_type="scroll",
+        volume_id="20251211183505",
+        name="scan.zarr",
+        uri=str(path),
+        codec="standard",
+        pixel_size_um=2.399,
+        energy_kev=78.0,
+        shape=(16, 32, 48),
+        dtype="uint16",
+        license="CC BY-NC 4.0",
+        superseded_by=None,
+        superseded_reason=None,
+    )
+    fields.update(overrides)
+    other = CatalogVolume(**{**fields, "sample_id": "PHercParis4", "volume_id": "1", "uri": "s3://b/c.zarr",
+                             "codec": "vc-delta3d", "superseded_by": "2"})
+    return Catalog((CatalogVolume(**fields), other), source="test")
+
+
+def _load_catalog(widget, qtbot):
+    qtbot.mouseClick(widget.catalog_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.catalog_button.isEnabled(), timeout=20000)
+
+
+def test_catalogue_picker_fills_path_and_open_reports_voxel_size(
+    async_loading, napari_pyramid, make_napari_viewer, qtbot, monkeypatch
+):
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    threads = []
+
+    def fake_load(refresh=False):
+        threads.append((threading.get_ident(), refresh))
+        return _catalog_for(napari_pyramid)
+
+    monkeypatch.setattr(widget_module, "load_catalog", fake_load)
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    assert not widget.sample_combo.isEnabled()
+    _load_catalog(widget, qtbot)
+    assert threads[0][0] != threading.get_ident()
+    assert threads[0][1] is False
+    assert [widget.sample_combo.itemText(i) for i in range(2)] == ["PHerc0332", "PHercParis4"]
+    assert widget.volume_combo.currentText() == "20251211183505 — 2,399 µm — 78 keV"
+    assert widget.path_input.text() == str(napari_pyramid)
+    assert "Taille de voxel : 2,399 µm" in widget.volume_info.text()
+    assert "CC BY-NC 4.0" in widget.volume_info.text()
+
+    qtbot.mouseClick(widget.open_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.open_button.isEnabled(), timeout=20000)
+    layer = viewer.layers[0]
+    assert layer.metadata["pixel_size_um"] == 2.399
+    assert layer.metadata["catalog"]["volume_id"] == "20251211183505"
+    # World coordinates stay in level-0 voxels (catalogue and VC3D convention).
+    assert tuple(layer.scale) == (0.5, 1, 2)
+    status = widget.status_label.text()
+    assert "taille de voxel 2,399 µm (catalogue officiel)" in status
+    assert "Attention" not in status
+
+    widget.sample_combo.setCurrentIndex(1)
+    assert widget.path_input.text() == "s3://b/c.zarr"
+    info = widget.volume_info.text()
+    assert "[vcdelta3d]" in info and "Python 3.12" in info and "Remplacé par le volume 2" in info
+
+    # A second click refreshes the catalogue instead of reading the cache.
+    assert widget.catalog_button.text() == "Actualiser le catalogue"
+    _load_catalog(widget, qtbot)
+    assert threads[1][1] is True
+    qtbot.waitUntil(lambda: layer.loaded, timeout=20000)
+
+
+def test_open_warns_when_level0_shape_differs_from_catalogue(
+    async_loading, napari_pyramid, make_napari_viewer, qtbot, monkeypatch
+):
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    monkeypatch.setattr(
+        widget_module, "load_catalog",
+        lambda refresh=False: _catalog_for(napari_pyramid, shape=(17, 32, 48)),
+    )
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    _load_catalog(widget, qtbot)
+    qtbot.mouseClick(widget.open_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.open_button.isEnabled(), timeout=20000)
+    assert "Attention : forme du niveau 0 (16, 32, 48) différente" in widget.status_label.text()
+    qtbot.waitUntil(lambda: viewer.layers[0].loaded, timeout=20000)
+
+
+def test_path_typed_by_hand_opens_without_catalogue_metadata(
+    async_loading, napari_pyramid, make_napari_viewer, qtbot
+):
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    widget.path_input.setText(str(napari_pyramid))
+    qtbot.mouseClick(widget.open_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.open_button.isEnabled(), timeout=20000)
+    assert "pixel_size_um" not in viewer.layers[0].metadata
+    assert widget.status_label.text() == "Volume ouvert."
+    qtbot.waitUntil(lambda: viewer.layers[0].loaded, timeout=20000)
+
+
+@pytest.mark.parametrize(
+    "error, expected",
+    [
+        (ConnectionError("Catalogue officiel inaccessible : vérifier le réseau."), "vérifier le réseau"),
+        (RuntimeError("botocore internals"), "Catalogue officiel inaccessible ou illisible."),
+    ],
+)
+def test_catalogue_errors_are_french_and_keep_manual_path(
+    error, expected, make_napari_viewer, qtbot, monkeypatch
+):
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    def failing(refresh=False):
+        raise error
+
+    monkeypatch.setattr(widget_module, "load_catalog", failing)
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    widget.path_input.setText("s3://bucket/scan.zarr")
+    _load_catalog(widget, qtbot)
+    assert expected in widget.volume_info.text()
+    assert "botocore" not in widget.volume_info.text()
+    assert not widget.sample_combo.isEnabled()
+    assert widget.path_input.text() == "s3://bucket/scan.zarr"
+
+
+def test_stale_catalogue_is_announced(napari_pyramid, make_napari_viewer, qtbot, monkeypatch):
+    from dataclasses import replace
+
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    monkeypatch.setattr(
+        widget_module, "load_catalog",
+        lambda refresh=False: replace(_catalog_for(napari_pyramid), stale=True),
+    )
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    _load_catalog(widget, qtbot)
+    assert widget.volume_info.text().startswith("Réseau indisponible")

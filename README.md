@@ -16,6 +16,8 @@ de commande, sans téléchargement massif.**
 - 🧊 **Ouvrir un volume OME-Zarr** local, S3 public ou HTTPS officiel (OME-NGFF 0.4 et 0.5, Zarr v2
   et v3, codec `vc-delta3d` en option), en multi-échelles paresseux : rien n'est lu tant que rien
   n'est affiché.
+- 🗂️ **Choisir un volume dans le catalogue officiel** (« Vesuvius Atlas ») : échantillon, volume,
+  **taille de voxel en µm**, licence ; sans copier d'URI.
 - 🔬 **Explorer dans napari** : navigation 2D multi-résolution, rendu 3D du niveau grossier,
   chargement en arrière-plan.
 - ✅ **Contrôle qualité reproductible** : cohérence des niveaux, valeurs non finies, saturation,
@@ -52,8 +54,15 @@ matplotlib, napari ni Qt.
 napari -w vesuvius-data-explorer
 ```
 
-Dans le widget **Vesuvius — Ouvrir un volume**, saisir le chemin d'un dossier local
-`/chemin/volume.zarr`, une URI S3 publique ou une URL HTTPS officielle, puis cliquer sur **Ouvrir**. Un dossier `.zarr` local
+Dans le widget **Vesuvius — Ouvrir un volume**, deux façons de désigner un volume :
+
+- **Catalogue officiel** : cliquer sur **Charger le catalogue officiel**, choisir l'échantillon puis
+  le volume ; la fiche affiche la taille de voxel, la forme, le dtype et la licence, et le chemin est
+  rempli ;
+- **à la main** : saisir le chemin d'un dossier local `/chemin/volume.zarr`, une URI S3 publique ou
+  une URL HTTPS officielle.
+
+Puis cliquer sur **Ouvrir**. Un dossier `.zarr` local
 peut aussi être glissé dans napari ; ce lecteur npe2 est synchrone, donc les métadonnées et la petite
 coupe de contraste peuvent retarder un glisser-déposer : préférer le widget, qui travaille en
 arrière-plan. Les URI S3 et HTTPS passent uniquement par le widget.
@@ -81,6 +90,17 @@ multi-échelles, l'échelle du niveau le plus fin en **(z, y, x)**, l'URI source
 contraste initial est explicite : percentiles 1 et 99 d'une seule coupe centrale du niveau le plus
 grossier, bornée à 512 × 512 (valeurs non finies ignorées ; bornes du dtype pour une coupe vide ou
 constante). Il reste ajustable dans napari.
+
+**Catalogue.** Le fichier officiel `s3://vesuvius-challenge-open-data/metadata.json` (environ 9 Mo)
+est téléchargé en arrière-plan puis gardé 24 h dans `~/.cache/vesuvius-data-explorer/` (ou
+`$XDG_CACHE_HOME`) ; **Actualiser le catalogue** le télécharge à nouveau. Sans réseau, une copie
+plus ancienne est utilisée et signalée. Seules les copies accessibles publiquement sont proposées
+(S3, ou HTTPS sur `data.aws.ash2txt.org`) ; les copies `vc-delta3d` sont marquées comme telles.
+Pour un volume du catalogue, le calque reçoit `pixel_size_um` et la fiche `catalog` dans ses
+métadonnées, et le widget **avertit si la forme réelle du niveau 0 diffère de celle du catalogue**
+(c'est le cas de Scroll 1, voir la [validation T4.2](docs/validation/T4.2-catalogue.md)). Les
+coordonnées de napari restent en **voxels du niveau 0**, convention du catalogue et des surfaces
+VC3D.
 
 **Chargement asynchrone.** Sans la préférence napari **Render Layers Asynchronously**
 (`experimental.async_`), les lectures de la vue (y compris S3) s'exécutent sur le thread graphique et
@@ -266,14 +286,25 @@ Commencer par **Démonstration synthétique** pour voir l'application sans donn�
 
 ## Trouver un volume réel
 
-1. Consulter le [navigateur de données officiel](https://scrollprize.org/data_browser) ou la
+1. Dans napari, utiliser le **sélecteur de catalogue** du widget d'ouverture ; sinon, consulter le
+   [navigateur de données officiel](https://scrollprize.org/data_browser) ou la
    [documentation du bucket S3](https://github.com/ScrollPrize/open-data).
 2. Choisir un **échantillon réel** et copier le chemin S3 complet d'un volume `.zarr` existant : le
    projet ne code volontairement **aucune** URL d'échantillon supposée.
 3. Commencer par le niveau le plus **grossier**, puis affiner.
 
 Le catalogue officiel `s3://vesuvius-challenge-open-data/metadata.json` recense échantillons,
-volumes et segments ; voir l'[investigation I1](docs/investigations/I1-ecosysteme-donnees.md)
+volumes et segments. En Python :
+
+```python
+from vesuvius_data_explorer.core.catalog import load_catalog
+
+catalog = load_catalog()  # cache local de 24 h
+for volume in catalog.volumes_of("PHerc0332"):
+    print(volume.label, volume.uri)
+```
+
+Voir l'[investigation I1](docs/investigations/I1-ecosysteme-donnees.md)
 pour son contenu et l'état de lecture des 74 volumes publiés.
 
 L'accès S3 public est anonyme (`anon=True`). Une petite ROI peut nécessiter le téléchargement de
@@ -330,7 +361,8 @@ remplacée par une URI devinée.
   grands.
 - Les seuils QC sont des heuristiques provisoires, validées sur un seul volume réel à ce jour.
 - Aucun jeu de données CT complet n'est inclus. Les captures de validation
-  ([T2](docs/validation/T2-donnees-reelles.md), [T4](docs/validation/T4-donnees-reelles.md))
+  ([T2](docs/validation/T2-donnees-reelles.md), [T4](docs/validation/T4-donnees-reelles.md),
+  [T4.2](docs/validation/T4.2-catalogue.md))
   contiennent des extraits CT attribués séparément, sous la licence CC BY-NC 4.0 des données sources.
 - Lire la [licence et les obligations d'attribution des données](https://scrollprize.org/data) avant
   de réutiliser des scans réels : CC BY-NC 4.0 sauf mention contraire, avec des remerciements
