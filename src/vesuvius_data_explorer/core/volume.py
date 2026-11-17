@@ -91,6 +91,8 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
         if not isinstance(axes, list):
             raise ValueError("Les axes doivent être une liste.")
         names = [axis.get("name") if isinstance(axis, dict) else axis for axis in axes]
+        if len(names) != 3 or not all(isinstance(name, str) and name for name in names):
+            raise ValueError("Les axes doivent nommer trois dimensions.")
         if names != ["z", "y", "x"]:
             raise _AxisOrderError("Ordre des axes non pris en charge : attendu (z, y, x).")
     datasets = pyramid.get("datasets")
@@ -98,6 +100,7 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
         raise ValueError("datasets doit contenir des niveaux.")
     levels = []
     seen = set()
+    pyramid_scale = _dataset_scale(pyramid)
     for dataset in datasets:
         if not isinstance(dataset, dict):
             raise ValueError("Description de niveau invalide.")
@@ -108,6 +111,7 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
         if not _is_3d_array(node):
             raise ValueError("Le tableau doit être 3D (z, y, x).")
         scale = _dataset_scale(dataset)
+        scale = tuple(a * b for a, b in zip(scale, pyramid_scale))
         if key not in seen:
             levels.append(_level(node, key, scale))
             seen.add(key)

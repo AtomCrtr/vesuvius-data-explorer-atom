@@ -56,8 +56,10 @@ do not read voxel chunks. `read_slice` computes only the requested 2D window, at
 Calling `.compute()` on an entire Dask level explicitly materializes that entire level;
 slice it first. Storage chunks intersecting a small ROI can still be larger than the ROI.
 
-Shapes, chunks and scales use **(z, y, x)**. `scale` comes from each OME-NGFF dataset's
-`coordinateTransformations`; its units remain those of the source metadata. Explicitly
+Shapes, chunks and scales use **(z, y, x)**. The supported OME-NGFF metadata layout is the
+root `multiscales` attribute (as in NGFF 0.4); the NGFF 0.5 `ome.multiscales` namespace is
+not implemented in T1. `scale` combines each dataset's `coordinateTransformations` with
+any pyramid-level scale; its units remain those of the source metadata. Explicitly
 different axis orders are rejected. If axes are absent, the legacy ZYX convention is assumed.
 Missing multiscale metadata falls back to group arrays (including numeric `0`, `1`, `2`),
 with scale `(1.0, 1.0, 1.0)`; malformed metadata also emits a French warning. A unit fallback

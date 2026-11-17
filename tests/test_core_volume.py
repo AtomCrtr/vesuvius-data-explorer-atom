@@ -21,7 +21,8 @@ def pyramid(tmp_path, request):
         ("coarse", (2, 3, 4), (1, 1, 2)),
     ]:
         data = np.arange(np.prod(shape), dtype=np.uint16).reshape(shape) + 1
-        root.create_array(key, data=data, chunks=chunks)
+        array = root.create_array(key, shape=shape, dtype=data.dtype, chunks=chunks)
+        array[:] = data
     root.attrs["multiscales"] = [
         {
             "version": "0.4",
@@ -95,6 +96,38 @@ def test_numeric_fallback(tmp_path):
     levels = volume.list_levels(root)
     assert [level.key for level in levels] == ["0", "1", "2"]
     assert all(level.scale == (1.0, 1.0, 1.0) for level in levels)
+
+
+def test_pyramid_scale_composes_with_dataset_scale(pyramid):
+    _, root = pyramid
+    metadata = root.attrs["multiscales"]
+    metadata[0]["coordinateTransformations"] = [{"type": "scale", "scale": [5, 10, 20]}]
+    root.attrs["multiscales"] = metadata
+    levels = volume.list_levels(root)
+    assert [level.scale for level in levels] == [(2.5, 10, 40), (5, 20, 80), (10, 40, 160)]
+
+
+@pytest.mark.parametrize("transformations", [None, [{"type": "scale", "scale": [1, 2]}]])
+def test_malformed_pyramid_scale_falls_back(pyramid, transformations):
+    _, root = pyramid
+    metadata = root.attrs["multiscales"]
+    metadata[0]["coordinateTransformations"] = transformations
+    root.attrs["multiscales"] = metadata
+    with pytest.warns(UserWarning, match="multiscales.*mal formées.*repli"):
+        levels = volume.list_levels(root)
+    assert [level.key for level in levels] == ["fine", "medium", "coarse"]
+    assert all(level.scale == (1.0, 1.0, 1.0) for level in levels)
+
+
+@pytest.mark.parametrize("axes", [None, [{}, {}, {}], ["z", "y"]])
+def test_malformed_axes_fall_back(pyramid, axes):
+    _, root = pyramid
+    metadata = root.attrs["multiscales"]
+    metadata[0]["axes"] = axes
+    root.attrs["multiscales"] = metadata
+    with pytest.warns(UserWarning, match="multiscales.*mal formées.*repli"):
+        levels = volume.list_levels(root)
+    assert levels[0].scale == (1.0, 1.0, 1.0)
 
 
 @pytest.mark.parametrize(
