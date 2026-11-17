@@ -9,6 +9,7 @@ import pytest
 pytest.importorskip("napari")
 pytest.importorskip("qtpy")
 import tifffile  # noqa: E402
+import zarr  # noqa: E402
 from qtpy.QtCore import Qt  # noqa: E402
 
 from vesuvius_data_explorer.core.catalog import Catalog, CatalogSegment  # noqa: E402
@@ -213,3 +214,77 @@ def test_overlay_keeps_the_chosen_segment(viewer_with_volume, tmp_path, qtbot, m
     qtbot.waitUntil(lambda: widget.overlay_button.isEnabled(), timeout=20000)
     assert "Surface — b" in [lyr.name for lyr in viewer.layers]
     assert widget.segment_combo.currentIndex() == 1 and widget.path_input.text() == str(second)
+
+
+def test_alignment_is_measured_off_the_gui_thread_and_plotted(
+    make_napari_viewer, tmp_path, qtbot, monkeypatch
+):
+    """Synthetic sheets every 24 voxels; the segment lies on the sheet at z = 48."""
+    from vesuvius_data_explorer.napari.reader import read_volume as read
+
+    z = np.arange(96)[:, None, None]
+    volume = (50 + 100 * np.exp(-(((z + 12) % 24 - 12) ** 2) / 8.0)
+              + np.zeros((96, 64, 64))).astype(np.float32)
+    path = tmp_path / "sheets.zarr"
+    root = zarr.open_group(str(path), mode="w", zarr_format=2)
+    root.create_array("0", shape=volume.shape, dtype="float32", chunks=(32, 32, 32))
+    root["0"][:] = volume
+    root.attrs["multiscales"] = [{"axes": ["z", "y", "x"], "datasets": [
+        {"path": "0", "coordinateTransformations": [{"type": "scale", "scale": [1, 1, 1]}]}]}]
+    viewer = make_napari_viewer()
+    [(arrays, options, _)] = read(str(path))
+    options["metadata"]["pixel_size_um"] = 8.0
+    layer = viewer.add_image(arrays, **options)
+    widget = SurfaceWidget(viewer)
+    qtbot.addWidget(widget)
+    folder = tmp_path / "seg"
+    folder.mkdir()
+    row, col = np.mgrid[:30, :30].astype(np.float32)
+    for name, grid in zip("xyz", (2 * col + 2, 2 * row + 2, np.full_like(row, 43))):
+        tifffile.imwrite(folder / f"{name}.tif", grid)  # 5 voxels above the sheet at z = 48
+    (folder / "meta.json").write_text(json.dumps({"scale": [0.5, 0.5]}))
+    assert not widget.align_button.isEnabled()
+    _overlay(widget, qtbot, folder)
+    assert widget.align_button.isEnabled()
+    threads = []
+    real = surface_module.measure_alignment
+
+    def tracked(*args):
+        threads.append(threading.get_ident())
+        return real(*args)
+
+    monkeypatch.setattr(surface_module, "measure_alignment", tracked)
+    qtbot.mouseClick(widget.align_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.align_button.isEnabled(), timeout=20000)
+    assert threads and threads[0] != threading.get_ident()
+    # Grid normal points to -z: the sheet at z = 48 is 5 voxels "behind" -> offset -5.
+    assert "Feuille la plus proche à -5 voxel(s) (-40 µm)" in widget.align_label.text()
+    assert "exploratoire" in widget.align_label.text()
+    plot = widget.profile_plot
+    assert not plot.isHidden() and plot.peak == -5 and len(plot.values) == len(plot.offsets)
+    assert not plot.grab().isNull()
+    patches = viewer.layers["Alignement — patchs seg"]
+    assert tuple(patches.scale) == tuple(layer.scale)
+    viewer.dims.ndisplay = 3
+    assert len(patches.data) == 12
+
+
+@pytest.mark.parametrize("error, expected", [
+    (ValueError("Aucun patch de 6 × 6 points valides dans le volume : profil impossible."),
+     "Aucun patch"),
+    (RuntimeError("dask internals"), "Lecture du segment impossible"),
+])
+def test_alignment_errors_are_french(viewer_with_volume, tmp_path, qtbot, monkeypatch,
+                                     error, expected):
+    viewer, _, widget = viewer_with_volume
+    _overlay(widget, qtbot, write_segment(tmp_path / "seg"))
+
+    def failing(*args):
+        raise error
+
+    monkeypatch.setattr(surface_module, "measure_alignment", failing)
+    qtbot.mouseClick(widget.align_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.align_button.isEnabled(), timeout=20000)
+    assert expected in widget.status_label.text()
+    assert "internals" not in widget.status_label.text()
+    assert widget.profile_plot.isHidden()

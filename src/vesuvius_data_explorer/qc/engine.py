@@ -5,6 +5,7 @@ from time import perf_counter
 
 import numpy as np
 
+from ..core.alignment import DEFAULT_MAX_VOXELS, alignment_metrics, normal_profiles
 from ..core.tifxyz import DEFAULT_MAX_BYTES, load_tifxyz, tifxyz_metrics
 from ..core.volume import get_array, list_levels, read_slice
 from .checks import run_checks
@@ -142,25 +143,42 @@ def run_volume(root, *, uri='', level=None, samples=16, seed=0, max_voxels=16777
 
 
 def run_surface(source, *, max_bytes=DEFAULT_MAX_BYTES, thresholds=None, volume_shape=None,
-                overlap_ratio=None, window=None, max_voxels=None, surface=None):
+                overlap_ratio=None, window=None, max_voxels=None, surface=None, volume=None,
+                pixel_size_um=None, alignment_voxels=DEFAULT_MAX_VOXELS):
     """QC of a tifxyz segment read within ``max_bytes`` per grid.
 
     ``volume_shape`` (z, y, x) enables surface.bounds; ``overlap_ratio`` is the catalogue
     coverage of that volume. ``window`` and ``max_voxels`` belong to the pre-T5 patch reader:
     accepted, ignored, and reported. ``surface`` reuses an already loaded segment.
+    ``volume`` = (level arrays, level shapes) enables the exploratory surface.alignment profile
+    (T5.1), read within ``alignment_voxels``; ``pixel_size_um`` sets its range in µm.
     """
     started = perf_counter()
     thresholds = thresholds if thresholds is not None else load_thresholds()
     if surface is None:
         surface = load_tifxyz(str(source), max_bytes=max_bytes)
+    if volume is not None and volume_shape is None:
+        volume_shape = tuple(volume[1][0])
     metrics = tifxyz_metrics(surface, volume_shape)
+    alignment, alignment_note = None, None
+    if volume is not None:
+        try:
+            profile = normal_profiles(surface, volume[0], volume[1], pixel_size_um=pixel_size_um,
+                                      max_voxels=alignment_voxels)
+            alignment = alignment_metrics(profile)
+        except ValueError as error:
+            alignment_note = f'Profil d\'alignement impossible : {error}'
     rows, cols = surface.points.shape[:2]
     location = Location('surface', 'z', 0, (0, 0), surface.grid_shape)
-    context = {'metrics': metrics, 'location': location, 'overlap_ratio': overlap_ratio}
+    context = {'metrics': metrics, 'location': location, 'overlap_ratio': overlap_ratio,
+               'alignment': alignment, 'alignment_note': alignment_note,
+               'pixel_size_um': pixel_size_um}
     results = run_checks('surface', context, thresholds)
     warnings = ['Localisation surface : fenêtre de grille (ligne, colonne) du fichier complet ; '
                 'centre éventuel en voxels (z, y, x) du niveau 0 du volume visé.']
     warnings += list(surface.warnings)
+    if alignment is not None:
+        warnings += list(profile.warnings)
     if surface.stride > 1:
         warnings.append('Grille décimée : les trous plus petits que le pas de lecture peuvent '
                         'échapper à surface.holes.')
@@ -179,4 +197,8 @@ def run_surface(source, *, max_bytes=DEFAULT_MAX_BYTES, thresholds=None, volume_
                              grid_shape=list(surface.grid_shape),
                              volume_shape=None if volume_shape is None else list(volume_shape),
                              overlap_ratio=overlap_ratio)
+    if alignment is not None:
+        parameters['alignment'] = {key: alignment[key] for key in (
+            'level', 'patches', 'points', 'voxels_read', 'half_range', 'offsets', 'mean_profile')}
+        parameters['alignment']['pixel_size_um'] = pixel_size_um
     return _report('surface', source, 'surface', parameters, budget, results, started)

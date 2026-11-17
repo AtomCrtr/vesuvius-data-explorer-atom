@@ -233,3 +233,34 @@ def surface_bounds(context, thresholds):
                 f'{gap:.2g} point(s)')
     message += ' : catalogue incohérent avec les données.' if status == 'warn' else '.'
     return CheckResult(key, status, float(outside), threshold, message)
+
+
+@register('surface', 'surface.alignment')
+def surface_alignment(context, thresholds):
+    key = 'surface.alignment'
+    threshold = thresholds[key]
+    alignment = context.get('alignment')
+    if alignment is None:
+        return CheckResult(key, 'skipped', None, threshold,
+                           context.get('alignment_note') or 'Aucun volume fourni : alignment non '
+                           'mesuré.')
+    offset = alignment['peak_offset']
+    pixel = context.get('pixel_size_um')
+    low, high = alignment['bootstrap_iqr']
+    prominence = alignment['peak_prominence']
+    message = f'Feuille la plus proche à {offset:+.3g} voxel(s)'
+    if pixel:
+        message += f' ({offset * pixel:+.3g} µm)'
+    message += (f', intervalle bootstrap [{low:.3g}, {high:.3g}], proéminence '
+                + ('non définie' if prominence is None else f'{prominence:.3g}')
+                + f' ; {alignment["patches"]} patch(s), niveau {alignment["level"]}, bord le plus '
+                f'net à {alignment["edge_offset"]:+.3g} (informatif).')
+    status = 'pass'
+    if threshold['enabled']:
+        weak = prominence is None or prominence < threshold['min_prominence']
+        if (abs(offset) > threshold['max_offset_voxels'] or weak
+                or high - low > threshold['max_bootstrap_iqr']):
+            status = 'warn'
+    else:
+        message += ' Mesure exploratoire, non notée (seuils à calibrer).'
+    return CheckResult(key, status, float(offset), threshold, message)

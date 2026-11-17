@@ -129,6 +129,61 @@
           ],
           "minimum": 0,
           "maximum": 1
+        },
+        "alignment": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "patches": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "points": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "voxels_read": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "half_range": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "offsets": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "mean_profile": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "pixel_size_um": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "level",
+            "patches",
+            "points",
+            "voxels_read",
+            "half_range",
+            "offsets",
+            "mean_profile",
+            "pixel_size_um"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

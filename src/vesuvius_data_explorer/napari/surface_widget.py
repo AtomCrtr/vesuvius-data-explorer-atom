@@ -10,6 +10,8 @@ import numpy as np
 from napari.layers import Image
 from napari.qt.threading import thread_worker
 from napari.viewer import Viewer
+from qtpy.QtCore import QPointF, Qt
+from qtpy.QtGui import QColor, QPainter, QPen
 from qtpy.QtWidgets import (
     QComboBox,
     QFormLayout,
@@ -21,6 +23,11 @@ from qtpy.QtWidgets import (
     QWidget,
 )
 
+from vesuvius_data_explorer.core.alignment import (
+    DEFAULT_MAX_VOXELS,
+    alignment_metrics,
+    normal_profiles,
+)
 from vesuvius_data_explorer.core.catalog import load_catalog
 from vesuvius_data_explorer.core.tifxyz import in_volume, load_tifxyz
 from vesuvius_data_explorer.qc import run_surface
@@ -30,6 +37,7 @@ from .qc_widget import camera, canvas_size
 MAX_DISPLAYED_POINTS = 200_000
 SURFACE_PREFIX = "Surface — "
 HOLES_PREFIX = "Trous — "
+PATCHES_PREFIX = "Alignement — patchs "
 NO_VOLUME = "Aucun volume ouvert par le plugin : utiliser « Vesuvius — Ouvrir un volume »."
 CHECK_ORDER = ("surface.holes", "surface.bounds", "surface.stretch", "surface.normal_flips",
                "surface.valid")
@@ -68,7 +76,76 @@ def prepare_overlay(source, max_bytes, volume_shape, overlap_ratio):
         "hidden_outside": int(valid.sum() - inside.sum()),
         "thinning": thinning,
         "report": report,
+        "surface": surface,  # kept for the alignment measure (T5.1)
     }
+
+
+def measure_alignment(surface, arrays, shapes, pixel_size_um, max_voxels):
+    """Worker body (no Qt): alignment profile and its metrics."""
+    profile = normal_profiles(surface, arrays, shapes, pixel_size_um=pixel_size_um,
+                              max_voxels=max_voxels)
+    return {"profile": profile, "metrics": alignment_metrics(profile),
+            "pixel_size_um": pixel_size_um}
+
+
+def describe_alignment(result) -> str:
+    """One French line: offset (µm when known), bootstrap interval, prominence, patches."""
+    metrics, pixel = result["metrics"], result["pixel_size_um"]
+    offset = metrics["peak_offset"]
+    low, high = metrics["bootstrap_iqr"]
+    prominence = metrics["peak_prominence"]
+    text = f"Feuille la plus proche à {offset:+.3g} voxel(s)"
+    if pixel:
+        text += f" ({offset * pixel:+.3g} µm)".replace(".", ",")
+    text += (f", intervalle [{low:.3g}, {high:.3g}], proéminence "
+             + ("non définie" if prominence is None else f"{prominence:.2g}".replace(".", ","))
+             + f" ; {metrics['patches']} patch(s), niveau {metrics['level']}. "
+             "Mesure exploratoire : un décalage d'une feuille entière n'est pas détectable.")
+    for warning in result["profile"].warnings:
+        text += f" {warning}"
+    return text
+
+
+class ProfilePlot(QWidget):
+    """Mean intensity along the normal (offsets in level-0 voxels), drawn with QPainter."""
+
+    def __init__(self):
+        super().__init__()
+        self.offsets = self.values = None
+        self.peak = None
+        self.setMinimumHeight(120)
+
+    def set_profile(self, offsets, values, peak):
+        self.offsets, self.values, self.peak = np.asarray(offsets), np.asarray(values), peak
+        self.update()
+
+    def to_pixels(self, offset, value):
+        margin = 8
+        width, height = self.width() - 2 * margin, self.height() - 2 * margin
+        low, high = float(self.values.min()), float(self.values.max())
+        span_x = float(self.offsets[-1] - self.offsets[0]) or 1.0
+        span_y = (high - low) or 1.0
+        return QPointF(margin + (offset - self.offsets[0]) / span_x * width,
+                       margin + (high - value) / span_y * height)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.fillRect(self.rect(), QColor("#1e2329"))
+        if self.values is None or len(self.values) < 2:
+            painter.end()
+            return
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        top, bottom = 0.0, float(self.height())
+        for offset, color in ((0.0, "#9aa5b1"), (self.peak, "#ff6b6b")):
+            if offset is not None:
+                x = self.to_pixels(offset, self.values[0]).x()
+                painter.setPen(QPen(QColor(color), 1, Qt.PenStyle.DashLine))
+                painter.drawLine(QPointF(x, top), QPointF(x, bottom))
+        painter.setPen(QPen(QColor("cyan"), 2))
+        line = [self.to_pixels(o, v) for o, v in zip(self.offsets, self.values)]
+        for a, b in zip(line, line[1:]):
+            painter.drawLine(a, b)
+        painter.end()
 
 
 def format_bytes(count: int) -> str:
@@ -162,6 +239,12 @@ class SurfaceWidget(QWidget):
         self.overlay_button = QPushButton("Superposer")
         self.goto_button = QPushButton("Aller à la surface")
         self.goto_button.setEnabled(False)
+        self.align_button = QPushButton("Mesurer l'alignement")
+        self.align_button.setEnabled(False)
+        self.profile_plot = ProfilePlot()
+        self.profile_plot.setVisible(False)
+        self.align_label = QLabel()
+        self.align_label.setWordWrap(True)
         self.info_label = QLabel()
         self.info_label.setWordWrap(True)
         self.status_label = QLabel()
@@ -176,6 +259,7 @@ class SurfaceWidget(QWidget):
         layout = QVBoxLayout(self)
         layout.addLayout(form)
         for control in (self.overlay_button, self.goto_button, self.info_label,
+                        self.align_button, self.profile_plot, self.align_label,
                         self.status_label):
             layout.addWidget(control)
 
@@ -184,6 +268,7 @@ class SurfaceWidget(QWidget):
         self.segment_combo.currentIndexChanged.connect(self._segment_changed)
         self.overlay_button.clicked.connect(self._overlay_clicked)
         self.goto_button.clicked.connect(self.go_to_surface)
+        self.align_button.clicked.connect(self._align_clicked)
         self._viewer.layers.events.inserted.connect(self._refresh_layers)
         self._viewer.layers.events.removed.connect(self._refresh_layers)
         self._refresh_layers()
@@ -299,6 +384,9 @@ class SurfaceWidget(QWidget):
         self._viewer.layers.selection.active = layer
         self._overlay = overlay
         self.goto_button.setEnabled(len(overlay["points"]) > 0)
+        self.align_button.setEnabled(True)
+        self.profile_plot.setVisible(False)
+        self.align_label.setText("")
         self.info_label.setText(describe(overlay))
         self.status_label.setText("Segment superposé.")
 
@@ -322,10 +410,39 @@ class SurfaceWidget(QWidget):
         if size:
             cam.zoom = 0.8 * min(size[0] / extent[0], size[1] / extent[1])
 
+    # --- alignment (T5.1) -------------------------------------------------------------------
+
+    def _align_clicked(self):
+        layer = self._target
+        if self._overlay is None or layer is None or layer not in self._viewer.layers:
+            return
+        shapes = [tuple(level["shape"]) for level in layer.metadata["volume_summary"]["levels"]]
+        self._start(measure_alignment,
+                    (self._overlay["surface"], list(layer.data), shapes,
+                     layer.metadata.get("pixel_size_um"), DEFAULT_MAX_VOXELS),
+                    self._show_alignment, "Mesure de l'alignement…")
+
+    def _show_alignment(self, result):
+        metrics, profile = result["metrics"], result["profile"]
+        self.profile_plot.set_profile(profile.offsets, profile.mean, metrics["peak_offset"])
+        self.profile_plot.setVisible(True)
+        self.align_label.setText(describe_alignment(result))
+        name = PATCHES_PREFIX + self._overlay["source"].rsplit("/", 1)[-1]
+        for old in [lyr for lyr in self._viewer.layers if lyr.name == name]:
+            self._viewer.layers.remove(old)
+        patch_extent = 6 * self._overlay["step"]  # 6 x 6 grid points per patch (step has stride)
+        points_layer = self._viewer.add_points(
+            np.empty((0, 3)), name=name, size=patch_extent / 2, face_color="transparent",
+            border_color="yellow", border_width=0.1, scale=tuple(self._target.scale))
+        self._traces[name] = SliceTrace(self._viewer, points_layer, profile.patch_centers,
+                                        patch_extent / 2)
+        self._viewer.layers.selection.active = self._target
+        self.status_label.setText("Alignement mesuré.")
+
     # --- workers -------------------------------------------------------------------------------
 
     def _start(self, function, args, on_result, message):
-        for button in (self.overlay_button, self.catalog_button):
+        for button in (self.overlay_button, self.catalog_button, self.align_button):
             button.setEnabled(False)
         self.status_label.setText(message)
         self._worker = thread_worker(function, ignore_errors=True)(*args)
@@ -337,6 +454,7 @@ class SurfaceWidget(QWidget):
     def _finished(self):
         self._worker = None
         self._update_buttons()
+        self.align_button.setEnabled(self._overlay is not None)
 
     def _error(self, error):
         message = str(error)

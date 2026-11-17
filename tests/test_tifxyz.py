@@ -205,7 +205,8 @@ def test_surface_report_on_a_real_layout_is_schema_valid(tmp_path):
     results = {r["check_id"]: r for r in report["results"]}
     assert report["schema_version"] == "1.1"
     assert set(results) == {"surface.valid", "surface.holes", "surface.stretch",
-                            "surface.normal_flips", "surface.bounds"}
+                            "surface.normal_flips", "surface.bounds", "surface.alignment"}
+    assert results["surface.alignment"]["status"] == "skipped"  # no volume given
     assert results["surface.holes"]["status"] == "pass"  # 9 / 1185 = 0.76 % < 1 %
     assert results["surface.stretch"]["status"] == "pass"
     assert results["surface.normal_flips"]["status"] == "pass"
