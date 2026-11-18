@@ -53,6 +53,8 @@ fusion après validation.
 | T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | Fusionnée (PR #21) |
 | T5.2 | [Recalibration de l'alignement sur un second échantillon](validation/T5.1-alignement.md#5-second-échantillon-recalibration-18-novembre-2026), proposition de notation | Fusionnée (PR #22) |
 | T5.3 | Notation de l'alignement : `warn` au-delà de 30 µm pour les mesures fiables (proéminence ≥ 1,0) | Fusionnée (PR #23) |
-| T7 | [Contrôle qualité en lot des segments d'un volume](tasks/T7-qc-en-lot.md) | En revue |
-| T8 | Guide d'utilisation et README court | À faire |
-| T9 | Publication PyPI et napari hub | À faire |
+| T7 | [Contrôle qualité en lot des segments d'un volume](tasks/T7-qc-en-lot.md) | Fusionnée (PR #24) |
+| T8 | [Guide d'utilisation](guide.md) et README court | Fusionnée (PR #25) |
+| T9 | [Publication PyPI et napari hub](publication.md) | Fusionnée (PR #26) ; release `v0.2.0` à créer par le PO après sa configuration PyPI |
+| I2 | [État de l'art 2026 : communauté, IA, lois mathématiques, manques](investigations/I2-etat-de-l-art-2026.md) | Terminée |
+| T10 | [Carte d'alignement et recalage des surfaces tifxyz (Progress Prize)](tasks/T10-carte-alignement.md) | Spécifiée, à valider par le PO |
