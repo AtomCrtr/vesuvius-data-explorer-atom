@@ -1,0 +1,6 @@
+# napari hub metadata (https://github.com/chanzuckerberg/napari-hub/wiki)
+visibility: public
+project_urls:
+  Bug Tracker: https://github.com/AtomCrtr/vesuvius-data-explorer-atom/issues
+  Documentation: https://github.com/AtomCrtr/vesuvius-data-explorer-atom/blob/main/docs/guide.md
+  Source Code: https://github.com/AtomCrtr/vesuvius-data-explorer-atom

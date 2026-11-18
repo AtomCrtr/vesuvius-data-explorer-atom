@@ -1,15 +1,31 @@
 [build-system]
-requires = ["hatchling>=1.25"]
+requires = ["hatchling>=1.25", "hatch-fancy-pypi-readme>=24.1"]
 build-backend = "hatchling.build"
 
 [project]
 name = "vesuvius-data-explorer"
-version = "0.1.0"
-description = "Explore Herculaneum CT volumes and assess sampled papyrus surfaces without bulk downloads."
-readme = "README.md"
+version = "0.2.0"
+description = "Explore and quality-check Herculaneum scroll CT volumes and VC3D segments, in napari or on the command line, without bulk downloads."
+dynamic = ["readme"]
 requires-python = ">=3.11"
-license = {text = "MIT"}
-keywords = ["vesuvius", "zarr", "napari", "tomography", "papyrus", "open-science"]
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "AtomCrtr"}]
+keywords = ["vesuvius", "herculaneum", "zarr", "ome-zarr", "napari", "tomography", "papyrus",
+            "quality-control", "open-science"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: napari",
+  "Intended Audience :: Science/Research",
+  "Natural Language :: French",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Image Processing",
+  "Topic :: Scientific/Engineering :: Visualization",
+]
 dependencies = [
   "numpy>=1.26,<3",
   "zarr>=3.0.10,<4",
@@ -23,6 +39,12 @@ dependencies = [
   "scipy>=1.11",
 ]
 
+[project.urls]
+Homepage = "https://github.com/AtomCrtr/vesuvius-data-explorer-atom"
+Documentation = "https://github.com/AtomCrtr/vesuvius-data-explorer-atom/blob/main/docs/guide.md"
+"Bug Tracker" = "https://github.com/AtomCrtr/vesuvius-data-explorer-atom/issues"
+"Source Code" = "https://github.com/AtomCrtr/vesuvius-data-explorer-atom"
+
 [project.scripts]
 vesuvius-qc = "vesuvius_data_explorer.cli:main"
 
@@ -35,6 +57,26 @@ dev = ["pytest>=8", "ruff>=0.7", "jsonschema>=4.23"]
 
 [project.entry-points."napari.manifest"]
 vesuvius-data-explorer = "vesuvius_data_explorer.napari:napari.yaml"
+
+# PyPI shows the README without the repository around it: relative links and images are made
+# absolute at build time, so the README itself keeps working on GitHub.
+[tool.hatch.metadata.hooks.fancy-pypi-readme]
+content-type = "text/markdown"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "README.md"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '!\[([^\]]*)\]\((?!https?://)([^)]+)\)'
+replacement = '![\1](https://raw.githubusercontent.com/AtomCrtr/vesuvius-data-explorer-atom/main/\2)'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '(?<!!)\[([^\]]*)\]\((?!https?://|#)([^)]+)\)'
+replacement = '[\1](https://github.com/AtomCrtr/vesuvius-data-explorer-atom/blob/main/\2)'
+
+# Ship the package, not the validation screenshots and data extracts of docs/.
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "README.md", "LICENSE", "CONTRIBUTING.md", "pyproject.toml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

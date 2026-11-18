@@ -13,6 +13,18 @@ jobs:
       - run: python -m pip install -e '.[dev]'
       - run: pytest -q
       - run: ruff check .
+  package:
+    # The distribution builds, its metadata renders on PyPI, and the wheel installs and runs.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: twine check --strict dist/*
+      - run: python -m pip install dist/*.whl && vesuvius-qc --help
   vcdelta3d:
     # Optional codec of recent Vesuvius Challenge volumes: write and read a sharded volume.
     # vc-delta3d wheels require Python >= 3.12.
