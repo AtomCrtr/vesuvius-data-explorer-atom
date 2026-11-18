@@ -2,7 +2,7 @@
 
 - **Origine :** décision du PO du 18 novembre 2026 ; état de l'art
   [I2](../investigations/I2-etat-de-l-art-2026.md).
-- **Statut :** spécification à valider par le PO.
+- **Statut :** spécification validée par le PO le 18 novembre 2026 (5 points, section finale).
 - **But :** une contribution qui **fait avancer directement le déroulement**, condition des Progress
   Prizes, sur un problème ouvert nommé par l'équipe du Vesuvius Challenge : la qualité des surfaces
   tracées (dérive hors de la feuille, sauts de feuille), le **label snapping** et l'**apprentissage
@@ -16,6 +16,14 @@ Pour un segment tifxyz et son volume :
    160 voxels de côté), la distance signée entre la surface et la feuille de papyrus la plus proche,
    le long de la normale (méthode de T5.1), avec sa **fiabilité** (proéminence) et son
    **incertitude** (borne de Cramér-Rao, section 3.2 de I2).
+   - **Choix du pic** : le maximum local le plus proche de la surface, raffiné sous le pas
+     (parabole), et non plus le maximum le plus clair de la fenêtre. L'audit d'I2 (section 4,
+     point 7) a montré que l'ancienne règle peut choisir une feuille voisine quand les feuilles
+     sont serrées.
+   - **Référence** : la carte publie le décalage brut et le décalage **relatif à la médiane du
+     segment**. Les surfaces publiées sont en médiane à environ −10 µm du centre clair de leur
+     feuille (elles suivent probablement une face) : c'est la dérive par rapport à cette
+     habitude qui compte, pas l'écart au centre.
 2. **Sauts de feuille localisés par le signal CT.** Le décalage est converti en phase
    `φ = 2π·d/Δ`, où `Δ` est l'espacement des feuilles estimé sur le segment (autocorrélation du
    profil moyen). Les **résidus** de phase sur chaque boucle de 2 × 2 tuiles signalent un saut de
@@ -26,7 +34,8 @@ Pour un segment tifxyz et son volume :
    gravité, avec les coordonnées 3D de chaque région (apprentissage actif).
 4. **Recalage (label snapping), sur demande.** Le champ de décalages est régularisé : moindres
    carrés pondérés par la fiabilité, avec une pénalité de régularité, pour le lisser sans franchir
-   les sauts de feuille. Chaque point est ensuite déplacé le long de sa normale. Le résultat est un
+   les sauts de feuille. Chaque point est ensuite déplacé le long de sa normale, de son **décalage
+   relatif** : la surface garde la face qu'elle suivait. Le résultat est un
    **nouveau dossier tifxyz**, dont `meta.json` note la provenance. L'original n'est jamais modifié.
    Les zones de saut de feuille et les zones peu fiables ne sont **pas** déplacées.
 5. **Preuve visuelle.** Rendu aplati de la surface avant et après recalage, en échantillonnant le
@@ -74,8 +83,9 @@ Pour un segment tifxyz et son volume :
   retours et de l'usage, que le jury prend en compte. **L'inscription au Discord, à faire par le PO,
   est obligatoire pour être primé.**
 - Formulaire mensuel des Progress Prizes, avec la validation ci-dessus.
-- Calendrier : l'échéance du **30 novembre 2026** est trop proche pour une validation sérieuse ;
-  viser la fin **décembre 2026**.
+- Calendrier (décision du PO) : **essayer l'échéance du 30 novembre 2026** ; si la validation
+  n'est pas complète à temps, candidature fin **décembre 2026**. Aucune candidature sans la
+  validation ci-dessus.
 
 ## Hors périmètre
 
@@ -83,13 +93,13 @@ Remplacer GrowPatch, lasagna ou le spiral fit ; corriger automatiquement les sau
 sont signalés, pas réparés) ; détection d'encre ; intégration C++ dans VC3D (étape suivante possible,
 après des retours de la communauté).
 
-## Points à valider par le PO
+## Décisions du PO (18 novembre 2026)
 
-1. Viser la **fin décembre 2026** plutôt que le 30 novembre.
+1. Calendrier : viser le **30 novembre** si possible, sinon la **fin décembre 2026**.
 2. Recalage **sur demande**, sans jamais modifier l'original, et **sans déplacer** les zones de saut de
-   feuille ni les zones peu fiables.
-3. Documentation de cette contribution **bilingue** (anglais et français).
-4. Inscription du PO au **Discord du Vesuvius Challenge** et publication du message de présentation
-   (texte préparé par l'orchestrateur).
-5. Étapes ultérieures, selon les résultats : recalage optimal par graphe (I2, section 3.4) et critère
-   de courbure de Gauss (I2, section 3.5).
+   feuille ni les zones peu fiables : validé.
+3. Documentation **bilingue** (anglais et français) : validé.
+4. Inscription du PO au **Discord du Vesuvius Challenge** et message de présentation (texte préparé
+   par l'orchestrateur) : validé.
+5. Étapes ultérieures, selon les résultats : recalage optimal par graphe (I2, section 3.4) et
+   critère de courbure de Gauss (I2, section 3.5) : validé.

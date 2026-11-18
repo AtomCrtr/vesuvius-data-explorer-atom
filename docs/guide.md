@@ -54,7 +54,9 @@ On peut aussi saisir un chemin à la main : dossier `.zarr` local, URI `s3://` p
 `https://data.aws.ash2txt.org/…`.
 
 **Avertissement de forme.** Si la forme réelle du volume diffère de celle annoncée par le catalogue,
-le widget le signale (c'est le cas de Scroll 1, à qui il manque 111 coupes).
+le widget le signale. C'est le cas de Scroll 1 : la fiche annonce 14 369 coupes, le volume publié
+en a 14 258, ce qui correspond au recadrage décrit dans la même fiche. Les métadonnées Zarr font
+foi.
 
 ## 3. Naviguer
 

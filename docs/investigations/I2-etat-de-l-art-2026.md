@@ -24,6 +24,9 @@
 4. **Notre mesure d'alignement (T5.1, calibrée deux fois) est exactement la brique manquante**
    pour une carte dense de dérive, la détection locale des sauts de feuille et un recalage mesuré.
    C'est l'objet de la spécification [T10](../tasks/T10-carte-alignement.md).
+5. **Audit du 18 novembre 2026** (section 4) : le décalage d'environ −10 µm des surfaces publiées
+   est réel mais s'explique très probablement par la face suivie, pas par un défaut ; l'écart de
+   forme de Scroll 1 dans le catalogue est une incohérence mineure, pas un catalogue faux.
 
 ## 1. Ce que publie la communauté (prix 2026)
 
@@ -45,7 +48,26 @@ Tendances : outils intégrés à **VC3D / villa** (le logiciel officiel), portab
 Silicon, AMD), modèles d'encre distillés à 9 µm, fibres, spiral fit, et nombreuses petites
 corrections de code primées de 250 à 500 $.
 
-## 2. Techniques d'IA utilisées pour lire les rouleaux
+## 2. Machine learning et IA utilisés pour lire les rouleaux
+
+### 2.1 Les familles d'apprentissage en jeu
+
+| Famille de machine learning | Où elle sert dans le Vesuvius Challenge |
+|---|---|
+| **Apprentissage supervisé** (réseaux convolutifs 3D, U-Net, nnU-Net) | Prédire la surface du papyrus et l'encre à partir d'étiquettes humaines |
+| **Apprentissage semi-supervisé** (pseudo-étiquettes, mean-teacher, étiquetage itératif) | Étendre l'encre trouvée sur un rouleau aux zones et rouleaux voisins sans annotation |
+| **Apprentissage auto-supervisé** (DINO 3D, apprentissage contrastif) | Apprendre des représentations du scan sans étiquettes, puis fabriquer des cibles |
+| **Transfert et distillation** | Passer d'un modèle 2,4 µm à 9 µm, des fragments ouverts aux rouleaux fermés |
+| **Ensembles et moyennes de modèles** | Stabiliser les prédictions d'encre (moyennes de checkpoints, ensembles) |
+| **Apprentissage actif** (demandé par l'équipe) | Désigner aux humains les zones dont la correction rapporte le plus |
+| **Recherche automatisée d'architectures** (agents autonomes) | Explorer des variantes de modèles d'encre sans intervention humaine |
+| **Grands modèles de langue** | Restaurer les lacunes des textes grecs une fois lus |
+| **Méthodes classiques sans apprentissage** (filtres de hessienne, diffusion anisotrope, optimisation géométrique) | Nettoyer les prédictions, tracer et aplatir les surfaces, dont nos propres mesures |
+
+Le fil conducteur : **les étiquettes sont rares et approximatives**. Le progrès vient autant de
+meilleures étiquettes (raffinement, recalage, apprentissage actif) que de plus gros modèles.
+
+### 2.2 Techniques et résultats récents
 
 - **Segmentation de surface en 3D** : U-Net 3D / **nnU-Net**, entraînés sur des maillages humains ;
   concours Kaggle « Surface Detection » (200 000 $, mars 2026) évalué par des **métriques
@@ -69,6 +91,30 @@ corrections de code primées de 250 à 500 $.
   inter-rouleaux.
 - **Modèle de langue pour le grec** : **Apollo Restore** (24 milliards de paramètres, sept. 2026)
   restaure les lacunes des textes grecs fragmentaires.
+- **Rappel historique** : le Grand Prix 2023 a été gagné avec des modèles d'encre 3D→2D de type
+  **TimeSformer** (transformer vidéo) et réseaux convolutifs, entraînés sur des fragments ouverts
+  puis par étiquetage itératif sur les rouleaux.
+
+### 2.3 Ce que le machine learning peut apporter à notre outil
+
+Notre mesure d'alignement est aujourd'hui **sans apprentissage** : moyenne de profils, recherche
+de pic, statistiques. C'est un atout (aucun GPU, résultat explicable), mais le machine learning
+peut l'améliorer à trois endroits, du plus simple au plus ambitieux :
+
+1. **Signal plus propre en entrée.** Remplacer l'intensité CT brute par une **probabilité de
+   surface** prédite par un modèle existant (nnU-Net du concours Kaggle, publié par l'équipe).
+   Le pic devient plus net, donc plus de mesures fiables (aujourd'hui 31 %). Coût : un modèle
+   à faire tourner sur les zones lues.
+2. **Profils appris.** Apprendre la forme typique du profil d'une feuille (modèle de régression
+   léger, ou simple filtre adapté estimé sur les 42 segments calibrés) pour reconnaître une feuille
+   même peu contrastée, et estimer l'espacement des feuilles.
+3. **Boucle d'apprentissage actif.** Les zones à revoir de T10 sont exactement les données qui
+   manquent aux modèles de surface : chaque correction humaine guidée par la carte devient une
+   **étiquette de meilleure qualité**. Les surfaces recalées peuvent servir de **pseudo-étiquettes**
+   filtrées par la fiabilité, comme dans les approches mean-teacher.
+
+T10 commence sans apprentissage (point 1 de la validation : mesurable, reproductible) ; les pistes
+1 et 2 sont des étapes ultérieures, à décider selon les résultats.
 - Architectures récentes primées : HercUNet / HercuViT (20 000 $, oct.), PLatS (plongements
   d'instance des feuilles), ScrollFiesta, champ de spires.
 
@@ -126,25 +172,53 @@ que quelques voxels. Le **théorème d'échantillonnage** explique pourquoi la c
 moins bien calibrée (récupération 10 / 14 contre 14 / 14 à 2,4 µm, second échantillon) : il faut
 l'interpolation sous-voxel et, quand il existe, un scan plus fin.
 
-## 4. Ce que d'autres ont pu manquer
+## 4. Ce que d'autres ont pu manquer (après audit)
+
+Les constats ci-dessous ont été **audités le 18 novembre 2026** à la demande du PO ; deux affirmations
+de la première version de ce rapport ont été corrigées.
 
 1. **Localiser les sauts de feuille par le signal CT** (phase, section 3.3), là où les outils
-   existants raisonnent sur la géométrie des patchs.
+   existants raisonnent sur la géométrie des patchs. Non vu dans la communauté ; à vérifier.
 2. **Mesurer avant de corriger.** Les outils qui « accrochent » une surface au papyrus ne publient
-   pas de carte chiffrée de ce qu'ils ont déplacé, ni d'incertitude. Une carte de décalages avec
+   pas de carte chiffrée de ce qu'ils déplacent, ni d'incertitude. Une carte de décalages avec
    intervalle de confiance permet d'auditer un recalage et de nourrir l'apprentissage actif.
-3. **Un biais de −9 µm.** Sur 42 segments publiés, la feuille la plus brillante est en médiane à
-   −9 µm de la surface : 29 segments du côté négatif, 7 à zéro, 6 du côté positif. Les surfaces
-   suivent le plus souvent une face de la feuille, pas son centre. Les modèles d'encre conditionnés par la surface en dépendent ; ce biais
-   mérite d'être mesuré et documenté pour la communauté.
-4. **Intégrité des pyramides de données.** Le défaut « niveaux sous-échantillonnés qui ne gardent
-   que les premières coupes » a été trouvé à la main. Un contrôle qui compare quelques ROI d'un
-   niveau k au niveau 0 sous-échantillonné l'aurait détecté automatiquement. De même, la forme de
-   Scroll 1 dans le catalogue diffère des données de 111 coupes (notre T4.2) : à signaler aux
-   mainteneurs.
-5. **Trous des segments `auto_grown`.** Notre contrôle en lot montre que 12 des 19 segments de
+3. **Position des surfaces publiées par rapport à leur feuille : ce n'est pas un biais à corriger.**
+   - Sur 41 segments publiés déterminés, la feuille la plus claire est en médiane à **−10 µm** de
+     la surface le long de sa normale, estimation sous-pas comprise (quartiles −20 et −2,6 µm).
+     Ce n'est donc pas un artefact du pas d'échantillonnage (environ 9 µm).
+   - Les normales de grille sont orientées **vers le centre du rouleau** pour 35 segments sur 37.
+     Le centre clair de la feuille se trouve donc environ 10 µm **vers l'extérieur** de la surface.
+   - Lecture la plus probable : les segments suivent **une face de la feuille** (côté centre du
+     rouleau) plutôt que son centre clair. Nous n'avons pas trouvé la convention de VC3D écrite ;
+     c'est une hypothèse, pas une erreur des annotateurs, et rien qui ait été « manqué ».
+   - Réserves : axe du rouleau estimé grossièrement (centre du volume), et la règle de pic actuelle
+     a un défaut (point 7).
+   - **Conséquence pour T10** : recaler sur le pic de brillance déplacerait les surfaces d'environ
+     10 µm à tort. Le recalage doit corriger la dérive locale **par rapport au décalage habituel
+     du segment**, pas viser le centre de la feuille.
+4. **Forme de Scroll 1 dans le catalogue : incohérence mineure, pas un catalogue « faux ».**
+   - La fiche annonce `shape` = (14 369, 7 888, 8 096). La même fiche décrit un recadrage
+     `z_crop_start = 0`, `z_crop_end = 14 257`. Le Zarr publié a bien 14 258 coupes.
+   - Pour les deux autres volumes recadrés du catalogue, `shape` reflète le recadrage ; pour
+     Scroll 1, non.
+   - Le schéma du catalogue précise que `shape` est « relevé à l'ingestion ; lire les métadonnées
+     Zarr, qui font foi ».
+   - L'outil primé scroll-data-audit fait ce contrôle, mais n'a audité que les volumes du bucket
+     S3 ; Scroll 1, publié en HTTPS, n'y figure pas. Signalement possible aux mainteneurs, de faible
+     portée.
+   - Les 4 volumes dont `shape` est absent (relevés par notre T4.2) étaient déjà signalés
+     (villa#1516).
+5. **Intégrité des pyramides : déjà couverte.** La première version de ce rapport la présentait comme
+   un manque ; scroll-data-audit vérifie déjà la justesse numérique des niveaux (`--deep`,
+   320 transitions sur 320 exactes). Retiré des manques.
+6. **Trous des segments `auto_grown`.** Notre contrôle en lot montre que 12 des 19 segments de
    septembre 2025 de PHerc0814 ont 2 à 8 % de trous intérieurs : une information utile aux
    annotateurs (T7).
+7. **Défaut de notre propre mesure, trouvé par cet audit.** Quand l'espacement des feuilles est plus
+   petit que la fenêtre de recherche, la règle « maximum le plus clair de la fenêtre » peut choisir
+   une feuille voisine. C'est le cas sur des feuilles synthétiques serrées au niveau 3 (−48 voxels au
+   lieu de 0). Sur les 42 segments réels, la règle « maximum local le plus proche » donne la même
+   médiane ; T10 l'adoptera.
 
 ## 5. Recommandation
 
