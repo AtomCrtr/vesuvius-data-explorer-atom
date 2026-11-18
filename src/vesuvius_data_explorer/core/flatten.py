@@ -61,16 +61,22 @@ def flatten(points: np.ndarray, arrays, shapes, *, level: int, step_voxels: floa
     offsets = np.asarray(normal_offsets, dtype=float)
     coords = ((p[:, None, :] + offsets[None, :, None] * n[:, None, :] + 0.5) / factor
               - 0.5).reshape(-1, 3)
-    level_shape = np.asarray(shapes[level])
-    low = np.maximum(np.floor(coords.min(axis=0)).astype(int) - 1, 0)
-    high = np.minimum(np.ceil(coords.max(axis=0)).astype(int) + 2, level_shape)
-    if np.any(high <= low):
-        return image
-    if int(np.prod(high - low)) > max_voxels:
-        raise ValueError("Zone rendue trop grande pour le budget de voxels.")
-    box = np.asarray(arrays[level][low[0]:high[0], low[1]:high[1], low[2]:high[2]],
-                     dtype=np.float32)
-    values = ndimage.map_coordinates(box, (coords - low).T, order=1, mode="nearest")
+    array = arrays[level]
+    if not isinstance(array, np.ndarray):  # Only the chunks the surface crosses are read.
+        from .chunkcache import DecodedChunks, sample_trilinear
+
+        values = sample_trilinear(DecodedChunks(array), coords)
+    else:
+        level_shape = np.asarray(shapes[level])
+        low = np.maximum(np.floor(coords.min(axis=0)).astype(int) - 1, 0)
+        high = np.minimum(np.ceil(coords.max(axis=0)).astype(int) + 2, level_shape)
+        if np.any(high <= low):
+            return image
+        if int(np.prod(high - low)) > max_voxels:
+            raise ValueError("Zone rendue trop grande pour le budget de voxels.")
+        box = np.asarray(array[low[0]:high[0], low[1]:high[1], low[2]:high[2]],
+                         dtype=np.float32)
+        values = ndimage.map_coordinates(box, (coords - low).T, order=1, mode="nearest")
     image[valid] = values.reshape(len(p), len(offsets)).mean(axis=1)
     return image
 

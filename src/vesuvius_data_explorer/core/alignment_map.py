@@ -436,57 +436,78 @@ def review_zones(amap: AlignmentMap, *, pixel_size_um=None, max_drift_um=DEFAULT
     return zones
 
 
-DEFAULT_SMOOTHING = 0.5  # Relative to the mean weight; provisional, to be calibrated.
+DEFAULT_SMOOTHING = 0.5  # λ, relative to the median weight; provisional.
+DEFAULT_MAX_SHIFT_UM = 50.0
 
 
 def snap_field(amap: AlignmentMap, *, min_reliability=DEFAULT_MIN_RELIABILITY,
-               smoothing=DEFAULT_SMOOTHING) -> np.ndarray:
+               smoothing=DEFAULT_SMOOTHING, max_shift=None) -> np.ndarray:
     """Per-tile displacement along the normal that brings the segment back to its usual offset.
 
-    Weighted least squares on the tile grid: ``(W + λ L) u = W t``. ``t`` is the drift of
-    reliable tiles, away from sheet switches and from the ambiguous half of the period
-    (``|drift| > Δ/4``); those excluded tiles are pulled towards 0 instead, so they do not move
-    and the field fades smoothly around them. ``L`` is the 4-neighbour graph Laplacian, ``λ`` =
-    ``smoothing``. Moving a point by ``+u`` along its normal changes its offset by ``-u``.
+    Only **free** tiles move: reliable, away from sheet switches, from the ambiguous half of
+    the period (``|drift| > Δ/4``) and with ``|drift| <= max_shift`` (level-0 voxels; a larger
+    drift may be another sheet: it is left for a human, see ``review_zones``). Every other tile stays exactly at 0 and does not pull on its
+    neighbours. On the free tiles, weighted least squares ``(W + λ L) u = W t``: ``t`` is the
+    drift, ``W`` the inverse variance of each tile's offset (normalised by its median), ``L`` the
+    graph Laplacian between free neighbours, ``λ`` = ``smoothing``. Moving a point by ``+u``
+    along its normal changes its offset by ``-u``.
     """
     from scipy.sparse import coo_matrix, diags
     from scipy.sparse.linalg import spsolve
 
     rows, cols = amap.offset.shape
-    target = np.nan_to_num(amap.drift, nan=0.0)
-    use = reliable_tiles(amap, min_reliability) & ~switch_tiles(amap)
-    if amap.spacing:
-        with np.errstate(invalid="ignore"):
-            use &= np.abs(amap.drift) <= amap.spacing / 4
-    weight = np.clip(np.nan_to_num(amap.reliability, nan=0.0, posinf=1e6), 0, None)
-    pinned = weight[use].mean() if use.any() else 1.0
-    weight = np.where(use, weight, pinned)
-    target = np.where(use, target, 0.0)
-    n = rows * cols
-    index = np.arange(n).reshape(rows, cols)
-    pairs = [(index[:-1, :].ravel(), index[1:, :].ravel()),
-             (index[:, :-1].ravel(), index[:, 1:].ravel())]
-    i = np.concatenate([p[0] for p in pairs])
-    j = np.concatenate([p[1] for p in pairs])
+    free = reliable_tiles(amap, min_reliability) & ~switch_tiles(amap)
+    with np.errstate(invalid="ignore"):
+        free &= np.isfinite(amap.uncertainty) & (amap.uncertainty > 0)
+        if amap.spacing:
+            free &= np.abs(amap.drift) <= amap.spacing / 4
+        if max_shift is not None:
+            free &= np.abs(amap.drift) <= max_shift
+    field = np.zeros((rows, cols))
+    if not free.any():
+        return field
+    weight = 1.0 / amap.uncertainty[free] ** 2
+    weight /= np.median(weight)
+    target = amap.drift[free]
+    index = np.full((rows, cols), -1)
+    index[free] = np.arange(int(free.sum()))
+    edges = [(index[:-1, :], index[1:, :]), (index[:, :-1], index[:, 1:])]
+    i = np.concatenate([a[(a >= 0) & (b >= 0)] for a, b in edges])
+    j = np.concatenate([b[(a >= 0) & (b >= 0)] for a, b in edges])
+    n = len(target)
     adjacency = coo_matrix((np.ones(len(i)), (i, j)), shape=(n, n))
     adjacency = adjacency + adjacency.T
     laplacian = diags(np.asarray(adjacency.sum(axis=1)).ravel()) - adjacency
-    system = diags(weight.ravel()) + smoothing * pinned * laplacian
-    field = spsolve(system.tocsc(), weight.ravel() * target.ravel()).reshape(rows, cols)
+    system = diags(weight) + smoothing * laplacian
+    field[free] = spsolve(system.tocsc(), weight * target)
     if amap.spacing:
         field = np.clip(field, -amap.spacing / 4, amap.spacing / 4)
     return field
 
 
-def field_on_grid(field: np.ndarray, amap: AlignmentMap, grid_shape) -> np.ndarray:
-    """Bilinear interpolation of a per-tile field onto the full grid of the tifxyz files."""
+def field_on_grid(field: np.ndarray, amap: AlignmentMap, grid_shape,
+                  moving: np.ndarray | None = None) -> np.ndarray:
+    """Per-tile field interpolated onto the full grid of the tifxyz files.
+
+    ``moving`` marks the tiles whose value counts (default: tiles with a non-zero value).
+    Normalised bilinear interpolation among them: a moving tile gets its full value up to halfway
+    to a fixed neighbour, then the field falls to 0 at the fixed tile's centre. Without this, the
+    zeros of fixed tiles would dilute the correction of their moving neighbours.
+    """
     from scipy import ndimage
 
+    if moving is None:
+        moving = field != 0
     rows, cols = np.mgrid[:grid_shape[0], :grid_shape[1]].astype(float)
     centre = (amap.tile - 1) / 2
     coords = np.stack([(rows / amap.stride - centre) / amap.tile,
                        (cols / amap.stride - centre) / amap.tile])
-    return ndimage.map_coordinates(field, coords, order=1, mode="nearest")
+    mask = moving.astype(float)
+    values = ndimage.map_coordinates(field * mask, coords, order=1, mode="nearest")
+    share = ndimage.map_coordinates(mask, coords, order=1, mode="nearest")
+    with np.errstate(invalid="ignore", divide="ignore"):
+        out = np.where(share > 1e-9, values / share, 0.0)
+    return out * np.clip(2 * share, 0, 1)
 
 
 def snap_points(points: np.ndarray, field_grid: np.ndarray) -> np.ndarray:

@@ -140,20 +140,27 @@ for label, segment in drawn:
                           "error_median_um": float(np.median(error_um)) if both.any() else None}
 
         # 3. Snapping the drifted segment.
-        field = snap_field(dmap)
+        field = snap_field(dmap, max_shift=50 / px)
         snapped = replace(drifted, points=snap_points(
             drifted.points, field_on_grid(field, dmap, drifted.points.shape[:2])))
         smap = alignment_map(snapped, arrays, shapes, pixel_size_um=px, tile=TILE)
-        common = reliable & reliable_tiles(smap)
-        residual = np.abs(smap.offset - base.offset)[common] * px
-        before = np.abs(dmap.offset - base.offset)[common] * px
+        common = reliable & reliable_tiles(dmap) & reliable_tiles(smap)
+        imposed = tile_values(base, ramp, common)[common]
+
+        def slope(m):
+            """Regression slope of the measured offset change against the imposed ramp:
+            -1 when the ramp is fully seen, 0 when it has been removed."""
+            change = (m.offset - base.offset)[common]
+            return float(np.polyfit(imposed, change, 1)[0]) if common.sum() > 2 else None
+
         record["snap_drifted"] = {
             "tiles": int(common.sum()),
-            "before_median_um": float(np.median(before)) if common.any() else None,
-            "after_median_um": float(np.median(residual)) if common.any() else None}
+            "ramp_slope_before": slope(dmap), "ramp_slope_after": slope(smap),
+            "drift_abs_median_before_um": float(np.median(np.abs(dmap.drift[common]))) * px,
+            "drift_abs_median_after_um": float(np.median(np.abs(smap.drift[common]))) * px}
 
         # 4. Snapping the published segment; renders.
-        field = snap_field(base)
+        field = snap_field(base, max_shift=50 / px)
         grid = field_on_grid(field, base, surface.points.shape[:2])
         snapped = replace(surface, points=snap_points(surface.points, grid))
         amap = alignment_map(snapped, arrays, shapes, pixel_size_um=px, tile=TILE)

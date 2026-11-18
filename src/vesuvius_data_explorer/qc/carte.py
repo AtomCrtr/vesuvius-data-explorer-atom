@@ -22,6 +22,7 @@ import numpy as np
 from ..core.alignment import level_factors
 from ..core.alignment_map import (
     DEFAULT_MAX_DRIFT_UM,
+    DEFAULT_MAX_SHIFT_UM,
     DEFAULT_MIN_RELIABILITY,
     DEFAULT_SMOOTHING,
     DEFAULT_TILE,
@@ -65,7 +66,8 @@ def render_crop(surface: TifxyzSurface, amap, level: int, shapes) -> tuple[slice
 def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
             tile=DEFAULT_TILE, max_bytes=DEFAULT_MAP_MAX_BYTES,
             max_drift_um=DEFAULT_MAX_DRIFT_UM, min_reliability=DEFAULT_MIN_RELIABILITY,
-            smoothing=DEFAULT_SMOOTHING, render=True, volume_uri=None) -> dict[str, Any]:
+            smoothing=DEFAULT_SMOOTHING, max_shift_um=DEFAULT_MAX_SHIFT_UM, render=True,
+            volume_uri=None) -> dict[str, Any]:
     """Measure the map of ``segment_uri``; returns a result dict (arrays included)."""
     started = perf_counter()
     surface = load_tifxyz(segment_uri, max_bytes=max_bytes)
@@ -79,7 +81,9 @@ def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
     result: dict[str, Any] = {"surface": surface, "map": amap, "zones": zones, "scale": scale}
     snapped_points = None
     if snap:
-        field = snap_field(amap, min_reliability=min_reliability, smoothing=smoothing)
+        max_shift = max_shift_um / (pixel_size_um if pixel_size_um else 1.0)
+        field = snap_field(amap, min_reliability=min_reliability, smoothing=smoothing,
+                           max_shift=max_shift)
         grid = field_on_grid(field, amap, surface.points.shape[:2])
         snapped_points = snap_points(surface.points, grid)
         result.update(field=field, field_grid=grid, snapped_points=snapped_points)
