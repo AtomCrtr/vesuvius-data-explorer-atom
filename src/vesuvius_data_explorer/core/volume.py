@@ -112,11 +112,13 @@ def _level(
     return Level(key, shape, str(node.dtype), chunks, scale, from_metadata)
 
 
-def _dataset_scale(dataset: dict) -> tuple[float, float, float]:
+def _dataset_scale(dataset: dict) -> tuple[tuple[float, float, float], bool]:
+    """(combined scale, whether any scale transform was declared)."""
     transformations = dataset.get("coordinateTransformations", [])
     if not isinstance(transformations, list):
         raise ValueError("coordinateTransformations doit être une liste.")
     scale = (1.0, 1.0, 1.0)
+    declared = False
     for transform in transformations:
         if not isinstance(transform, dict):
             raise ValueError("Transformation de coordonnées invalide.")
@@ -128,7 +130,8 @@ def _dataset_scale(dataset: dict) -> tuple[float, float, float]:
             if not all(isfinite(value) and value > 0 for value in factors):
                 raise ValueError("L'échelle doit contenir des valeurs finies positives.")
             scale = tuple(a * b for a, b in zip(scale, factors))
-    return scale
+            declared = True
+    return scale, declared
 
 
 def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
@@ -150,7 +153,7 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
         raise ValueError("datasets doit contenir des niveaux.")
     levels = []
     seen = set()
-    pyramid_scale = _dataset_scale(pyramid)
+    pyramid_scale, _ = _dataset_scale(pyramid)
     for dataset in datasets:
         if not isinstance(dataset, dict):
             raise ValueError("Description de niveau invalide.")
@@ -160,10 +163,12 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
         node = root[key]
         if not _is_3d_array(node):
             raise ValueError("Le tableau doit être 3D (z, y, x).")
-        scale = _dataset_scale(dataset)
+        scale, declared = _dataset_scale(dataset)
         scale = tuple(a * b for a, b in zip(scale, pyramid_scale))
         if key not in seen:
-            levels.append(_level(node, key, scale))
+            # Without a per-level scale transform the unit scale is a default, not a
+            # measurement: checks comparing scales across levels must not use it.
+            levels.append(_level(node, key, scale, from_metadata=declared))
             seen.add(key)
     return levels
 
@@ -277,16 +282,19 @@ def read_slice(
     start_a: int,
     start_b: int,
     width: int = 256,
+    width_b: int | None = None,
 ) -> np.ndarray:
     """Read only one 2D ROI; at most 512×512 voxels per request.
 
-    axis='z': (y, x), axis='y': (z, x), axis='x': (z, y).
+    axis='z': (y, x), axis='y': (z, x), axis='x': (z, y). ``width`` is the extent on the first
+    in-plane axis and, unless ``width_b`` is given, on the second one too (square window).
     """
     if len(getattr(volume, "shape", ())) != 3:
         raise ValueError("Le tableau doit être 3D (z, y, x).")
     if axis not in ("z", "y", "x"):
         raise ValueError("Axe attendu : z, y ou x.")
-    if not 1 <= width <= 512:
+    width_b = width if width_b is None else width_b
+    if not 1 <= width <= 512 or not 1 <= width_b <= 512:
         raise ValueError("Largeur de fenêtre autorisée : 1 à 512 pixels.")
     z, y, x = (int(n) for n in volume.shape)
     axis_size, a_size, b_size = {"z": (z, y, x), "y": (y, z, x), "x": (x, z, y)}[axis]
@@ -295,7 +303,7 @@ def read_slice(
     if not 0 <= start_a < a_size or not 0 <= start_b < b_size:
         raise IndexError("Origine de la fenêtre hors volume.")
     a = slice(start_a, min(start_a + width, a_size))
-    b = slice(start_b, min(start_b + width, b_size))
+    b = slice(start_b, min(start_b + width_b, b_size))
     selection = {"z": (index, a, b), "y": (a, index, b), "x": (a, b, index)}[axis]
     result = np.asarray(volume[selection])
     if result.ndim != 2:

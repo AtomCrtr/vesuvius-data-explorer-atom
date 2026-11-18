@@ -157,8 +157,14 @@ def choose_stride(shape: tuple[int, int], itemsize: int, max_bytes: int) -> int:
     return max(2, math.ceil(rows / (max_bytes // row_bytes)))
 
 
+META_MAX_BYTES = 1 << 20  # meta.json is a few hundred bytes; never download a large file.
+
+
 def _meta(fs, root: str) -> tuple[dict[str, Any], tuple[str, ...]]:
     try:
+        if fs.size(f"{root}/meta.json") > META_MAX_BYTES:
+            return {}, ("meta.json de plus de 1 Mio, ignoré : pas de bbox ni d'échelle de "
+                        "grille.",)
         meta = json.loads(fs.cat(f"{root}/meta.json"))
         if isinstance(meta, dict):
             return meta, ()
@@ -186,17 +192,20 @@ def load_tifxyz(source: str, *, max_bytes: int = DEFAULT_MAX_BYTES) -> TifxyzSur
     grids, bytes_read = [], 0
     for axis in AXES_FILES:
         header, path = headers[axis], f"{root}/{axis}.tif"
-        if stride == 1:
+        # The budget bounds the bytes actually downloaded: the whole file is fetched only if
+        # the file itself (other pages, metadata, padding included) fits in it.
+        file_size = int(fs.size(path))
+        if stride == 1 and file_size <= max_bytes:
             raw = fs.cat(path)
             grid = _decode(raw, f"{axis}.tif")
             bytes_read += len(raw)
         elif header.compressed or header.tiled:
             raise ValueError(
-                f"{axis}.tif : grille compressée de {header.nbytes / 2**20:.0f} Mio, au-delà du "
-                f"budget de {max_bytes / 2**20:.0f} Mio ; lecture décimée impossible. Augmenter "
-                "le budget."
+                f"{axis}.tif : fichier compressé de {file_size / 2**20:.0f} Mio (grille de "
+                f"{header.nbytes / 2**20:.0f} Mio), au-delà du budget de "
+                f"{max_bytes / 2**20:.0f} Mio ; lecture partielle impossible. Augmenter le budget."
             )
-        else:
+        else:  # Uncompressed strips: only the grid rows are fetched, by range requests.
             grid, fetched = _strided_rows(fs, path, header, stride)
             bytes_read += fetched
         if grid.ndim != 2:

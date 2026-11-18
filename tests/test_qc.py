@@ -424,3 +424,19 @@ def test_unit_fallback_scales_skip_scale_consistency(tmp_path):
         results = checked(run_volume(root, uri='nometa', samples=2))
     assert results['volume.levels.scale_consistency']['status'] == 'skipped'
     assert results['volume.levels.shape_ratio']['status'] == 'pass'
+
+
+def test_ome_levels_without_scale_transforms_skip_scale_consistency(tmp_path):
+    """Audit case: OME multiscales listing datasets without any scale used to warn."""
+    root = zarr.open_group(str(tmp_path / 'noscale.zarr'), mode='w')
+    for index, side in enumerate((64, 32, 16)):
+        root.create_array(str(index), shape=(side,) * 3, dtype='uint8', chunks=(16,) * 3)
+        root[str(index)][:] = 100
+    root.attrs['multiscales'] = [{'axes': ['z', 'y', 'x'],
+                                  'datasets': [{'path': str(i)} for i in range(3)]}]
+    from vesuvius_data_explorer.core.volume import list_levels
+
+    levels = list_levels(root)
+    assert [level.scale_from_metadata for level in levels] == [False] * 3
+    results = checked(run_volume(root, uri='noscale', samples=1))
+    assert results['volume.levels.scale_consistency']['status'] == 'skipped'

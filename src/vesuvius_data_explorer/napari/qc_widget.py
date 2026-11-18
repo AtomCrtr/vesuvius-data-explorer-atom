@@ -95,7 +95,7 @@ def run_qc(source, level, samples, seed, max_voxels, config):
 def measure(array, region, background):
     """Worker body: one bounded read of the visible region, then its metrics."""
     data = read_slice(array, region["axis"], region["index"], region["start_a"],
-                      region["start_b"], width=region["width"])
+                      region["start_b"], width=region["width_a"], width_b=region["width_b"])
     return region, data.shape, view_metrics(data, background["value"],
                                             bool(background["enabled"]))
 
@@ -108,6 +108,7 @@ class QCWidget(QWidget):
         self._report = None
         self._target = None
         self._rows = []
+        self._report_matches = True
 
         self.layer_combo = QComboBox()
         self.level_combo = QComboBox()
@@ -269,9 +270,14 @@ class QCWidget(QWidget):
                              "le segment et calculer ses indicateurs.")
             return
         notes = []
-        if str(report["target"]["uri"]).rstrip("/") != str(layer.metadata["source"]).rstrip("/"):
-            notes.append(f"Attention : rapport produit pour {report['target']['uri']}, "
-                         f"affiché sur {layer.metadata['source']}.")
+        # Locations only make sense on the volume the report was produced for: drawing them on
+        # another one would point at the wrong voxels.
+        self._report_matches = (str(report["target"]["uri"]).rstrip("/")
+                                == str(layer.metadata["source"]).rstrip("/"))
+        if not self._report_matches:
+            notes.append(f"Attention : rapport produit pour {report['target']['uri']}, pas pour "
+                         f"{layer.metadata['source']} : résultats affichés, anomalies ni dessinées "
+                         "ni navigables.")
         self._report = report
         summary = report["summary"]
         self.summary_label.setText(" · ".join(f"{status} : {summary[status]}"
@@ -289,6 +295,11 @@ class QCWidget(QWidget):
                 self.results_table.setItem(row, column, item)
         self.results_table.resizeColumnsToContents()
         self.locations_list.clear()
+        if not self._report_matches:
+            for old in [lyr for lyr in self._viewer.layers if lyr.name == ANOMALY_LAYER]:
+                self._viewer.layers.remove(old)
+            self.status_label.setText(" ".join(notes))
+            return
         drawn, skipped = self._draw_anomalies(layer, report)
         if skipped:
             notes.append(f"{skipped} localisation(s) sur un niveau absent de ce volume, ignorée(s).")
@@ -331,6 +342,8 @@ class QCWidget(QWidget):
         if not rows:
             return
         result = self._rows[rows.pop()]
+        if not self._report_matches:
+            return
         for location in result["locations"]:
             text = (f"niveau {location['level']} · {location['axis']}={location['index']} · "
                     f"origine {tuple(location['origin'])} · taille {tuple(location['size'])}")
