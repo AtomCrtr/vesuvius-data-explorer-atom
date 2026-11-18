@@ -52,4 +52,7 @@ fusion après validation.
 | A1 | Corrections de l'audit de GPT-6 : mesure de la vue, rapport sur un autre volume, échelles OME absentes, budget tifxyz, préférence async, tests réseau hebdomadaires ; alignement indéterminé (dans T5.1) | Fusionnée (PR #18) |
 | T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | Fusionnée (PR #21) |
 | T5.2 | [Recalibration de l'alignement sur un second échantillon](validation/T5.1-alignement.md#5-second-échantillon-recalibration-18-novembre-2026), proposition de notation | Fusionnée (PR #22) |
-| T5.3 | Notation de l'alignement : `warn` au-delà de 30 µm pour les mesures fiables (proéminence ≥ 1,0) | En revue |
+| T5.3 | Notation de l'alignement : `warn` au-delà de 30 µm pour les mesures fiables (proéminence ≥ 1,0) | Fusionnée (PR #23) |
+| T7 | [Contrôle qualité en lot des segments d'un volume](tasks/T7-qc-en-lot.md) | En revue |
+| T8 | Guide d'utilisation et README court | À faire |
+| T9 | Publication PyPI et napari hub | À faire |

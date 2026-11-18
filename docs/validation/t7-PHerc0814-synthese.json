@@ -1,0 +1,991 @@
+{
+  "kind": "vesuvius-qc-batch",
+  "version": "1.0",
+  "tool": {
+    "name": "vesuvius-data-explorer",
+    "version": "0.1.0"
+  },
+  "created_at": "2026-11-18T16:30:42.811833+00:00",
+  "duration_s": 105.6,
+  "volume": {
+    "sample_id": "PHerc0814",
+    "volume_id": "20250804134230",
+    "uri": "s3://vesuvius-challenge-open-data/PHerc0814/volumes/20250804134230-9.362um-1.2m-113keV-masked.zarr",
+    "pixel_size_um": 9.362,
+    "shape": [
+      19390,
+      5784,
+      5784
+    ]
+  },
+  "parameters": {
+    "segments": 19,
+    "max_segments": null,
+    "alignment": true,
+    "max_bytes": 67108864,
+    "workers": 4,
+    "thresholds": {
+      "volume.background": {
+        "value": 0.0,
+        "enabled": 1.0
+      },
+      "volume.levels.shape_ratio": {
+        "tolerance_voxels": 1.0
+      },
+      "volume.levels.scale_consistency": {
+        "relative_tolerance": 0.05
+      },
+      "volume.chunks.size": {
+        "min_bytes": 32768.0,
+        "max_bytes": 67108864.0
+      },
+      "volume.finite": {
+        "warn": 0.0,
+        "fail": 1.0
+      },
+      "volume.saturation": {
+        "warn": 1.0,
+        "fail": 5.0
+      },
+      "volume.empty": {
+        "warn": 10.0,
+        "fail": 50.0
+      },
+      "volume.low_contrast": {
+        "warn": 25.0,
+        "fail": 75.0,
+        "range_fraction": 0.01
+      },
+      "surface.holes": {
+        "warn": 1.0,
+        "fail": 5.0
+      },
+      "surface.stretch": {
+        "warn": 2.0,
+        "fail": 4.0
+      },
+      "surface.normal_flips": {
+        "warn": 0.5,
+        "fail": 2.0
+      },
+      "surface.bounds": {
+        "tolerance_points": 2.0
+      },
+      "surface.alignment": {
+        "enabled": 1.0,
+        "max_offset_um": 30.0,
+        "min_prominence": 1.0
+      }
+    }
+  },
+  "summary": {
+    "segments": {
+      "error": 0,
+      "fail": 6,
+      "warn": 6,
+      "pass": 7,
+      "skipped": 0
+    },
+    "checks": {
+      "surface.holes": {
+        "error": 0,
+        "fail": 6,
+        "warn": 6,
+        "pass": 7,
+        "skipped": 0
+      },
+      "surface.bounds": {
+        "error": 0,
+        "fail": 0,
+        "warn": 0,
+        "pass": 19,
+        "skipped": 0
+      },
+      "surface.stretch": {
+        "error": 0,
+        "fail": 0,
+        "warn": 0,
+        "pass": 19,
+        "skipped": 0
+      },
+      "surface.normal_flips": {
+        "error": 0,
+        "fail": 0,
+        "warn": 0,
+        "pass": 19,
+        "skipped": 0
+      },
+      "surface.alignment": {
+        "error": 0,
+        "fail": 0,
+        "warn": 0,
+        "pass": 19,
+        "skipped": 0
+      },
+      "surface.valid": {
+        "error": 0,
+        "fail": 0,
+        "warn": 0,
+        "pass": 19,
+        "skipped": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "segment": "20250925204843",
+      "name": "20250925204843-auto_grown_20250925204843950",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250925204843-auto_grown_20250925204843950/mesh/20250925204843-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 26.2,
+      "checks": {
+        "surface.holes": {
+          "status": "fail",
+          "value": 6.397744523964433,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0203749714811703,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.07215943180528304,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -2.0,
+          "message": "Feuille la plus proche à -2 voxel(s) (-18.7 µm), intervalle bootstrap [-2, -2], proéminence 0.993 ; 36 patch(s), niveau 0, bord le plus net à +1 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 36.2025672662727,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        232,
+        1593
+      ],
+      "stride": 1,
+      "status": "fail"
+    },
+    {
+      "segment": "20250925222237",
+      "name": "20250925222237-auto_grown_20250925222237459",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250925222237-auto_grown_20250925222237459/mesh/20250925222237-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 21.4,
+      "checks": {
+        "surface.holes": {
+          "status": "fail",
+          "value": 5.725197848001322,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0353706269536596,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.004214075010535188,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -3.0,
+          "message": "Feuille la plus proche à -3 voxel(s) (-28.1 µm), intervalle bootstrap [-3, -2], proéminence 0.941 ; 36 patch(s), niveau 0, bord le plus net à +1 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 44.0258960727148,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        196,
+        595
+      ],
+      "stride": 1,
+      "status": "fail"
+    },
+    {
+      "segment": "20250926051122",
+      "name": "20250926051122-auto_grown_20250926051122829",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250926051122-auto_grown_20250926051122829/mesh/20250926051122-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 24.6,
+      "checks": {
+        "surface.holes": {
+          "status": "fail",
+          "value": 5.247929081822809,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.020294425893103,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.010357494683152729,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -1.0,
+          "message": "Feuille la plus proche à -1 voxel(s) (-9.36 µm), intervalle bootstrap [-2, -1], proéminence 0.957 ; 36 patch(s), niveau 0, bord le plus net à +1 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 33.822868832525074,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        270,
+        2589
+      ],
+      "stride": 1,
+      "status": "fail"
+    },
+    {
+      "segment": "20250926165636",
+      "name": "20250926165636-auto_trace_20250926165636789",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250926165636-auto_trace_20250926165636789/mesh/20250926165636-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 24.6,
+      "checks": {
+        "surface.holes": {
+          "status": "fail",
+          "value": 6.036139655250692,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0240471441966772,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.03388328511481221,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -1.0,
+          "message": "Feuille la plus proche à -1 voxel(s) (-9.36 µm), intervalle bootstrap [-1, -1], proéminence 0.753 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 37.858726040469385,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        241,
+        1361
+      ],
+      "stride": 1,
+      "status": "fail"
+    },
+    {
+      "segment": "20250926203608",
+      "name": "20250926203608-auto_grown_20250926203608932",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250926203608-auto_grown_20250926203608932/mesh/20250926203608-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 24.7,
+      "checks": {
+        "surface.holes": {
+          "status": "fail",
+          "value": 5.191335672863008,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.01937581036096,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.035496312621853016,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -2.0,
+          "message": "Feuille la plus proche à -2 voxel(s) (-18.7 µm), intervalle bootstrap [-2, -1], proéminence 0.727 ; 35 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 36.052146272914875,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        231,
+        1223
+      ],
+      "stride": 1,
+      "status": "fail"
+    },
+    {
+      "segment": "20250930083742",
+      "name": "20250930083742-auto_grown_20250930083742882",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250930083742-auto_grown_20250930083742882/mesh/20250930083742-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 23.2,
+      "checks": {
+        "surface.holes": {
+          "status": "fail",
+          "value": 8.273319615912209,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0217780773619016,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0016944653114709654,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -2.0,
+          "message": "Feuille la plus proche à -2 voxel(s) (-18.7 µm), intervalle bootstrap [-2, -1], proéminence 0.656 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 37.05908840746485,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        253,
+        1027
+      ],
+      "stride": 1,
+      "status": "fail"
+    },
+    {
+      "segment": "20250925161630",
+      "name": "20250925161630-auto_grown_20250925161630635",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250925161630-auto_grown_20250925161630635/mesh/20250925161630-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 25.4,
+      "checks": {
+        "surface.holes": {
+          "status": "warn",
+          "value": 3.909755295565196,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.019530324659347,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.01492403665343402,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -2.0,
+          "message": "Feuille la plus proche à -2 voxel(s) (-18.7 µm), intervalle bootstrap [-2, -2], proéminence 0.995 ; 36 patch(s), niveau 0, bord le plus net à +0 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 36.96083231334149,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        258,
+        950
+      ],
+      "stride": 1,
+      "status": "warn"
+    },
+    {
+      "segment": "20250925182632",
+      "name": "20250925182632-auto_grown_20250925182632715",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250925182632-auto_grown_20250925182632715/mesh/20250925182632-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 24.7,
+      "checks": {
+        "surface.holes": {
+          "status": "warn",
+          "value": 3.752495414517486,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0222939427383586,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.024827056978095764,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -1.0,
+          "message": "Feuille la plus proche à -1 voxel(s) (-9.36 µm), intervalle bootstrap [-1, -1], proéminence 0.976 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 36.66028501289197,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        239,
+        1084
+      ],
+      "stride": 1,
+      "status": "warn"
+    },
+    {
+      "segment": "20250925212701",
+      "name": "20250925212701-auto_grown_20250925212701145",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250925212701-auto_grown_20250925212701145/mesh/20250925212701-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 25.8,
+      "checks": {
+        "surface.holes": {
+          "status": "warn",
+          "value": 2.6411499826809837,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.025469588120293,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0016318537859007832,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -3.0,
+          "message": "Feuille la plus proche à -3 voxel(s) (-28.1 µm), intervalle bootstrap [-4, -2], proéminence 1.03 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : à 28.1 µm de sa feuille, dans les 30 µm."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 47.92412617220801,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        204,
+        345
+      ],
+      "stride": 1,
+      "status": "warn"
+    },
+    {
+      "segment": "20250928235953",
+      "name": "20250928235953-auto_grown_20250928235953722",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250928235953-auto_grown_20250928235953722/mesh/20250928235953-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 22.9,
+      "checks": {
+        "surface.holes": {
+          "status": "warn",
+          "value": 4.139906562240688,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0226419633797204,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0407763649994372,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -2.0,
+          "message": "Feuille la plus proche à -2 voxel(s) (-18.7 µm), intervalle bootstrap [-2, -2], proéminence 1.23 ; 36 patch(s), niveau 0, bord le plus net à +1 (informatif). Notation : à 18.7 µm de sa feuille, dans les 30 µm."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 38.056879309722376,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        252,
+        2638
+      ],
+      "stride": 1,
+      "status": "warn"
+    },
+    {
+      "segment": "20250929040153",
+      "name": "20250929040153-auto_grown_20250929040153260",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250929040153-auto_grown_20250929040153260/mesh/20250929040153-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 21.1,
+      "checks": {
+        "surface.holes": {
+          "status": "warn",
+          "value": 2.268790299297469,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0256673558714429,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.13644937326930023,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -1.0,
+          "message": "Feuille la plus proche à -1 voxel(s) (-9.36 µm), intervalle bootstrap [-2, -1], proéminence 0.824 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 43.023428232502965,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        168,
+        562
+      ],
+      "stride": 1,
+      "status": "warn"
+    },
+    {
+      "segment": "20251001060526",
+      "name": "20251001060526-auto_grown_20251001060526760",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20251001060526-auto_grown_20251001060526760/mesh/20251001060526-on-20250804134230-9.362um.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 19.8,
+      "checks": {
+        "surface.holes": {
+          "status": "warn",
+          "value": 2.4186477743401626,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0260219772016193,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -3.0,
+          "message": "Feuille la plus proche à -3 voxel(s) (-28.1 µm), intervalle bootstrap [-3, -2], proéminence 1.51 ; 36 patch(s), niveau 0, bord le plus net à +1 (informatif). Notation : à 28.1 µm de sa feuille, dans les 30 µm."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 33.24897673268687,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        236,
+        1234
+      ],
+      "stride": 1,
+      "status": "warn"
+    },
+    {
+      "segment": "20250928235954",
+      "name": "20250928235954-auto_grown_20250928235953722_copy",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20250928235954-auto_grown_20250928235953722_copy/mesh/20250928235954-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 19.9,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0241617783160837,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -3.0,
+          "message": "Feuille la plus proche à -3 voxel(s) (-28.1 µm), intervalle bootstrap [-3, -2], proéminence 0.624 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 65.01129776991846,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        117,
+        174
+      ],
+      "stride": 1,
+      "status": "pass"
+    },
+    {
+      "segment": "20260225160055",
+      "name": "20260225160055-auto_grown_20260225160055913",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260225160055-auto_grown_20260225160055913/mesh/20260225160055-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 17.6,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.011978520203205,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": 1.0,
+          "message": "Feuille la plus proche à +1 voxel(s) (+9.36 µm), intervalle bootstrap [-2, 1], proéminence 0.31 ; 36 patch(s), niveau 0, bord le plus net à -15 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 54.69365157480315,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        128,
+        127
+      ],
+      "stride": 1,
+      "status": "pass"
+    },
+    {
+      "segment": "20260226000000",
+      "name": "20260226000000-46527_2um_try2",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260226000000-46527_2um_try2/mesh/20260226000000-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 10.0,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.027265722565998,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -1.0,
+          "message": "Feuille la plus proche à -1 voxel(s) (-9.36 µm), intervalle bootstrap [-1, -1], proéminence 0.777 ; 36 patch(s), niveau 0, bord le plus net à +1 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 59.64275765543575,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        426,
+        691
+      ],
+      "stride": 1,
+      "status": "pass"
+    },
+    {
+      "segment": "20260226110425",
+      "name": "20260226110425-auto_grown_20260226110425097_abf",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260226110425-auto_grown_20260226110425097_abf/mesh/20260226110425-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 12.7,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0224673284863899,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -1.0,
+          "message": "Feuille la plus proche à -1 voxel(s) (-9.36 µm), intervalle bootstrap [-2, -1], proéminence 0.472 ; 36 patch(s), niveau 0, bord le plus net à +2 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 61.73913043478261,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        115,
+        186
+      ],
+      "stride": 1,
+      "status": "pass"
+    },
+    {
+      "segment": "20260226113324",
+      "name": "20260226113324-auto_grown_20260226113324624_abf",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260226113324-auto_grown_20260226113324624_abf/mesh/20260226113324-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 9.3,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0222076823338342,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -3.0,
+          "message": "Feuille la plus proche à -3 voxel(s) (-28.1 µm), intervalle bootstrap [-3, -3], proéminence 0.615 ; 36 patch(s), niveau 0, bord le plus net à +9 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 61.21587643678161,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        116,
+        192
+      ],
+      "stride": 1,
+      "status": "pass"
+    },
+    {
+      "segment": "20260226121302",
+      "name": "20260226121302-auto_grown_20260226121302716_abf",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260226121302-auto_grown_20260226121302716_abf/mesh/20260226121302-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 12.3,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.019337154931372,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.0037652020030874657,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -2.0,
+          "message": "Feuille la plus proche à -2 voxel(s) (-18.7 µm), intervalle bootstrap [-4, -2], proéminence 0.421 ; 36 patch(s), niveau 0, bord le plus net à -11 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 60.655014124293785,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        118,
+        192
+      ],
+      "stride": 1,
+      "status": "pass"
+    },
+    {
+      "segment": "20260226123353",
+      "name": "20260226123353-auto_grown_20260226123353106",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260226123353-auto_grown_20260226123353106/mesh/20260226123353-on-20250804134230-9.362um-t2.tifxyz",
+      "overlap_ratio": 1.0,
+      "seconds": 15.7,
+      "checks": {
+        "surface.holes": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "Pourcentage de points manquants à l'intérieur du segment (trous non reliés au bord de la grille)."
+        },
+        "surface.bounds": {
+          "status": "pass",
+          "value": 0.0,
+          "message": "0 % des points valides hors du volume ; couverture annoncée par le catalogue 100 %, écart 0 point(s)."
+        },
+        "surface.stretch": {
+          "status": "pass",
+          "value": 1.0280866902675863,
+          "message": "Rapport pas p95 / pas médian."
+        },
+        "surface.normal_flips": {
+          "status": "pass",
+          "value": 0.03033175355450237,
+          "message": "Pourcentage de cellules voisines aux normales opposées (replis ; heuristique)."
+        },
+        "surface.alignment": {
+          "status": "pass",
+          "value": -3.0,
+          "message": "Feuille la plus proche à -3 voxel(s) (-28.1 µm), intervalle bootstrap [-3, -3], proéminence 0.614 ; 36 patch(s), niveau 0, bord le plus net à +0 (informatif). Notation : mesure peu fiable (proéminence < 1), non notée."
+        },
+        "surface.valid": {
+          "status": "pass",
+          "value": 69.43333164531322,
+          "message": "Pourcentage de points valides (informatif : les bords irréguliers du segment le font baisser sans défaut ; voir surface.holes)."
+        }
+      },
+      "grid_shape": [
+        91,
+        217
+      ],
+      "stride": 1,
+      "status": "pass"
+    }
+  ]
+}
