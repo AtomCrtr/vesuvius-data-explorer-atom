@@ -57,24 +57,58 @@ def _codec_error(exc: BaseException) -> ValueError:
     return ValueError(f"Codec de compression « {codec} » non pris en charge : {hint}.")
 
 
-def open_volume_store(path: str) -> Any:
+DEFAULT_CONCURRENCY = 64
+
+
+def set_remote_concurrency() -> int:
+    """Concurrent chunk requests of Zarr (process-wide setting, T6).
+
+    S3 answers a 2 MiB chunk in about 0.27 s but serves many in parallel: 64 concurrent
+    requests halve the time of a 27-chunk read compared with Zarr's default of 10.
+    ``VESUVIUS_ZARR_CONCURRENCY`` overrides the value.
+    """
+    import os
+
+    import zarr
+
+    raw = os.environ.get("VESUVIUS_ZARR_CONCURRENCY", str(DEFAULT_CONCURRENCY))
+    try:
+        value = int(raw)
+    except ValueError:
+        value = 0
+    if value < 1:
+        warn(f"VESUVIUS_ZARR_CONCURRENCY invalide ({raw!r}) : {DEFAULT_CONCURRENCY} utilisé.",
+             stacklevel=2)
+        value = DEFAULT_CONCURRENCY
+    zarr.config.set({"async.concurrency": value})
+    return value
+
+
+def open_volume_store(path: str, *, cache: bool = False) -> Any:
     """Open a local, anonymous public S3 or allowed HTTPS Zarr root, read-only.
 
     Use a complete `.zarr` URL, not the bucket root or a sample directory. HTTPS is
     accepted only for the official hosts in ``ALLOWED_HTTPS_HOSTS``; it needs no
-    directory listing because levels come from the OME metadata.
+    directory listing because levels come from the OME metadata. With ``cache``, a remote
+    store is wrapped in the persistent local chunk cache (``core.cache``); local volumes are
+    never cached. Opening a remote volume sets Zarr's concurrency (``set_remote_concurrency``).
     """
     import zarr
+
+    from .cache import cached_store
 
     path = path.strip()
     if not path:
         raise ValueError("Indiquer le chemin d'un volume .zarr.")
     try:
         if path.startswith("s3://"):
+            set_remote_concurrency()
             # Supported Zarr 3 remote store API. Anonymous access to the public bucket.
             store = zarr.storage.FsspecStore.from_url(
                 path.rstrip("/"), storage_options={"anon": True}, read_only=True
             )
+            if cache:
+                store = cached_store(store, path)
             return zarr.open(store=store, mode="r")
         if path.startswith(("https://", "http://")):
             host = urlsplit(path).hostname or ""
@@ -84,7 +118,10 @@ def open_volume_store(path: str) -> Any:
                     "Utiliser l'URI s3:// publique, un chemin local ou une URL HTTPS officielle "
                     f"({allowed}) ; cette URL n'est pas prise en charge."
                 )
+            set_remote_concurrency()
             store = zarr.storage.FsspecStore.from_url(path.rstrip("/"), read_only=True)
+            if cache:
+                store = cached_store(store, path)
             return zarr.open(store=store, mode="r")
         return zarr.open(path, mode="r")
     except _not_found_errors():
@@ -271,6 +308,18 @@ def open_multiscale(path: str) -> tuple[list[da.Array], list[Level]]:
     return arrays, levels
 
 
+def open_levels(path: str, *, cache: bool = True) -> tuple[list[Any], list[Level]]:
+    """Open the levels as **Zarr arrays** (T6), through the local chunk cache if remote.
+
+    Zarr reads every chunk of a selection concurrently; a Dask graph (``open_multiscale``)
+    reads them as synchronous tasks, at most one per core: 5x slower on the measured S3
+    workloads. Nothing is read until an array is indexed.
+    """
+    root = open_volume_store(path, cache=cache)
+    levels = list_levels(root)
+    return [get_array(root, level.key) for level in levels], levels
+
+
 def get_array(root: Any, key: str) -> Any:
     return root if key == "__root__" else root[key]
 
@@ -339,12 +388,21 @@ def normalized_preview(data: np.ndarray) -> np.ndarray:
     return out
 
 
-def estimate_contrast(levels_arrays: list[Any], max_side: int = 512) -> tuple[float, float]:
+BACKGROUND_MIN_FRACTION = 0.05
+FOREGROUND_MIN_FRACTION = 0.01
+
+
+def estimate_contrast(levels_arrays: list[Any], max_side: int = 512,
+                      background: float | None = 0.0) -> tuple[float, float]:
     """Estimate finite 1/99 percentiles from one central coarse Z slice.
 
     The returned sample is bounded to max_side² pixels (at most 512²), although
     intersecting storage chunks may be larger. Empty, non-finite or degenerate
     samples use dtype bounds, clamped to finite Python floats when necessary.
+
+    Masked volumes set everything outside the scroll to ``background`` (0, the QC default):
+    when it is at least 5 % of the sample and at least 1 % remains, those voxels are left out,
+    so the papyrus keeps its contrast (T6). ``background=None`` disables the exclusion.
     """
     if not isinstance(max_side, int) or not 1 <= max_side <= 512:
         raise ValueError("Largeur de fenêtre autorisée : 1 à 512 pixels.")
@@ -374,5 +432,10 @@ def estimate_contrast(levels_arrays: list[Any], max_side: int = 512) -> tuple[fl
     finite = sample[np.isfinite(sample)]
     if not finite.size:
         return fallback
+    if background is not None:
+        foreground = finite[finite != background]
+        share = 1 - foreground.size / finite.size
+        if share >= BACKGROUND_MIN_FRACTION and foreground.size >= FOREGROUND_MIN_FRACTION * finite.size:
+            finite = foreground
     low, high = (float(value) for value in np.percentile(finite.astype(np.float64), (1, 99)))
     return (low, high) if isfinite(low) and isfinite(high) and low < high else fallback

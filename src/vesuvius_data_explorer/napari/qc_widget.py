@@ -87,7 +87,7 @@ def _qc_layers(viewer):
 def run_qc(source, level, samples, seed, max_voxels, config):
     """Worker body: open the store and run the bounded QC (no Qt here)."""
     thresholds = load_thresholds(config or None)
-    root = open_volume_store(source)
+    root = open_volume_store(source, cache=True)
     return run_volume(root, uri=source, level=level, samples=samples, seed=seed,
                       max_voxels=max_voxels, thresholds=thresholds)
 

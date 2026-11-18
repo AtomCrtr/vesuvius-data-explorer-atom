@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 from .core.tifxyz import DEFAULT_MAX_BYTES
-from .core.volume import open_multiscale, open_volume_store
+from .core.volume import open_levels, open_volume_store
 from .qc import run_surface, run_volume
 from .qc.report import render_html
 from .qc.thresholds import load_thresholds
@@ -49,13 +49,13 @@ def main(argv=None):
             raise ValueError('Les sorties JSON et HTML doivent être différentes.')
         thresholds = load_thresholds(args.config)
         if args.kind == 'volume':
-            root = open_volume_store(args.uri)
+            root = open_volume_store(args.uri, cache=True)
             report = run_volume(root, uri=args.uri, level=args.level, samples=args.samples,
                                 seed=args.seed, max_voxels=args.max_voxels, thresholds=thresholds)
         else:
             volume = None
             if args.volume:
-                arrays, levels = open_multiscale(args.volume)
+                arrays, levels = open_levels(args.volume)
                 volume = (arrays, [level.shape for level in levels])
             report = run_surface(args.uri, max_bytes=args.max_bytes, window=args.window,
                                  max_voxels=args.max_voxels, thresholds=thresholds,

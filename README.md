@@ -87,11 +87,24 @@ https://data.aws.ash2txt.org/samples/PHercParis4/volumes/20230205180739-7.910um-
 
 L'ouverture des métadonnées et l'estimation du contraste s'exécutent dans un thread de travail ; le
 bouton reste désactivé pendant cette étape. Le tableau affiche, pour chaque niveau : forme, dtype,
-chunks, échelle et taille estimée avant compression. Le calque créé conserve les tableaux Dask
+chunks, échelle et taille estimée avant compression. Le calque créé conserve les tableaux **Zarr**
 multi-échelles, l'échelle du niveau le plus fin en **(z, y, x)**, l'URI source et ce résumé. Le
 contraste initial est explicite : percentiles 1 et 99 d'une seule coupe centrale du niveau le plus
 grossier, bornée à 512 × 512 (valeurs non finies ignorées ; bornes du dtype pour une coupe vide ou
-constante). Il reste ajustable dans napari.
+constante). Sur un volume masqué, le **fond à 0 est exclu** de ce calcul quand il occupe au moins
+5 % de la coupe (et qu'il reste au moins 1 % de matière) : le fond reste noir et le papyrus garde son
+contraste. Il reste ajustable dans napari.
+
+**Vitesse et cache local.** Les volumes distants sont lus directement avec Zarr, 64 chunks à la
+fois (variable `VESUVIUS_ZARR_CONCURRENCY` ; réglage global au processus), et chaque chunk lu est
+gardé sur le disque dans `~/.cache/vesuvius-data-explorer/chunks/` (ou `$XDG_CACHE_HOME`), un
+dossier par volume. Une coupe lit des chunks de 128 coupes d'épaisseur : la coupe suivante, un QC
+ou une mesure d'alignement relancés viennent du disque. Limite de **10 Gio** pour l'ensemble
+(`VESUVIUS_CACHE_MAX_GB`, les fichiers les moins récemment utilisés partent d'abord), expiration
+après **30 jours**, bouton **Vider le cache local** dans le widget, désactivation par
+`VESUVIUS_CACHE=0`. Les volumes locaux ne sont jamais copiés. Mesures sur PHerc0800 : coupe
+suivante de 0,77 s à 0,20 s, mesure d'alignement de 21 s à 4,5 s, puis 0,7 s en cache
+([validation T6](docs/validation/T6-performance.md)).
 
 **Catalogue.** Le fichier officiel `s3://vesuvius-challenge-open-data/metadata.json` (environ 9 Mo)
 est téléchargé en arrière-plan puis gardé 24 h dans `~/.cache/vesuvius-data-explorer/` (ou
@@ -114,8 +127,9 @@ aussi dans les Préférences de napari. Le glisser-déposer respecte la préfér
 **Limites connues.** Les chunks téléchargés peuvent dépasser la fenêtre demandée ; le premier rendu
 et la navigation déclenchent des lectures supplémentaires selon la vue et le réseau (de quelques
 secondes à environ une minute pour la première image sur S3, selon la connexion). En 3D, napari
-affiche le niveau le plus grossier. Sur les volumes masqués, le contraste initial inclut le fond à 0
-et paraît très dur. Qt et un environnement graphique local sont nécessaires.
+affiche le niveau le plus grossier. Le cache s'appuie sur `CacheStore`, une API expérimentale de
+Zarr : si elle manque, le plugin lit sans cache et l'indique. Qt et un environnement graphique local
+sont nécessaires.
 
 ## Contrôle qualité dans napari
 
@@ -271,7 +285,9 @@ print(json.dumps(volume_summary(levels), indent=2))
 roi = read_slice(arrays[-1], axis="z", index=0, start_a=0, start_b=0, width=64)
 ```
 
-`open_multiscale` renvoie des tableaux Dask et des enregistrements `Level` immuables, du niveau le
+`open_levels(uri)` renvoie les tableaux **Zarr** des niveaux, lus en parallèle et, pour un volume
+distant, à travers le cache local : c'est la voie rapide, utilisée par napari et la mesure
+d'alignement. `open_multiscale` renvoie des tableaux Dask et des enregistrements `Level` immuables, du niveau le
 plus fin au plus grossier. Ouvrir, lister les niveaux et résumer ne lisent que les métadonnées, aucun
 chunk de voxels. `read_slice` ne calcule que la fenêtre 2D demandée, au plus 512 × 512. Appeler
 `.compute()` sur un niveau entier le charge entièrement : découper d'abord.

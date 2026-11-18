@@ -1,7 +1,7 @@
 """The reader prepares lazy data with explicit contrast before napari sees it."""
 
-import dask.array as da
 import pytest
+import zarr
 from zarr.storage import LocalStore
 
 from vesuvius_data_explorer.napari.reader import napari_get_reader, read_volume
@@ -43,7 +43,8 @@ def test_reader_reads_only_chunks_intersecting_the_coarse_central_slice(
     monkeypatch.setattr(LocalStore, "get", tracking_get)
     [(arrays, options, layer_type)] = read_volume(str(napari_pyramid))
     assert layer_type == "image"
-    assert len(arrays) == 3 and all(isinstance(array, da.Array) for array in arrays)
+    # Zarr arrays, not Dask graphs (T6): concurrent chunk reads, local cache when remote.
+    assert len(arrays) == 3 and all(isinstance(array, zarr.Array) for array in arrays)
     assert options["multiscale"] is True
     assert options["scale"] == (0.5, 1, 2)
     assert options["contrast_limits"] == pytest.approx((192.95, 286.05))

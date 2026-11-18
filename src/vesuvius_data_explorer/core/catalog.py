@@ -242,8 +242,9 @@ def _segments(data: dict) -> tuple[CatalogSegment, ...]:
 
 
 def default_cache_dir() -> Path:
-    base = os.environ.get("XDG_CACHE_HOME") or os.path.join(Path.home(), ".cache")
-    return Path(base) / "vesuvius-data-explorer"
+    from .cache import default_cache_dir as base
+
+    return base()
 
 
 def _decode(raw: bytes) -> Any:
