@@ -131,7 +131,7 @@ def test_oversized_uncompressed_grid_is_read_by_row_ranges(tmp_path, monkeypatch
 
 def test_oversized_compressed_grid_is_refused(tmp_path):
     folder = write_segment(tmp_path / "seg", *grids(), lzw=True)
-    with pytest.raises(ValueError, match="compressée.*Augmenter"):
+    with pytest.raises(ValueError, match="compressé.*Augmenter"):
         load_tifxyz(str(folder), max_bytes=10 * 30 * 4)
 
 
@@ -280,3 +280,51 @@ def test_real_large_segment_is_decimated_within_budget():
     assert surface.stride == 2
     assert surface.bytes_read <= 3 * tifxyz_module.DEFAULT_MAX_BYTES
     assert surface.valid.any()
+
+
+def test_budget_bounds_the_bytes_downloaded_not_only_the_grid(tmp_path, monkeypatch):
+    """Audit case: a small grid in a large file (extra page) used to be downloaded whole."""
+    import fsspec
+
+    x, y, z = grids()
+    folder = write_segment(tmp_path / "seg", x, y, z)
+    big = np.zeros((1000, 1000), np.float32)  # 4 MB second page in each file
+    for name, grid in zip("xyz", (x, y, z)):
+        tifffile.imwrite(folder / f"{name}.tif", grid)
+        tifffile.imwrite(folder / f"{name}.tif", big, append=True)
+    fetched = []
+    real_cat = fsspec.implementations.local.LocalFileSystem.cat_file
+
+    def counting_cat(self, path, start=None, end=None, **kwargs):
+        data = real_cat(self, path, start=start, end=end, **kwargs)
+        fetched.append((str(path).rsplit("/", 1)[-1], len(data)))
+        return data
+
+    monkeypatch.setattr(fsspec.implementations.local.LocalFileSystem, "cat_file", counting_cat)
+    budget = 64 * 1024  # the 40 x 30 grid (4.8 kB) fits, the 4 MB file does not
+    surface = load_tifxyz(str(folder), max_bytes=budget)
+    assert surface.points[10, 7].tolist() == [500, 400, 240]
+    assert surface.bytes_read == 3 * 40 * 30 * 4
+    grid_reads = [size for name, size in fetched if name.endswith(".tif")]
+    assert grid_reads and max(grid_reads) <= budget
+
+
+def test_compressed_file_larger_than_budget_is_refused_even_if_its_grid_fits(tmp_path):
+    from PIL import Image
+
+    folder = write_segment(tmp_path / "seg", *grids())
+    noise = Image.fromarray(np.random.default_rng(0).random((300, 300), dtype=np.float32))
+    for name, grid in zip("xyz", grids()):
+        # LZW first page with the grid, plus an incompressible 360 kB second page.
+        Image.fromarray(np.asarray(grid, np.float32)).save(
+            folder / f"{name}.tif", compression="tiff_lzw", tiffinfo={317: 3},
+            save_all=True, append_images=[noise])
+    with pytest.raises(ValueError, match="fichier compressé.*Augmenter"):
+        load_tifxyz(str(folder), max_bytes=64 * 1024)
+
+
+def test_oversized_meta_json_is_ignored(tmp_path):
+    folder = write_segment(tmp_path / "seg", *grids())
+    (folder / "meta.json").write_text(json.dumps({"pad": "x" * (2 << 20)}))
+    surface = load_tifxyz(str(folder))
+    assert surface.meta == {} and "plus de 1 Mio" in surface.warnings[0]

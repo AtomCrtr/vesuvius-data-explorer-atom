@@ -348,3 +348,30 @@ def test_stale_catalogue_is_announced(napari_pyramid, make_napari_viewer, qtbot,
     qtbot.addWidget(widget)
     _load_catalog(widget, qtbot)
     assert widget.volume_info.text().startswith("Réseau indisponible")
+
+
+def test_async_turned_off_during_open_adds_no_layer(
+    async_loading, napari_pyramid, make_napari_viewer, qtbot, monkeypatch
+):
+    """Audit case: the preference was only checked when the open started."""
+    from napari.settings import get_settings
+
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    real_read = widget_module.read_volume
+
+    def read_then_disable(path):
+        data = real_read(path)
+        get_settings().experimental.async_ = False  # user changes the preference meanwhile
+        return data
+
+    monkeypatch.setattr(widget_module, "read_volume", read_then_disable)
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    widget.path_input.setText(str(napari_pyramid))
+    qtbot.mouseClick(widget.open_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.open_button.isEnabled(), timeout=20000)
+    assert len(viewer.layers) == 0
+    assert "désactivé pendant l'ouverture" in widget.status_label.text()
+    assert not widget.async_button.isHidden()
