@@ -170,3 +170,41 @@ def test_cli_map_writes_maps_zones_report_and_a_snapped_copy(volume, tmp_path):
     assert np.allclose(load_tifxyz(str(segment)).points, ramp(big_plane(), 10).points)
     assert main(["carte", str(segment), "--volume", str(tmp_path / "sheets.zarr"),
                  "--recaler", "-o", str(output)]) == 2
+
+
+def test_decoded_chunk_cache_serves_boxes_and_decodes_each_chunk_once():
+    import zarr
+
+    from vesuvius_data_explorer.core.chunkcache import DecodedChunks
+
+    data = np.arange(40 * 50 * 60, dtype=np.float32).reshape(40, 50, 60)
+    array = zarr.create_array(store={}, shape=data.shape, chunks=(16, 16, 16), dtype="float32")
+    array[:] = data
+    cached = DecodedChunks(array)
+    for box in [(slice(3, 37), slice(0, 50), slice(17, 59)), (slice(0, 1), slice(5, 6),
+                                                              slice(0, 60))]:
+        assert np.array_equal(cached[box], data[box])
+    first = cached.decoded
+    cached[3:37, 0:50, 17:59]
+    assert cached.decoded == first  # Served from memory.
+    small = DecodedChunks(array, max_bytes=16**3 * 4)  # Room for one chunk only.
+    assert np.array_equal(small[0:40, 0:50, 0:60], data)
+
+
+def test_chunked_sampling_matches_scipy_and_the_map_on_zarr(volume):
+    import zarr
+    from scipy import ndimage
+
+    from vesuvius_data_explorer.core.chunkcache import DecodedChunks, sample_trilinear
+
+    data = volume[0][0]
+    array = zarr.create_array(store={}, shape=data.shape, chunks=(16, 32, 32), dtype="float32")
+    array[:] = data
+    coords = np.random.default_rng(1).uniform(-2, 170, (500, 3))
+    expected = ndimage.map_coordinates(data, coords.T, order=1, mode="nearest")
+    assert np.allclose(sample_trilinear(DecodedChunks(array), coords), expected, atol=1e-3)
+    arrays = [array] + list(volume[0][1:])
+    on_zarr = alignment_map(ramp(big_plane(), 10), arrays, volume[1])
+    in_memory = alignment_map(ramp(big_plane(), 10), *volume)
+    assert np.allclose(on_zarr.offset, in_memory.offset, atol=1e-3, equal_nan=True)
+    assert on_zarr.voxels_read <= data.size

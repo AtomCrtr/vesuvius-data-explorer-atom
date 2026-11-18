@@ -207,8 +207,12 @@ def residues(drift: np.ndarray, spacing: float) -> np.ndarray:
 
 
 def _tile_profiles(surface, arrays, shapes, tile, offsets, factor, level, min_points,
-                   max_voxels, warnings):
+                   max_voxels, warnings, workers):
+    from concurrent.futures import ThreadPoolExecutor
+
     from scipy import ndimage
+
+    from .chunkcache import DecodedChunks, sample_trilinear
 
     points = surface.points
     normals = grid_normals(points)
@@ -219,8 +223,14 @@ def _tile_profiles(surface, arrays, shapes, tile, offsets, factor, level, min_po
     variances = np.full((rows, cols, n), np.nan)
     counts = np.zeros((rows, cols), dtype=int)
     centers = np.full((rows, cols, 3), np.nan)
-    array, level_shape = arrays[level], np.asarray(shapes[level])
-    voxels_read = 0
+    level_shape = np.asarray(shapes[level])
+    array = arrays[level]
+    chunked = not isinstance(array, np.ndarray)
+    if chunked:
+        # Only the chunks the samples fall in are read, each decoded once (tiles share chunks).
+        array = DecodedChunks(array)
+
+    plan, voxels_read = [], 0
     for tr in range(rows):
         for tc in range(cols):
             block = (slice(tr * tile, (tr + 1) * tile), slice(tc * tile, (tc + 1) * tile))
@@ -234,26 +244,45 @@ def _tile_profiles(surface, arrays, shapes, tile, offsets, factor, level, min_po
             high = np.minimum(np.ceil(coords.max(axis=0)).astype(int) + 2, level_shape)
             if np.any(high <= low):
                 continue
-            size = int(np.prod(high - low))
-            if voxels_read + size > max_voxels:
-                warnings.append(f"Budget de {max_voxels} voxels atteint : carte partielle.")
-                return profiles, variances, counts, centers, voxels_read
+            if not chunked:
+                size = int(np.prod(high - low))
+                if voxels_read + size > max_voxels:
+                    warnings.append(f"Budget de {max_voxels} voxels atteint : carte partielle.")
+                    break
+                voxels_read += size
+            plan.append((tr, tc, p, coords, low, high))
+        else:
+            continue
+        break
+
+    def measure(item):
+        tr, tc, p, coords, low, high = item
+        if chunked:
+            values = sample_trilinear(array, coords)
+        else:
             box = np.asarray(array[low[0]:high[0], low[1]:high[1], low[2]:high[2]],
                              dtype=np.float32)
-            voxels_read += size
             values = ndimage.map_coordinates(box, (coords - low).T, order=1, mode="nearest")
-            values = values.reshape(len(p), n)
+        return item, values.reshape(len(p), n)
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for (tr, tc, p, *_), values in pool.map(measure, plan):
             profiles[tr, tc] = values.mean(axis=0)
             variances[tr, tc] = values.var(axis=0, ddof=1) / len(p)  # Of the tile mean.
             counts[tr, tc] = len(p)
             centers[tr, tc] = p.mean(axis=0)
+    if chunked:
+        voxels_read = array.decoded * int(np.prod(array.chunks))
+        if voxels_read > max_voxels:
+            warnings.append(f"{voxels_read} voxels lus, au-delà du budget indicatif de "
+                            f"{max_voxels}.")
     return profiles, variances, counts, centers, voxels_read
 
 
 def alignment_map(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=None,
                   half_range_um=DEFAULT_HALF_RANGE_UM, tile=DEFAULT_TILE,
                   min_points=DEFAULT_MIN_POINTS, max_voxels=DEFAULT_MAP_MAX_VOXELS,
-                  ) -> AlignmentMap:
+                  workers=8) -> AlignmentMap:
     """Measure the alignment map of ``surface`` on the volume levels ``arrays`` / ``shapes``."""
     if isinstance(tile, bool) or not isinstance(tile, int) or tile < 2:
         raise ValueError("La taille des tuiles doit être un entier ≥ 2.")
@@ -267,7 +296,8 @@ def alignment_map(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=None,
     offsets = step * np.arange(-count, count + 1)
     warnings: list[str] = []
     profiles, variances, counts, centers, voxels_read = _tile_profiles(
-        surface, arrays, shapes, tile, offsets, factor, level, min_points, max_voxels, warnings)
+        surface, arrays, shapes, tile, offsets, factor, level, min_points, max_voxels, warnings,
+        workers)
     measured = counts > 0
     if not measured.any():
         raise ValueError("Aucune tuile mesurable : pas assez de points valides dans le volume.")
