@@ -67,7 +67,9 @@ plus ancienne est utilisée et signalée. Seules les copies accessibles publique
 (S3, ou HTTPS sur `data.aws.ash2txt.org`) ; les copies `vc-delta3d` sont marquées comme telles.
 Pour un volume du catalogue, le calque reçoit `pixel_size_um` et la fiche `catalog` dans ses
 métadonnées, et le widget **avertit si la forme réelle du niveau 0 diffère de celle du catalogue**
-(c'est le cas de Scroll 1, voir la [validation T4.2](validation/T4.2-catalogue.md)). Les
+(c'est le cas de Scroll 1, dont la fiche annonce la forme d'avant recadrage, voir la
+[validation T4.2](validation/T4.2-catalogue.md)). Le schéma du catalogue précise que les
+métadonnées Zarr font foi. Les
 coordonnées de napari restent en **voxels du niveau 0**, convention du catalogue et des surfaces
 VC3D.
 
