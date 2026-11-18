@@ -43,8 +43,20 @@ def main(argv=None):
                                  'profil exploratoire surface.alignment')
             command.add_argument('--pixel-size-um', type=float, default=None,
                                  help='taille de voxel du volume (portée du profil en µm)')
+    batch = commands.add_parser('lot', help='tous les segments du catalogue publiés pour un volume')
+    batch.add_argument('volume_id', help='identifiant du volume dans le catalogue officiel')
+    batch.add_argument('-o', '--output', required=True, help='dossier de sortie')
+    batch.add_argument('--max-segments', type=int, default=None)
+    batch.add_argument('--workers', type=int, default=4)
+    batch.add_argument('--sans-alignement', action='store_true',
+                       help="ne pas mesurer l'alignement (plus rapide, moins de lectures)")
+    batch.add_argument('--max-bytes', type=int, default=DEFAULT_MAX_BYTES)
+    batch.add_argument('--config')
+    batch.add_argument('--catalogue', help='fichier metadata.json local (sinon catalogue officiel)')
     try:
         args = parser.parse_args(argv)
+        if args.kind == 'lot':
+            return _batch(args)
         if args.output and args.html and Path(args.output).resolve() == Path(args.html).resolve():
             raise ValueError('Les sorties JSON et HTML doivent être différentes.')
         thresholds = load_thresholds(args.config)
@@ -75,6 +87,32 @@ def main(argv=None):
         # failure here. Pure-check exceptions are already isolated in qc/checks.
         print(f'vesuvius-qc : {type(exc).__name__} : {exc}', file=sys.stderr)
         return 2
+
+
+def _batch(args):
+    from .core.catalog import load_catalog
+    from .qc.batch import run_batch, to_csv, to_html
+
+    output = Path(args.output)
+    catalog = load_catalog(args.catalogue) if args.catalogue else load_catalog()
+
+    def progress(done, total, row):
+        print(f'[{done}/{total}] {row["segment"]} : {row["status"]} ({row["seconds"]} s)',
+              file=sys.stderr, flush=True)
+
+    summary = run_batch(catalog, args.volume_id, max_segments=args.max_segments,
+                        workers=args.workers, alignment=not args.sans_alignement,
+                        max_bytes=args.max_bytes, thresholds=load_thresholds(args.config),
+                        reports_dir=output / 'rapports', progress=progress)
+    (output / 'synthese.json').write_text(
+        json.dumps(summary, indent=2, ensure_ascii=False, allow_nan=False) + '\n', encoding='utf-8')
+    (output / 'synthese.csv').write_text(to_csv(summary), encoding='utf-8')
+    (output / 'synthese.html').write_text(to_html(summary), encoding='utf-8')
+    counts = summary['summary']['segments']
+    print(f"{summary['parameters']['segments']} segment(s) en {summary['duration_s']} s : "
+          + ', '.join(f'{k} {v}' for k, v in counts.items() if v)
+          + f" ; synthèse dans {output / 'synthese.html'}", file=sys.stderr)
+    return int(bool(counts['fail'] or counts['error']))
 
 
 if __name__ == '__main__':
