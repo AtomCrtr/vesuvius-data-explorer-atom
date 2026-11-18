@@ -98,8 +98,9 @@ def visible_region(levels, layer_scale, plane_axis: str, plane_world: float,
 
     ``view_low`` / ``view_high`` are the world corners of the view on the two in-plane
     axes, in (z, y, x) order. The finest level whose visible region fits in
-    ``max_side × max_side`` is chosen; if none fits, the central ``max_side`` window
-    of the coarsest level is used.
+    ``max_side × max_side`` is chosen; if none fits, the central part of the coarsest level,
+    at most ``max_side`` on each axis, is used. The region is the visible **rectangle**:
+    ``width_a`` × ``width_b`` (``width`` is the larger side, kept for compatibility).
     """
     if not 1 <= max_side <= 512:
         raise ValueError("Largeur de fenêtre autorisée : 1 à 512 pixels.")
@@ -127,22 +128,27 @@ def visible_region(levels, layer_scale, plane_axis: str, plane_world: float,
     level, ratios, bounds, width = choice
     shape = level["shape"]
     if width > max_side:
+        # Keep each side within max_side, centred on the view, without squaring it.
         centred = []
         for axis, (first, last) in zip(in_plane, bounds):
+            side = min(last - first, max_side)
             middle = (first + last) // 2
-            centred.append((max(0, min(middle - max_side // 2, shape[axis] - max_side)), None))
-        bounds = [(first, first + max_side) for first, _ in centred]
-        width = max_side
+            start = max(0, min(middle - side // 2, shape[axis] - side))
+            centred.append((start, start + side))
+        bounds = centred
     index = round(to_level(plane_world, plane_index, ratios[plane_index]))
     index = min(max(index, 0), shape[plane_index] - 1)
     starts = [min(first, shape[axis] - 1) for axis, (first, _) in zip(in_plane, bounds)]
+    sides = [int(max(1, min(last - first, max_side))) for first, last in bounds]
     return {
         "level": level["key"],
         "axis": plane_axis,
         "index": int(index),
         "start_a": int(starts[0]),
         "start_b": int(starts[1]),
-        "width": int(max(1, min(width, max_side))),
+        "width_a": sides[0],
+        "width_b": sides[1],
+        "width": max(sides),
     }
 
 

@@ -56,8 +56,9 @@ def test_other_plane_axes_and_errors():
 
 def test_visible_region_uses_finest_level_that_fits():
     region = visible_region(LEVELS, SCALE, "z", 20.0, (10.0, 5.0), (60.0, 40.0))
+    # y 10..60 (scale 1) and x 5..40 (scale 0.5, i.e. voxels 10..80): a 51 x 71 rectangle.
     assert region == {"level": "0", "axis": "z", "index": 10, "start_a": 10, "start_b": 10,
-                      "width": 71}
+                      "width_a": 51, "width_b": 71, "width": 71}
 
 
 def test_visible_region_falls_back_to_coarser_level_and_bounds():
@@ -66,6 +67,7 @@ def test_visible_region_falls_back_to_coarser_level_and_bounds():
     region = visible_region(LEVELS, SCALE, "z", 0.0, (-1e6, -1e6), (1e6, 1e6), max_side=100)
     assert region["level"] == "2"
     assert (region["start_a"], region["start_b"], region["width"]) == (0, 0, 64)
+    assert (region["width_a"], region["width_b"]) == (32, 64)
 
 
 def test_visible_region_central_window_when_nothing_fits():
@@ -94,5 +96,24 @@ def test_visible_region_arguments_are_valid_read_slice_arguments():
     volume = np.arange(16 * 32 * 64, dtype=np.uint16).reshape(16, 32, 64)
     region = visible_region(LEVELS[2:], (1, 1, 1), "z", 3.0, (-5, -5), (100, 100), max_side=20)
     data = read_slice(volume, region["axis"], region["index"], region["start_a"],
-                      region["start_b"], width=region["width"])
+                      region["start_b"], width=region["width_a"], width_b=region["width_b"])
     assert data.shape == (20, 20)
+
+
+def test_thin_view_is_measured_on_its_rectangle_not_a_square():
+    """Audit case: a 10 x 2 view used to be read as 10 x 10, mixing off-screen pixels."""
+    volume = np.full((4, 32, 32), 100.0)
+    volume[:, 10:20, 5:7] = 1.0  # the visible stripe
+    levels = [{"key": "0", "shape": [4, 32, 32]}]
+    region = visible_region(levels, (1, 1, 1), "z", 1.0, (10.0, 5.0), (19.0, 6.0))
+    assert (region["width_a"], region["width_b"]) == (10, 2)
+    data = read_slice(volume, region["axis"], region["index"], region["start_a"],
+                      region["start_b"], width=region["width_a"], width_b=region["width_b"])
+    metrics = view_metrics(data)
+    assert data.shape == (10, 2) and metrics["p1"] == metrics["p99"] == 1.0
+
+
+def test_central_window_keeps_the_view_aspect():
+    levels = [{"key": "0", "shape": [4, 2000, 2000]}]
+    region = visible_region(levels, (1, 1, 1), "z", 0.0, (0.0, 0.0), (1999.0, 99.0))
+    assert (region["width_a"], region["width_b"]) == (512, 100)

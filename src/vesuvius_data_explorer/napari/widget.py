@@ -170,6 +170,15 @@ class OpenVolumeWidget(QWidget):
         self._worker.start()
 
     def _loaded(self, layer_data):
+        # The preference may have been turned off while the metadata were loading: adding
+        # the layer now would run viewport reads on the GUI thread and freeze it.
+        if not _async_enabled():
+            self.async_button.setVisible(True)
+            self.status_label.setText(
+                "Le chargement asynchrone de napari a été désactivé pendant l'ouverture : volume "
+                "non ajouté. Le réactiver, puis cliquer à nouveau sur Ouvrir."
+            )
+            return
         try:
             [(arrays, options, _)] = layer_data
             entry = self._catalog_entry(options["metadata"]["source"])

@@ -117,9 +117,14 @@ def test_load_report_valid_mismatched_invalid_and_surface(viewer_with_volume, tm
     moved.write_text(json.dumps(report))
     widget.load_report_file(str(moved))
     assert "Attention" in widget.status_label.text()
-    assert len(_anomaly_layers(viewer)) == 1
+    assert "ni dessinées" in widget.status_label.text()
+    # A report for another volume must not mark (or navigate to) voxels of this one.
+    assert _anomaly_layers(viewer) == []
+    assert widget.results_table.rowCount() == len(report["results"])
+    row = next(i for i, r in enumerate(widget._rows) if r["locations"])
+    widget.results_table.selectRow(row)
+    assert widget.locations_list.count() == 0
 
-    viewer.layers.remove(_anomaly_layers(viewer)[0])
     bad = tmp_path / "bad.json"
     bad.write_text('{"schema_version": "1.0"}')
     widget.load_report_file(str(bad))
@@ -176,7 +181,9 @@ def test_measure_view_is_bounded_off_gui_thread_and_exact(viewer_with_volume, qt
     assert high[1] - low[1] == pytest.approx(width / 8.0)
     region = visible_region(layer.metadata["volume_summary"]["levels"], layer.scale,
                             plane_axis, plane, low, high)
-    assert region["level"] == "0" and data.shape[0] == min(region["width"], 128 - region["start_a"])
+    assert region["level"] == "0"
+    assert data.shape == (min(region["width_a"], 128 - region["start_a"]),
+                          min(region["width_b"], 128 - region["start_b"]))
     metrics = view_metrics(data)
     assert f"p99 {metrics['p99']:.4g}" in widget.measure_label.text()
     assert f"fond {metrics['background_pct']:.4g} %" in widget.measure_label.text()

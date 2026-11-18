@@ -371,8 +371,13 @@ QT_QPA_PLATFORM=xcb xvfb-run -a pytest -q
 Les tests napari utilisent un fichier de préférences temporaire (`NAPARI_CONFIG`), jamais vos
 préférences réelles.
 
-**Tests réseau (optionnels).** Le marqueur `network` est exclu par défaut. Pour vérifier un vrai
-volume :
+**Tests réseau.** Le marqueur `network` est exclu par défaut, y compris de la CI des pull
+requests : un incident réseau ou de bucket ne doit pas bloquer une revue. Le workflow **Network**
+(`.github/workflows/network.yml`) les exécute chaque lundi et à la demande (onglet Actions, « Run
+workflow ») : volumes réels en S3 et HTTPS, codec `vc-delta3d`, catalogue, segments. Le job CI
+`vcdelta3d` garde à chaque push le test synthétique du codec (écriture puis relecture).
+
+Pour vérifier en plus un volume de votre choix :
 
 1. Trouver un volume existant dans le [navigateur officiel](https://scrollprize.org/data_browser) et
    la [documentation S3](https://github.com/ScrollPrize/open-data).
