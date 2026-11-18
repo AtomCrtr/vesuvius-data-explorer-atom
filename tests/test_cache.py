@@ -156,3 +156,18 @@ def test_remote_concurrency_setting(monkeypatch):
             assert set_remote_concurrency() == 64
     finally:
         zarr.config.set({"async.concurrency": previous})
+
+
+def test_global_limit_is_enforced_during_the_session_across_volumes(source, cache_root,
+                                                                     monkeypatch):
+    """Found in the second T5.1 calibration: 15 volumes in one session grew a 2 GiB cache to
+    4.8 GiB, because each volume's CacheStore applies the limit to itself only."""
+    monkeypatch.setattr(cache_module, "max_cache_bytes", lambda: 3000)
+    monkeypatch.setattr(cache_module, "PRUNE_EVERY_FRACTION", 0.01)  # check after every read
+    monkeypatch.setitem(cache_module._READ_SINCE_PRUNE, "bytes", 0)
+    # Open every volume first (as in a session), then read: pruning at open time cannot help.
+    stores = [cached_store(CountingStore(LocalStore(str(source), read_only=True), []),
+                           f"s3://bucket/volume-{index}.zarr") for index in range(6)]
+    for store in stores:
+        assert zarr.open_array(store=store, mode="r")[:16, :16, :16].shape == (16, 16, 16)
+    assert cache_size() <= 3000 + 1100  # at most one chunk above the limit, until the next read

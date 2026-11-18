@@ -50,4 +50,5 @@ fusion après validation.
 | R1 | Retrait de l'app Streamlit (`app.py`, extra `[streamlit]`) | Fusionnée (PR #15) |
 | T5.1 | [Alignement surface–volume : profil d'intensité le long des normales](tasks/T5.1-alignement-surface-volume.md), exploratoire | Fusionnée (PR #17), 36 patchs, informatif |
 | A1 | Corrections de l'audit de GPT-6 : mesure de la vue, rapport sur un autre volume, échelles OME absentes, budget tifxyz, préférence async, tests réseau hebdomadaires ; alignement indéterminé (dans T5.1) | Fusionnée (PR #18) |
-| T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | En revue |
+| T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | Fusionnée (PR #21) |
+| T5.2 | [Recalibration de l'alignement sur un second échantillon](validation/T5.1-alignement.md#5-second-échantillon-recalibration-18-novembre-2026), proposition de notation | En revue (décision du PO attendue) |

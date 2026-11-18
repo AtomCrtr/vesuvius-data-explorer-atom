@@ -100,7 +100,8 @@ fois (variable `VESUVIUS_ZARR_CONCURRENCY` ; réglage global au processus), et c
 gardé sur le disque dans `~/.cache/vesuvius-data-explorer/chunks/` (ou `$XDG_CACHE_HOME`), un
 dossier par volume. Une coupe lit des chunks de 128 coupes d'épaisseur : la coupe suivante, un QC
 ou une mesure d'alignement relancés viennent du disque. Limite de **10 Gio** pour l'ensemble
-(`VESUVIUS_CACHE_MAX_GB`, les fichiers les moins récemment utilisés partent d'abord), expiration
+(`VESUVIUS_CACHE_MAX_GB`, vérifiée à l'ouverture et en cours de session ; les fichiers les moins
+récemment utilisés partent d'abord), expiration
 après **30 jours**, bouton **Vider le cache local** dans le widget, désactivation par
 `VESUVIUS_CACHE=0`. Les volumes locaux ne sont jamais copiés. Mesures sur PHerc0800 : coupe
 suivante de 0,77 s à 0,20 s, mesure d'alignement de 21 s à 4,5 s, puis 0,7 s en cache
@@ -176,7 +177,7 @@ Le widget **Vesuvius — Surfaces** travaille sur un volume ouvert par **Vesuviu
   segment, sur 36 patchs de 6 × 6 points (réglable), de −200 à +200 µm (±24 voxels si la taille de voxel est
   inconnue), au niveau dont le voxel mesure au plus 10 µm. Le graphique montre le profil moyen ; le
   pic de brillance le plus proche de 0 est la feuille suivie. Les patchs mesurés apparaissent en jaune.
-  Sur 21 segments réels, elle retrouve 86 % des décalages imposés de ±25 µm
+  Sur deux échantillons indépendants de 21 segments réels, elle retrouve 86 % puis 83 % des décalages imposés de ±25 µm
   ([validation](docs/validation/T5.1-alignement.md)). **Mesure non notée** tant que le PO ne l'a pas
   décidé ; un profil plat ou un maximum au bord de la fenêtre donne « alignement indéterminé » ;
   un saut d'une feuille entière n'est jamais détectable. Compter environ 40 s depuis S3.

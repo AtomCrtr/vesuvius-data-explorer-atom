@@ -57,6 +57,15 @@ s'applique pas à cette image.
    napari : `CacheStore` écrit par clé dans un `LocalStore`, sans verrou. Le risque est limité à une
    relecture depuis la source si une entrée est incomplète. Point à surveiller.
 
+## Défaut corrigé après la fusion
+
+La seconde calibration de T5.1 a ouvert 15 volumes dans une même session, avec une limite de
+2 Gio : le cache a atteint **4,8 Gio**. Chaque volume a son propre `CacheStore`, qui n'applique la
+limite qu'à lui-même, et la limite globale n'était vérifiée qu'à l'ouverture d'un volume. Le cache
+vérifie maintenant la limite globale aussi en cours de session, après chaque lecture de 5 % de la
+limite. Supprimer un fichier sous un `CacheStore` actif est sans danger : la lecture retombe sur la
+source. Un test reproduit le défaut : il échoue sans la correction et passe avec.
+
 ## Vérifications
 
 - Le cache fonctionne avec zarr 3.4.2 et avec zarr 3.1.6, la version installée par la CI en
