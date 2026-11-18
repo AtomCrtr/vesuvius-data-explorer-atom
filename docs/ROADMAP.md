@@ -23,7 +23,8 @@ fusion après validation.
 - **Surfaces (T5) :** seules les copies `tifxyz-transformed` sont superposées ; budget de 64 Mio par
   grille, lecture décimée au-delà ; Pillow et scipy dans le cœur. Écarts acceptés : trace sur la
   coupe calculée par le plugin ; `surface.normal_flips` local (warn 0,5 %, fail 2 %).
-- **Alignement (T5.1) :** pic de brillance le plus proche ; mesure informative, non notée avant
+- **Alignement (T5.1) :** pic de brillance le plus proche ; 36 patchs par défaut, budget de
+  80 Mi-voxels (écarts acceptés) ; mesure informative, non notée avant
   calibration ; un saut de feuille entière n'est pas détectable ; portée ±200 µm, voxel ≤ 10 µm.
 - **Accès aux données :** HTTPS accepté pour le seul domaine officiel `data.aws.ash2txt.org` ;
   codec `vc-delta3d` pris en charge en option (extra `[vcdelta3d]`, Python 3.12 ou plus).
@@ -44,5 +45,6 @@ fusion après validation.
 | T4.2 | [Sélecteur de volume par le catalogue officiel, taille de voxel en µm](tasks/T4.2-catalogue-volumes.md) | Fusionnée (PR #12) |
 | T5 | [Surfaces VC3D superposées au volume, indicateurs révisés (trous, bornes)](tasks/T5-surfaces-vc3d.md) | Fusionnée (PR #14) |
 | R1 | Retrait de l'app Streamlit (`app.py`, extra `[streamlit]`) | Fusionnée (PR #15) |
-| T5.1 | [Alignement surface–volume : profil d'intensité le long des normales](tasks/T5.1-alignement-surface-volume.md), exploratoire | En revue |
+| T5.1 | [Alignement surface–volume : profil d'intensité le long des normales](tasks/T5.1-alignement-surface-volume.md), exploratoire | Fusionnée (PR #17), 36 patchs, informatif |
+| A1 | Corrections de l'audit de GPT-6 : mesure de la vue, rapport sur un autre volume, échelles OME absentes, budget tifxyz, préférence async, tests réseau hebdomadaires ; alignement indéterminé (dans T5.1) | Fusionnée (PR #18) |
 | T6 | Performance S3, périmètre réduit : cache local, préchargement, contraste hors fond | À spécifier |
