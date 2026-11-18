@@ -18,6 +18,7 @@ commande, sans télécharger les volumes en entier.**
 | Contrôler un volume | Saturation, zones vides, contraste, cohérence des niveaux ; **anomalies dessinées sur l'image** |
 | Contrôler une surface VC3D | Trace sur la coupe, **trous**, replis, étirement, points hors volume, **alignement sur la feuille de papyrus** |
 | Contrôler tous les segments d'un volume | Une commande, une synthèse HTML / CSV / JSON |
+| Savoir où une surface quitte sa feuille | **Carte d'alignement** tuile par tuile, zones à revoir, **recalage** sur demande (`vesuvius-qc carte`) |
 
 ## Installation
 
@@ -74,6 +75,8 @@ Le [guide d'utilisation](docs/guide.md) détaille chaque étape, avec des captur
 - [Guide d'utilisation](docs/guide.md) : pas à pas, dépannage.
 - [Référence technique](docs/reference.md) : comportement détaillé, formats, API Python, tests.
 - [Feuille de route](docs/ROADMAP.md) : tâches, décisions, validations sur données réelles.
+- [Alignment map (English)](docs/en/alignment-map.md) : carte d'alignement et recalage des
+  segments (T10).
 
 ## Données et licence
 

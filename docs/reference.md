@@ -242,6 +242,40 @@ volume. Le volume est ouvert une fois et partagé ; `--workers` segments sont tr
 `vesuvius_data_explorer.qc.batch.run_batch`, `to_csv`, `to_html`
 ([validation T7](validation/T7-qc-en-lot.md)).
 
+## Carte d'alignement (T10)
+
+`vesuvius-qc carte SEGMENT -o DOSSIER [--volume URI] [--pixel-size-um µm] [--catalogue [FICHIER]]
+[--recaler] [--cible µm] [--deplacement-max µm] [--derive-max µm] [--tuile N] [--max-bytes N]
+[--sans-rendu]`.
+
+- **Mesure** (`core/alignment_map.py`). Grille découpée en tuiles de `--tuile` × `--tuile` points
+  (8 par défaut) ; une tuile est mesurée si elle a au moins 16 points valides dans le volume. Profil
+  moyen le long des normales, comme T5.1 (portée ±200 µm, niveau le plus grossier dont le voxel
+  est ≤ 10 µm). **Pic** : maximum local le plus proche de 0, plus clair que la médiane du profil,
+  raffiné par une parabole. **Fiabilité** : hauteur du pic divisée par l'erreur type du profil
+  moyen à cet endroit ; **fiable** si ≥ 3 (provisoire). **Incertitude** : écart type de la position
+  du pic propagé par la méthode delta, borné à 3 pas.
+- **Référence** : moyenne circulaire (ou médiane) des décalages, pondérée par la fiabilité ; la
+  **dérive** est le décalage moins la référence.
+- **Espacement des feuilles** : premier maximum de l'autocorrélation moyenne des profils, s'il
+  dépasse 0,2 fois la valeur centrale. Sinon, pas d'analyse de phase (cas de toutes les données
+  réelles essayées). Avec un espacement : dérive repliée, déroulement guidé par la fiabilité, indice
+  de feuille relatif, résidus sur les boucles 2 × 2 et bords de repliement.
+- **Zones** (`zones.json`) : `saut_de_feuille` (gravité 3), `derive` (fiable et au-delà de
+  `--derive-max`, gravité 2), `sans_feuille` (mesurée mais pas fiable, gravité 1) ; composantes
+  4-connexes, triées par gravité puis taille. Lignes et colonnes dans la grille des fichiers
+  tifxyz ; centre en voxels du niveau 0 (z, y, x).
+- **Recalage** (`--recaler`). Tuiles libres : fiables, hors sauts de feuille, dérive ≤
+  `--deplacement-max`. Moindres carrés `(W + λL) u = W t` sur ces seules tuiles (`W` : inverse de
+  la variance, `L` : laplacien entre tuiles libres voisines, λ = 0,5) ; les autres tuiles restent à
+  0. Interpolation bilinéaire normalisée vers chaque point, déplacement le long de la normale.
+  Écrit `recale/` (`x/y/z.tif` float32, −1 hors surface, `meta.json` avec la provenance) ; refuse
+  d'écrire sur un segment existant et de recaler une grille décimée.
+- **Lecture** : seuls les blocs Zarr traversés sont lus, chacun décompressé une fois par carte
+  (cache en mémoire de 1 Gio), tuiles en parallèle (8 tâches).
+- **Rendu aplati** (`core/flatten.py`) : grille interpolée à environ un pixel par voxel du niveau
+  lu, sur au plus 1 024 pixels de côté, centrée sur la tuile la plus fiable.
+
 ## Utiliser le cœur en Python
 
 ```python
