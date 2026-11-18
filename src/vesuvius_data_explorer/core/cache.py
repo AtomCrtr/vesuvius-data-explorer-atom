@@ -7,8 +7,10 @@ chunks. They are kept on disk, one folder per volume URI, under
 
 Built on ``zarr.experimental.cache_store.CacheStore`` (an experimental Zarr API): if it is
 missing or changes, the cache is disabled with a French warning and reads go to the source.
-``CacheStore`` keeps its LRU book-keeping in memory only, so size and age limits are also
-enforced on disk whenever a cached volume is opened.
+``CacheStore`` keeps its LRU book-keeping in memory only and per volume, so size and age limits
+are also enforced on disk for all volumes together: when a cached volume is opened, and again
+during the session after every ``PRUNE_EVERY_FRACTION`` of the limit read through the cache.
+Deleting a cached file under a live ``CacheStore`` is safe: the read falls back to the source.
 
 Environment: ``VESUVIUS_CACHE=0`` disables the cache; ``VESUVIUS_CACHE_MAX_GB`` sets the size
 limit for all volumes (10 GiB by default).
@@ -27,6 +29,7 @@ from warnings import warn
 DEFAULT_MAX_GB = 10.0
 MAX_AGE_S = 30 * 24 * 3600
 SOURCE_FILE = "source.txt"
+PRUNE_EVERY_FRACTION = 0.05  # Re-check the global limit after 5 % of it has been read.
 
 
 def default_cache_dir() -> Path:
@@ -136,9 +139,44 @@ def cached_store(store: Any, uri: str, root: Path | None = None) -> Any:
     try:
         folder.mkdir(parents=True, exist_ok=True)
         (folder / SOURCE_FILE).write_text(uri.strip().rstrip("/") + "\n", encoding="utf-8")
-        return CacheStore(store, cache_store=LocalStore(str(folder)), max_age_seconds=MAX_AGE_S,
-                          max_size=limit)
+        cache = CacheStore(store, cache_store=LocalStore(str(folder)),
+                           max_age_seconds=MAX_AGE_S, max_size=limit)
+        return _pruning(cache, root, limit)
     except (OSError, TypeError, ValueError) as error:
         warn(f"Cache local indisponible ({error}) : lectures directes depuis la source.",
              stacklevel=2)
         return store
+
+
+_READ_SINCE_PRUNE = {"bytes": 0}
+
+
+def _pruning(cache: Any, root: Path, limit: int) -> Any:
+    """``cache`` wrapped so that reads periodically enforce the global size limit on disk.
+
+    Several volumes opened in one session each have their own ``CacheStore`` (and its own
+    in-memory limit): without this, the cache could grow to one limit per volume.
+    """
+    import asyncio
+
+    from zarr.storage import WrapperStore
+
+    threshold = max(int(limit * PRUNE_EVERY_FRACTION), 1)
+
+    class PruningStore(WrapperStore):
+        def _with_store(self, store):
+            return type(self)(store)
+
+        def with_read_only(self, read_only=False):
+            return self._with_store(self._store.with_read_only(read_only))
+
+        async def get(self, key, prototype, byte_range=None):
+            value = await self._store.get(key, prototype, byte_range)
+            if value is not None:
+                _READ_SINCE_PRUNE["bytes"] += len(value)
+                if _READ_SINCE_PRUNE["bytes"] >= threshold:
+                    _READ_SINCE_PRUNE["bytes"] = 0
+                    await asyncio.to_thread(prune, root, limit)
+            return value
+
+    return PruningStore(cache)

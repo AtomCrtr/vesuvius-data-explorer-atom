@@ -2,6 +2,9 @@
 
 Usage: python T5.1_calibration.py SEGMENT_SIZES_JSON OUTPUT_JSON [CATALOG_CACHE_DIR]
 
+Environment: SEED (11 for the first sample), PER_CLASS (7), PATCHES (36), EXCLUDE (comma-separated
+result files whose segments must not be drawn again: the second sample excludes the first one).
+
 SEGMENT_SIZES_JSON maps catalogue paths of tifxyz-transformed copies to the size of their x.tif
 (only segments under 64 MiB per grid are drawn). For each drawn segment the profile is measured
 on the published segment, after imposed shifts of +-25 and +-50 µm along the normals, and with
@@ -20,25 +23,30 @@ import numpy as np
 from vesuvius_data_explorer.core.alignment import alignment_metrics, normal_profiles, shift_surface
 from vesuvius_data_explorer.core.catalog import load_catalog
 from vesuvius_data_explorer.core.tifxyz import load_tifxyz
-from vesuvius_data_explorer.core.volume import open_multiscale
+from vesuvius_data_explorer.core.volume import open_levels
 
 SHIFTS_UM = (0.0, 25.0, -25.0, 50.0, -50.0)
 # Large enough for every requested patch (the 8 Mi-voxel default cut most profiles to 4-7).
 MAX_VOXELS = int(os.environ.get("MAX_VOXELS", str(128 * 2**20)))
 PATCHES = int(os.environ.get("PATCHES", "36"))  # 12 for the first calibration run
 CLASSES = {"~8 µm": (7.0, 10.0), "~2,4 µm": (2.0, 2.5), "~1,1 µm": (1.0, 1.2)}
-PER_CLASS = 7
+PER_CLASS = int(os.environ.get("PER_CLASS", "7"))
+SEED = int(os.environ.get("SEED", "11"))
+EXCLUDED = {(row["segment"], row["volume"])
+            for path in filter(None, os.environ.get("EXCLUDE", "").split(","))
+            for row in json.load(open(path))}
 
 sizes = json.load(open(sys.argv[1]))
 catalog = load_catalog(cache_dir=sys.argv[3]) if len(sys.argv) > 3 else load_catalog()
 volumes = {v.volume_id: v for v in catalog.volumes if v.codec == "standard"}
-random.seed(11)
+random.seed(SEED)
 drawn = []
 for name, (low, high) in CLASSES.items():
     pool = [s for s in catalog.segments if not s.superseded
             and s.target_volume_id in volumes
             and low <= (volumes[s.target_volume_id].pixel_size_um or 0) < high
-            and sizes.get(s.uri.split("open-data/", 1)[-1] + "/", 1e12) < 64 * 2**20]
+            and sizes.get(s.uri.split("open-data/", 1)[-1] + "/", 1e12) < 64 * 2**20
+            and (s.segment_id, s.target_volume_id) not in EXCLUDED]
     drawn += [(name, s) for s in random.sample(pool, min(PER_CLASS, len(pool)))]
 opened = {}
 
@@ -49,7 +57,7 @@ def measure(item):
     started = time.time()
     try:
         if volume.uri not in opened:
-            arrays, levels = open_multiscale(volume.uri)
+            arrays, levels = open_levels(volume.uri)  # Zarr reads and local cache (T6)
             opened[volume.uri] = (arrays, [level.shape for level in levels])
         arrays, shapes = opened[volume.uri]
         surface = load_tifxyz(segment.uri)
