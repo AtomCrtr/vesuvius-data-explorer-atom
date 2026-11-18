@@ -21,6 +21,12 @@ from qtpy.QtWidgets import (
     QWidget,
 )
 
+from vesuvius_data_explorer.core.cache import (
+    cache_enabled,
+    cache_size,
+    chunk_cache_root,
+    clear_cache,
+)
 from vesuvius_data_explorer.core.catalog import Catalog, CatalogVolume, format_um, load_catalog
 
 from .reader import read_volume
@@ -45,6 +51,8 @@ class OpenVolumeWidget(QWidget):
         )
         self.status_label = QLabel("Indiquer le chemin d'un volume .zarr.")
         self.status_label.setWordWrap(True)
+        self.cache_button = QPushButton()
+        self._cache_worker = None
         layout = QVBoxLayout(self)
         layout.addWidget(self._catalog_box())
         controls = (
@@ -53,12 +61,38 @@ class OpenVolumeWidget(QWidget):
             self.async_button,
             self.summary_table,
             self.status_label,
+            self.cache_button,
         )
         for control in controls:
             layout.addWidget(control)
         self.open_button.clicked.connect(self._open)
         self.async_button.clicked.connect(self._enable_async)
         self.async_button.setVisible(not _async_enabled())
+        self.cache_button.clicked.connect(self._clear_cache)
+        self._show_cache_size()
+
+    # --- Local chunk cache (T6) -----------------------------------------------------------
+
+    def _show_cache_size(self):
+        if not cache_enabled():
+            self.cache_button.setText("Cache local désactivé (VESUVIUS_CACHE=0)")
+            self.cache_button.setEnabled(False)
+            return
+        self.cache_button.setText(f"Vider le cache local ({format_size(cache_size())})")
+        self.cache_button.setToolTip(str(chunk_cache_root()))
+        self.cache_button.setEnabled(True)
+
+    def _clear_cache(self):
+        self.cache_button.setEnabled(False)
+        self._cache_worker = thread_worker(clear_cache, ignore_errors=True)()
+        self._cache_worker.returned.connect(self._cache_cleared)
+        self._cache_worker.errored.connect(
+            lambda error: self.status_label.setText("Impossible de vider le cache local."))
+        self._cache_worker.finished.connect(self._show_cache_size)
+        self._cache_worker.start()
+
+    def _cache_cleared(self, freed):
+        self.status_label.setText(f"Cache local vidé : {format_size(freed)} libérés.")
 
     # --- Official catalogue -------------------------------------------------------------
 
@@ -254,3 +288,10 @@ def opened_message(entry: CatalogVolume | None, summary: dict) -> str:
             f"{tuple(entry.shape)}."
         )
     return message
+
+
+def format_size(count: int) -> str:
+    """French size: '0 Mio', '151 Mio', '2,4 Gio'."""
+    if count >= 2**30:
+        return f"{count / 2**30:.1f} Gio".replace(".", ",")
+    return f"{count / 2**20:.0f} Mio"

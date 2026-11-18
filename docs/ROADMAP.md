@@ -26,6 +26,9 @@ fusion après validation.
 - **Alignement (T5.1) :** pic de brillance le plus proche ; 36 patchs par défaut, budget de
   80 Mi-voxels (écarts acceptés) ; mesure informative, non notée avant
   calibration ; un saut de feuille entière n'est pas détectable ; portée ±200 µm, voxel ≤ 10 µm.
+- **Performance (T6) :** lecture Zarr directe (Dask conservé dans l'API `open_multiscale`), cache
+  local de chunks activé par défaut (10 Gio, 30 jours, bouton pour le vider), 64 lectures
+  concurrentes, contraste initial hors fond.
 - **Accès aux données :** HTTPS accepté pour le seul domaine officiel `data.aws.ash2txt.org` ;
   codec `vc-delta3d` pris en charge en option (extra `[vcdelta3d]`, Python 3.12 ou plus).
 - **Positionnement :** pas de concurrence avec `vesuvius-gui` sur la vitesse de navigation ; la valeur
@@ -47,4 +50,4 @@ fusion après validation.
 | R1 | Retrait de l'app Streamlit (`app.py`, extra `[streamlit]`) | Fusionnée (PR #15) |
 | T5.1 | [Alignement surface–volume : profil d'intensité le long des normales](tasks/T5.1-alignement-surface-volume.md), exploratoire | Fusionnée (PR #17), 36 patchs, informatif |
 | A1 | Corrections de l'audit de GPT-6 : mesure de la vue, rapport sur un autre volume, échelles OME absentes, budget tifxyz, préférence async, tests réseau hebdomadaires ; alignement indéterminé (dans T5.1) | Fusionnée (PR #18) |
-| T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | Spécifiée, à valider par le PO |
+| T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | En revue |

@@ -89,20 +89,21 @@ def test_manifest_instantiates_widget(make_napari_viewer):
     assert isinstance(widget, OpenVolumeWidget)
 
 
-def test_open_and_navigation_never_compute_dask_on_gui_thread(
+def test_open_and_navigation_never_read_voxels_on_gui_thread(
     async_loading,
     napari_pyramid, make_napari_viewer, qtbot, monkeypatch
 ):
-    import dask.array as da
+    import zarr
 
     compute_threads = []
-    original = da.Array.compute
+    original = zarr.Array.__getitem__
 
-    def tracked_compute(array, *args, **kwargs):
+    def tracked_getitem(array, selection):
+        # Layers hold Zarr arrays since T6: every voxel read goes through __getitem__.
         compute_threads.append(threading.get_ident())
-        return original(array, *args, **kwargs)
+        return original(array, selection)
 
-    monkeypatch.setattr(da.Array, "compute", tracked_compute)
+    monkeypatch.setattr(zarr.Array, "__getitem__", tracked_getitem)
     viewer = make_napari_viewer()
     widget = OpenVolumeWidget(viewer)
     qtbot.addWidget(widget)
@@ -375,3 +376,30 @@ def test_async_turned_off_during_open_adds_no_layer(
     assert len(viewer.layers) == 0
     assert "désactivé pendant l'ouverture" in widget.status_label.text()
     assert not widget.async_button.isHidden()
+
+
+def test_clear_cache_button_shows_size_and_empties_the_cache(make_napari_viewer, qtbot, tmp_path,
+                                                              monkeypatch):
+    from vesuvius_data_explorer.core.cache import chunk_cache_root
+
+    monkeypatch.setenv("XDG_CACHE_HOME", str(tmp_path))
+    monkeypatch.delenv("VESUVIUS_CACHE", raising=False)
+    chunk = chunk_cache_root() / "abc" / "0.0.0"
+    chunk.parent.mkdir(parents=True)
+    chunk.write_bytes(b"x" * (3 * 2**20))
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    assert widget.cache_button.text() == "Vider le cache local (3 Mio)"
+    qtbot.mouseClick(widget.cache_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.cache_button.text().endswith("(0 Mio)"), timeout=20000)
+    assert "3 Mio libérés" in widget.status_label.text()
+    assert not chunk.exists()
+
+
+def test_cache_button_is_disabled_when_the_cache_is_off(make_napari_viewer, qtbot, monkeypatch):
+    monkeypatch.setenv("VESUVIUS_CACHE", "0")
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    assert not widget.cache_button.isEnabled() and "désactivé" in widget.cache_button.text()

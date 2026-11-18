@@ -3,7 +3,8 @@
 - **Origine :** [investigation I1](../investigations/I1-ecosysteme-donnees.md) (chunks non compressés de
   2 Mio, navigation lente), T5.1 (mesure d'alignement d'environ 40 s), décision du PO du
   18 novembre 2026.
-- **Statut :** spécification à valider par le PO.
+- **Statut :** validée par le PO le 18 novembre 2026 ; implémentée par l'orchestrateur
+  ([validation](../validation/T6-performance.md) : objectifs atteints).
 - **Périmètre réduit**, comme décidé : rendre l'outil sensiblement plus rapide, sans chercher à égaler
   `vesuvius-gui`.
 

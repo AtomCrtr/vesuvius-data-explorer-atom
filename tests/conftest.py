@@ -8,6 +8,8 @@ import tempfile
 os.environ["NAPARI_CONFIG"] = os.path.join(
     tempfile.mkdtemp(prefix="napari-test-settings-"), "settings.yaml"
 )
+# Nor the developer's real caches (catalogue, chunk cache of T6).
+os.environ["XDG_CACHE_HOME"] = tempfile.mkdtemp(prefix="vesuvius-test-cache-")
 
 import numpy as np  # noqa: E402
 import pytest  # noqa: E402

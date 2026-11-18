@@ -4,7 +4,7 @@ from pathlib import Path
 
 from vesuvius_data_explorer.core.volume import (
     estimate_contrast,
-    open_multiscale,
+    open_levels,
     volume_summary,
 )
 
@@ -29,7 +29,8 @@ def _read_local_volume(path: str) -> list[tuple]:
 def read_volume(path: str) -> list[tuple]:
     """Open metadata and sample contrast before giving lazy arrays to napari."""
     source = path.strip().rstrip("/")
-    arrays, levels = open_multiscale(source)
+    # Zarr arrays, not Dask graphs: concurrent chunk reads and the local cache (T6).
+    arrays, levels = open_levels(source)
     return [
         (
             arrays,
