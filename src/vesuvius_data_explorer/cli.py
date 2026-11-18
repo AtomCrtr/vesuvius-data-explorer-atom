@@ -69,6 +69,11 @@ def main(argv=None):
     carte.add_argument('--derive-max', type=float, default=30.0,
                        help='dérive signalée au-delà de cette valeur (µm)')
     carte.add_argument('--sans-rendu', action='store_true', help='pas de rendu aplati')
+    carte.add_argument('--cible', type=float, default=None,
+                       help="décalage visé par le recalage (µm) ; par défaut, le décalage "
+                       "habituel du segment (une dérive d'ensemble est alors conservée)")
+    carte.add_argument('--deplacement-max', type=float, default=50.0,
+                       help='au-delà (µm), une tuile n\'est pas déplacée mais signalée')
     try:
         args = parser.parse_args(argv)
         if args.kind == 'lot':
@@ -130,7 +135,8 @@ def _carte(args):
     arrays, levels = open_levels(volume_uri)
     result = run_map(segment_uri, arrays, [level.shape for level in levels], pixel_size_um=pixel,
                      snap=args.recaler, tile=args.tuile, max_bytes=args.max_bytes,
-                     max_drift_um=args.derive_max, render=not args.sans_rendu,
+                     max_drift_um=args.derive_max, max_shift_um=args.deplacement_max,
+                     target_um=args.cible, render=not args.sans_rendu,
                      volume_uri=volume_uri)
     folder = write_outputs(result, args.output)
     summary = result['summary']

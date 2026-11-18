@@ -57,4 +57,4 @@ fusion après validation.
 | T8 | [Guide d'utilisation](guide.md) et README court | Fusionnée (PR #25) |
 | T9 | [Publication PyPI et napari hub](publication.md) | Fusionnée (PR #26) ; release `v0.2.0` à créer par le PO après sa configuration PyPI |
 | I2 | [État de l'art 2026 : communauté, IA, lois mathématiques, manques](investigations/I2-etat-de-l-art-2026.md) | Terminée |
-| T10 | [Carte d'alignement et recalage des surfaces tifxyz (Progress Prize)](tasks/T10-carte-alignement.md) | Spécification validée, en cours |
+| T10 | [Carte d'alignement et recalage des surfaces tifxyz (Progress Prize)](tasks/T10-carte-alignement.md) | En cours : première version validée sur 8 segments ([validation](validation/T10-carte-alignement.md)), écart à décider |

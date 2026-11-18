@@ -11,8 +11,9 @@ sur données réelles (extraits des scans du Vesuvius Challenge, CC BY-NC 4.0).
 - [5. Vérifier une surface VC3D](#5-vérifier-une-surface-vc3d)
 - [6. Mesurer l'alignement d'une surface](#6-mesurer-lalignement-dune-surface)
 - [7. Contrôler tous les segments d'un volume](#7-contrôler-tous-les-segments-dun-volume)
-- [8. En ligne de commande](#8-en-ligne-de-commande)
-- [9. Dépannage](#9-dépannage)
+- [8. Carte d'alignement et recalage d'un segment](#8-carte-dalignement-et-recalage-dun-segment)
+- [9. En ligne de commande](#9-en-ligne-de-commande)
+- [10. Dépannage](#10-dépannage)
 
 ## 1. Installer
 
@@ -139,7 +140,40 @@ vesuvius-qc lot 20250804134230 -o PHerc0814/
   ([validation](validation/T7-qc-en-lot.md)).
 - `--max-segments 5` pour un essai rapide, `--sans-alignement` pour aller plus vite.
 
-## 8. En ligne de commande
+## 8. Carte d'alignement et recalage d'un segment
+
+Pour savoir **où** une surface s'écarte de sa feuille, et non plus seulement si elle s'en écarte en
+moyenne :
+
+```bash
+vesuvius-qc carte 20250825181928 --catalogue -o carte/
+```
+
+- Le segment est découpé en **tuiles** de 8 × 8 points (environ 160 voxels de côté). Pour chacune,
+  l'outil mesure la distance à la feuille la plus proche, sa fiabilité et son incertitude.
+- La **dérive** est mesurée par rapport à la position habituelle du segment : les segments publiés
+  suivent une face de la feuille, environ 10 µm à côté de son centre clair.
+- Le dossier contient `rapport.html` (carte colorée, rendu aplati, zones à revoir),
+  `decalage.tif`, `fiabilite.tif`, `incertitude.tif` (une valeur par tuile), `zones.json` (régions à
+  revoir, de la plus grave à la moins grave, avec leurs lignes, colonnes et centre 3D) et
+  `carte.json` (chiffres clés).
+
+![Carte de dérive : blanc, position habituelle ; bleu ou rouge, dérive ; gris, peu fiable](validation/t10-carte-decale-20250825181928.png)
+
+**Recalage.** `--recaler` écrit une copie corrigée dans `carte/recale/` ; l'original n'est jamais
+modifié.
+
+- Seules les tuiles fiables bougent, de 50 µm au plus (`--deplacement-max`).
+- Les zones peu fiables ne sont pas déplacées.
+- `--cible -10` vise un décalage précis (en µm) au lieu de la position habituelle du segment, pour
+  corriger aussi un décalage d'ensemble.
+
+Limites : environ une tuile sur trois seulement est fiable ; un saut de feuille n'est pas
+détecté comme tel sur les vraies données, il apparaît comme une zone peu fiable ou une forte dérive
+([validation](validation/T10-carte-alignement.md)). Pour un grand segment, la première carte
+télécharge tous les blocs que la surface traverse (jusqu'à plusieurs gigaoctets).
+
+## 9. En ligne de commande
 
 ```bash
 # Volume : fenêtres tirées au hasard, rapport JSON et HTML
@@ -150,6 +184,9 @@ vesuvius-qc surface <URI du segment> --volume <URI du volume> --pixel-size-um 8.
 
 # Lot : tous les segments d'un volume du catalogue
 vesuvius-qc lot <identifiant du volume> -o dossier/
+
+# Carte d'alignement d'un segment, avec copie recalée
+vesuvius-qc carte <URI du segment> --volume <URI du volume> --pixel-size-um 2.4 --recaler -o carte/
 ```
 
 Les seuils se changent dans un fichier TOML passé par `--config`, par exemple :
@@ -165,7 +202,7 @@ max_offset_um = 40
 
 Codes de sortie : 0 tout passe, 1 au moins un échec, 2 entrée invalide.
 
-## 9. Dépannage
+## 10. Dépannage
 
 | Symptôme | Solution |
 |---|---|

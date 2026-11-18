@@ -66,8 +66,8 @@ def render_crop(surface: TifxyzSurface, amap, level: int, shapes) -> tuple[slice
 def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
             tile=DEFAULT_TILE, max_bytes=DEFAULT_MAP_MAX_BYTES,
             max_drift_um=DEFAULT_MAX_DRIFT_UM, min_reliability=DEFAULT_MIN_RELIABILITY,
-            smoothing=DEFAULT_SMOOTHING, max_shift_um=DEFAULT_MAX_SHIFT_UM, render=True,
-            volume_uri=None) -> dict[str, Any]:
+            smoothing=DEFAULT_SMOOTHING, max_shift_um=DEFAULT_MAX_SHIFT_UM, target_um=None,
+            render=True, volume_uri=None) -> dict[str, Any]:
     """Measure the map of ``segment_uri``; returns a result dict (arrays included)."""
     started = perf_counter()
     surface = load_tifxyz(segment_uri, max_bytes=max_bytes)
@@ -81,9 +81,10 @@ def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
     result: dict[str, Any] = {"surface": surface, "map": amap, "zones": zones, "scale": scale}
     snapped_points = None
     if snap:
-        max_shift = max_shift_um / (pixel_size_um if pixel_size_um else 1.0)
+        unit = pixel_size_um if pixel_size_um else 1.0
         field = snap_field(amap, min_reliability=min_reliability, smoothing=smoothing,
-                           max_shift=max_shift)
+                           max_shift=max_shift_um / unit,
+                           target=None if target_um is None else target_um / unit)
         grid = field_on_grid(field, amap, surface.points.shape[:2])
         snapped_points = snap_points(surface.points, grid)
         result.update(field=field, field_grid=grid, snapped_points=snapped_points)
@@ -98,6 +99,7 @@ def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
     result["summary"] = summarize(result, segment_uri=segment_uri, volume_uri=volume_uri,
                                   max_drift_um=max_drift_um, min_reliability=min_reliability,
                                   smoothing=smoothing, seconds=perf_counter() - started)
+    result["summary"]["parameters"].update(max_shift=max_shift_um, target=target_um)
     return result
 
 
@@ -223,7 +225,7 @@ def render_report(result: dict[str, Any]) -> str:
     unit = summary["unite"]
 
     def fmt(value, digits=1):
-        return "—" if value is None else f"{value:.{digits}f}"
+        return "—" if value is None else f"{value:.{digits}f}".replace(".", ",")
 
     tiles = summary["tiles"]
     drift = summary["drift_reliable"] or {}
@@ -239,7 +241,7 @@ def render_report(result: dict[str, Any]) -> str:
          " / ".join(str(summary["zones"][k]) for k in ("saut_de_feuille", "derive",
                                                        "sans_feuille"))),
         ("Lecture", f"niveau {summary['level']}, {summary['voxels_read'] / 2**20:.0f} Mi-voxels, "
-                    f"{summary['seconds']} s"),
+                    f"{fmt(summary['seconds'])} s"),
     ]
     if "snap" in summary:
         rows.append(("Recalage : déplacement médian / max",
@@ -274,7 +276,7 @@ Volume : <code>{escape(str(summary['volume']))}</code></p>
 <h2>Carte de dérive</h2>
 <p>Une case par tuile de {amap.tile} × {amap.tile} points. Blanc : décalage habituel du segment ;
 bleu ou rouge : la feuille s'éloigne d'un côté ou de l'autre (saturé à
-{summary['parameters']['max_drift']} {unit}) ; gris clair : mesure peu fiable ; gris foncé : non
+{fmt(summary['parameters']['max_drift'], 0)} {unit}) ; gris clair : mesure peu fiable ; gris foncé : non
 mesuré ; cadre noir : saut de feuille.</p>
 {_img(drift_png(amap, result['scale'], limit_um=summary['parameters']['max_drift'],
                min_reliability=summary['parameters']['min_reliability']), 'carte de dérive')}

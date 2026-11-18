@@ -3,6 +3,9 @@
 - **Origine :** décision du PO du 18 novembre 2026 ; état de l'art
   [I2](../investigations/I2-etat-de-l-art-2026.md).
 - **Statut :** spécification validée par le PO le 18 novembre 2026 (5 points, section finale).
+  Première version développée et validée sur 8 segments réels
+  ([validation](../validation/T10-carte-alignement.md)) ; **un écart à décider** (section « Écarts
+  constatés »).
 - **But :** une contribution qui **fait avancer directement le déroulement**, condition des Progress
   Prizes, sur un problème ouvert nommé par l'équipe du Vesuvius Challenge : la qualité des surfaces
   tracées (dérive hors de la feuille, sauts de feuille), le **label snapping** et l'**apprentissage
@@ -86,6 +89,24 @@ Pour un segment tifxyz et son volume :
 - Calendrier (décision du PO) : **essayer l'échéance du 30 novembre 2026** ; si la validation
   n'est pas complète à temps, candidature fin **décembre 2026**. Aucune candidature sans la
   validation ci-dessus.
+
+## Écarts constatés au développement (à décider par le PO)
+
+1. **Sauts de feuille par la phase : non applicable aux données réelles.** L'espacement des
+   feuilles n'est mesurable sur aucun des segments essayés : les feuilles ne forment pas un réseau
+   périodique à l'échelle d'une tuile. La détection fonctionne sur données synthétiques et reste
+   dans le code, mais le critère 1b ne peut pas être validé. Un saut de feuille réel n'apparaît
+   que comme zone peu fiable ou forte dérive.
+2. **Cible du recalage.** Par défaut, le recalage ramène chaque tuile au décalage habituel du
+   segment : une dérive locale disparaît, un décalage d'ensemble reste. Ajout de l'option
+   `--cible` (décalage visé, en µm) pour corriger aussi un décalage d'ensemble.
+3. **Plafond de déplacement** (50 µm par défaut, `--deplacement-max`) : au-delà, la tuile a pu
+   accrocher une autre feuille ; elle n'est pas déplacée et reste signalée.
+4. **Zones exclues.** Leur centre ne bouge pas ; la transition vers les tuiles déplacées se fait
+   dans leur demi-tuile de bord, pour que la surface reste continue.
+5. **Netteté des fibres.** Fibres visibles sur tous les rendus ; sur des segments publiés, déjà bien
+   placés, aucun gain de netteté mesurable (intensité +0,7 à +3,4 %, contraste −0 à −5 %). Le gain
+   est net sur un segment dégradé volontairement.
 
 ## Hors périmètre
 

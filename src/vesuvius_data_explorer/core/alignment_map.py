@@ -441,7 +441,7 @@ DEFAULT_MAX_SHIFT_UM = 50.0
 
 
 def snap_field(amap: AlignmentMap, *, min_reliability=DEFAULT_MIN_RELIABILITY,
-               smoothing=DEFAULT_SMOOTHING, max_shift=None) -> np.ndarray:
+               smoothing=DEFAULT_SMOOTHING, max_shift=None, target=None) -> np.ndarray:
     """Per-tile displacement along the normal that brings the segment back to its usual offset.
 
     Only **free** tiles move: reliable, away from sheet switches, from the ambiguous half of
@@ -451,35 +451,45 @@ def snap_field(amap: AlignmentMap, *, min_reliability=DEFAULT_MIN_RELIABILITY,
     drift, ``W`` the inverse variance of each tile's offset (normalised by its median), ``L`` the
     graph Laplacian between free neighbours, ``λ`` = ``smoothing``. Moving a point by ``+u``
     along its normal changes its offset by ``-u``.
+
+    ``target`` (level-0 voxels): offset to bring the tiles to. By default the segment's usual
+    offset (``amap.reference``): local drift is removed but a shift of the whole segment is
+    kept. Giving the offset of a trusted state of the segment, or the usual offset of published
+    segments, also removes a global shift.
     """
     from scipy.sparse import coo_matrix, diags
     from scipy.sparse.linalg import spsolve
 
     rows, cols = amap.offset.shape
+    drift = amap.drift
+    if target is not None:
+        drift = amap.offset - target
+        if amap.spacing:
+            drift = _wrap(drift, amap.spacing)
     free = reliable_tiles(amap, min_reliability) & ~switch_tiles(amap)
     with np.errstate(invalid="ignore"):
         free &= np.isfinite(amap.uncertainty) & (amap.uncertainty > 0)
         if amap.spacing:
-            free &= np.abs(amap.drift) <= amap.spacing / 4
+            free &= np.abs(drift) <= amap.spacing / 4
         if max_shift is not None:
-            free &= np.abs(amap.drift) <= max_shift
+            free &= np.abs(drift) <= max_shift
     field = np.zeros((rows, cols))
     if not free.any():
         return field
     weight = 1.0 / amap.uncertainty[free] ** 2
     weight /= np.median(weight)
-    target = amap.drift[free]
+    values = drift[free]
     index = np.full((rows, cols), -1)
     index[free] = np.arange(int(free.sum()))
     edges = [(index[:-1, :], index[1:, :]), (index[:, :-1], index[:, 1:])]
     i = np.concatenate([a[(a >= 0) & (b >= 0)] for a, b in edges])
     j = np.concatenate([b[(a >= 0) & (b >= 0)] for a, b in edges])
-    n = len(target)
+    n = len(values)
     adjacency = coo_matrix((np.ones(len(i)), (i, j)), shape=(n, n))
     adjacency = adjacency + adjacency.T
     laplacian = diags(np.asarray(adjacency.sum(axis=1)).ravel()) - adjacency
     system = diags(weight) + smoothing * laplacian
-    field[free] = spsolve(system.tocsc(), weight * target)
+    field[free] = spsolve(system.tocsc(), weight * values)
     if amap.spacing:
         field = np.clip(field, -amap.spacing / 4, amap.spacing / 4)
     return field
