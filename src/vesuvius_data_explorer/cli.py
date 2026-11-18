@@ -53,10 +53,28 @@ def main(argv=None):
     batch.add_argument('--max-bytes', type=int, default=DEFAULT_MAX_BYTES)
     batch.add_argument('--config')
     batch.add_argument('--catalogue', help='fichier metadata.json local (sinon catalogue officiel)')
+    carte = commands.add_parser('carte', help="carte d'alignement d'un segment (T10), recalage "
+                                "sur demande")
+    carte.add_argument('segment', help="URI du segment tifxyz, ou son identifiant avec --catalogue")
+    carte.add_argument('-o', '--output', required=True, help='dossier de sortie')
+    carte.add_argument('--volume', help='URI du volume (sinon retrouvé dans le catalogue)')
+    carte.add_argument('--pixel-size-um', type=float, default=None)
+    carte.add_argument('--catalogue', nargs='?', const='', default=None,
+                       help="retrouver le segment, son volume et la taille de voxel dans le "
+                       "catalogue officiel (ou un metadata.json local)")
+    carte.add_argument('--recaler', action='store_true',
+                       help='écrire une copie recalée du segment dans <dossier>/recale')
+    carte.add_argument('--tuile', type=int, default=8, help='points par côté de tuile')
+    carte.add_argument('--max-bytes', type=int, default=512 * 2**20)
+    carte.add_argument('--derive-max', type=float, default=30.0,
+                       help='dérive signalée au-delà de cette valeur (µm)')
+    carte.add_argument('--sans-rendu', action='store_true', help='pas de rendu aplati')
     try:
         args = parser.parse_args(argv)
         if args.kind == 'lot':
             return _batch(args)
+        if args.kind == 'carte':
+            return _carte(args)
         if args.output and args.html and Path(args.output).resolve() == Path(args.html).resolve():
             raise ValueError('Les sorties JSON et HTML doivent être différentes.')
         thresholds = load_thresholds(args.config)
@@ -87,6 +105,41 @@ def main(argv=None):
         # failure here. Pure-check exceptions are already isolated in qc/checks.
         print(f'vesuvius-qc : {type(exc).__name__} : {exc}', file=sys.stderr)
         return 2
+
+
+def _carte(args):
+    from .qc.carte import run_map, write_outputs
+
+    segment_uri, volume_uri, pixel = args.segment, args.volume, args.pixel_size_um
+    if args.catalogue is not None:
+        from .core.catalog import load_catalog
+
+        catalog = load_catalog(args.catalogue) if args.catalogue else load_catalog()
+        segment = next((s for s in catalog.segments if s.segment_id == args.segment
+                        and not s.superseded and (volume_uri is None or
+                        any(v.uri == volume_uri and v.volume_id == s.target_volume_id
+                            for v in catalog.volumes))), None)
+        if segment is None:
+            raise ValueError(f'Segment absent du catalogue : {args.segment}')
+        volume = next(v for v in catalog.volumes
+                      if v.volume_id == segment.target_volume_id and v.codec == 'standard')
+        segment_uri, volume_uri = segment.uri, volume.uri
+        pixel = pixel if pixel is not None else volume.pixel_size_um
+    if not volume_uri:
+        raise ValueError('Volume inconnu : donner --volume ou --catalogue.')
+    arrays, levels = open_levels(volume_uri)
+    result = run_map(segment_uri, arrays, [level.shape for level in levels], pixel_size_um=pixel,
+                     snap=args.recaler, tile=args.tuile, max_bytes=args.max_bytes,
+                     max_drift_um=args.derive_max, render=not args.sans_rendu,
+                     volume_uri=volume_uri)
+    folder = write_outputs(result, args.output)
+    summary = result['summary']
+    print(f"{summary['tiles']['reliable']} tuile(s) fiable(s) sur {summary['tiles']['measured']}"
+          f" mesurée(s) ; zones : " + ', '.join(f'{k} {v}' for k, v in summary['zones'].items())
+          + f" ; rapport dans {folder / 'rapport.html'}", file=sys.stderr)
+    for warning in summary['warnings']:
+        print(warning, file=sys.stderr)
+    return 0
 
 
 def _batch(args):

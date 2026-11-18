@@ -135,3 +135,38 @@ def test_flattened_render_is_brighter_on_the_sheet(volume):
     grid[0, 0] = np.nan
     up = upsample_grid(grid, 2)
     assert up.shape == (5, 5, 3) and np.isnan(up[0, 0]).all() and np.isfinite(up[4, 4]).all()
+
+
+def test_cli_map_writes_maps_zones_report_and_a_snapped_copy(volume, tmp_path):
+    import json
+
+    import tifffile
+    import zarr
+
+    from vesuvius_data_explorer.cli import main
+
+    root = zarr.open_group(str(tmp_path / "sheets.zarr"), mode="w", zarr_format=2)
+    datasets = []
+    for index, array in enumerate(volume[0]):
+        root.create_array(str(index), shape=array.shape, dtype="float32", chunks=(16, 32, 32))
+        root[str(index)][:] = array
+        datasets.append({"path": str(index), "coordinateTransformations": [
+            {"type": "scale", "scale": [2.0**index] * 3}]})
+    root.attrs["multiscales"] = [{"axes": ["z", "y", "x"], "datasets": datasets}]
+    segment = write_tifxyz(tmp_path / "seg", ramp(big_plane(), 10).points, {"scale": [0.5, 0.5]})
+    output = tmp_path / "carte"
+    assert main(["carte", str(segment), "--volume", str(tmp_path / "sheets.zarr"),
+                 "--recaler", "--derive-max", "4", "-o", str(output)]) == 0
+    summary = json.loads((output / "carte.json").read_text())
+    assert summary["unite"] == "voxels" and summary["tiles"]["measured"] == 64
+    assert summary["zones"]["derive"] == 2 and summary["snap"]["abs_median"] > 1
+    assert tifffile.imread(output / "decalage.tif").shape == (8, 8)
+    assert len(json.loads((output / "zones.json").read_text())) == 2
+    html = (output / "rapport.html").read_text()
+    assert "Carte de dérive" in html and "Après recalage" in html
+    snapped = load_tifxyz(str(output / "recale"))
+    assert "recalage" in snapped.meta and snapped.points.shape == (64, 64, 3)
+    # The original is untouched and a second run cannot overwrite the snapped copy.
+    assert np.allclose(load_tifxyz(str(segment)).points, ramp(big_plane(), 10).points)
+    assert main(["carte", str(segment), "--volume", str(tmp_path / "sheets.zarr"),
+                 "--recaler", "-o", str(output)]) == 2

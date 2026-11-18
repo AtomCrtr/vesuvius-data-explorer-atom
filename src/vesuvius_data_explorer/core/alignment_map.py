@@ -113,7 +113,7 @@ def peak_uncertainty(offsets: np.ndarray, values: np.ndarray, variances: np.ndar
     d_right = (-curvature - numerator) / (2 * curvature**2)
     var = (d_left**2 * variances[index - 1] + d_centre**2 * variances[index]
            + d_right**2 * variances[index + 1])
-    return float(min(step * np.sqrt(var), step))
+    return float(min(step * np.sqrt(var), 3 * step))  # Beyond 3 samples the parabola is moot.
 
 
 MIN_PERIODICITY = 0.2  # Autocorrelation peak / zero-lag value below which there is no period.
