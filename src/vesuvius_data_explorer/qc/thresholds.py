@@ -24,6 +24,9 @@ _DEFAULTS = {
     'surface.normal_flips': {'warn': 0.5, 'fail': 2.0},
     # Valid points inside the volume vs the catalogue coverage ratio, in percentage points.
     'surface.bounds': {'tolerance_points': 2.0},
+    # Exploratory (T5.1): informational until calibrated and enabled by the Product Owner.
+    'surface.alignment': {'enabled': 0.0, 'max_offset_voxels': 8.0, 'min_prominence': 1.0,
+                          'max_bootstrap_iqr': 4.0},
 }
 # surface.valid is informational since T5 (irregular outlines lower it on healthy segments).
 _IGNORED = {'surface.valid'}
@@ -50,8 +53,8 @@ def load_thresholds(path=None):
                     raise ValueError('Seuil numérique trop grand.') from exc
                 if not math.isfinite(value):
                     raise ValueError('Les seuils doivent être finis.')
-                if check_id == 'volume.background' and name == 'enabled' and value not in (0, 1):
-                    raise ValueError('volume.background.enabled vaut 0 ou 1.')
+                if name == 'enabled' and value not in (0, 1):
+                    raise ValueError(f'{check_id}.enabled vaut 0 ou 1.')
                 if value < 0 and not (check_id == 'volume.background' and name == 'value'):
                     raise ValueError('Les seuils doivent être finis et positifs ou nuls.')
                 values[check_id][name] = float(value)

@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 from .core.tifxyz import DEFAULT_MAX_BYTES
-from .core.volume import open_volume_store
+from .core.volume import open_multiscale, open_volume_store
 from .qc import run_surface, run_volume
 from .qc.report import render_html
 from .qc.thresholds import load_thresholds
@@ -39,6 +39,10 @@ def main(argv=None):
                                  help='budget de lecture par grille, en octets')
             # Pre-T5 options of the patch reader: accepted, ignored, reported as warnings.
             command.add_argument('--window', type=int, default=None, help=argparse.SUPPRESS)
+            command.add_argument('--volume', help='volume visé : active surface.bounds et le '
+                                 'profil exploratoire surface.alignment')
+            command.add_argument('--pixel-size-um', type=float, default=None,
+                                 help='taille de voxel du volume (portée du profil en µm)')
     try:
         args = parser.parse_args(argv)
         if args.output and args.html and Path(args.output).resolve() == Path(args.html).resolve():
@@ -49,8 +53,13 @@ def main(argv=None):
             report = run_volume(root, uri=args.uri, level=args.level, samples=args.samples,
                                 seed=args.seed, max_voxels=args.max_voxels, thresholds=thresholds)
         else:
+            volume = None
+            if args.volume:
+                arrays, levels = open_multiscale(args.volume)
+                volume = (arrays, [level.shape for level in levels])
             report = run_surface(args.uri, max_bytes=args.max_bytes, window=args.window,
-                                 max_voxels=args.max_voxels, thresholds=thresholds)
+                                 max_voxels=args.max_voxels, thresholds=thresholds,
+                                 volume=volume, pixel_size_um=args.pixel_size_um)
         document = json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + '\n'
         if args.output:
             Path(args.output).write_text(document, encoding='utf-8')

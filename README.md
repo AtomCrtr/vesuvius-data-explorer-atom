@@ -157,7 +157,15 @@ Le widget **Vesuvius — Surfaces** travaille sur un volume ouvert par **Vesuviu
   vue 3D). Points hors du volume masqués, 200 000 points au plus. Le calque **Trous — …** marque en
   rouge le centre des trous intérieurs ;
 - **Aller à la surface** amène la vue sur la coupe centrale du segment et le cadre ;
-- la fiche donne la taille de la grille, les octets lus et les indicateurs (`vesuvius-qc surface`).
+- la fiche donne la taille de la grille, les octets lus et les indicateurs (`vesuvius-qc surface`) ;
+- **Mesurer l'alignement** (exploratoire, T5.1) lit l'intensité du volume le long des normales du
+  segment, sur 36 patchs de 6 × 6 points (réglable), de −200 à +200 µm (±24 voxels si la taille de voxel est
+  inconnue), au niveau dont le voxel mesure au plus 10 µm. Le graphique montre le profil moyen ; le
+  pic de brillance le plus proche de 0 est la feuille suivie. Les patchs mesurés apparaissent en jaune.
+  Sur 21 segments réels, elle retrouve 86 % des décalages imposés de ±25 µm
+  ([validation](docs/validation/T5.1-alignement.md)). **Mesure non notée** tant que le PO ne l'a pas
+  décidé ; un profil plat ou un maximum au bord de la fenêtre donne « alignement indéterminé » ;
+  un saut d'une feuille entière n'est jamais détectable. Compter environ 40 s depuis S3.
 
 Points et image partagent le même repère : voxels **(z, y, x)** du niveau 0 et même échelle de
 calque. Validation sur PHerc0800 et 30 segments réels :
@@ -171,6 +179,7 @@ Le cœur, le moteur QC et la CLI fonctionnent sans extra graphique :
 vesuvius-qc volume /chemin/volume.zarr --samples 16 --seed 0 -o rapport.json --html rapport.html
 vesuvius-qc volume s3://bucket/volume.zarr --level 3 --max-voxels 65536
 vesuvius-qc surface s3://vesuvius-challenge-open-data/…/segment.tifxyz --max-bytes 67108864 -o surface.json
+vesuvius-qc surface s3://…/segment.tifxyz --volume s3://…/volume.zarr --pixel-size-um 8.64
 ```
 
 Le chemin S3 ci-dessus est un **gabarit**, pas une source de données : utiliser une URI complète et
@@ -306,6 +315,7 @@ Indicateurs (`core.tifxyz.tifxyz_metrics`, contrôles `surface.*`) :
 | `surface.bounds` | points valides hors du volume | informatif ; warn si l'écart avec la couverture du catalogue dépasse 2 points |
 | `surface.stretch` | pas p95 / pas médian | warn > 2, fail > 4 |
 | `surface.normal_flips` | cellules **voisines** aux normales opposées (replis) | warn > 0,5 %, fail > 2 % |
+| `surface.alignment` | décalage de la feuille la plus proche le long des normales (`--volume`) | **informatif** : exploratoire, non calibré |
 
 Les replis sont détectés **localement** : une feuille enroulée a des normales dans toutes les
 directions, ce qui faisait signaler environ la moitié de chaque segment réel par l'ancienne

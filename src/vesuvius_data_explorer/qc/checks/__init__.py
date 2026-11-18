@@ -233,3 +233,43 @@ def surface_bounds(context, thresholds):
                 f'{gap:.2g} point(s)')
     message += ' : catalogue incohérent avec les données.' if status == 'warn' else '.'
     return CheckResult(key, status, float(outside), threshold, message)
+
+
+@register('surface', 'surface.alignment')
+def surface_alignment(context, thresholds):
+    key = 'surface.alignment'
+    threshold = thresholds[key]
+    alignment = context.get('alignment')
+    if alignment is None:
+        return CheckResult(key, 'skipped', None, threshold,
+                           context.get('alignment_note') or 'Aucun volume fourni : alignment non '
+                           'mesuré.')
+    offset = alignment['peak_offset']
+    if offset is None:
+        # A flat profile or a maximum on the window edge points at no sheet: report it as
+        # undetermined rather than as an offset (audit, T5.1).
+        return CheckResult(key, 'skipped', None, threshold,
+                           'Alignement indéterminé : aucune feuille identifiable (profil plat ou '
+                           'maximum au bord de la fenêtre de recherche) ; '
+                           f'{alignment["patches"]} patch(s), niveau {alignment["level"]}.')
+    pixel = context.get('pixel_size_um')
+    iqr = alignment['bootstrap_iqr']
+    prominence = alignment['peak_prominence']
+    edge = alignment['edge_offset']
+    message = f'Feuille la plus proche à {offset:+.3g} voxel(s)'
+    if pixel:
+        message += f' ({offset * pixel:+.3g} µm)'
+    message += (', intervalle bootstrap '
+                + ('indéterminé' if iqr is None else f'[{iqr[0]:.3g}, {iqr[1]:.3g}]')
+                + ', proéminence ' + ('non définie' if prominence is None else f'{prominence:.3g}')
+                + f' ; {alignment["patches"]} patch(s), niveau {alignment["level"]}, bord le plus '
+                + ('net non défini' if edge is None else f'net à {edge:+.3g}') + ' (informatif).')
+    status = 'pass'
+    if threshold['enabled']:
+        weak = prominence is None or prominence < threshold['min_prominence']
+        unstable = iqr is None or iqr[1] - iqr[0] > threshold['max_bootstrap_iqr']
+        if abs(offset) > threshold['max_offset_voxels'] or weak or unstable:
+            status = 'warn'
+    else:
+        message += ' Mesure exploratoire, non notée (seuils à calibrer).'
+    return CheckResult(key, status, float(offset), threshold, message)
