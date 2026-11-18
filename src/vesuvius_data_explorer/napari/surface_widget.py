@@ -32,6 +32,8 @@ from vesuvius_data_explorer.core.alignment import (
 from vesuvius_data_explorer.core.catalog import load_catalog
 from vesuvius_data_explorer.core.tifxyz import in_volume, load_tifxyz
 from vesuvius_data_explorer.qc import run_surface
+from vesuvius_data_explorer.qc.checks import grade_alignment
+from vesuvius_data_explorer.qc.thresholds import load_thresholds
 
 from .qc_widget import camera, canvas_size
 
@@ -83,15 +85,18 @@ def prepare_overlay(source, max_bytes, volume_shape, overlap_ratio):
 
 def measure_alignment(surface, arrays, shapes, pixel_size_um, max_voxels,
                       patches=DEFAULT_PATCHES):
-    """Worker body (no Qt): alignment profile and its metrics."""
+    """Worker body (no Qt): alignment profile, its metrics and its grade (same rule as QC)."""
     profile = normal_profiles(surface, arrays, shapes, pixel_size_um=pixel_size_um,
                               max_voxels=max_voxels, patches=patches)
-    return {"profile": profile, "metrics": alignment_metrics(profile),
-            "pixel_size_um": pixel_size_um}
+    metrics = alignment_metrics(profile)
+    status, note = grade_alignment(metrics, pixel_size_um,
+                                   load_thresholds()["surface.alignment"])
+    return {"profile": profile, "metrics": metrics, "pixel_size_um": pixel_size_um,
+            "status": status, "note": note}
 
 
 def describe_alignment(result) -> str:
-    """One French line: offset (µm when known), bootstrap interval, prominence, patches."""
+    """French summary: grade (T5.3), offset (µm when known), bootstrap interval, prominence."""
     metrics, pixel = result["metrics"], result["pixel_size_um"]
     offset = metrics["peak_offset"]
     if offset is None:
@@ -106,10 +111,15 @@ def describe_alignment(result) -> str:
     if pixel:
         text += f" ({offset * pixel:+.3g} µm)".replace(".", ",")
     interval = "indéterminé" if iqr is None else f"[{iqr[0]:.3g}, {iqr[1]:.3g}]"
+    prefix = {"warn": "Alerte — ", "pass": ""}.get(result.get("status"), "")
+    text = prefix + text
     text += (f", intervalle {interval}, proéminence "
-             + ("non définie" if prominence is None else f"{prominence:.2g}".replace(".", ","))
-             + f" ; {metrics['patches']} patch(s), niveau {metrics['level']}. "
-             "Mesure exploratoire : un décalage d'une feuille entière n'est pas détectable.")
+             + ("non définie" if prominence is None else "très élevée" if prominence == float("inf")
+                else f"{prominence:.2g}".replace(".", ","))
+             + f" ; {metrics['patches']} patch(s), niveau {metrics['level']}.")
+    if result.get("note"):
+        text += f" Notation : {result['note']}."
+    text += " Un décalage d'une feuille entière n'est pas détectable."
     for warning in result["profile"].warnings:
         text += f" {warning}"
     return text

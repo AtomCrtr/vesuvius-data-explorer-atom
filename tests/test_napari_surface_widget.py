@@ -258,8 +258,10 @@ def test_alignment_is_measured_off_the_gui_thread_and_plotted(
     qtbot.waitUntil(lambda: widget.align_button.isEnabled(), timeout=20000)
     assert threads and threads[0] != threading.get_ident()
     # Grid normal points to -z: the sheet at z = 48 is 5 voxels "behind" -> offset -5.
-    assert "Feuille la plus proche à -5 voxel(s) (-40 µm)" in widget.align_label.text()
-    assert "exploratoire" in widget.align_label.text()
+    text = widget.align_label.text()
+    assert text.startswith("Alerte — Feuille la plus proche à -5 voxel(s) (-40 µm)")
+    # Same rule as the QC report (T5.3): reliable measure, 40 µm > 30 µm.
+    assert "Notation : surface à 40 µm de sa feuille, au-delà de 30 µm" in text
     plot = widget.profile_plot
     assert not plot.isHidden() and plot.peak == -5 and len(plot.values) == len(plot.offsets)
     assert not plot.grab().isNull()

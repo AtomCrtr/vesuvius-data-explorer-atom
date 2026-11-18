@@ -173,14 +173,17 @@ Le widget **Vesuvius — Surfaces** travaille sur un volume ouvert par **Vesuviu
   rouge le centre des trous intérieurs ;
 - **Aller à la surface** amène la vue sur la coupe centrale du segment et le cadre ;
 - la fiche donne la taille de la grille, les octets lus et les indicateurs (`vesuvius-qc surface`) ;
-- **Mesurer l'alignement** (exploratoire, T5.1) lit l'intensité du volume le long des normales du
-  segment, sur 36 patchs de 6 × 6 points (réglable), de −200 à +200 µm (±24 voxels si la taille de voxel est
+- **Mesurer l'alignement** (T5.1) lit l'intensité du volume le long des normales du segment, sur
+  36 patchs de 6 × 6 points (réglable), de −200 à +200 µm (±24 voxels si la taille de voxel est
   inconnue), au niveau dont le voxel mesure au plus 10 µm. Le graphique montre le profil moyen ; le
-  pic de brillance le plus proche de 0 est la feuille suivie. Les patchs mesurés apparaissent en jaune.
-  Sur deux échantillons indépendants de 21 segments réels, elle retrouve 86 % puis 83 % des décalages imposés de ±25 µm
-  ([validation](docs/validation/T5.1-alignement.md)). **Mesure non notée** tant que le PO ne l'a pas
-  décidé ; un profil plat ou un maximum au bord de la fenêtre donne « alignement indéterminé » ;
-  un saut d'une feuille entière n'est jamais détectable. Compter environ 40 s depuis S3.
+  pic de brillance le plus proche de 0 est la feuille suivie. Les patchs mesurés apparaissent en
+  jaune. Sur deux échantillons indépendants de 21 segments réels, la mesure retrouve 86 % puis 83 %
+  des décalages imposés de ±25 µm ([validation](docs/validation/T5.1-alignement.md)).
+  **Alerte** (T5.3) si la surface est à plus de **30 µm** de sa feuille **et** que la mesure est
+  fiable (proéminence ≥ 1,0, taille de voxel connue) ; sinon le résultat est affiché sans note
+  (environ deux segments sur trois). Un profil plat ou un maximum au bord de la fenêtre donne
+  « alignement indéterminé » ; un saut d'une feuille entière n'est jamais détectable. Compter
+  quelques secondes depuis S3, moins d'une seconde en cache.
 
 Points et image partagent le même repère : voxels **(z, y, x)** du niveau 0 et même échelle de
 calque. Validation sur PHerc0800 et 30 segments réels :
@@ -332,7 +335,7 @@ Indicateurs (`core.tifxyz.tifxyz_metrics`, contrôles `surface.*`) :
 | `surface.bounds` | points valides hors du volume | informatif ; warn si l'écart avec la couverture du catalogue dépasse 2 points |
 | `surface.stretch` | pas p95 / pas médian | warn > 2, fail > 4 |
 | `surface.normal_flips` | cellules **voisines** aux normales opposées (replis) | warn > 0,5 %, fail > 2 % |
-| `surface.alignment` | décalage de la feuille la plus proche le long des normales (`--volume`) | **informatif** : exploratoire, non calibré |
+| `surface.alignment` | décalage de la feuille la plus proche le long des normales (`--volume`) | warn > 30 µm, **seulement si la mesure est fiable** (proéminence ≥ 1,0) et la taille de voxel connue ; sinon non noté |
 
 Les replis sont détectés **localement** : une feuille enroulée a des normales dans toutes les
 directions, ce qui faisait signaler environ la moitié de chaque segment réel par l'ancienne

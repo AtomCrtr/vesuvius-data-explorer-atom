@@ -24,9 +24,10 @@ _DEFAULTS = {
     'surface.normal_flips': {'warn': 0.5, 'fail': 2.0},
     # Valid points inside the volume vs the catalogue coverage ratio, in percentage points.
     'surface.bounds': {'tolerance_points': 2.0},
-    # Exploratory (T5.1): informational until calibrated and enabled by the Product Owner.
-    'surface.alignment': {'enabled': 0.0, 'max_offset_voxels': 8.0, 'min_prominence': 1.0,
-                          'max_bootstrap_iqr': 4.0},
+    # Graded since T5.3 (Product Owner decision), on reliable measures only: prominence >= 1.0
+    # and a known voxel size. On 42 real segments: no published segment flagged, 19 of 26
+    # segments shifted by 50 µm detected. enabled = 0 makes it informational again.
+    'surface.alignment': {'enabled': 1.0, 'max_offset_um': 30.0, 'min_prominence': 1.0},
 }
 # surface.valid is informational since T5 (irregular outlines lower it on healthy segments).
 _IGNORED = {'surface.valid'}

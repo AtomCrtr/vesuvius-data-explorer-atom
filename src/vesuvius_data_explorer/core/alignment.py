@@ -180,7 +180,13 @@ def alignment_metrics(profile: AlignmentProfile, *, resamples=200, seed=0) -> di
     prominence = None
     if peak is not None:
         spread = float(np.std(profile.patch_profiles[:, peak]))
-        prominence = float((mean[peak] - mean.mean()) / spread) if spread > 0 else None
+        height = float(mean[peak] - mean.mean())
+        if spread > 0:
+            prominence = height / spread
+        elif height > 0:
+            # Every patch agrees exactly (noise-free data): the most reliable case, not an
+            # undefined one.
+            prominence = float("inf")
     rng = np.random.default_rng(seed)
     count = len(profile.patch_profiles)
     estimates = []

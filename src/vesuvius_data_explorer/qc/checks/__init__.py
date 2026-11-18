@@ -235,6 +235,37 @@ def surface_bounds(context, thresholds):
     return CheckResult(key, status, float(outside), threshold, message)
 
 
+def _prominence_text(prominence):
+    if prominence is None:
+        return 'non définie'
+    return 'très élevée (patchs identiques)' if not isfinite(prominence) else f'{prominence:.3g}'
+
+
+def grade_alignment(alignment, pixel_size_um, threshold):
+    """(status, note) of an alignment measure under the T5.3 rule, shared with napari.
+
+    Graded only when the measure is reliable (prominence >= min_prominence) and the voxel size
+    is known (the threshold is in µm): ``warn`` beyond ``max_offset_um``, ``pass`` within.
+    Otherwise ``pass`` with a note saying why it is not graded. Undetermined -> ``skipped``.
+    """
+    offset = alignment['peak_offset']
+    if offset is None:
+        return 'skipped', 'alignement indéterminé'
+    if not threshold['enabled']:
+        return 'pass', 'non noté (surface.alignment.enabled = 0)'
+    prominence = alignment['peak_prominence']
+    if prominence is None or prominence < threshold['min_prominence']:
+        return 'pass', (f'mesure peu fiable (proéminence < {threshold["min_prominence"]:g}), '
+                        'non notée')
+    if not pixel_size_um:
+        return 'pass', 'taille de voxel inconnue : seuil en µm non applicable, non noté'
+    distance = abs(offset * pixel_size_um)
+    if distance > threshold['max_offset_um']:
+        return 'warn', (f'surface à {distance:.3g} µm de sa feuille, au-delà de '
+                        f'{threshold["max_offset_um"]:g} µm')
+    return 'pass', f'à {distance:.3g} µm de sa feuille, dans les {threshold["max_offset_um"]:g} µm'
+
+
 @register('surface', 'surface.alignment')
 def surface_alignment(context, thresholds):
     key = 'surface.alignment'
@@ -242,8 +273,8 @@ def surface_alignment(context, thresholds):
     alignment = context.get('alignment')
     if alignment is None:
         return CheckResult(key, 'skipped', None, threshold,
-                           context.get('alignment_note') or 'Aucun volume fourni : alignment non '
-                           'mesuré.')
+                           context.get('alignment_note') or 'Aucun volume fourni : alignement '
+                           'non mesuré.')
     offset = alignment['peak_offset']
     if offset is None:
         # A flat profile or a maximum on the window edge points at no sheet: report it as
@@ -256,20 +287,14 @@ def surface_alignment(context, thresholds):
     iqr = alignment['bootstrap_iqr']
     prominence = alignment['peak_prominence']
     edge = alignment['edge_offset']
+    status, note = grade_alignment(alignment, pixel, threshold)
     message = f'Feuille la plus proche à {offset:+.3g} voxel(s)'
     if pixel:
         message += f' ({offset * pixel:+.3g} µm)'
     message += (', intervalle bootstrap '
                 + ('indéterminé' if iqr is None else f'[{iqr[0]:.3g}, {iqr[1]:.3g}]')
-                + ', proéminence ' + ('non définie' if prominence is None else f'{prominence:.3g}')
+                + ', proéminence ' + _prominence_text(prominence)
                 + f' ; {alignment["patches"]} patch(s), niveau {alignment["level"]}, bord le plus '
-                + ('net non défini' if edge is None else f'net à {edge:+.3g}') + ' (informatif).')
-    status = 'pass'
-    if threshold['enabled']:
-        weak = prominence is None or prominence < threshold['min_prominence']
-        unstable = iqr is None or iqr[1] - iqr[0] > threshold['max_bootstrap_iqr']
-        if abs(offset) > threshold['max_offset_voxels'] or weak or unstable:
-            status = 'warn'
-    else:
-        message += ' Mesure exploratoire, non notée (seuils à calibrer).'
+                + ('net non défini' if edge is None else f'net à {edge:+.3g}')
+                + f' (informatif). Notation : {note}.')
     return CheckResult(key, status, float(offset), threshold, message)
