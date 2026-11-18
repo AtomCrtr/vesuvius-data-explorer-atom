@@ -123,24 +123,58 @@ def test_patches_outside_the_volume_are_excluded(volume):
         normal_profiles(plane(x0=70.0), *volume)
 
 
-def test_qc_check_is_informational_until_enabled(volume, tmp_path):
-    report = run_surface("plan", surface=shift_surface(plane(), 10), volume=volume,
-                         pixel_size_um=None)
+def alignment_result(report):
     validate_report(report)
-    result = {r["check_id"]: r for r in report["results"]}["surface.alignment"]
-    assert result["status"] == "pass" and result["value"] == pytest.approx(-10, abs=1)
-    assert "non notée" in result["message"]
+    return {r["check_id"]: r for r in report["results"]}["surface.alignment"]
+
+
+def test_qc_check_warns_beyond_30_um_on_reliable_measures(volume):
+    """T5.3 (PO decision): warn when prominence >= 1.0 and the sheet is more than 30 µm away."""
+    shifted = shift_surface(plane(), 10)  # 10 voxels of 5 µm = 50 µm
+    report = run_surface("plan", surface=shifted, volume=volume, pixel_size_um=5.0)
+    result = alignment_result(report)
+    assert result["status"] == "warn" and result["value"] == pytest.approx(-10, abs=1)
+    assert "au-delà de 30 µm" in result["message"]
     assert report["parameters"]["alignment"]["patches"] == 25  # all usable patches (36 asked)
     assert report["parameters"]["volume_shape"] == [96, 64, 64]
-    config = tmp_path / "on.toml"
-    config.write_text('["surface.alignment"]\nenabled = 1\n')
-    enabled = run_surface("plan", surface=shift_surface(plane(), 10), volume=volume,
-                          thresholds=load_thresholds(config))
-    result = {r["check_id"]: r for r in enabled["results"]}["surface.alignment"]
-    assert result["status"] == "warn"  # |offset| 10 > 8 voxels
+    close = alignment_result(run_surface("plan", surface=shift_surface(plane(), 4),
+                                         volume=volume, pixel_size_um=5.0))  # 20 µm
+    assert close["status"] == "pass" and "dans les 30 µm" in close["message"]
+
+
+def test_qc_check_is_not_graded_without_voxel_size_or_when_disabled(volume, tmp_path):
+    shifted = shift_surface(plane(), 10)
+    unknown = alignment_result(run_surface("plan", surface=shifted, volume=volume))
+    assert unknown["status"] == "pass" and "taille de voxel inconnue" in unknown["message"]
+    config = tmp_path / "off.toml"
+    config.write_text('["surface.alignment"]\nenabled = 0\n')
+    disabled = alignment_result(run_surface("plan", surface=shifted, volume=volume,
+                                            pixel_size_um=5.0, thresholds=load_thresholds(config)))
+    assert disabled["status"] == "pass" and "enabled = 0" in disabled["message"]
     config.write_text('["surface.alignment"]\nenabled = 2\n')
     with pytest.raises(ValueError, match="enabled vaut 0 ou 1"):
         load_thresholds(config)
+    config.write_text('["surface.alignment"]\nmax_offset_um = 60\n')
+    relaxed = alignment_result(run_surface("plan", surface=shifted, volume=volume,
+                                           pixel_size_um=5.0, thresholds=load_thresholds(config)))
+    assert relaxed["status"] == "pass"
+
+
+@pytest.mark.parametrize("metrics, pixel, status, note", [
+    ({"peak_offset": None, "peak_prominence": None}, 5.0, "skipped", "indéterminé"),
+    ({"peak_offset": -10.0, "peak_prominence": 0.6}, 5.0, "pass", "peu fiable"),
+    ({"peak_offset": -10.0, "peak_prominence": None}, 5.0, "pass", "peu fiable"),
+    ({"peak_offset": -10.0, "peak_prominence": 1.0}, 5.0, "warn", "50 µm"),
+    ({"peak_offset": 6.0, "peak_prominence": 2.0}, 5.0, "pass", "30 µm"),
+    ({"peak_offset": -10.0, "peak_prominence": 2.0}, None, "pass", "inconnue"),
+])
+def test_grade_alignment_rule(metrics, pixel, status, note):
+    from vesuvius_data_explorer.qc.checks import grade_alignment
+
+    threshold = load_thresholds()["surface.alignment"]
+    assert dict(threshold) == {"enabled": 1.0, "max_offset_um": 30.0, "min_prominence": 1.0}
+    got_status, got_note = grade_alignment(metrics, pixel, threshold)
+    assert got_status == status and note in got_note
 
 
 def test_qc_reports_why_the_profile_is_impossible(volume):
@@ -213,3 +247,14 @@ def test_maximum_on_the_window_edge_is_undetermined():
     ramp = pyramid((200 - z + np.zeros((96, 64, 64))).astype(np.float32))
     metrics = alignment_metrics(normal_profiles(plane(), *ramp, patches=12))
     assert metrics["peak_offset"] is None
+
+
+def test_identical_patches_give_an_infinite_not_undefined_prominence():
+    clean = pyramid(sheets(seed=0) * 0 + 50 + 100 * np.exp(
+        -(((np.arange(96)[:, None, None] + 12) % 24 - 12) ** 2) / 8.0))  # noise-free sheets
+    metrics = alignment_metrics(normal_profiles(plane(), *clean, patches=12))
+    assert metrics["peak_offset"] == 0 and metrics["peak_prominence"] == float("inf")
+    report = run_surface("plan", surface=shift_surface(plane(), 10), volume=clean,
+                         pixel_size_um=5.0)
+    result = alignment_result(report)
+    assert result["status"] == "warn" and "très élevée" in result["message"]

@@ -24,8 +24,8 @@ fusion après validation.
   grille, lecture décimée au-delà ; Pillow et scipy dans le cœur. Écarts acceptés : trace sur la
   coupe calculée par le plugin ; `surface.normal_flips` local (warn 0,5 %, fail 2 %).
 - **Alignement (T5.1) :** pic de brillance le plus proche ; 36 patchs par défaut, budget de
-  80 Mi-voxels (écarts acceptés) ; mesure informative, non notée avant
-  calibration ; un saut de feuille entière n'est pas détectable ; portée ±200 µm, voxel ≤ 10 µm.
+  80 Mi-voxels (écarts acceptés) ; notation décidée le 18 novembre 2026 après deux calibrations
+  (option 1) : `warn` au-delà de 30 µm si la proéminence est ≥ 1,0 et la taille de voxel connue ; un saut de feuille entière n'est pas détectable ; portée ±200 µm, voxel ≤ 10 µm.
 - **Performance (T6) :** lecture Zarr directe (Dask conservé dans l'API `open_multiscale`), cache
   local de chunks activé par défaut (10 Gio, 30 jours, bouton pour le vider), 64 lectures
   concurrentes, contraste initial hors fond.
@@ -51,4 +51,5 @@ fusion après validation.
 | T5.1 | [Alignement surface–volume : profil d'intensité le long des normales](tasks/T5.1-alignement-surface-volume.md), exploratoire | Fusionnée (PR #17), 36 patchs, informatif |
 | A1 | Corrections de l'audit de GPT-6 : mesure de la vue, rapport sur un autre volume, échelles OME absentes, budget tifxyz, préférence async, tests réseau hebdomadaires ; alignement indéterminé (dans T5.1) | Fusionnée (PR #18) |
 | T6 | [Performance S3 : lecture Zarr directe, cache local de chunks, contraste hors fond](tasks/T6-performance-s3.md) | Fusionnée (PR #21) |
-| T5.2 | [Recalibration de l'alignement sur un second échantillon](validation/T5.1-alignement.md#5-second-échantillon-recalibration-18-novembre-2026), proposition de notation | En revue (décision du PO attendue) |
+| T5.2 | [Recalibration de l'alignement sur un second échantillon](validation/T5.1-alignement.md#5-second-échantillon-recalibration-18-novembre-2026), proposition de notation | Fusionnée (PR #22) |
+| T5.3 | Notation de l'alignement : `warn` au-delà de 30 µm pour les mesures fiables (proéminence ≥ 1,0) | En revue |
