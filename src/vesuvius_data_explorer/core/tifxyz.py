@@ -17,6 +17,7 @@ import io
 import json
 import math
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
@@ -318,3 +319,23 @@ def in_volume(points: np.ndarray, volume_shape) -> np.ndarray:
     for axis, size in enumerate(volume_shape):
         mask &= (points[..., axis] >= 0) & (points[..., axis] < size)
     return mask
+
+
+def write_tifxyz(folder: str | Path, points: np.ndarray, meta: dict[str, Any]) -> Path:
+    """Write a local tifxyz folder: ``x/y/z.tif`` (float32, -1 where invalid) and ``meta.json``.
+
+    ``points`` is (rows, cols, 3) in (z, y, x) level-0 voxels, NaN where invalid. Refuses to write
+    into a folder that already holds a segment, so an original is never overwritten.
+    """
+    import tifffile
+
+    folder = Path(folder)
+    if any((folder / f"{axis}.tif").exists() for axis in AXES_FILES):
+        raise ValueError(f"{folder} contient déjà un segment : écriture refusée.")
+    folder.mkdir(parents=True, exist_ok=True)
+    grid = np.where(np.isfinite(points).all(axis=2)[..., None], points, -1.0).astype(np.float32)
+    for index, axis in enumerate(AXES_FILES):
+        tifffile.imwrite(folder / f"{axis}.tif", grid[..., index])
+    (folder / "meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n",
+                                      encoding="utf-8")
+    return folder
