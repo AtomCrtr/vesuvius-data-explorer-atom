@@ -189,3 +189,27 @@ def test_real_segment_sits_close_to_its_sheet():
     metrics = alignment_metrics(profile)
     assert len(profile.patch_profiles) == 22 and profile.level == 0  # every usable patch
     assert abs(metrics["peak_offset"]) <= 6
+
+
+def test_flat_profile_is_undetermined_not_an_offset():
+    """Audit case: a perfectly flat profile returned -12 voxels with a bootstrap of [-12, -12]."""
+    flat = pyramid(np.full((96, 64, 64), 80.0, dtype=np.float32))
+    metrics = alignment_metrics(normal_profiles(plane(), *flat, patches=12))
+    assert metrics["peak_offset"] is None
+    assert metrics["peak_prominence"] is None
+    assert metrics["bootstrap_iqr"] is None and metrics["bootstrap_width"] is None
+    assert metrics["edge_offset"] is None
+    report = run_surface("plan", surface=plane(), volume=flat)
+    validate_report(report)
+    result = {r["check_id"]: r for r in report["results"]}["surface.alignment"]
+    assert result["status"] == "skipped" and result["value"] is None
+    assert "indéterminé" in result["message"]
+
+
+def test_maximum_on_the_window_edge_is_undetermined():
+    # Intensity rising along -z (the normal direction): the brightest point of the ±12 window
+    # is its edge, i.e. the slope towards some sheet further away, not a sheet.
+    z = np.arange(96, dtype=np.float32)[:, None, None]
+    ramp = pyramid((200 - z + np.zeros((96, 64, 64))).astype(np.float32))
+    metrics = alignment_metrics(normal_profiles(plane(), *ramp, patches=12))
+    assert metrics["peak_offset"] is None

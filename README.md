@@ -162,9 +162,10 @@ Le widget **Vesuvius — Surfaces** travaille sur un volume ouvert par **Vesuviu
   segment, sur 36 patchs de 6 × 6 points (réglable), de −200 à +200 µm (±24 voxels si la taille de voxel est
   inconnue), au niveau dont le voxel mesure au plus 10 µm. Le graphique montre le profil moyen ; le
   pic de brillance le plus proche de 0 est la feuille suivie. Les patchs mesurés apparaissent en jaune.
-  Sur 21 segments réels, elle retrouve 88 % des décalages imposés de ±25 µm
+  Sur 21 segments réels, elle retrouve 86 % des décalages imposés de ±25 µm
   ([validation](docs/validation/T5.1-alignement.md)). **Mesure non notée** tant que le PO ne l'a pas
-  décidé ; un saut d'une feuille entière n'est jamais détectable. Compter environ 40 s depuis S3.
+  décidé ; un profil plat ou un maximum au bord de la fenêtre donne « alignement indéterminé » ;
+  un saut d'une feuille entière n'est jamais détectable. Compter environ 40 s depuis S3.
 
 Points et image partagent le même repère : voxels **(z, y, x)** du niveau 0 et même échelle de
 calque. Validation sur PHerc0800 et 30 segments réels :

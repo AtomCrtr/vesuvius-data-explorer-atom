@@ -94,12 +94,19 @@ def describe_alignment(result) -> str:
     """One French line: offset (µm when known), bootstrap interval, prominence, patches."""
     metrics, pixel = result["metrics"], result["pixel_size_um"]
     offset = metrics["peak_offset"]
-    low, high = metrics["bootstrap_iqr"]
+    if offset is None:
+        text = ("Alignement indéterminé : aucune feuille identifiable (profil plat ou maximum au "
+                f"bord de la fenêtre) ; {metrics['patches']} patch(s), niveau {metrics['level']}.")
+        for warning in result["profile"].warnings:
+            text += f" {warning}"
+        return text
+    iqr = metrics["bootstrap_iqr"]
     prominence = metrics["peak_prominence"]
     text = f"Feuille la plus proche à {offset:+.3g} voxel(s)"
     if pixel:
         text += f" ({offset * pixel:+.3g} µm)".replace(".", ",")
-    text += (f", intervalle [{low:.3g}, {high:.3g}], proéminence "
+    interval = "indéterminé" if iqr is None else f"[{iqr[0]:.3g}, {iqr[1]:.3g}]"
+    text += (f", intervalle {interval}, proéminence "
              + ("non définie" if prominence is None else f"{prominence:.2g}".replace(".", ","))
              + f" ; {metrics['patches']} patch(s), niveau {metrics['level']}. "
              "Mesure exploratoire : un décalage d'une feuille entière n'est pas détectable.")

@@ -289,3 +289,17 @@ def test_alignment_errors_are_french(viewer_with_volume, tmp_path, qtbot, monkey
     assert expected in widget.status_label.text()
     assert "internals" not in widget.status_label.text()
     assert widget.profile_plot.isHidden()
+
+
+def test_undetermined_alignment_is_described_as_such():
+    from vesuvius_data_explorer.core.alignment import AlignmentProfile
+
+    profile = AlignmentProfile(np.arange(-3.0, 4.0), np.full(7, 5.0), np.full((2, 7), 5.0),
+                               np.zeros((2, 3)), 0, 6.0, 72, 100)
+    text = surface_module.describe_alignment({
+        "profile": profile, "pixel_size_um": 8.0,
+        "metrics": {"peak_offset": None, "patches": 2, "level": 0}})
+    assert text.startswith("Alignement indéterminé")
+    plot = surface_module.ProfilePlot()
+    plot.set_profile(profile.offsets, profile.mean, None)
+    assert not plot.grab().isNull()

@@ -23,7 +23,7 @@ DEFAULT_HALF_RANGE_UM = 200.0
 DEFAULT_HALF_RANGE_VOXELS = 24.0  # When the physical voxel size is unknown.
 MAX_SAMPLING_UM = 10.0
 # T5.1 calibration on 21 real segments: 12 patches recover a 25 µm shift in 69 % of cases,
-# 36 patches in 88 % (criterion: 80 %). 36 patches read 52 Mi-voxels (median), 65 Mi at most.
+# 36 patches in 86 % (criterion: 80 %). 36 patches read 52 Mi-voxels (median), 65 Mi at most.
 DEFAULT_PATCHES = 36
 DEFAULT_MAX_VOXELS = 80 * 2**20
 
@@ -151,30 +151,56 @@ def normal_profiles(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=Non
                             tuple(warnings))
 
 
-def _peak(offsets: np.ndarray, mean: np.ndarray, half: float) -> int:
-    """Index of the brightest point within ±half/2: the sheet followed, not its neighbours."""
+def _peak(offsets: np.ndarray, mean: np.ndarray, half: float) -> int | None:
+    """Index of the brightest point within ±half/2 (the sheet followed, not its neighbours),
+    or None when there is no sheet to point at.
+
+    Undetermined: a flat profile (argmax of ties would return the first offset), or a maximum
+    on the edge of the window, which is only the slope towards a neighbouring sheet.
+    """
     window = np.flatnonzero(np.abs(offsets) <= half / 2)
-    return int(window[np.argmax(mean[window])])
+    values = mean[window]
+    tolerance = 1e-9 * (float(np.max(np.abs(values))) + 1.0)
+    if float(values.max() - values.min()) <= tolerance:
+        return None
+    index = int(np.argmax(values))
+    if index in (0, len(window) - 1):
+        return None
+    return int(window[index])
 
 
 def alignment_metrics(profile: AlignmentProfile, *, resamples=200, seed=0) -> dict:
-    """Peak offset, prominence, bootstrap spread and (informational) sharpest-edge offset."""
+    """Peak offset, prominence, bootstrap spread and (informational) sharpest-edge offset.
+
+    ``peak_offset`` is None (with prominence and bootstrap) when no sheet can be identified;
+    the bootstrap interval is None when most resamples are undetermined.
+    """
     offsets, mean = profile.offsets, profile.mean
     peak = _peak(offsets, mean, profile.half_range)
-    spread = float(np.std(profile.patch_profiles[:, peak]))
-    prominence = float((mean[peak] - mean.mean()) / spread) if spread > 0 else None
+    prominence = None
+    if peak is not None:
+        spread = float(np.std(profile.patch_profiles[:, peak]))
+        prominence = float((mean[peak] - mean.mean()) / spread) if spread > 0 else None
     rng = np.random.default_rng(seed)
     count = len(profile.patch_profiles)
-    estimates = [offsets[_peak(offsets, profile.patch_profiles[rng.integers(count, size=count)]
-                               .mean(axis=0), profile.half_range)] for _ in range(resamples)]
-    low, high = (float(v) for v in np.percentile(estimates, [25, 75]))
-    edge = int(np.argmax(np.abs(np.gradient(mean, offsets))))
+    estimates = []
+    for _ in range(resamples):
+        sample = profile.patch_profiles[rng.integers(count, size=count)].mean(axis=0)
+        index = _peak(offsets, sample, profile.half_range)
+        if index is not None:
+            estimates.append(offsets[index])
+    iqr = None
+    if peak is not None and len(estimates) > resamples / 2:
+        iqr = [float(v) for v in np.percentile(estimates, [25, 75])]
+    gradient = np.abs(np.gradient(mean, offsets))
+    edge = int(np.argmax(gradient))
+    edge_defined = float(gradient[edge]) > 1e-9 * (float(np.max(np.abs(mean))) + 1.0)
     return {
-        "peak_offset": float(offsets[peak]),
+        "peak_offset": None if peak is None else float(offsets[peak]),
         "peak_prominence": prominence,
-        "bootstrap_iqr": [low, high],
-        "bootstrap_width": high - low,
-        "edge_offset": float(offsets[edge]),
+        "bootstrap_iqr": iqr,
+        "bootstrap_width": None if iqr is None else iqr[1] - iqr[0],
+        "edge_offset": float(offsets[edge]) if edge_defined else None,
         "level": profile.level,
         "patches": count,
         "points": profile.points,
