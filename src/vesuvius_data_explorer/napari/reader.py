@@ -1,6 +1,6 @@
 """Lazy Image layer data shared by the local reader and asynchronous widget."""
 
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 from vesuvius_data_explorer.core.volume import (
     estimate_contrast,
@@ -39,7 +39,7 @@ def read_volume(path: str) -> list[tuple]:
                 "rgb": False,
                 "scale": levels[0].scale,
                 "contrast_limits": estimate_contrast(arrays),
-                "name": source.rsplit("/", 1)[-1],
+                "name": PureWindowsPath(source).name,
                 "metadata": {"source": source, "volume_summary": volume_summary(levels)},
             },
             "image",

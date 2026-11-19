@@ -1,12 +1,14 @@
 # T10 — Carte d'alignement et recalage : validation sur données réelles
 
-Validation du 18 novembre 2026 selon le protocole de la
-[spécification](../tasks/T10-carte-alignement.md).
+Validation initiale du 18 novembre 2026 selon le protocole de la
+[spécification](../tasks/T10-carte-alignement.md). Les sections 1 à 5 décrivent la campagne
+initiale de la [PR #28](https://github.com/AtomCrtr/vesuvius-data-explorer-atom/pull/28).
+La [section 6](#6-gel-strict-et-exemple-de-dérive-naturelle) présente le suivi après le gel strict.
 
 - Script : [`T10_validation.py`](T10_validation.py), graine 7.
 - Données brutes : [`t10-validation.json`](t10-validation.json).
 
-## Conclusion
+## Bilan de la validation initiale
 
 | Critère de la spécification | Seuil | Résultat |
 |---|---|---|
@@ -16,11 +18,10 @@ Validation du 18 novembre 2026 selon le protocole de la
 | 2b. Recalage d'un segment publié : la fiabilité ne baisse pas | jamais | **tenu** : fiabilité médiane égale ou en hausse sur 8 / 8 |
 | 3. Fibres visibles, rendus avant / après | 5 segments, 3 résolutions | **8 segments, 3 résolutions** ; fibres visibles ; gain quantitatif faible (section 3) |
 | 4. Coût | documenté | 10 à 80 s par carte, 1 à 7 Gi-voxels décodés (section 5) |
-| 5. Comparaison avec les outils voisins | documentée | **à faire** |
+| 5. Comparaison avec les outils voisins | documentée | [Comparaison fonctionnelle](../en/alignment-map.md#related-tools) |
 
-La carte mesure correctement la dérive et le recalage la retire. En revanche, la détection des sauts
-de feuille par la phase, prévue par la spécification, ne fonctionne pas sur les données réelles :
-c'est un écart à décider par le PO.
+La carte retrouve la dérive imposée sur la majorité des tuiles fiables, et le recalage réduit
+le résidu. Sur les huit segments, la méthode de phase ne s'est activée sur aucune carte.
 
 ## 1. Échantillon et conditions
 
@@ -136,10 +137,62 @@ dérive.
   l'ordre de 4 à 8 Go pour un grand segment, soit plusieurs dizaines de minutes au débit mesuré ici
   (2,6 Mo/s). Les exécutions suivantes viennent du cache local (10 Gio au plus).
 
-## 6. Reste à faire
+## 6. Gel strict et exemple de dérive naturelle
+
+### Résultats sur les huit segments
+
+La campagne du 19 novembre 2026 reprend les huit mêmes segments, la graine 7 et les paramètres
+de la campagne initiale. La rampe est retrouvée à deux pas près sur **1 588 des 1 649 tuiles**
+fiables à la fois sur la surface publiée et après application de la rampe, soit **96,3 %**.
+Après recalage, la dérive médiane va de **4,4 à 8,8 µm** et reste sous un pas sur les sept
+segments mesurables. Le segment sans tuile fiable garde un déplacement maximal nul.
+[Données brutes de la campagne avec gel strict](t10-validation-gel-strict.json)
+
+| Segment | Pas (µm) | Résidu médian après recalage de la rampe (µm) | Fiabilité médiane sur le segment publié, avant → après |
+|---|---:|---:|---:|
+| `20260226110425` | 9,36 | 7,45 | 3,028 → 2,923 |
+| `20250919125754` | 8,64 | 5,96 | 2,183 → 2,177 |
+| `20250502184658` | 8,64 | — | 0,611 → 0,611 |
+| `20260220214732` | 9,61 | 8,54 | 1,773 → 1,760 |
+| `20260226123353` | 9,60 | 8,06 | 1,912 → 1,910 |
+| `20250825181928` | 8,86 | 5,17 | 4,267 → 4,362 |
+| `20260226113324` | 9,03 | 8,77 | 2,877 → 2,678 |
+| `20260316000000` | 9,03 | 4,36 | 6,523 → 6,550 |
+
+Le score médian de fiabilité baisse sur **cinq segments sur huit**, avec une baisse maximale
+de **0,20**. C'est le score utilisé dans le rapport initial pour juger le critère 2b.
+L'absence de baisse observée sur la PR #28 ne se retrouve donc plus avec le gel strict.
+
+### Dérive naturelle sur PHerc0814
+
+Le segment publié `20260226110425` de **PHerc0814** (volume `20250804134230`, 9,362 µm)
+présente une dérive locale. Parmi les tuiles déplacées avec une dérive initiale supérieure
+à 25 µm en valeur absolue et une mesure fiable après recalage, la tuile **(5, 17)** présente
+la plus forte réduction. Sa dérive signée passe de **+45,7 à +16,7 µm**, mesurée par rapport
+à la référence initiale du segment (−10,48 µm). Son score de fiabilité passe de **4,37 à 4,77**.
+Sur l'ensemble du segment, les **6 686 points valides des tuiles exclues** ont gardé leurs
+coordonnées.
+
+![Deux coupes CT dans PHerc0814 avec le tracé publié en cyan et le tracé corrigé en orange](t10-coupes-20260226110425.png)
+
+Les deux coupes courbes suivent la ligne 44 et la colonne 140 de la grille tifxyz publiée
+et échantillonnent le CT le long des normales à la surface. Les traits blancs délimitent la tuile.
+Au centre, le tracé corrigé se rapproche de la même bande claire visible sur les coupes. La dérive
+résiduelle et le choix de l'exemple après inspection limitent la portée de ce résultat.
+
+Reproduction avec Matplotlib installé dans l'environnement du projet.
+
+```bash
+python docs/validation/T10_coupes.py t10-coupes-20260226110425.png
+```
+
+Données PHerc0814 par Vesuvius Challenge, *CT Scans of Herculaneum Papyri*.
+[Citation des données](https://github.com/ScrollPrize/open-data#support-and-citation) ·
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
+
+## 7. Reste à faire
 
 - Décision du PO sur l'écart de la section 4.
-- Comparaison avec les outils voisins (ScrollFiesta, raffinement nnInteractive, patchs de
-  W. Stevens).
-- Intégration dans napari (calque de la carte, navigation dans les zones à revoir).
+- Décision sur le critère de fiabilité avant la candidature, au vu des baisses mesurées avec
+  le gel strict.
 - Seuils provisoires à confirmer : fiabilité ≥ 3, lissage 0,5, plafond de 50 µm.

@@ -6,6 +6,8 @@ napari. Every read (catalogue, grids) runs in a worker thread.
 
 from __future__ import annotations
 
+from pathlib import PureWindowsPath
+
 import numpy as np
 from napari.layers import Image
 from napari.qt.threading import thread_worker
@@ -29,9 +31,16 @@ from vesuvius_data_explorer.core.alignment import (
     alignment_metrics,
     normal_profiles,
 )
+from vesuvius_data_explorer.core.alignment_map import (
+    DEFAULT_MAX_DRIFT_UM,
+    alignment_map,
+    reliable_tiles,
+    review_zones,
+)
 from vesuvius_data_explorer.core.catalog import load_catalog
 from vesuvius_data_explorer.core.tifxyz import in_volume, load_tifxyz
 from vesuvius_data_explorer.qc import run_surface
+from vesuvius_data_explorer.qc.carte import drift_rgb
 from vesuvius_data_explorer.qc.checks import grade_alignment
 from vesuvius_data_explorer.qc.thresholds import load_thresholds
 
@@ -41,6 +50,9 @@ MAX_DISPLAYED_POINTS = 200_000
 SURFACE_PREFIX = "Surface — "
 HOLES_PREFIX = "Trous — "
 PATCHES_PREFIX = "Alignement — patchs "
+DRIFT_PREFIX = "Carte de dérive — "
+ZONE_LABELS = {"saut_de_feuille": "indice de saut de feuille", "derive": "forte dérive",
+               "sans_feuille": "signal peu fiable"}
 NO_VOLUME = "Aucun volume ouvert par le plugin : utiliser « Vesuvius — Ouvrir un volume »."
 CHECK_ORDER = ("surface.holes", "surface.bounds", "surface.stretch", "surface.normal_flips",
                "surface.valid")
@@ -59,7 +71,7 @@ def prepare_overlay(source, max_bytes, volume_shape, overlap_ratio):
     flat = surface.points.reshape(-1, 3)
     valid = np.isfinite(flat).all(axis=1)
     inside = in_volume(flat, volume_shape) if volume_shape is not None else valid
-    shown = flat[inside]
+    shown = np.flatnonzero(inside)
     thinning = 1
     if len(shown) > MAX_DISPLAYED_POINTS:
         thinning = int(np.ceil(len(shown) / MAX_DISPLAYED_POINTS))
@@ -68,8 +80,9 @@ def prepare_overlay(source, max_bytes, volume_shape, overlap_ratio):
     centers = np.array([loc["center"] for loc in holes["locations"] if "center" in loc],
                        dtype=float).reshape(-1, 3)
     return {
-        "source": surface.source,
-        "points": shown,
+        "name": PureWindowsPath(surface.source).name,
+        "points": flat[shown],
+        "point_indices": shown,
         "holes": centers,
         "step": surface.step_voxels,
         "grid_shape": surface.grid_shape,
@@ -93,6 +106,16 @@ def measure_alignment(surface, arrays, shapes, pixel_size_um, max_voxels,
                                    load_thresholds()["surface.alignment"])
     return {"profile": profile, "metrics": metrics, "pixel_size_um": pixel_size_um,
             "status": status, "note": note}
+
+
+def measure_drift(overlay, arrays, shapes, pixel_size_um):
+    """Worker body: compute T10 and colour each displayed point by its tile."""
+    surface = overlay["surface"]
+    amap = alignment_map(surface, arrays, shapes, pixel_size_um=pixel_size_um)
+    rows, cols = np.unravel_index(overlay["point_indices"], surface.points.shape[:2])
+    rgb = drift_rgb(amap, pixel_size_um)
+    colors = rgb[rows // amap.tile, cols // amap.tile].astype(np.float32) / 255
+    return colors, review_zones(amap, pixel_size_um=pixel_size_um), int(reliable_tiles(amap).sum())
 
 
 def describe_alignment(result) -> str:
@@ -183,8 +206,9 @@ class SliceTrace:
     3D every point is shown.
     """
 
-    def __init__(self, viewer, layer, points, half):
+    def __init__(self, viewer, layer, points, half, colors=None):
         self.viewer, self.layer, self.points, self.half = viewer, layer, points, half
+        self.colors = colors
         viewer.dims.events.point.connect(self.update)
         viewer.dims.events.ndisplay.connect(self.update)
         viewer.dims.events.order.connect(self.update)
@@ -195,22 +219,25 @@ class SliceTrace:
                       self.viewer.dims.events.order):
             event.disconnect(self.update)
 
-    def visible(self) -> np.ndarray:
+    def _slice(self):
         dims = self.viewer.dims
         if dims.ndisplay == 3 or not len(self.points):
-            return self.points
+            return self.points, slice(None)
         axis = dims.not_displayed[0]
         plane = dims.point[axis] / self.layer.scale[axis]
         inside = np.abs(self.points[:, axis] - plane) <= self.half
         slab = self.points[inside].copy()
         slab[:, axis] = plane
-        return slab
+        return slab, inside
 
     def update(self, event=None):
         if self.layer not in self.viewer.layers:
             self.disconnect()
             return
-        self.layer.data = self.visible()
+        points, indices = self._slice()
+        self.layer.data = points
+        if self.colors is not None and len(points):
+            self.layer.face_color = self.colors[indices]
 
 
 def describe(overlay) -> str:
@@ -244,6 +271,7 @@ class SurfaceWidget(QWidget):
         self._target = None
         self._traces = {}
         self._current_name = None
+        self._drift_layer = None
 
         self.layer_combo = QComboBox()
         self.catalog_button = QPushButton("Lister les segments du catalogue")
@@ -260,6 +288,12 @@ class SurfaceWidget(QWidget):
         self.goto_button.setEnabled(False)
         self.align_button = QPushButton("Mesurer l'alignement")
         self.align_button.setEnabled(False)
+        self.drift_button = QPushButton("Cartographier la dérive")
+        self.zone_combo = QComboBox()
+        self.zone_combo.setPlaceholderText("Choisir une zone à revoir")
+        self.zone_combo.setEnabled(False)
+        self.drift_label = QLabel()
+        self.drift_label.setWordWrap(True)
         self.patches_spin = QSpinBox()
         self.patches_spin.setRange(4, 100)
         self.patches_spin.setValue(DEFAULT_PATCHES)
@@ -285,6 +319,7 @@ class SurfaceWidget(QWidget):
         layout.addLayout(form)
         for control in (self.overlay_button, self.goto_button, self.info_label,
                         self.align_button, self.profile_plot, self.align_label,
+                        self.drift_button, self.drift_label, self.zone_combo,
                         self.status_label):
             layout.addWidget(control)
 
@@ -294,6 +329,8 @@ class SurfaceWidget(QWidget):
         self.overlay_button.clicked.connect(self._overlay_clicked)
         self.goto_button.clicked.connect(self.go_to_surface)
         self.align_button.clicked.connect(self._align_clicked)
+        self.drift_button.clicked.connect(self._drift_clicked)
+        self.zone_combo.activated.connect(self.go_to_zone)
         self._viewer.layers.events.inserted.connect(self._refresh_layers)
         self._viewer.layers.events.removed.connect(self._refresh_layers)
         self._refresh_layers()
@@ -305,6 +342,8 @@ class SurfaceWidget(QWidget):
             if trace.layer not in self._viewer.layers:
                 trace.disconnect()
                 del self._traces[name]
+        if self._drift_layer is not None and self._drift_layer not in self._viewer.layers:
+            self._clear_drift()
         current = self.layer_combo.currentText()
         names = [layer.name for layer in _volume_layers(self._viewer)]
         self.layer_combo.blockSignals(True)
@@ -328,6 +367,8 @@ class SurfaceWidget(QWidget):
 
     def _layer_changed(self, *args):
         self._current_name = self.layer_combo.currentText()
+        if self._layer() is not self._target:
+            self._clear_drift()
         self._update_buttons()
         self._fill_segments()
 
@@ -336,6 +377,11 @@ class SurfaceWidget(QWidget):
         busy = self._worker is not None
         self.overlay_button.setEnabled(layer is not None and not busy)
         self.catalog_button.setEnabled(self._volume_id(layer) is not None and not busy)
+        on_target = self._overlay is not None and layer is not None and layer is self._target
+        self.align_button.setEnabled(on_target and not busy)
+        has_points = on_target and len(self._overlay["points"]) > 0
+        self.goto_button.setEnabled(has_points)
+        self.drift_button.setEnabled(has_points and not busy)
         if layer is None:
             self.status_label.setText(NO_VOLUME)
         elif self.status_label.text() == NO_VOLUME:
@@ -383,14 +429,16 @@ class SurfaceWidget(QWidget):
                    and segment.uri == source.rstrip("/") else None)
         levels = layer.metadata["volume_summary"]["levels"]
         volume_shape = tuple(levels[0]["shape"]) if levels else None
-        self._target = layer
         self._start(prepare_overlay,
                     (source, self.budget_spin.value() * 2**20, volume_shape, overlap),
-                    self._show_overlay, "Lecture du segment…")
+                    lambda overlay: self._show_overlay(overlay, layer), "Lecture du segment…")
 
-    def _show_overlay(self, overlay):
-        layer = self._target
-        name = overlay["source"].rsplit("/", 1)[-1]
+    def _show_overlay(self, overlay, layer):
+        if layer is not self._layer():
+            return
+        self._clear_drift()
+        self._target = layer
+        name = overlay["name"]
         for old in [lyr for lyr in self._viewer.layers
                     if lyr.name in (SURFACE_PREFIX + name, HOLES_PREFIX + name)]:
             self._viewer.layers.remove(old)
@@ -408,8 +456,6 @@ class SurfaceWidget(QWidget):
             self._traces[layer_name] = SliceTrace(self._viewer, points_layer, points, half)
         self._viewer.layers.selection.active = layer
         self._overlay = overlay
-        self.goto_button.setEnabled(len(overlay["points"]) > 0)
-        self.align_button.setEnabled(True)
         self.profile_plot.setVisible(False)
         self.align_label.setText("")
         self.info_label.setText(describe(overlay))
@@ -422,18 +468,19 @@ class SurfaceWidget(QWidget):
         scale = np.asarray(self._target.scale, dtype=float)
         points = self._overlay["points"] * scale
         low, high = points.min(axis=0), points.max(axis=0)
-        center = (low + high) / 2
+        self._focus_slice((low + high) / 2)
+        extent = np.maximum(high[1:] - low[1:], scale[1:])
+        size = canvas_size(self._viewer)
+        if size:
+            camera(self._viewer).zoom = 0.8 * min(size[0] / extent[0], size[1] / extent[1])
+
+    def _focus_slice(self, center):
         viewer = self._viewer
         if viewer.dims.ndisplay != 2:
             viewer.dims.ndisplay = 2
         viewer.dims.order = (0, 1, 2)
         viewer.dims.set_point(0, float(center[0]))
-        cam = camera(viewer)
-        cam.center = (float(center[1]), float(center[2]))
-        extent = np.maximum(high[1:] - low[1:], scale[1:])
-        size = canvas_size(viewer)
-        if size:
-            cam.zoom = 0.8 * min(size[0] / extent[0], size[1] / extent[1])
+        camera(viewer).center = (float(center[1]), float(center[2]))
 
     # --- alignment (T5.1) -------------------------------------------------------------------
 
@@ -453,7 +500,7 @@ class SurfaceWidget(QWidget):
         self.profile_plot.set_profile(profile.offsets, profile.mean, metrics["peak_offset"])
         self.profile_plot.setVisible(True)
         self.align_label.setText(describe_alignment(result))
-        name = PATCHES_PREFIX + self._overlay["source"].rsplit("/", 1)[-1]
+        name = PATCHES_PREFIX + self._overlay["name"]
         for old in [lyr for lyr in self._viewer.layers if lyr.name == name]:
             self._viewer.layers.remove(old)
         patch_extent = 6 * self._overlay["step"]  # 6 x 6 grid points per patch (step has stride)
@@ -465,13 +512,65 @@ class SurfaceWidget(QWidget):
         self._viewer.layers.selection.active = self._target
         self.status_label.setText("Alignement mesuré.")
 
+    # --- drift map (T10) -----------------------------------------------------------------------
+
+    def _drift_clicked(self):
+        layer = self._target
+        if layer is None or layer is not self._layer():
+            return
+        shapes = [tuple(level["shape"]) for level in layer.metadata["volume_summary"]["levels"]]
+        pixel_size_um = layer.metadata.get("pixel_size_um")
+        self._start(measure_drift, (self._overlay, list(layer.data), shapes, pixel_size_um),
+                    self._show_drift, "Calcul de la carte de dérive…")
+
+    def _show_drift(self, result):
+        target = self._target
+        if target is not self._layer():
+            return
+        colors, zones, reliable = result
+        self._clear_drift()
+        overlay = self._overlay
+        name = DRIFT_PREFIX + overlay["name"]
+        half = overlay["step"] / 2
+        layer = self._viewer.add_points(
+            np.empty((0, 3)), name=name, size=half, border_width=0,
+            scale=tuple(target.scale))
+        self._drift_layer = layer
+        self._traces[layer.name] = SliceTrace(self._viewer, layer, overlay["points"], half, colors)
+        for zone in zones:
+            if zone["centre_zyx"] is not None:
+                self.zone_combo.addItem(
+                    f"{zone['rang']}. {ZONE_LABELS[zone['type']]} — {zone['tuiles']} tuile(s)",
+                    zone["centre_zyx"])
+        self.zone_combo.setCurrentIndex(-1)
+        self.zone_combo.setEnabled(self.zone_combo.count() > 0)
+        unit = "µm" if target.metadata.get("pixel_size_um") else "voxels"
+        self.drift_label.setText(
+            f"{reliable} tuile(s) fiable(s), {len(zones)} zone(s) à revoir. "
+            f"Bleu −{DEFAULT_MAX_DRIFT_UM:g}, blanc 0, rouge +{DEFAULT_MAX_DRIFT_UM:g} {unit}. "
+            "Gris pour les tuiles peu fiables ou non mesurées.")
+        self._viewer.layers.selection.active = target
+        self.status_label.setText("Carte de dérive calculée.")
+
+    def _clear_drift(self):
+        layer, self._drift_layer = self._drift_layer, None
+        self.zone_combo.clear()
+        self.zone_combo.setEnabled(False)
+        self.drift_label.clear()
+        if layer is not None and layer in self._viewer.layers:
+            self._viewer.layers.remove(layer)
+
+    def go_to_zone(self, index):
+        center = self.zone_combo.itemData(index)
+        if center is not None and self._target is self._layer():
+            self._focus_slice(np.asarray(center) * self._target.scale)
+
     # --- workers -------------------------------------------------------------------------------
 
     def _start(self, function, args, on_result, message):
-        for button in (self.overlay_button, self.catalog_button, self.align_button):
-            button.setEnabled(False)
-        self.status_label.setText(message)
         self._worker = thread_worker(function, ignore_errors=True)(*args)
+        self._update_buttons()
+        self.status_label.setText(message)
         self._worker.returned.connect(on_result)
         self._worker.errored.connect(self._error)
         self._worker.finished.connect(self._finished)
@@ -480,7 +579,6 @@ class SurfaceWidget(QWidget):
     def _finished(self):
         self._worker = None
         self._update_buttons()
-        self.align_button.setEnabled(self._overlay is not None)
 
     def _error(self, error):
         message = str(error)
