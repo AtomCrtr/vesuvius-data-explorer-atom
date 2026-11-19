@@ -1,0 +1,49 @@
+schema_version = 1
+dataset_kind = "synthetic"
+max_pixels = 1048576
+boundary_tolerance_px = 1.0
+
+[thresholds]
+left = 0.5
+right = 0.5
+mean = 0.5
+minimum = 0.5
+product = 0.30
+
+[models.left]
+name = "Carte simulée A"
+checkpoint = "Générateur, graine 211306"
+scale = 255
+
+[models.right]
+name = "Carte simulée B"
+checkpoint = "Générateur, graine 211306"
+scale = 255
+
+[[crops]]
+id = "anneau"
+scroll = "simulation-A"
+volume = "volume-fictif"
+surface = "surface-fictive-A"
+provenance = "generate_ink_example.py, graine 211306"
+pixel_size_um = 9.36
+left = "anneau-left.tif"
+right = "anneau-right.tif"
+labels = "anneau-labels.tif"
+strata = "anneau-strata.tif"
+ct = "anneau-ct.tif"
+glyphs = { anneau = [24, 16, 66, 60] }
+
+[[crops]]
+id = "arc"
+scroll = "simulation-B"
+volume = "volume-fictif"
+surface = "surface-fictive-B"
+provenance = "generate_ink_example.py, graine 211306"
+pixel_size_um = 9.36
+left = "arc-left.tif"
+right = "arc-right.tif"
+labels = "arc-labels.tif"
+strata = "arc-strata.tif"
+ct = "arc-ct.tif"
+glyphs = { arc = [24, 16, 66, 60] }
