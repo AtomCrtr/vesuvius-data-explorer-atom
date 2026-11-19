@@ -13,3 +13,4 @@ data/
 *.nrrd
 *.npy
 *.npz
+/rust/target/

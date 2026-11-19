@@ -1,0 +1,3397 @@
+{
+  "platform": "Windows-10-10.0.26300-SP0",
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "numpy": "2.4.6",
+  "zarr": "3.1.6",
+  "repeats_after_first": 7,
+  "corpus": [
+    {
+      "name": "0814",
+      "volume": "s3://vesuvius-challenge-open-data/PHerc0814/volumes/20250804134230-9.362um-1.2m-113keV-masked.zarr",
+      "segment": "s3://vesuvius-challenge-open-data/PHerc0814/segments/20260226110425-auto_grown_20260226110425097_abf/mesh/20260226110425-on-20250804134230-9.362um-t2.tifxyz",
+      "level": 0,
+      "pixel_size_um": 9.362,
+      "shapes": [
+        [
+          19390,
+          5784,
+          5784
+        ],
+        [
+          9695,
+          2892,
+          2892
+        ],
+        [
+          4848,
+          1446,
+          1446
+        ],
+        [
+          2424,
+          723,
+          723
+        ],
+        [
+          1212,
+          362,
+          362
+        ],
+        [
+          606,
+          181,
+          181
+        ]
+      ],
+      "factor_zyx": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "chunks": [
+        128,
+        128,
+        128
+      ],
+      "lo_zyx": [
+        2944,
+        1920,
+        2304
+      ],
+      "hi_zyx": [
+        3328,
+        2432,
+        2816
+      ],
+      "dtype": "uint8",
+      "ct_sha256": "f2c5782bca5c15d9584189245586a2862f130542e348405623dcd4e1c0f31362",
+      "uv_origin_rc": [
+        36,
+        132
+      ],
+      "surface_side": 16,
+      "surface_files_sha256": {
+        "meta.json": "ae16481f098ce5b58317e4b73efbc43d24423fabaa5cb419854f1da9df788775",
+        "x.tif": "936983e625068410baf5f11f12602ac99536d4052dcef251ec3bda4a01701e96",
+        "y.tif": "ad8d6f3a91450ae4403b8b576b0954f9d34ec7a243cb42daa3f2ba2ddd5bf1a8",
+        "z.tif": "530aa8ae3805c9d0b28b5111c3575983e9bd8ddde756d0b361a3e2566be75841"
+      },
+      "surface_valid_pct": 100.0,
+      "normal_dispersion": 0.24806877724898213,
+      "region_decoded_bytes": 100663296,
+      "roi_remote_read_ms": 3223.760900000343
+    },
+    {
+      "name": "0500p2",
+      "volume": "s3://vesuvius-challenge-open-data/PHerc0500P2/volumes/20250526151718-2.215um-0.4m-111keV-masked.zarr",
+      "segment": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250825181928-2/mesh/20250825181928-on-20250526151718-2.215um-t2.tifxyz",
+      "level": 2,
+      "pixel_size_um": 2.215,
+      "shapes": [
+        [
+          28096,
+          18209,
+          18209
+        ],
+        [
+          14048,
+          9105,
+          9105
+        ],
+        [
+          7024,
+          4553,
+          4553
+        ],
+        [
+          3512,
+          2277,
+          2277
+        ],
+        [
+          1756,
+          1139,
+          1139
+        ],
+        [
+          878,
+          570,
+          570
+        ]
+      ],
+      "factor_zyx": [
+        4.0,
+        3.999341093784318,
+        3.999341093784318
+      ],
+      "chunks": [
+        128,
+        128,
+        128
+      ],
+      "lo_zyx": [
+        1408,
+        1792,
+        1920
+      ],
+      "hi_zyx": [
+        2048,
+        1920,
+        2560
+      ],
+      "dtype": "uint8",
+      "ct_sha256": "62697ba8cc7e40bdb732ac8597b5e7f51daaef7b7b43624d7e9b549f585cb745",
+      "uv_origin_rc": [
+        24,
+        72
+      ],
+      "surface_side": 24,
+      "surface_files_sha256": {
+        "meta.json": "1dc4bd3b1ba87e7bdad5deaa4c420ff91d6f153309a9893fecd61c0593b23375",
+        "x.tif": "a8e20bddc8b9d3206df6a088ad27c23f141dafb1a57cae0a868f383bdc5ce475",
+        "y.tif": "6d54340a54e6724daa766a143a697803192f42418f89a059c105f8789719deca",
+        "z.tif": "d2a9d8559c914884ff8fe7a7a9383ce94be0e44e2507bc69c2e2cadbe1773b60"
+      },
+      "surface_valid_pct": 99.13194444444444,
+      "normal_dispersion": 0.10237771598229553,
+      "region_decoded_bytes": 52428800,
+      "roi_remote_read_ms": 2327.72770000156
+    },
+    {
+      "name": "0139-curved",
+      "volume": "s3://vesuvius-challenge-open-data/PHerc0139/volumes/20260413113053-1.129um-0.2m-59keV-masked.zarr",
+      "segment": "s3://vesuvius-challenge-open-data/PHerc0139/segments/20260316000000-w036_2026031607/mesh/20260316000000-on-20260413113053-1.129um-t2.tifxyz",
+      "level": 3,
+      "pixel_size_um": 1.129,
+      "shapes": [
+        [
+          19297,
+          35971,
+          32318
+        ],
+        [
+          9649,
+          17986,
+          16159
+        ],
+        [
+          4825,
+          8993,
+          8080
+        ],
+        [
+          2413,
+          4497,
+          4040
+        ],
+        [
+          1207,
+          2249,
+          2020
+        ],
+        [
+          604,
+          1125,
+          1010
+        ]
+      ],
+      "factor_zyx": [
+        7.997099046829673,
+        7.998888147653991,
+        7.99950495049505
+      ],
+      "chunks": [
+        128,
+        128,
+        128
+      ],
+      "lo_zyx": [
+        2048,
+        2688,
+        1664
+      ],
+      "hi_zyx": [
+        2413,
+        3072,
+        2176
+      ],
+      "dtype": "uint8",
+      "ct_sha256": "33bd422567a3115802005b86918e6758bb9ecc8d82264484484c85172f86d54e",
+      "uv_origin_rc": [
+        144,
+        24
+      ],
+      "surface_side": 16,
+      "surface_files_sha256": {
+        "meta.json": "47ce5917fb79be5ed656aed8f96a30021ce32b8f986f976b9c6c15ced0c1ce16",
+        "x.tif": "65a91aa2d5aa264ab4c72f7544ca957f6b459b2199a9cd3dd87db667c60496d4",
+        "y.tif": "263cfe01d0ee75569ff2aa0733bad90ce2124569f9400363f75703dd4dbb6d20",
+        "z.tif": "9ac3d9244d96c12312d23590736c78b1c5c6f4e61c7b0d0e32c1d3e9bb5ebdef"
+      },
+      "surface_valid_pct": 100.0,
+      "normal_dispersion": 0.3994944124280939,
+      "region_decoded_bytes": 71761920,
+      "roi_remote_read_ms": 2587.4202999984846
+    },
+    {
+      "name": "0500p2-fine",
+      "volume": "s3://vesuvius-challenge-open-data/PHerc0500P2/volumes/20250526151718-2.215um-0.4m-111keV-masked.zarr",
+      "segment": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250825181928-2/mesh/20250825181928-on-20250526151718-2.215um-t2.tifxyz",
+      "level": 1,
+      "pixel_size_um": 2.215,
+      "shapes": [
+        [
+          28096,
+          18209,
+          18209
+        ],
+        [
+          14048,
+          9105,
+          9105
+        ]
+      ],
+      "factor_zyx": [
+        2.0,
+        1.999890170236134,
+        1.999890170236134
+      ],
+      "chunks": [
+        128,
+        128,
+        128
+      ],
+      "lo_zyx": [
+        3200,
+        3584,
+        4224
+      ],
+      "hi_zyx": [
+        3712,
+        3840,
+        4736
+      ],
+      "dtype": "uint8",
+      "ct_sha256": "7ffddbf0b20d79d39fccf6c9254109b3defe78e82bd9db91a83536cc1ad9c261",
+      "uv_origin_rc": [
+        32,
+        80
+      ],
+      "surface_side": 8,
+      "surface_files_sha256": {
+        "meta.json": "1dc4bd3b1ba87e7bdad5deaa4c420ff91d6f153309a9893fecd61c0593b23375",
+        "x.tif": "1c09ea404c2cec9f6b1df4dff37c9290ef1eb0ae14c6a9ac15593f7ac613d387",
+        "y.tif": "794cb983de629c14d155f5087b5797fc6565e23c1f490c0a8c2b0dfdeda7245c",
+        "z.tif": "a5a9aa977be10c9fc0d846a85f710b3ead38e929948abd7b545ebec659c5befc"
+      },
+      "surface_valid_pct": 100.0,
+      "normal_dispersion": 0.108962216466032,
+      "region_decoded_bytes": 67108864,
+      "roi_remote_read_ms": 4785.848999999871
+    }
+  ],
+  "parity": [
+    {
+      "case": "0814",
+      "side": 8,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0814",
+      "side": 16,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0500p2",
+      "side": 12,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0500p2",
+      "side": 24,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0139-curved",
+      "side": 8,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0139-curved",
+      "side": 16,
+      "errors": {
+        "profiles": {
+          "max_abs": 2.842170943040401e-14,
+          "rmse": 2.1184291441043397e-15
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0500p2-fine",
+      "side": 6,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    },
+    {
+      "case": "0500p2-fine",
+      "side": 8,
+      "errors": {
+        "profiles": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "centers": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offset": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "reliability": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "uncertainty": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "drift": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "unwrapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "offsets": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "render": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snap_field": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        },
+        "snapped": {
+          "max_abs": 0.0,
+          "rmse": 0.0
+        }
+      }
+    }
+  ],
+  "results": [
+    {
+      "backend": "python",
+      "side": 8,
+      "case": "0814",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 4.598499999701744,
+          "mean_ms": 3.1709857139503583,
+          "median_ms": 3.10429999808548,
+          "p95_ms": 3.3726399993611267,
+          "samples_ms": [
+            3.4053999988827854,
+            3.10429999808548,
+            3.2962000004772563,
+            3.0641000012110453,
+            3.0685999990964774,
+            3.082600000197999,
+            3.1756999997014645
+          ]
+        },
+        "render": {
+          "first_ms": 4.342500000348082,
+          "mean_ms": 3.2619857146138593,
+          "median_ms": 3.2542999979341403,
+          "p95_ms": 3.505589999258518,
+          "samples_ms": [
+            3.4764000010909513,
+            3.095500000199536,
+            3.066700002818834,
+            3.2685000005585607,
+            3.154400001221802,
+            3.2542999979341403,
+            3.5180999984731898
+          ]
+        },
+        "report": {
+          "first_ms": 134.72100000217324,
+          "mean_ms": 16.895785713651485,
+          "median_ms": 16.661699999531265,
+          "p95_ms": 17.809450001368532,
+          "samples_ms": [
+            16.635899999528192,
+            16.768499997851904,
+            16.2276999981259,
+            17.443700002331752,
+            16.661699999531265,
+            16.56679999723565,
+            17.966200000955723
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85139456,
+      "peak_rss_bytes": 103124992,
+      "process_cpu_ms": 296.875,
+      "decoded_accesses": 360,
+      "decoded_bytes": 754974720,
+      "distinct_chunk_keys_zyx": [
+        [
+          23,
+          16,
+          20
+        ],
+        [
+          23,
+          17,
+          19
+        ],
+        [
+          23,
+          17,
+          20
+        ],
+        [
+          24,
+          16,
+          20
+        ],
+        [
+          24,
+          17,
+          19
+        ],
+        [
+          24,
+          17,
+          20
+        ],
+        [
+          25,
+          16,
+          20
+        ],
+        [
+          25,
+          17,
+          19
+        ],
+        [
+          25,
+          17,
+          20
+        ]
+      ],
+      "map_voxels_read": 18874368,
+      "tiles_measured": 1,
+      "tiles_reliable": 1,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 3.7588620041560272,
+      "spacing_voxels": 16.301198572624568,
+      "zones": [],
+      "warnings": [],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 8,
+      "case": "0814",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 3.366400000231806,
+          "mean_ms": 1.6449285706455288,
+          "median_ms": 1.6352999991795514,
+          "p95_ms": 2.010299999164999,
+          "samples_ms": [
+            2.1488999991561286,
+            1.6352999991795514,
+            1.4598999987356365,
+            1.4598999987356365,
+            1.4871999992465135,
+            1.6364000002795365,
+            1.686899999185698
+          ]
+        },
+        "render": {
+          "first_ms": 2.3136999989219476,
+          "mean_ms": 1.1258428572286252,
+          "median_ms": 1.0844999997061677,
+          "p95_ms": 1.372869998522219,
+          "samples_ms": [
+            1.4568999977200292,
+            1.1314000003039837,
+            1.0844999997061677,
+            1.0111000010510907,
+            1.019100000121398,
+            1.176800000393996,
+            1.001100001303712
+          ]
+        },
+        "report": {
+          "first_ms": 112.13829999906011,
+          "mean_ms": 13.331271429446392,
+          "median_ms": 13.56139999916195,
+          "p95_ms": 14.283010000144714,
+          "samples_ms": [
+            14.485600000625709,
+            13.567400001193164,
+            13.56139999916195,
+            13.81029999902239,
+            12.156700002378784,
+            12.98270000188495,
+            12.754800001857802
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85213184,
+      "peak_rss_bytes": 103563264,
+      "process_cpu_ms": 156.25,
+      "decoded_accesses": 360,
+      "decoded_bytes": 754974720,
+      "distinct_chunk_keys_zyx": [
+        [
+          23,
+          16,
+          20
+        ],
+        [
+          23,
+          17,
+          19
+        ],
+        [
+          23,
+          17,
+          20
+        ],
+        [
+          24,
+          16,
+          20
+        ],
+        [
+          24,
+          17,
+          19
+        ],
+        [
+          24,
+          17,
+          20
+        ],
+        [
+          25,
+          16,
+          20
+        ],
+        [
+          25,
+          17,
+          19
+        ],
+        [
+          25,
+          17,
+          20
+        ]
+      ],
+      "map_voxels_read": 18874368,
+      "tiles_measured": 1,
+      "tiles_reliable": 1,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 3.7588620041560272,
+      "spacing_voxels": 16.301198572624568,
+      "zones": [],
+      "warnings": [],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 16,
+      "case": "0814",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 17.06209999974817,
+          "mean_ms": 15.553242855925678,
+          "median_ms": 15.43619999938528,
+          "p95_ms": 19.153439997171514,
+          "samples_ms": [
+            15.775799998664297,
+            15.43619999938528,
+            20.600999996531755,
+            15.539700001681922,
+            14.944399998057634,
+            13.51309999881778,
+            13.062499998341082
+          ]
+        },
+        "render": {
+          "first_ms": 17.25530000112485,
+          "mean_ms": 13.482742857117305,
+          "median_ms": 13.537599999835948,
+          "p95_ms": 14.35965999844484,
+          "samples_ms": [
+            13.65069999883417,
+            13.632300000608666,
+            14.663499998277985,
+            13.380399999732617,
+            13.537599999835948,
+            12.836300000344636,
+            12.678400002187118
+          ]
+        },
+        "report": {
+          "first_ms": 162.5220999994781,
+          "mean_ms": 41.81854285759203,
+          "median_ms": 41.32509999908507,
+          "p95_ms": 48.48368999992089,
+          "samples_ms": [
+            43.23529999965103,
+            50.733000000036554,
+            41.32509999908507,
+            42.97290000249632,
+            39.07769999932498,
+            38.36270000101649,
+            37.02310000153375
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85237760,
+      "peak_rss_bytes": 136073216,
+      "process_cpu_ms": 812.5,
+      "decoded_accesses": 592,
+      "decoded_bytes": 1241513984,
+      "distinct_chunk_keys_zyx": [
+        [
+          23,
+          16,
+          20
+        ],
+        [
+          23,
+          16,
+          21
+        ],
+        [
+          23,
+          17,
+          19
+        ],
+        [
+          23,
+          17,
+          20
+        ],
+        [
+          23,
+          18,
+          19
+        ],
+        [
+          24,
+          15,
+          20
+        ],
+        [
+          24,
+          16,
+          20
+        ],
+        [
+          24,
+          17,
+          19
+        ],
+        [
+          24,
+          17,
+          20
+        ],
+        [
+          24,
+          18,
+          19
+        ],
+        [
+          25,
+          15,
+          20
+        ],
+        [
+          25,
+          16,
+          19
+        ],
+        [
+          25,
+          16,
+          20
+        ],
+        [
+          25,
+          17,
+          19
+        ],
+        [
+          25,
+          17,
+          20
+        ],
+        [
+          25,
+          18,
+          19
+        ]
+      ],
+      "map_voxels_read": 33554432,
+      "tiles_measured": 4,
+      "tiles_reliable": 2,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 5.414000872023115,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "derive",
+          "gravite": 2,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            0,
+            8
+          ],
+          "centre_zyx": [
+            3062.5,
+            2261.6,
+            2528.6
+          ],
+          "derive_mediane": -52.11673643925311,
+          "rang": 1
+        },
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 2,
+          "lignes": [
+            0,
+            16
+          ],
+          "colonnes": [
+            8,
+            16
+          ],
+          "centre_zyx": [
+            3126.3,
+            2122.9,
+            2623.7
+          ],
+          "derive_mediane": -11.659756658185678,
+          "rang": 2
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 16,
+      "case": "0814",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 9.633999998186482,
+          "mean_ms": 3.7357857145252638,
+          "median_ms": 3.311199998279335,
+          "p95_ms": 5.354650000299442,
+          "samples_ms": [
+            3.2845999994606245,
+            3.2480000008945353,
+            6.089200000133133,
+            3.176900001562899,
+            3.311199998279335,
+            3.6407000006875023,
+            3.3999000006588176
+          ]
+        },
+        "render": {
+          "first_ms": 7.613500001752982,
+          "mean_ms": 4.111085714352417,
+          "median_ms": 3.8836999992781784,
+          "p95_ms": 4.902389999188016,
+          "samples_ms": [
+            4.070999999385094,
+            3.7781999999424443,
+            5.2586999991035555,
+            3.8836999992781784,
+            3.873000001476612,
+            3.8430000022344757,
+            4.0699999990465585
+          ]
+        },
+        "report": {
+          "first_ms": 130.8470000003581,
+          "mean_ms": 21.048671428226434,
+          "median_ms": 20.007499999337597,
+          "p95_ms": 25.084649998825622,
+          "samples_ms": [
+            19.843100002617575,
+            26.8298999981198,
+            21.012400000472553,
+            20.17119999800343,
+            19.69190000090748,
+            20.007499999337597,
+            19.784699998126598
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85348352,
+      "peak_rss_bytes": 132665344,
+      "process_cpu_ms": 281.25,
+      "decoded_accesses": 592,
+      "decoded_bytes": 1241513984,
+      "distinct_chunk_keys_zyx": [
+        [
+          23,
+          16,
+          20
+        ],
+        [
+          23,
+          16,
+          21
+        ],
+        [
+          23,
+          17,
+          19
+        ],
+        [
+          23,
+          17,
+          20
+        ],
+        [
+          23,
+          18,
+          19
+        ],
+        [
+          24,
+          15,
+          20
+        ],
+        [
+          24,
+          16,
+          20
+        ],
+        [
+          24,
+          17,
+          19
+        ],
+        [
+          24,
+          17,
+          20
+        ],
+        [
+          24,
+          18,
+          19
+        ],
+        [
+          25,
+          15,
+          20
+        ],
+        [
+          25,
+          16,
+          19
+        ],
+        [
+          25,
+          16,
+          20
+        ],
+        [
+          25,
+          17,
+          19
+        ],
+        [
+          25,
+          17,
+          20
+        ],
+        [
+          25,
+          18,
+          19
+        ]
+      ],
+      "map_voxels_read": 33554432,
+      "tiles_measured": 4,
+      "tiles_reliable": 2,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 5.414000872023115,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "derive",
+          "gravite": 2,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            0,
+            8
+          ],
+          "centre_zyx": [
+            3062.5,
+            2261.6,
+            2528.6
+          ],
+          "derive_mediane": -52.11673643925311,
+          "rang": 1
+        },
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 2,
+          "lignes": [
+            0,
+            16
+          ],
+          "colonnes": [
+            8,
+            16
+          ],
+          "centre_zyx": [
+            3126.3,
+            2122.9,
+            2623.7
+          ],
+          "derive_mediane": -11.659756658185678,
+          "rang": 2
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 12,
+      "case": "0500p2",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 5.518199999642093,
+          "mean_ms": 2.616014286364329,
+          "median_ms": 2.43370000316645,
+          "p95_ms": 3.287799999452545,
+          "samples_ms": [
+            3.5028999991482124,
+            2.43370000316645,
+            2.35410000095726,
+            2.2739999985788018,
+            2.6743000016722362,
+            2.7859000001626555,
+            2.2872000008646864
+          ]
+        },
+        "render": {
+          "first_ms": 31.602200000634184,
+          "mean_ms": 27.111600000353064,
+          "median_ms": 27.084900000772905,
+          "p95_ms": 27.87878000199271,
+          "samples_ms": [
+            28.023500002746005,
+            26.67019999717013,
+            27.24830000079237,
+            26.195099999313243,
+            27.54110000023502,
+            27.01810000144178,
+            27.084900000772905
+          ]
+        },
+        "report": {
+          "first_ms": 187.65559999883408,
+          "mean_ms": 52.788357143331915,
+          "median_ms": 52.60509999789065,
+          "p95_ms": 53.603520001706784,
+          "samples_ms": [
+            52.57089999940945,
+            52.60509999789065,
+            51.58840000149212,
+            52.55670000042301,
+            53.19299999973737,
+            53.75550000098883,
+            53.248900003382005
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85364736,
+      "peak_rss_bytes": 126271488,
+      "process_cpu_ms": 734.375,
+      "decoded_accesses": 360,
+      "decoded_bytes": 754974720,
+      "distinct_chunk_keys_zyx": [
+        [
+          12,
+          14,
+          16
+        ],
+        [
+          12,
+          14,
+          17
+        ],
+        [
+          12,
+          14,
+          18
+        ],
+        [
+          13,
+          14,
+          16
+        ],
+        [
+          13,
+          14,
+          17
+        ],
+        [
+          13,
+          14,
+          18
+        ],
+        [
+          14,
+          14,
+          16
+        ],
+        [
+          14,
+          14,
+          17
+        ],
+        [
+          14,
+          14,
+          18
+        ]
+      ],
+      "map_voxels_read": 18874368,
+      "tiles_measured": 4,
+      "tiles_reliable": 1,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 3.7118436635371497,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 3,
+          "lignes": [
+            0,
+            16
+          ],
+          "colonnes": [
+            0,
+            16
+          ],
+          "centre_zyx": [
+            7099.5,
+            7450.9,
+            8810.8
+          ],
+          "derive_mediane": -8.47280808196255,
+          "rang": 1
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 12,
+      "case": "0500p2",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 13.392999997449806,
+          "mean_ms": 10.235228571088685,
+          "median_ms": 9.756399998877896,
+          "p95_ms": 12.184710000656194,
+          "samples_ms": [
+            12.639600001421059,
+            11.123299998871516,
+            9.393699998327065,
+            9.756399998877896,
+            9.23510000211536,
+            9.369999999762513,
+            10.128499998245388
+          ]
+        },
+        "render": {
+          "first_ms": 123.50359999982174,
+          "mean_ms": 108.20290000057346,
+          "median_ms": 108.60740000134683,
+          "p95_ms": 110.12889000085124,
+          "samples_ms": [
+            109.22980000032112,
+            108.60740000134683,
+            107.00930000166409,
+            106.08589999901596,
+            106.562799999665,
+            110.37840000062715,
+            109.54670000137412
+          ]
+        },
+        "report": {
+          "first_ms": 288.136699997267,
+          "mean_ms": 119.77438571505316,
+          "median_ms": 116.22560000250814,
+          "p95_ms": 136.0261999998329,
+          "samples_ms": [
+            140.80699999976787,
+            113.94260000088252,
+            116.22560000250814,
+            113.04130000280566,
+            124.87099999998463,
+            112.52070000045933,
+            117.0124999989639
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85032960,
+      "peak_rss_bytes": 135946240,
+      "process_cpu_ms": 2046.875,
+      "decoded_accesses": 360,
+      "decoded_bytes": 754974720,
+      "distinct_chunk_keys_zyx": [
+        [
+          12,
+          14,
+          16
+        ],
+        [
+          12,
+          14,
+          17
+        ],
+        [
+          12,
+          14,
+          18
+        ],
+        [
+          13,
+          14,
+          16
+        ],
+        [
+          13,
+          14,
+          17
+        ],
+        [
+          13,
+          14,
+          18
+        ],
+        [
+          14,
+          14,
+          16
+        ],
+        [
+          14,
+          14,
+          17
+        ],
+        [
+          14,
+          14,
+          18
+        ]
+      ],
+      "map_voxels_read": 18874368,
+      "tiles_measured": 4,
+      "tiles_reliable": 1,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 3.7118436635371497,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 3,
+          "lignes": [
+            0,
+            16
+          ],
+          "colonnes": [
+            0,
+            16
+          ],
+          "centre_zyx": [
+            7099.5,
+            7450.9,
+            8810.8
+          ],
+          "derive_mediane": -8.47280808196255,
+          "rang": 1
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 24,
+      "case": "0500p2",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 8.528099999239203,
+          "mean_ms": 5.377314285786789,
+          "median_ms": 5.181399999855785,
+          "p95_ms": 6.303299999854061,
+          "samples_ms": [
+            5.14840000323602,
+            4.861999997956445,
+            5.69569999788655,
+            4.968699999153614,
+            6.563700000697281,
+            5.181399999855785,
+            5.221300001721829
+          ]
+        },
+        "render": {
+          "first_ms": 127.42529999741237,
+          "mean_ms": 119.59982857141378,
+          "median_ms": 118.54540000058478,
+          "p95_ms": 125.82490999920992,
+          "samples_ms": [
+            128.0269999988377,
+            117.91319999974803,
+            119.8660000009113,
+            118.54540000058478,
+            120.68670000007842,
+            117.58900000131689,
+            114.57149999841931
+          ]
+        },
+        "report": {
+          "first_ms": 323.8624000005075,
+          "mean_ms": 203.01712857118608,
+          "median_ms": 196.14980000187643,
+          "p95_ms": 229.2206599984638,
+          "samples_ms": [
+            191.25069999790867,
+            207.21290000074077,
+            196.14980000187643,
+            236.11369999707676,
+            190.67969999741763,
+            213.13690000170027,
+            186.57620000158204
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85536768,
+      "peak_rss_bytes": 165650432,
+      "process_cpu_ms": 2656.25,
+      "decoded_accesses": 960,
+      "decoded_bytes": 2013265920,
+      "distinct_chunk_keys_zyx": [
+        [
+          11,
+          14,
+          16
+        ],
+        [
+          11,
+          14,
+          17
+        ],
+        [
+          11,
+          14,
+          18
+        ],
+        [
+          11,
+          14,
+          19
+        ],
+        [
+          12,
+          14,
+          15
+        ],
+        [
+          12,
+          14,
+          16
+        ],
+        [
+          12,
+          14,
+          17
+        ],
+        [
+          12,
+          14,
+          18
+        ],
+        [
+          12,
+          14,
+          19
+        ],
+        [
+          13,
+          14,
+          15
+        ],
+        [
+          13,
+          14,
+          16
+        ],
+        [
+          13,
+          14,
+          17
+        ],
+        [
+          13,
+          14,
+          18
+        ],
+        [
+          13,
+          14,
+          19
+        ],
+        [
+          14,
+          14,
+          15
+        ],
+        [
+          14,
+          14,
+          16
+        ],
+        [
+          14,
+          14,
+          17
+        ],
+        [
+          14,
+          14,
+          18
+        ],
+        [
+          14,
+          14,
+          19
+        ],
+        [
+          15,
+          14,
+          15
+        ],
+        [
+          15,
+          14,
+          16
+        ],
+        [
+          15,
+          14,
+          17
+        ],
+        [
+          15,
+          14,
+          18
+        ],
+        [
+          15,
+          14,
+          19
+        ]
+      ],
+      "map_voxels_read": 50331648,
+      "tiles_measured": 9,
+      "tiles_reliable": 5,
+      "tiles_near_reliability_threshold": 2,
+      "reference_voxels": -3.0772623368627725,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "derive",
+          "gravite": 2,
+          "tuiles": 1,
+          "lignes": [
+            16,
+            24
+          ],
+          "colonnes": [
+            16,
+            24
+          ],
+          "centre_zyx": [
+            7566.1,
+            7506.1,
+            8346.7
+          ],
+          "derive_mediane": -43.94928082230006,
+          "rang": 1
+        },
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 4,
+          "lignes": [
+            0,
+            24
+          ],
+          "colonnes": [
+            0,
+            16
+          ],
+          "centre_zyx": [
+            6940.8,
+            7465.1,
+            9276.1
+          ],
+          "derive_mediane": 8.489992686718823,
+          "rang": 2
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 24,
+      "case": "0500p2",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 37.769699996715644,
+          "mean_ms": 26.041928571690473,
+          "median_ms": 25.413200000912184,
+          "p95_ms": 28.43300000167801,
+          "samples_ms": [
+            28.5323000025528,
+            25.315999999293126,
+            25.413200000912184,
+            24.847399999998743,
+            24.34999999968568,
+            25.633299999753945,
+            28.20129999963683
+          ]
+        },
+        "render": {
+          "first_ms": 499.7811000030197,
+          "mean_ms": 486.0615428593259,
+          "median_ms": 480.6096000029356,
+          "p95_ms": 503.6292000015237,
+          "samples_ms": [
+            501.45850000262726,
+            484.151100001327,
+            474.75820000181557,
+            480.6096000029356,
+            477.25570000329753,
+            479.6382000022277,
+            504.55950000105076
+          ]
+        },
+        "report": {
+          "first_ms": 654.3168000025616,
+          "mean_ms": 456.57081428518205,
+          "median_ms": 453.75050000075134,
+          "p95_ms": 478.6218399996869,
+          "samples_ms": [
+            481.4071000000695,
+            453.75050000075134,
+            444.2196000018157,
+            456.18959999774233,
+            441.3879999992787,
+            472.1228999987943,
+            446.91799999782233
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85274624,
+      "peak_rss_bytes": 262508544,
+      "process_cpu_ms": 8000.0,
+      "decoded_accesses": 960,
+      "decoded_bytes": 2013265920,
+      "distinct_chunk_keys_zyx": [
+        [
+          11,
+          14,
+          16
+        ],
+        [
+          11,
+          14,
+          17
+        ],
+        [
+          11,
+          14,
+          18
+        ],
+        [
+          11,
+          14,
+          19
+        ],
+        [
+          12,
+          14,
+          15
+        ],
+        [
+          12,
+          14,
+          16
+        ],
+        [
+          12,
+          14,
+          17
+        ],
+        [
+          12,
+          14,
+          18
+        ],
+        [
+          12,
+          14,
+          19
+        ],
+        [
+          13,
+          14,
+          15
+        ],
+        [
+          13,
+          14,
+          16
+        ],
+        [
+          13,
+          14,
+          17
+        ],
+        [
+          13,
+          14,
+          18
+        ],
+        [
+          13,
+          14,
+          19
+        ],
+        [
+          14,
+          14,
+          15
+        ],
+        [
+          14,
+          14,
+          16
+        ],
+        [
+          14,
+          14,
+          17
+        ],
+        [
+          14,
+          14,
+          18
+        ],
+        [
+          14,
+          14,
+          19
+        ],
+        [
+          15,
+          14,
+          15
+        ],
+        [
+          15,
+          14,
+          16
+        ],
+        [
+          15,
+          14,
+          17
+        ],
+        [
+          15,
+          14,
+          18
+        ],
+        [
+          15,
+          14,
+          19
+        ]
+      ],
+      "map_voxels_read": 50331648,
+      "tiles_measured": 9,
+      "tiles_reliable": 5,
+      "tiles_near_reliability_threshold": 2,
+      "reference_voxels": -3.0772623368627725,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "derive",
+          "gravite": 2,
+          "tuiles": 1,
+          "lignes": [
+            16,
+            24
+          ],
+          "colonnes": [
+            16,
+            24
+          ],
+          "centre_zyx": [
+            7566.1,
+            7506.1,
+            8346.7
+          ],
+          "derive_mediane": -43.94928082230006,
+          "rang": 1
+        },
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 4,
+          "lignes": [
+            0,
+            24
+          ],
+          "colonnes": [
+            0,
+            16
+          ],
+          "centre_zyx": [
+            6940.8,
+            7465.1,
+            9276.1
+          ],
+          "derive_mediane": 8.489992686718823,
+          "rang": 2
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 8,
+      "case": "0139-curved",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 4.741299999295734,
+          "mean_ms": 3.557571428245865,
+          "median_ms": 3.5118999985570554,
+          "p95_ms": 3.9194299981318177,
+          "samples_ms": [
+            3.472100001090439,
+            3.399699999135919,
+            4.070299997692928,
+            3.548100001353305,
+            3.567399999155896,
+            3.333500000735512,
+            3.5118999985570554
+          ]
+        },
+        "render": {
+          "first_ms": 55.33569999897736,
+          "mean_ms": 53.64521428522754,
+          "median_ms": 53.624399999534944,
+          "p95_ms": 54.49784999836993,
+          "samples_ms": [
+            51.99379999976372,
+            54.19619999884162,
+            53.624399999534944,
+            54.527099997358164,
+            54.429600000730716,
+            53.20989999745507,
+            53.53550000290852
+          ]
+        },
+        "report": {
+          "first_ms": 163.88759999972535,
+          "mean_ms": 50.333571429551476,
+          "median_ms": 50.5966000018816,
+          "p95_ms": 50.80972000105248,
+          "samples_ms": [
+            50.63870000230963,
+            49.699600000167266,
+            50.42200000025332,
+            49.44450000039069,
+            50.87410000123782,
+            50.65950000062003,
+            50.5966000018816
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85262336,
+      "peak_rss_bytes": 118681600,
+      "process_cpu_ms": 937.5,
+      "decoded_accesses": 312,
+      "decoded_bytes": 611975168,
+      "distinct_chunk_keys_zyx": [
+        [
+          16,
+          23,
+          14
+        ],
+        [
+          17,
+          22,
+          14
+        ],
+        [
+          17,
+          22,
+          15
+        ],
+        [
+          17,
+          23,
+          14
+        ],
+        [
+          17,
+          23,
+          15
+        ],
+        [
+          18,
+          22,
+          14
+        ],
+        [
+          18,
+          22,
+          15
+        ],
+        [
+          18,
+          23,
+          14
+        ],
+        [
+          18,
+          23,
+          15
+        ]
+      ],
+      "map_voxels_read": 18874368,
+      "tiles_measured": 1,
+      "tiles_reliable": 0,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 3.3014620786620856,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            0,
+            8
+          ],
+          "centre_zyx": [
+            18025.3,
+            23570.6,
+            15262.5
+          ],
+          "derive_mediane": 0.0,
+          "rang": 1
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 8,
+      "case": "0139-curved",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 3.095800002483884,
+          "mean_ms": 1.514957142977177,
+          "median_ms": 1.4574999986507464,
+          "p95_ms": 1.6836700000567362,
+          "samples_ms": [
+            1.4574999986507464,
+            1.438900002540322,
+            1.6867000013007782,
+            1.6765999971539713,
+            1.403400001436239,
+            1.4856999987387098,
+            1.4559000010194723
+          ]
+        },
+        "render": {
+          "first_ms": 12.866199998825323,
+          "mean_ms": 13.338157142633074,
+          "median_ms": 12.731599999824539,
+          "p95_ms": 16.189210000084127,
+          "samples_ms": [
+            17.568999999639345,
+            12.89109999925131,
+            12.290299997403054,
+            12.731599999824539,
+            12.969700001121964,
+            12.529200001154095,
+            12.386200000037206
+          ]
+        },
+        "report": {
+          "first_ms": 148.9398000012443,
+          "mean_ms": 30.15515714339147,
+          "median_ms": 28.715799999190494,
+          "p95_ms": 34.406540000782115,
+          "samples_ms": [
+            35.03389999968931,
+            29.450900001393165,
+            28.037899999617366,
+            28.715799999190494,
+            32.94270000333199,
+            28.473500002291985,
+            28.43139999822597
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85331968,
+      "peak_rss_bytes": 111296512,
+      "process_cpu_ms": 406.25,
+      "decoded_accesses": 312,
+      "decoded_bytes": 611975168,
+      "distinct_chunk_keys_zyx": [
+        [
+          16,
+          23,
+          14
+        ],
+        [
+          17,
+          22,
+          14
+        ],
+        [
+          17,
+          22,
+          15
+        ],
+        [
+          17,
+          23,
+          14
+        ],
+        [
+          17,
+          23,
+          15
+        ],
+        [
+          18,
+          22,
+          14
+        ],
+        [
+          18,
+          22,
+          15
+        ],
+        [
+          18,
+          23,
+          14
+        ],
+        [
+          18,
+          23,
+          15
+        ]
+      ],
+      "map_voxels_read": 18874368,
+      "tiles_measured": 1,
+      "tiles_reliable": 0,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 3.3014620786620856,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            0,
+            8
+          ],
+          "centre_zyx": [
+            18025.3,
+            23570.6,
+            15262.5
+          ],
+          "derive_mediane": 0.0,
+          "rang": 1
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 16,
+      "case": "0139-curved",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 16.076700001576683,
+          "mean_ms": 14.800885714586391,
+          "median_ms": 14.764399998966837,
+          "p95_ms": 15.228180000121938,
+          "samples_ms": [
+            14.786799998546485,
+            14.56770000004326,
+            14.764399998966837,
+            15.367500000138534,
+            14.578000002074987,
+            14.903100000083214,
+            14.638700002251426
+          ]
+        },
+        "render": {
+          "first_ms": 261.06309999886435,
+          "mean_ms": 257.5323285709601,
+          "median_ms": 257.0778999979666,
+          "p95_ms": 261.77617000175815,
+          "samples_ms": [
+            261.8437000019185,
+            256.1395000011544,
+            256.60579999748734,
+            258.72569999773987,
+            257.0778999979666,
+            261.61860000138404,
+            250.71509999906993
+          ]
+        },
+        "report": {
+          "first_ms": 372.11350000143284,
+          "mean_ms": 246.14407142871642,
+          "median_ms": 245.30629999935627,
+          "p95_ms": 251.22656000203278,
+          "samples_ms": [
+            252.76040000244393,
+            244.52200000087032,
+            244.2226999992272,
+            246.1899000008998,
+            242.35959999714396,
+            245.30629999935627,
+            247.64760000107344
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85209088,
+      "peak_rss_bytes": 191959040,
+      "process_cpu_ms": 4234.375,
+      "decoded_accesses": 824,
+      "decoded_bytes": 1648361472,
+      "distinct_chunk_keys_zyx": [
+        [
+          16,
+          22,
+          13
+        ],
+        [
+          16,
+          22,
+          14
+        ],
+        [
+          16,
+          22,
+          15
+        ],
+        [
+          16,
+          22,
+          16
+        ],
+        [
+          16,
+          23,
+          13
+        ],
+        [
+          16,
+          23,
+          14
+        ],
+        [
+          16,
+          23,
+          15
+        ],
+        [
+          16,
+          23,
+          16
+        ],
+        [
+          17,
+          22,
+          13
+        ],
+        [
+          17,
+          22,
+          14
+        ],
+        [
+          17,
+          22,
+          15
+        ],
+        [
+          17,
+          22,
+          16
+        ],
+        [
+          17,
+          23,
+          13
+        ],
+        [
+          17,
+          23,
+          14
+        ],
+        [
+          17,
+          23,
+          15
+        ],
+        [
+          17,
+          23,
+          16
+        ],
+        [
+          18,
+          22,
+          13
+        ],
+        [
+          18,
+          22,
+          14
+        ],
+        [
+          18,
+          22,
+          15
+        ],
+        [
+          18,
+          22,
+          16
+        ],
+        [
+          18,
+          23,
+          13
+        ],
+        [
+          18,
+          23,
+          14
+        ],
+        [
+          18,
+          23,
+          15
+        ]
+      ],
+      "map_voxels_read": 48234496,
+      "tiles_measured": 4,
+      "tiles_reliable": 4,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": -1.3672817267422621,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "derive",
+          "gravite": 2,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            8,
+            16
+          ],
+          "centre_zyx": [
+            17361.0,
+            23461.3,
+            14611.0
+          ],
+          "derive_mediane": -101.21983358658761,
+          "rang": 1
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 16,
+      "case": "0139-curved",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 5.815900000015972,
+          "mean_ms": 3.2999571433590194,
+          "median_ms": 3.311799999210052,
+          "p95_ms": 3.501609998420463,
+          "samples_ms": [
+            3.2072000030893832,
+            3.3866000012494624,
+            3.3569000006536953,
+            3.1320000016421545,
+            3.311799999210052,
+            3.5508999972080346,
+            3.1543000004603527
+          ]
+        },
+        "render": {
+          "first_ms": 62.84130000130972,
+          "mean_ms": 61.75851428581934,
+          "median_ms": 61.54000000242377,
+          "p95_ms": 64.05792999830737,
+          "samples_ms": [
+            60.24009999964619,
+            61.54000000242377,
+            61.12880000000587,
+            64.47759999718983,
+            63.07870000091498,
+            60.1195999988704,
+            61.72480000168434
+          ]
+        },
+        "report": {
+          "first_ms": 199.60469999932684,
+          "mean_ms": 105.34817142979591,
+          "median_ms": 105.24780000196188,
+          "p95_ms": 108.49665000023379,
+          "samples_ms": [
+            103.58000000269385,
+            104.45810000237543,
+            105.49890000038431,
+            106.84640000181389,
+            109.2038999995566,
+            105.24780000196188,
+            102.60209999978542
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85368832,
+      "peak_rss_bytes": 146124800,
+      "process_cpu_ms": 1375.0,
+      "decoded_accesses": 824,
+      "decoded_bytes": 1648361472,
+      "distinct_chunk_keys_zyx": [
+        [
+          16,
+          22,
+          13
+        ],
+        [
+          16,
+          22,
+          14
+        ],
+        [
+          16,
+          22,
+          15
+        ],
+        [
+          16,
+          22,
+          16
+        ],
+        [
+          16,
+          23,
+          13
+        ],
+        [
+          16,
+          23,
+          14
+        ],
+        [
+          16,
+          23,
+          15
+        ],
+        [
+          16,
+          23,
+          16
+        ],
+        [
+          17,
+          22,
+          13
+        ],
+        [
+          17,
+          22,
+          14
+        ],
+        [
+          17,
+          22,
+          15
+        ],
+        [
+          17,
+          22,
+          16
+        ],
+        [
+          17,
+          23,
+          13
+        ],
+        [
+          17,
+          23,
+          14
+        ],
+        [
+          17,
+          23,
+          15
+        ],
+        [
+          17,
+          23,
+          16
+        ],
+        [
+          18,
+          22,
+          13
+        ],
+        [
+          18,
+          22,
+          14
+        ],
+        [
+          18,
+          22,
+          15
+        ],
+        [
+          18,
+          22,
+          16
+        ],
+        [
+          18,
+          23,
+          13
+        ],
+        [
+          18,
+          23,
+          14
+        ],
+        [
+          18,
+          23,
+          15
+        ]
+      ],
+      "map_voxels_read": 48234496,
+      "tiles_measured": 4,
+      "tiles_reliable": 4,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": -1.3672817267422621,
+      "spacing_voxels": null,
+      "zones": [
+        {
+          "type": "derive",
+          "gravite": 2,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            8,
+            16
+          ],
+          "centre_zyx": [
+            17361.0,
+            23461.3,
+            14611.0
+          ],
+          "derive_mediane": -101.21983358658761,
+          "rang": 1
+        }
+      ],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 6,
+      "case": "0500p2-fine",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 4.3896000024687964,
+          "mean_ms": 3.682957143090399,
+          "median_ms": 3.6422999983187765,
+          "p95_ms": 3.989160001219716,
+          "samples_ms": [
+            3.9668999997957144,
+            3.4379999997327104,
+            3.694899998663459,
+            3.9987000018300023,
+            3.6422999983187765,
+            3.6286000031395815,
+            3.4113000001525506
+          ]
+        },
+        "render": {
+          "first_ms": 90.91809999881661,
+          "mean_ms": 91.99532857175134,
+          "median_ms": 91.2358999994467,
+          "p95_ms": 93.67231000214815,
+          "samples_ms": [
+            93.05640000093263,
+            90.89189999940572,
+            91.06009999959497,
+            91.2358999994467,
+            90.63729999979842,
+            93.21920000002137,
+            93.86650000305963
+          ]
+        },
+        "report": {
+          "first_ms": 190.20369999998366,
+          "mean_ms": 79.26295714319816,
+          "median_ms": 79.02649999959976,
+          "p95_ms": 83.43943000108993,
+          "samples_ms": [
+            84.35710000048857,
+            78.45330000054673,
+            76.8830999986676,
+            79.60950000051525,
+            75.21300000007614,
+            81.2982000024931,
+            79.02649999959976
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85098496,
+      "peak_rss_bytes": 133099520,
+      "process_cpu_ms": 1453.125,
+      "decoded_accesses": 248,
+      "decoded_bytes": 520093696,
+      "distinct_chunk_keys_zyx": [
+        [
+          26,
+          28,
+          34
+        ],
+        [
+          26,
+          28,
+          35
+        ],
+        [
+          26,
+          29,
+          34
+        ],
+        [
+          26,
+          29,
+          35
+        ],
+        [
+          27,
+          28,
+          34
+        ],
+        [
+          27,
+          28,
+          35
+        ],
+        [
+          27,
+          29,
+          34
+        ],
+        [
+          27,
+          29,
+          35
+        ]
+      ],
+      "map_voxels_read": 16777216,
+      "tiles_measured": 1,
+      "tiles_reliable": 1,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 2.5871514447987973,
+      "spacing_voxels": null,
+      "zones": [],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 6,
+      "case": "0500p2-fine",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 2.7594000021053944,
+          "mean_ms": 1.8779142862643181,
+          "median_ms": 1.8542000034358352,
+          "p95_ms": 2.1531800011871383,
+          "samples_ms": [
+            1.8979999986186158,
+            1.8542000034358352,
+            1.7035999990184791,
+            1.620099999854574,
+            2.196500001446111,
+            2.0521000005828682,
+            1.8209000008937437
+          ]
+        },
+        "render": {
+          "first_ms": 28.870900001493283,
+          "mean_ms": 23.01281428559118,
+          "median_ms": 23.022999997920124,
+          "p95_ms": 23.863179999170825,
+          "samples_ms": [
+            23.757900002237875,
+            23.022999997920124,
+            23.60160000171163,
+            22.847799998999108,
+            22.19150000018999,
+            21.759600000223145,
+            23.908299997856375
+          ]
+        },
+        "report": {
+          "first_ms": 166.41679999884218,
+          "mean_ms": 46.519657142718124,
+          "median_ms": 44.30869999850984,
+          "p95_ms": 53.015319999394706,
+          "samples_ms": [
+            46.55329999877722,
+            53.58369999885326,
+            51.68910000065807,
+            44.239399998332374,
+            42.81570000239299,
+            42.44770000150311,
+            44.30869999850984
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85254144,
+      "peak_rss_bytes": 122118144,
+      "process_cpu_ms": 671.875,
+      "decoded_accesses": 248,
+      "decoded_bytes": 520093696,
+      "distinct_chunk_keys_zyx": [
+        [
+          26,
+          28,
+          34
+        ],
+        [
+          26,
+          28,
+          35
+        ],
+        [
+          26,
+          29,
+          34
+        ],
+        [
+          26,
+          29,
+          35
+        ],
+        [
+          27,
+          28,
+          34
+        ],
+        [
+          27,
+          28,
+          35
+        ],
+        [
+          27,
+          29,
+          34
+        ],
+        [
+          27,
+          29,
+          35
+        ]
+      ],
+      "map_voxels_read": 16777216,
+      "tiles_measured": 1,
+      "tiles_reliable": 1,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 2.5871514447987973,
+      "spacing_voxels": null,
+      "zones": [],
+      "warnings": [
+        "Espacement des feuilles introuvable : pas d'analyse de phase."
+      ],
+      "wraps": []
+    },
+    {
+      "backend": "python",
+      "side": 8,
+      "case": "0500p2-fine",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 7.765700000163633,
+          "mean_ms": 6.463928570675697,
+          "median_ms": 6.4477000014449,
+          "p95_ms": 7.03209999956016,
+          "samples_ms": [
+            6.4477000014449,
+            5.83349999942584,
+            6.620500000281027,
+            6.34139999965555,
+            6.4685999968787655,
+            6.327299997792579,
+            7.208499999251217
+          ]
+        },
+        "render": {
+          "first_ms": 203.79609999872628,
+          "mean_ms": 193.31987142920428,
+          "median_ms": 193.16220000109752,
+          "p95_ms": 195.13421000046947,
+          "samples_ms": [
+            193.07910000134143,
+            195.12699999904726,
+            190.55440000011004,
+            193.16220000109752,
+            191.23360000230605,
+            195.13730000107898,
+            194.94549999944866
+          ]
+        },
+        "report": {
+          "first_ms": 479.8195000003034,
+          "mean_ms": 183.97928571409597,
+          "median_ms": 182.81690000003437,
+          "p95_ms": 189.1645299987431,
+          "samples_ms": [
+            182.57440000161296,
+            182.3629999998957,
+            182.81690000003437,
+            181.84169999949518,
+            183.09829999998328,
+            191.54079999862006,
+            183.61989999903017
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85139456,
+      "peak_rss_bytes": 164012032,
+      "process_cpu_ms": 3187.5,
+      "decoded_accesses": 800,
+      "decoded_bytes": 1677721600,
+      "distinct_chunk_keys_zyx": [
+        [
+          25,
+          29,
+          33
+        ],
+        [
+          25,
+          29,
+          34
+        ],
+        [
+          26,
+          28,
+          33
+        ],
+        [
+          26,
+          28,
+          34
+        ],
+        [
+          26,
+          28,
+          35
+        ],
+        [
+          26,
+          28,
+          36
+        ],
+        [
+          26,
+          29,
+          33
+        ],
+        [
+          26,
+          29,
+          34
+        ],
+        [
+          26,
+          29,
+          35
+        ],
+        [
+          26,
+          29,
+          36
+        ],
+        [
+          27,
+          28,
+          33
+        ],
+        [
+          27,
+          28,
+          34
+        ],
+        [
+          27,
+          28,
+          35
+        ],
+        [
+          27,
+          28,
+          36
+        ],
+        [
+          27,
+          29,
+          33
+        ],
+        [
+          27,
+          29,
+          34
+        ],
+        [
+          27,
+          29,
+          35
+        ],
+        [
+          27,
+          29,
+          36
+        ],
+        [
+          28,
+          28,
+          33
+        ],
+        [
+          28,
+          28,
+          34
+        ],
+        [
+          28,
+          28,
+          35
+        ],
+        [
+          28,
+          28,
+          36
+        ],
+        [
+          28,
+          29,
+          33
+        ],
+        [
+          28,
+          29,
+          34
+        ],
+        [
+          28,
+          29,
+          35
+        ],
+        [
+          28,
+          29,
+          36
+        ]
+      ],
+      "map_voxels_read": 54525952,
+      "tiles_measured": 1,
+      "tiles_reliable": 0,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 2.5526264509455547,
+      "spacing_voxels": 54.705957166634384,
+      "zones": [
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            0,
+            8
+          ],
+          "centre_zyx": [
+            6942.8,
+            7444.7,
+            8965.1
+          ],
+          "derive_mediane": 0.0,
+          "rang": 1
+        }
+      ],
+      "warnings": [],
+      "wraps": []
+    },
+    {
+      "backend": "rust",
+      "side": 8,
+      "case": "0500p2-fine",
+      "dtype": "uint8",
+      "time": {
+        "map": {
+          "first_ms": 3.648300000349991,
+          "mean_ms": 2.301142857114818,
+          "median_ms": 2.289399999426678,
+          "p95_ms": 2.447099999699276,
+          "samples_ms": [
+            2.4072000014712103,
+            2.250800000183517,
+            2.4641999989398755,
+            2.355199998419266,
+            2.289399999426678,
+            2.177899998059729,
+            2.1633000033034477
+          ]
+        },
+        "render": {
+          "first_ms": 47.851299998001195,
+          "mean_ms": 46.34389999929616,
+          "median_ms": 45.94619999988936,
+          "p95_ms": 48.648439998942195,
+          "samples_ms": [
+            46.271600000181934,
+            49.57369999829098,
+            45.226099999126745,
+            46.4895000004617,
+            45.46669999763253,
+            45.94619999988936,
+            45.43349999948987
+          ]
+        },
+        "report": {
+          "first_ms": 173.19909999787342,
+          "mean_ms": 81.97625714248196,
+          "median_ms": 81.16429999790853,
+          "p95_ms": 86.31570000034117,
+          "samples_ms": [
+            81.4643999983673,
+            79.8876000008022,
+            81.48779999828548,
+            88.38480000122217,
+            80.67049999954179,
+            81.16429999790853,
+            80.77440000124625
+          ]
+        }
+      },
+      "baseline_rss_bytes": 85426176,
+      "peak_rss_bytes": 133677056,
+      "process_cpu_ms": 1093.75,
+      "decoded_accesses": 800,
+      "decoded_bytes": 1677721600,
+      "distinct_chunk_keys_zyx": [
+        [
+          25,
+          29,
+          33
+        ],
+        [
+          25,
+          29,
+          34
+        ],
+        [
+          26,
+          28,
+          33
+        ],
+        [
+          26,
+          28,
+          34
+        ],
+        [
+          26,
+          28,
+          35
+        ],
+        [
+          26,
+          28,
+          36
+        ],
+        [
+          26,
+          29,
+          33
+        ],
+        [
+          26,
+          29,
+          34
+        ],
+        [
+          26,
+          29,
+          35
+        ],
+        [
+          26,
+          29,
+          36
+        ],
+        [
+          27,
+          28,
+          33
+        ],
+        [
+          27,
+          28,
+          34
+        ],
+        [
+          27,
+          28,
+          35
+        ],
+        [
+          27,
+          28,
+          36
+        ],
+        [
+          27,
+          29,
+          33
+        ],
+        [
+          27,
+          29,
+          34
+        ],
+        [
+          27,
+          29,
+          35
+        ],
+        [
+          27,
+          29,
+          36
+        ],
+        [
+          28,
+          28,
+          33
+        ],
+        [
+          28,
+          28,
+          34
+        ],
+        [
+          28,
+          28,
+          35
+        ],
+        [
+          28,
+          28,
+          36
+        ],
+        [
+          28,
+          29,
+          33
+        ],
+        [
+          28,
+          29,
+          34
+        ],
+        [
+          28,
+          29,
+          35
+        ],
+        [
+          28,
+          29,
+          36
+        ]
+      ],
+      "map_voxels_read": 54525952,
+      "tiles_measured": 1,
+      "tiles_reliable": 0,
+      "tiles_near_reliability_threshold": 0,
+      "reference_voxels": 2.5526264509455547,
+      "spacing_voxels": 54.705957166634384,
+      "zones": [
+        {
+          "type": "sans_feuille",
+          "gravite": 1,
+          "tuiles": 1,
+          "lignes": [
+            0,
+            8
+          ],
+          "colonnes": [
+            0,
+            8
+          ],
+          "centre_zyx": [
+            6942.8,
+            7444.7,
+            8965.1
+          ],
+          "derive_mediane": 0.0,
+          "rang": 1
+        }
+      ],
+      "warnings": [],
+      "wraps": []
+    }
+  ]
+}

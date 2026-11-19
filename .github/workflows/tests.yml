@@ -37,6 +37,27 @@ jobs:
       - run: python -m pip install -e '.[dev,vcdelta3d]'
       - run: python -c "import vc_delta3d"
       - run: pytest -q tests/test_data_access.py -rs
+  rust-sampler:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - run: python -m pip install -e '.[dev]' maturin==1.10.2
+      - run: cargo +stable fmt --manifest-path rust/Cargo.toml --check
+      - run: cargo +stable clippy --locked --manifest-path rust/Cargo.toml --all-targets -- -D warnings
+      - run: cargo +stable test --release --locked --manifest-path rust/Cargo.toml
+      - run: python rust/build_release.py
+        env:
+          RUSTUP_TOOLCHAIN: stable
+      - run: python -c "import pathlib, subprocess, sys; wheel, = pathlib.Path('rust/target/wheels').glob('*.whl'); subprocess.check_call([sys.executable, '-m', 'pip', 'install', str(wheel)])"
+      - run: python -c "from vesuvius_explorer_rust import plan"
+      - run: pytest -q tests/test_rust_sampler.py
   napari:
     runs-on: ubuntu-latest
     env:

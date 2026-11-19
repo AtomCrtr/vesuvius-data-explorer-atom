@@ -8,13 +8,18 @@ thread-safe LRU of at most ``max_bytes``.
 
 from __future__ import annotations
 
+import logging
+import os
 import threading
 from collections import OrderedDict
+from functools import cache
 from itertools import product
 
 import numpy as np
 
 DEFAULT_DECODED_BYTES = 1 * 2**30
+RUST_BATCH_POINTS = 65_536
+_LOGGER = logging.getLogger(__name__)
 
 
 def _chunks(array) -> tuple[int, int, int]:
@@ -95,6 +100,45 @@ def sample_trilinear(array: DecodedChunks, coords: np.ndarray) -> np.ndarray:
     that hold the 8 neighbours of each sample (coordinates are clamped to the array, like
     ``ndimage.map_coordinates(..., mode="nearest")``)."""
     coords = np.asarray(coords, dtype=float)
+    if (os.environ.get("VESUVIUS_RUST_SAMPLER") == "1"
+            and array.dtype in (np.dtype("uint8"), np.dtype("uint16"))
+            and coords.ndim == 2 and coords.shape[1] == 3
+            and all(0 < size < 2**53 for size in array.shape)):
+        native = _rust_sampler()
+        if native is not None:
+            return _sample_rust(native, array, coords)
+    return _sample_python(array, coords)
+
+
+@cache
+def _rust_sampler():
+    try:
+        from vesuvius_explorer_rust import plan
+    except (ImportError, OSError) as exc:
+        _LOGGER.warning("Extension Rust indisponible, interpolation Python utilisée : %s", exc)
+        return None
+    _LOGGER.debug("Extension Rust chargée pour l'interpolation des blocs CT entiers")
+    return plan
+
+
+def _sample_rust(plan_chunks, array: DecodedChunks, coords: np.ndarray) -> np.ndarray:
+    out = np.zeros(len(coords), dtype=np.float64)
+    for start in range(0, len(coords), RUST_BATCH_POINTS):
+        selection = slice(start, start + RUST_BATCH_POINTS)
+        batch = np.require(coords[selection], requirements="A")
+        output = out[selection]
+        plan = plan_chunks(batch, array.shape, array.chunks)
+        if plan is None:
+            output[:] = _sample_python(array, batch)
+            continue
+        accumulate = plan.add_u8 if array.dtype.itemsize == 1 else plan.add_u16
+        for key in plan.keys():
+            block = np.require(array._chunk(tuple(key)), requirements="A")
+            accumulate(key, block, output)
+    return out
+
+
+def _sample_python(array: DecodedChunks, coords: np.ndarray) -> np.ndarray:
     shape = np.asarray(array.shape)
     chunks = np.asarray(array.chunks)
     clamped = np.clip(coords, 0, shape - 1)
