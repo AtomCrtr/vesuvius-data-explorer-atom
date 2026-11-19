@@ -156,8 +156,10 @@ for label, segment in drawn:
         record["snap_drifted"] = {
             "tiles": int(common.sum()),
             "ramp_slope_before": slope(dmap), "ramp_slope_after": slope(smap),
-            "drift_abs_median_before_um": float(np.median(np.abs(dmap.drift[common]))) * px,
-            "drift_abs_median_after_um": float(np.median(np.abs(smap.drift[common]))) * px}
+            "drift_abs_median_before_um": float(np.median(np.abs(dmap.drift[common]))) * px
+            if common.any() else None,
+            "drift_abs_median_after_um": float(np.median(np.abs(smap.drift[common]))) * px
+            if common.any() else None}
 
         # 4. Snapping the published segment; renders.
         field = snap_field(base, max_shift=50 / px)
@@ -173,14 +175,16 @@ for label, segment in drawn:
         (out / f"{name}-avant.png").write_bytes(grey_png(render_before))
         (out / f"{name}-apres.png").write_bytes(grey_png(render_after))
         valid = np.isfinite(surface.points).all(axis=2)
+        snapped_reliable = reliable_tiles(amap)
         record["snap_published"] = {
             "moved_median_um": float(np.median(np.abs(grid[valid]))) * px,
             "moved_max_um": float(np.max(np.abs(grid[valid]))) * px,
             "reliability_median_before": float(np.nanmedian(base.reliability)),
             "reliability_median_after": float(np.nanmedian(amap.reliability)),
-            "drift_abs_median_before_um": float(np.nanmedian(np.abs(base.drift[reliable]))) * px,
-            "drift_abs_median_after_um": float(np.nanmedian(
-                np.abs(amap.drift[reliable_tiles(amap)]))) * px,
+            "drift_abs_median_before_um": float(np.median(np.abs(base.drift[reliable]))) * px
+            if reliable.any() else None,
+            "drift_abs_median_after_um": float(np.median(np.abs(amap.drift[snapped_reliable]))) * px
+            if snapped_reliable.any() else None,
             "render_before": sharpness(render_before),
             "render_after": sharpness(render_after)}
         record["seconds"] = round(time.time() - started)

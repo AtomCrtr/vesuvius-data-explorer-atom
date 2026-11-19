@@ -172,10 +172,9 @@ def grey_png(image: np.ndarray) -> bytes:
     return _png(out)
 
 
-def drift_png(amap, scale, *, limit_um=DEFAULT_MAX_DRIFT_UM, cell=16,
-              min_reliability=DEFAULT_MIN_RELIABILITY) -> bytes:
-    """Tile map: blue = sheet below the surface along the normal, red = above, white = usual
-    offset; light grey = unreliable, dark grey = not measured; black frame = sheet switch."""
+def drift_rgb(amap, scale, *, limit_um=DEFAULT_MAX_DRIFT_UM,
+              min_reliability=DEFAULT_MIN_RELIABILITY) -> np.ndarray:
+    """Tile colours: blue = negative drift, red = positive, white = usual offset."""
     unit = scale or 1.0
     drift = drift_voxels(amap) * unit
     t = np.clip(np.nan_to_num(drift) / limit_um, -1, 1)
@@ -183,6 +182,13 @@ def drift_png(amap, scale, *, limit_um=DEFAULT_MAX_DRIFT_UM, cell=16,
     rgb = (rgb * 255).astype(np.uint8)
     rgb[~reliable_tiles(amap, min_reliability)] = (200, 200, 200)
     rgb[amap.points == 0] = (90, 90, 90)
+    return rgb
+
+
+def drift_png(amap, scale, *, limit_um=DEFAULT_MAX_DRIFT_UM, cell=16,
+              min_reliability=DEFAULT_MIN_RELIABILITY) -> bytes:
+    """Draw the tile colours, with a black frame around each detected sheet switch."""
+    rgb = drift_rgb(amap, scale, limit_um=limit_um, min_reliability=min_reliability)
     image = np.kron(rgb, np.ones((cell, cell, 1), dtype=np.uint8))
     for r, c in zip(*np.nonzero(switch_tiles(amap))):
         block = image[r * cell:(r + 1) * cell, c * cell:(c + 1) * cell]

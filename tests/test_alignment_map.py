@@ -108,9 +108,28 @@ def test_snapping_brings_the_drift_back(volume):
 
 
 def test_unreliable_and_switch_tiles_are_not_moved(volume):
-    amap = alignment_map(ramp(big_plane(), 30), *volume)
+    surface = ramp(big_plane(), 30)
+    amap = alignment_map(surface, *volume)
+    reliability = amap.reliability.copy()
+    reliability[:, 0] = 0
+    amap = replace(amap, reliability=reliability)
     field = snap_field(amap)
-    assert np.allclose(field[:, 3:5], 0, atol=0.5)  # Tiles around the wrap line stay put.
+    grid = field_on_grid(field, amap, surface.points.shape[:2])
+    snapped = snap_points(surface.points, grid)
+    for columns in (slice(0, 8), slice(24, 40)):
+        np.testing.assert_array_equal(snapped[:, columns], surface.points[:, columns])
+    assert np.any(grid[:, 8:24])
+
+
+def test_snap_tapers_inside_movable_tiles_on_the_original_grid(volume):
+    amap = replace(alignment_map(plane(rows=13, cols=15), *volume), stride=2)
+    field = np.array([[4.0, 0.0], [4.0, 4.0]])
+    grid = field_on_grid(field, amap, (26, 29))
+    # The excluded tile is partial and has movable neighbours along both edges and the corner.
+    np.testing.assert_array_equal(grid[:16, 16:], 0)
+    assert grid[7, 7] == pytest.approx(4)
+    assert 0 < grid[7, 15] < grid[7, 14] < grid[7, 7]
+    assert 0 < grid[16, 16] < grid[17, 17] < grid[24, 24]
 
 
 def test_tifxyz_writer_round_trip_and_refuses_to_overwrite(tmp_path):
@@ -162,7 +181,7 @@ def test_cli_map_writes_maps_zones_report_and_a_snapped_copy(volume, tmp_path):
     assert summary["zones"]["derive"] == 2 and summary["snap"]["abs_median"] > 1
     assert tifffile.imread(output / "decalage.tif").shape == (8, 8)
     assert len(json.loads((output / "zones.json").read_text())) == 2
-    html = (output / "rapport.html").read_text()
+    html = (output / "rapport.html").read_text(encoding="utf-8")
     assert "Carte de dérive" in html and "Après recalage" in html
     snapped = load_tifxyz(str(output / "recale"))
     assert "recalage" in snapped.meta and snapped.points.shape == (64, 64, 3)
@@ -170,6 +189,15 @@ def test_cli_map_writes_maps_zones_report_and_a_snapped_copy(volume, tmp_path):
     assert np.allclose(load_tifxyz(str(segment)).points, ramp(big_plane(), 10).points)
     assert main(["carte", str(segment), "--volume", str(tmp_path / "sheets.zarr"),
                  "--recaler", "-o", str(output)]) == 2
+
+    capped = tmp_path / "carte-plafonnee"
+    assert main(["carte", str(segment), "--volume", str(tmp_path / "sheets.zarr"),
+                 "--recaler", "--deplacement-max", "3", "--sans-rendu", "-o", str(capped)]) == 0
+    original = load_tifxyz(str(segment)).points
+    capped_points = load_tifxyz(str(capped / "recale")).points
+    np.testing.assert_array_equal(capped_points[:, :8], original[:, :8])
+    np.testing.assert_array_equal(capped_points[:, -8:], original[:, -8:])
+    assert np.any(capped_points[:, 8:-8] != original[:, 8:-8])
 
 
 def test_decoded_chunk_cache_serves_boxes_and_decodes_each_chunk_once():

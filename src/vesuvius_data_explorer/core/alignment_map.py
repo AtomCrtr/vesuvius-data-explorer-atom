@@ -500,24 +500,29 @@ def field_on_grid(field: np.ndarray, amap: AlignmentMap, grid_shape,
     """Per-tile field interpolated onto the full grid of the tifxyz files.
 
     ``moving`` marks the tiles whose value counts (default: tiles with a non-zero value).
-    Normalised bilinear interpolation among them: a moving tile gets its full value up to halfway
-    to a fixed neighbour, then the field falls to 0 at the fixed tile's centre. Without this, the
-    zeros of fixed tiles would dilute the correction of their moving neighbours.
+    Normalised bilinear interpolation uses only those tiles' values. The correction tapers
+    over half a tile towards fixed points, entirely on the moving side of each boundary.
     """
     from scipy import ndimage
 
     if moving is None:
         moving = field != 0
-    rows, cols = np.mgrid[:grid_shape[0], :grid_shape[1]].astype(float)
-    centre = (amap.tile - 1) / 2
-    coords = np.stack([(rows / amap.stride - centre) / amap.tile,
-                       (cols / amap.stride - centre) / amap.tile])
-    mask = moving.astype(float)
-    values = ndimage.map_coordinates(field * mask, coords, order=1, mode="nearest")
-    share = ndimage.map_coordinates(mask, coords, order=1, mode="nearest")
-    with np.errstate(invalid="ignore", divide="ignore"):
-        out = np.where(share > 1e-9, values / share, 0.0)
-    return out * np.clip(2 * share, 0, 1)
+    if not moving.any():
+        return np.zeros(grid_shape)
+    span = amap.tile * amap.stride
+    rows, cols = np.ogrid[:grid_shape[0], :grid_shape[1]]
+    movable_points = moving[rows // span, cols // span]
+
+    coords = np.indices(grid_shape, dtype=float)
+    coords -= (amap.tile - 1) * amap.stride / 2
+    coords /= span
+    values = ndimage.map_coordinates(np.where(moving, field, 0.0), coords, order=1, mode="nearest")
+    share = ndimage.map_coordinates(moving.astype(float), coords, order=1, mode="nearest")
+    out = np.divide(values, share, out=np.zeros_like(values), where=movable_points & (share > 0))
+    if not movable_points.all():
+        distance = ndimage.distance_transform_cdt(movable_points, metric="chessboard")
+        out *= np.minimum(distance / (span / 2), 1)
+    return out
 
 
 def snap_points(points: np.ndarray, field_grid: np.ndarray) -> np.ndarray:

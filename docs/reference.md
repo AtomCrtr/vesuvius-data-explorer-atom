@@ -269,6 +269,8 @@ volume. Le volume est ouvert une fois et partagé ; `--workers` segments sont tr
   `--deplacement-max`. Moindres carrés `(W + λL) u = W t` sur ces seules tuiles (`W` : inverse de
   la variance, `L` : laplacien entre tuiles libres voisines, λ = 0,5) ; les autres tuiles restent à
   0. Interpolation bilinéaire normalisée vers chaque point, déplacement le long de la normale.
+  Chaque point d'une tuile exclue garde sa position. Le déplacement s'atténue sur une demi-tuile
+  du côté recalé, selon la distance sur la grille au point exclu le plus proche.
   Écrit `recale/` (`x/y/z.tif` float32, −1 hors surface, `meta.json` avec la provenance) ; refuse
   d'écrire sur un segment existant et de recaler une grille décimée.
 - **Lecture** : seuls les blocs Zarr traversés sont lus, chacun décompressé une fois par carte

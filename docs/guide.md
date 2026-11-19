@@ -164,9 +164,15 @@ vesuvius-qc carte 20250825181928 --catalogue -o carte/
 modifié.
 
 - Seules les tuiles fiables bougent, de 50 µm au plus (`--deplacement-max`).
-- Les zones peu fiables ne sont pas déplacées.
+- Tous les points des zones exclues restent fixes. Le déplacement s'atténue sur le bord
+  des tuiles recalées.
 - `--cible -10` vise un décalage précis (en µm) au lieu de la position habituelle du segment, pour
   corriger aussi un décalage d'ensemble.
+
+Dans **Vesuvius — Surfaces**, superposez le segment à son volume puis cliquez sur
+**Cartographier la dérive**. Le calque coloré suit les coupes et reste visible en 3D.
+Les tuiles grises signalent un signal peu fiable ou une mesure indisponible. Choisissez une
+zone dans la liste pour centrer la coupe sur ses coordonnées 3D.
 
 Limites : environ une tuile sur trois seulement est fiable ; un saut de feuille n'est pas
 détecté comme tel sur les vraies données, il apparaît comme une zone peu fiable ou une forte dérive

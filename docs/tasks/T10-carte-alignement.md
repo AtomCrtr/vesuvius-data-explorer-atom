@@ -56,8 +56,8 @@ Pour un segment tifxyz et son volume :
 - Commande : `vesuvius-qc carte <segment> --volume <URI> [--recaler] -o <dossier>`, avec
   `--catalogue <identifiant du segment>` pour retrouver automatiquement le volume et sa taille de
   voxel.
-- napari : calque de la carte de décalage, colorée et superposée à la trace du segment ; zones à
-  revoir navigables (boutons du widget Surfaces).
+- napari : calque coloré sur la trace du segment et liste des zones à revoir dans le widget
+  Surfaces. Sélectionner une zone centre la coupe à ses coordonnées 3D.
 
 ## Validation (avant toute candidature)
 
@@ -102,8 +102,8 @@ Pour un segment tifxyz et son volume :
    `--cible` (décalage visé, en µm) pour corriger aussi un décalage d'ensemble.
 3. **Plafond de déplacement** (50 µm par défaut, `--deplacement-max`) : au-delà, la tuile a pu
    accrocher une autre feuille ; elle n'est pas déplacée et reste signalée.
-4. **Zones exclues.** Leur centre ne bouge pas ; la transition vers les tuiles déplacées se fait
-   dans leur demi-tuile de bord, pour que la surface reste continue.
+4. **Zones exclues.** Tous leurs points restent fixes. Le déplacement diminue à l'approche
+   des zones gelées sur une demi-tuile du côté des tuiles recalées.
 5. **Netteté des fibres.** Fibres visibles sur tous les rendus ; sur des segments publiés, déjà bien
    placés, aucun gain de netteté mesurable (intensité +0,7 à +3,4 %, contraste −0 à −5 %). Le gain
    est net sur un segment dégradé volontairement.

@@ -200,6 +200,48 @@ def test_removing_the_layer_stops_the_trace(viewer_with_volume, tmp_path, qtbot)
     viewer.dims.set_point(0, 2)  # no error from a dangling trace
 
 
+def test_drift_map_tracks_slices_and_navigates_to_review_zones(
+    viewer_with_volume, tmp_path, qtbot, monkeypatch
+):
+    viewer, volume, widget = viewer_with_volume
+    assert not widget.drift_button.isEnabled()
+    _overlay(widget, qtbot, write_segment(tmp_path / "seg"))
+    threads = []
+    measure = surface_module.measure_drift
+
+    def tracked(overlay, arrays, shapes, pixel_size_um):
+        threads.append(threading.get_ident())
+        # Flat CT profiles produce a review region with no reliable sheet estimate.
+        arrays = [np.ones(shape, dtype=np.float32) for shape in shapes]
+        return measure(overlay, arrays, shapes, pixel_size_um)
+
+    monkeypatch.setattr(surface_module, "measure_drift", tracked)
+    qtbot.mouseClick(widget.drift_button, Qt.LeftButton)
+    qtbot.waitUntil(lambda: widget.drift_button.isEnabled(), timeout=20000)
+    assert threads and threads[0] != threading.get_ident()
+    layer = viewer.layers["Carte de dérive — seg"]
+    assert tuple(layer.scale) == tuple(volume.scale)
+    assert widget.zone_combo.count() == 1
+    assert "signal peu fiable" in widget.zone_combo.itemText(0)
+    center = np.asarray(widget.zone_combo.itemData(0)) * volume.scale
+
+    viewer.dims.ndisplay = 3
+    assert len(layer.data) == 176
+    np.testing.assert_allclose(layer.face_color[:, :3], 200 / 255)
+    widget.zone_combo.activated.emit(0)
+    assert viewer.dims.ndisplay == 2
+    assert viewer.dims.point[0] == pytest.approx(center[0])
+    assert tuple(camera(viewer).center[-2:]) == pytest.approx(center[1:])
+    viewer.dims.set_point(0, 12 * 0.5)
+    assert len(layer.data) == 0
+    viewer.dims.set_point(0, center[0])
+    assert len(layer.data) == 176
+    np.testing.assert_allclose(layer.face_color[:, :3], 200 / 255)
+
+    viewer.layers.remove(layer)
+    assert widget.zone_combo.count() == 0 and not widget.zone_combo.isEnabled()
+
+
 def test_overlay_keeps_the_chosen_segment(viewer_with_volume, tmp_path, qtbot, monkeypatch):
     viewer, _, widget = viewer_with_volume
     first, second = write_segment(tmp_path / "a"), write_segment(tmp_path / "b")
