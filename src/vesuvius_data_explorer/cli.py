@@ -74,8 +74,16 @@ def main(argv=None):
                        "habituel du segment (une dérive d'ensemble est alors conservée)")
     carte.add_argument('--deplacement-max', type=float, default=50.0,
                        help='au-delà (µm), une tuile n\'est pas déplacée mais signalée')
+    ink = commands.add_parser('encre', help="comparer deux cartes d'encre déjà calculées")
+    ink.add_argument('manifest', help='manifeste TOML du benchmark')
+    ink.add_argument('-o', '--output', required=True, help='nouveau dossier de sortie')
     try:
         args = parser.parse_args(argv)
+        if args.kind == 'encre':
+            from .qc.ink import run_ink_benchmark
+
+            run_ink_benchmark(args.manifest, args.output)
+            return 0
         if args.kind == 'lot':
             return _batch(args)
         if args.kind == 'carte':
