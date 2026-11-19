@@ -73,6 +73,7 @@ Le [guide d'utilisation](docs/guide.md) détaille chaque étape, avec des captur
 ## Documentation
 
 - [Guide d'utilisation](docs/guide.md) : pas à pas, dépannage.
+- [Vesuvius Explorer et accélération Rust](docs/VESUVIUS_EXPLORER.md) · lancement, périmètre et mesures.
 - [Référence technique](docs/reference.md) : comportement détaillé, formats, API Python, tests.
 - [Feuille de route](docs/ROADMAP.md) : tâches, décisions, validations sur données réelles.
 - [Alignment map (English)](docs/en/alignment-map.md) : carte d'alignement et recalage des

@@ -15,6 +15,9 @@ contributions:
     - id: vesuvius-data-explorer.surfaces
       title: Surfaces
       python_name: vesuvius_data_explorer.napari.surface_widget:SurfaceWidget
+    - id: vesuvius-data-explorer.comparison
+      title: Comparer les prédictions sur une surface
+      python_name: vesuvius_data_explorer.napari.comparison_widget:ComparisonWidget
   readers:
     - command: vesuvius-data-explorer.get_reader
       filename_patterns: ['*.zarr']
@@ -26,3 +29,5 @@ contributions:
       display_name: Vesuvius — Contrôle qualité
     - command: vesuvius-data-explorer.surfaces
       display_name: Vesuvius — Surfaces
+    - command: vesuvius-data-explorer.comparison
+      display_name: Vesuvius — Comparer les prédictions

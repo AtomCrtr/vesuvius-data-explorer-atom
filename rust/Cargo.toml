@@ -1,0 +1,15 @@
+[package]
+name = "vesuvius-explorer-rust"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77"
+license = "MIT"
+publish = false
+
+[lib]
+name = "vesuvius_explorer_rust"
+crate-type = ["cdylib"]
+
+[dependencies]
+numpy = "0.26"
+pyo3 = { version = "0.26", features = ["generate-import-lib"] }
