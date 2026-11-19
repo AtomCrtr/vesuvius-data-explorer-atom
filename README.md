@@ -78,6 +78,8 @@ Le [guide d'utilisation](docs/guide.md) détaille chaque étape, avec des captur
 - [Feuille de route](docs/ROADMAP.md) : tâches, décisions, validations sur données réelles.
 - [Alignment map (English)](docs/en/alignment-map.md) : carte d'alignement et recalage des
   segments (T10).
+- [Recherche communautaire et benchmark d'encre](docs/discord_research_2026-11-19.md) :
+  comparaison de cartes déjà calculées avec `vesuvius-qc encre`.
 
 ## Données et licence
 
