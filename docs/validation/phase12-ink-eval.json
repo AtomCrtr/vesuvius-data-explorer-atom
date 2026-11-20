@@ -1,0 +1,673 @@
+{
+ "protocol_sha256": "dd7807746f203dd79d1a828749c4945d5c5b8e693c636acbe562819cb335174e",
+ "label_of_results": "exploratory; direct exclusion from A's training probable, not attested",
+ "labels": {
+  "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/PHercParis1Fr39_54keV_inklabels.png",
+  "sha256": "a6f39eb59422a4507313ec912185eb92b44e3dd9e2e8e6a97e7b571462ce18fc",
+  "mode": "P",
+  "positive_fraction_whole_grid": 0.0776499452003334
+ },
+ "tolerance": {
+  "um": 301.2,
+  "output_px": 135.9819413092551
+ },
+ "rules": "(fixed before labels):\n- Scores: phase 11 maps ``z-frag4-w2-scores.npz`` (primary, W2) and ``z-frag4-scores.npz`` (secondary,\n  >> 8), checked against the run manifests. Valid pixels exactly as in phase11_z_frag4.report: ROI mask\n  eroded by 16 output px, Hann weight >= 25 % of max, both scores finite.\n- Labels: sampled at native (row, col) = origin + 2 + i * 2.215 / 3.24, nearest neighbour, positive if\n  > 127 after conversion to 8-bit grey. Sampled on a grid padded by the tolerance and the largest shift\n  so that label edges outside the ROI count in distances.\n- Ranking metrics (PR-AUC = average precision, ROC-AUC) use all valid pixels: the protocol restricts the\n  tolerance exclusion to pixel metrics. H2 compares PR-AUC with the positive prevalence on that same set.\n  Scores are binned in 4096 bins on [0, 1]; ties inside a bin are grouped (step AP, trapezoid ROC).\n- Pixel metrics at threshold 0.5 (score > 0.5) and at the per-ROI 95th score percentile (score >= it) use\n  valid pixels farther than the tolerance from every label edge. Undefined when one class is empty there.\n- Tolerance metrics: precision_tol = share of predicted positives within the tolerance of a positive\n  label pixel; recall_tol = share of valid positive label pixels within the tolerance of a predicted\n  positive.\n- Intervals: 64 x 64 output blocks resampled with replacement (499 draws, seed 208), percentile 95 %;\n  half-width = (upper - lower) / 2.\n- Shift sensitivity: labels displaced by s um along rows, then along columns (s in the protocol list);\n  PR-AUC point estimates only, primary window.\n- Both depth orders and both windows are reported in full, whatever the result.",
+ "windows": {
+  "W2": {
+   "roi2": {
+    "valid_pixels": 876272,
+    "label_positive_fraction": 0.0360378969087224,
+    "Z_in": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.031837970449002516,
+       "interval_95": [
+        0.014397257382723952,
+        0.05163143891774535
+       ],
+       "half_width": 0.018617090767510697
+      },
+      "ROC_AUC": {
+       "estimate": 0.48872188710088166,
+       "interval_95": [
+        0.3946274951727668,
+        0.5817956923480694
+       ],
+       "half_width": 0.0935840985876513
+      },
+      "prevalence": {
+       "estimate": 0.0360378969087224,
+       "interval_95": [
+        0.016908071988010785,
+        0.059381525196844046
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.0599243157375792,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 47693,
+        "FN": 0,
+        "TN": 636123,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": 0.09173490763664063,
+        "recall_tol": 0.1686880521865797
+       }
+      },
+      "top5": {
+       "threshold": 0.537810456752777,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 42707,
+        "FN": 0,
+        "TN": 641109,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": 0.02526589674533254,
+        "recall_tol": 0.14436809271984546
+       }
+      }
+     }
+    },
+    "Z_out": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.12105330522316372,
+       "interval_95": [
+        0.05349311966578706,
+        0.19838052290314287
+       ],
+       "half_width": 0.0724437016186779
+      },
+      "ROC_AUC": {
+       "estimate": 0.8572887933577786,
+       "interval_95": [
+        0.7909845405335614,
+        0.9026854192982411
+       ],
+       "half_width": 0.055850439382339856
+      },
+      "prevalence": {
+       "estimate": 0.0360378969087224,
+       "interval_95": [
+        0.016908071988010785,
+        0.059381525196844046
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.0,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 683816,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": null,
+        "recall_tol": 0.0
+       }
+      },
+      "top5": {
+       "threshold": 0.13668533116579054,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 26271,
+        "FN": 0,
+        "TN": 657545,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": 0.4003971333363765,
+        "recall_tol": 0.9553500744165426
+       }
+      }
+     }
+    },
+    "shift_pr_auc": {
+     "0": {
+      "Z_in": 0.031837970449002516,
+      "Z_out": 0.12105330522316372
+     },
+     "row+25um": {
+      "Z_in": 0.03245792431056298,
+      "Z_out": 0.12139820360619892
+     },
+     "col+25um": {
+      "Z_in": 0.030226916801253084,
+      "Z_out": 0.12010317951247618
+     },
+     "row-25um": {
+      "Z_in": 0.031263780587215545,
+      "Z_out": 0.1199894475764724
+     },
+     "col-25um": {
+      "Z_in": 0.03335147139410613,
+      "Z_out": 0.11910504886237872
+     },
+     "row+50um": {
+      "Z_in": 0.03315770698006795,
+      "Z_out": 0.1206365897924289
+     },
+     "col+50um": {
+      "Z_in": 0.028601617273136253,
+      "Z_out": 0.11534831380127589
+     },
+     "row-50um": {
+      "Z_in": 0.03053733436039543,
+      "Z_out": 0.11842164422284501
+     },
+     "col-50um": {
+      "Z_in": 0.034923271951350074,
+      "Z_out": 0.11657166886915404
+     },
+     "row+100um": {
+      "Z_in": 0.03463483344471964,
+      "Z_out": 0.11684218427934949
+     },
+     "col+100um": {
+      "Z_in": 0.025687548986416522,
+      "Z_out": 0.09778859177808748
+     },
+     "row-100um": {
+      "Z_in": 0.031087490287237472,
+      "Z_out": 0.11683338142813433
+     },
+     "col-100um": {
+      "Z_in": 0.038478635982881156,
+      "Z_out": 0.11227278052044652
+     }
+    }
+   },
+   "roi5": {
+    "valid_pixels": 876272,
+    "label_positive_fraction": 0.007353880986725583,
+    "Z_in": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.005583298120497063,
+       "interval_95": [
+        0.0015471093276576485,
+        0.011195952657248504
+       ],
+       "half_width": 0.004824421664795428
+      },
+      "ROC_AUC": {
+       "estimate": 0.39937693981035977,
+       "interval_95": [
+        0.26903359391025716,
+        0.553956658899456
+       ],
+       "half_width": 0.14246153249459942
+      },
+      "prevalence": {
+       "estimate": 0.007353880986725583,
+       "interval_95": [
+        0.0017901875851194541,
+        0.014461854415524108
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.023197135136122118,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 17052,
+        "FN": 0,
+        "TN": 762361,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": 0.16111575736704875,
+        "recall_tol": 0.0
+       }
+      },
+      "top5": {
+       "threshold": 0.23739536628127078,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 34454,
+        "FN": 0,
+        "TN": 744959,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": 0.21363034646460036,
+        "recall_tol": 0.31145251396648044
+       }
+      }
+     }
+    },
+    "Z_out": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.03352788217866626,
+       "interval_95": [
+        0.007768490837460821,
+        0.08514124075728764
+       ],
+       "half_width": 0.03868637495991341
+      },
+      "ROC_AUC": {
+       "estimate": 0.8934911425206471,
+       "interval_95": [
+        0.8318820478587907,
+        0.9421757526558122
+       ],
+       "half_width": 0.05514685239851075
+      },
+      "prevalence": {
+       "estimate": 0.007353880986725583,
+       "interval_95": [
+        0.0017901875851194541,
+        0.014461854415524108
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.0,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 779413,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": null,
+        "recall_tol": 0.0
+       }
+      },
+      "top5": {
+       "threshold": 0.13128492012619972,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 31550,
+        "FN": 0,
+        "TN": 747863,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": 0.27991053088054046,
+        "recall_tol": 1.0
+       }
+      }
+     }
+    },
+    "shift_pr_auc": {
+     "0": {
+      "Z_in": 0.005583298120497063,
+      "Z_out": 0.03352788217866626
+     },
+     "row+25um": {
+      "Z_in": 0.0036345204134716454,
+      "Z_out": 0.02463073175478936
+     },
+     "col+25um": {
+      "Z_in": 0.006361638532941979,
+      "Z_out": 0.03492511359501586
+     },
+     "row-25um": {
+      "Z_in": 0.008556885382254142,
+      "Z_out": 0.04016578105914792
+     },
+     "col-25um": {
+      "Z_in": 0.004902533264073073,
+      "Z_out": 0.03133792578957243
+     },
+     "row+50um": {
+      "Z_in": 0.002144043225798074,
+      "Z_out": 0.016928547316063938
+     },
+     "col+50um": {
+      "Z_in": 0.0073522537286877555,
+      "Z_out": 0.035868432323302356
+     },
+     "row-50um": {
+      "Z_in": 0.012499965134046416,
+      "Z_out": 0.04506529164311953
+     },
+     "col-50um": {
+      "Z_in": 0.004333510037245813,
+      "Z_out": 0.027911697683233018
+     },
+     "row+100um": {
+      "Z_in": 5.6060761240382825e-05,
+      "Z_out": 0.0008249653556910606
+     },
+     "col+100um": {
+      "Z_in": 0.009666341821604247,
+      "Z_out": 0.03539845284212012
+     },
+     "row-100um": {
+      "Z_in": 0.026424905355622787,
+      "Z_out": 0.0640020387215833
+     },
+     "col-100um": {
+      "Z_in": 0.0038968506984488585,
+      "Z_out": 0.017613934471884713
+     }
+    }
+   }
+  },
+  ">> 8": {
+   "roi2": {
+    "valid_pixels": 876272,
+    "label_positive_fraction": 0.0360378969087224,
+    "Z_in": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.031115189817503663,
+       "interval_95": [
+        0.01361503278854018,
+        0.050366823068866806
+       ],
+       "half_width": 0.018375895140163315
+      },
+      "ROC_AUC": {
+       "estimate": 0.4785137734720684,
+       "interval_95": [
+        0.371094867843349,
+        0.5912032903643033
+       ],
+       "half_width": 0.11005421126047715
+      },
+      "prevalence": {
+       "estimate": 0.0360378969087224,
+       "interval_95": [
+        0.016908071988010785,
+        0.059381525196844046
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.08328692460788431,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 60205,
+        "FN": 0,
+        "TN": 623611,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": 0.17507056534487955,
+        "recall_tol": 0.19284967858386903
+       }
+      },
+      "top5": {
+       "threshold": 0.656136494874954,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 40052,
+        "FN": 0,
+        "TN": 643764,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": 0.08586296617519515,
+        "recall_tol": 0.18366636055606575
+       }
+      }
+     }
+    },
+    "Z_out": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.09825565892728952,
+       "interval_95": [
+        0.043385696965177675,
+        0.16182949677369093
+       ],
+       "half_width": 0.05922189990425663
+      },
+      "ROC_AUC": {
+       "estimate": 0.8247665017073449,
+       "interval_95": [
+        0.7539585043183038,
+        0.8777175764760774
+       ],
+       "half_width": 0.0618795360788868
+      },
+      "prevalence": {
+       "estimate": 0.0360378969087224,
+       "interval_95": [
+        0.016908071988010785,
+        0.059381525196844046
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.0,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 683816,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": null,
+        "recall_tol": 0.0
+       }
+      },
+      "top5": {
+       "threshold": 0.14013763666152954,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 28877,
+        "FN": 0,
+        "TN": 654939,
+        "defined": false,
+        "pixels": 683816
+       },
+       "tolerance": {
+        "precision_tol": 0.34091842789975807,
+        "recall_tol": 0.9553500744165426
+       }
+      }
+     }
+    }
+   },
+   "roi5": {
+    "valid_pixels": 876272,
+    "label_positive_fraction": 0.007353880986725583,
+    "Z_in": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.005411948166772114,
+       "interval_95": [
+        0.0014279228478072095,
+        0.010811858803086171
+       ],
+       "half_width": 0.004691967977639481
+      },
+      "ROC_AUC": {
+       "estimate": 0.3742568993826664,
+       "interval_95": [
+        0.2696098608761403,
+        0.5087147371400935
+       ],
+       "half_width": 0.11955243813197661
+      },
+      "prevalence": {
+       "estimate": 0.007353880986725583,
+       "interval_95": [
+        0.0017901875851194541,
+        0.014461854415524108
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.02591318677305677,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 18323,
+        "FN": 0,
+        "TN": 761090,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": 0.19306821684942968,
+        "recall_tol": 0.00015518311607697082
+       }
+      },
+      "top5": {
+       "threshold": 0.25527384728193275,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 32800,
+        "FN": 0,
+        "TN": 746613,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": 0.2513808371753321,
+        "recall_tol": 0.2911235257603973
+       }
+      }
+     }
+    },
+    "Z_out": {
+     "ranking": {
+      "blocks": 252,
+      "PR_AUC": {
+       "estimate": 0.031473334045487016,
+       "interval_95": [
+        0.008799787310445867,
+        0.07310671923812523
+       ],
+       "half_width": 0.03215346596383968
+      },
+      "ROC_AUC": {
+       "estimate": 0.8892917649555392,
+       "interval_95": [
+        0.8397890503206529,
+        0.9327493663722194
+       ],
+       "half_width": 0.04648015802578326
+      },
+      "prevalence": {
+       "estimate": 0.007353880986725583,
+       "interval_95": [
+        0.0017901875851194541,
+        0.014461854415524108
+       ]
+      }
+     },
+     "thresholds": {
+      "0.5": {
+       "threshold": 0.5,
+       "predicted_fraction": 0.0,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 779413,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": null,
+        "recall_tol": 0.0
+       }
+      },
+      "top5": {
+       "threshold": 0.1310390368103981,
+       "predicted_fraction": 0.05000045647926671,
+       "pixel_outside_tolerance_band": {
+        "TP": 0,
+        "FP": 32945,
+        "FN": 0,
+        "TN": 746468,
+        "defined": false,
+        "pixels": 779413
+       },
+       "tolerance": {
+        "precision_tol": 0.24807139270552792,
+        "recall_tol": 1.0
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "hypotheses": {
+  "H1": {
+   "statement": "PR-AUC(Z_in) > PR-AUC(Z_out) in both ROIs, primary window",
+   "per_roi": {
+    "roi2": {
+     "Z_in": 0.031837970449002516,
+     "Z_out": 0.12105330522316372
+    },
+    "roi5": {
+     "Z_in": 0.005583298120497063,
+     "Z_out": 0.03352788217866626
+    }
+   },
+   "supported": false
+  },
+  "H2": {
+   "statement": "PR-AUC(Z_in) exceeds the positive-class prevalence (chance level) by more than its block-bootstrap 95 % half-width in both ROIs",
+   "per_roi": {
+    "roi2": {
+     "PR_AUC_Z_in": 0.031837970449002516,
+     "prevalence": 0.0360378969087224,
+     "half_width": 0.018617090767510697
+    },
+    "roi5": {
+     "PR_AUC_Z_in": 0.005583298120497063,
+     "prevalence": 0.007353880986725583,
+     "half_width": 0.004824421664795428
+    }
+   },
+   "supported": false
+  }
+ }
+}

@@ -28,6 +28,12 @@ def test_binned_ranking_matches_exact_average_precision_and_auc(module):
     assert module.ranking(np.zeros(module.BINS), np.ones(module.BINS)) == (None, None)
 
 
+def test_edge_distance_is_measured_inside_both_classes(module):
+    truth = np.zeros((1, 11), bool)
+    truth[0, 6:] = True
+    np.testing.assert_array_equal(module.edge_distance(truth)[0], [6, 5, 4, 3, 2, 1, 1, 2, 3, 4, 5])
+
+
 def test_pixel_metrics_and_undefined_class(module):
     pred = np.array([1, 1, 0, 0], bool)
     truth = np.array([1, 0, 1, 0], bool)

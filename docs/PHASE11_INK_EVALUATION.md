@@ -1,5 +1,7 @@
 # Phase 11 · Confrontation CT–IR : bloquée
 
+> **Suite (phase 12).** L'évaluation a été faite après décisions et gel du protocole. [Rapport](PHASE12_INK_EVALUATION.md)
+
 **Aucune métrique d'encre n'a été calculée sur Frag4. Les trois conditions d'ouverture fixées avant la phase ne sont pas réunies, et les étiquettes n'ont pas été téléchargées.** Calculer précision, rappel, Dice ou PR-AUC maintenant produirait des chiffres que l'on ne pourrait ni interpréter comme une généralisation ni défendre comme une mesure géométriquement correcte.
 
 ## Conditions et état

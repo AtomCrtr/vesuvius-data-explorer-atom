@@ -109,15 +109,21 @@ def sample_labels(labels, origin, pad, shift_px=(0.0, 0.0)):
     return labels[np.ix_(rows, cols)]
 
 
+def edge_distance(truth):
+    """Distance (px) from each pixel to the nearest pixel of the other class, i.e. to a label edge."""
+    from scipy import ndimage
+
+    # One term is zero on every pixel; the sum is the distance in its own class (fixed after f9c965d).
+    return ndimage.distance_transform_edt(truth) + ndimage.distance_transform_edt(~truth)
+
+
 def evaluate_map(score, truth_padded, valid, pad, tol_px):
     from scipy import ndimage
 
     crop = np.s_[pad:pad + OUT_PX, pad:pad + OUT_PX]
     truth = truth_padded[crop]
-    to_positive = ndimage.distance_transform_edt(~truth_padded)
-    # Distance (output px) to the nearest pixel of the other class, i.e. to a label edge.
-    edge_dist = np.minimum(ndimage.distance_transform_edt(truth_padded), to_positive)[crop]
-    to_positive = to_positive[crop]
+    to_positive = ndimage.distance_transform_edt(~truth_padded)[crop]
+    edge_dist = edge_distance(truth_padded)[crop]
     core = valid & (edge_dist > tol_px)
     positives = valid & truth
     result = {"ranking": ranking_with_interval(score, truth, valid), "thresholds": {}}

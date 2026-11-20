@@ -1,5 +1,15 @@
 # Passation à Claude Opus
 
+## Phase 12 · Première évaluation d'encre de A sur Frag4
+
+Branche `feat/vesuvius-phase12`, créée depuis `main` (`e13fc36`). Le protocole (`5c0602f`) et le script (`f9c965d`) ont été commités avant l'ouverture des étiquettes. [Rapport](PHASE12_INK_EVALUATION.md)
+
+- **H1 et H2 rejetées.** Z_in (air → papyrus) est au niveau du hasard : ROC-AUC 0,49 et 0,40, PR-AUC sous la prévalence.
+- **Exploratoire.** Z_out classe l'encre (ROC-AUC 0,86 et 0,89 ; PR-AUC 3,4 et 4,5 × la prévalence), sans jamais dépasser 0,5. Le résultat est stable entre les fenêtres W2 et `>> 8`. L'intensité brute plafonne vers 0,64 (contrôle a posteriori).
+- **Métriques au pixel indéfinies.** Aucun trait d'encre n'est plus large que deux fois la tolérance de 301 µm.
+- **Correction déclarée.** Un bug de la bande de tolérance a été corrigé après le premier passage ; les rangs sont inchangés.
+- **Suite.** Pré-enregistrer H3 (Z_out au-dessus du hasard) sur de nouvelles ROI de Frag4, puis sur Frag1 et Frag3. Les ROI 2 et 5 sont désormais vues. Le complément à villa#2627 est rédigé mais pas envoyé. [Complément](PHASE12_COMMUNITY_FOLLOWUP.md)
+
 ## Phase 11 · Revue complète et premier contrôle multimodal sur Frag4
 
 Branche locale `feat/vesuvius-phase11`, créée depuis `feat/vesuvius-phase10` (`dbac5b6`). [Bilan](VESUVIUS_PHASE11.md)
@@ -9,7 +19,7 @@ Branche locale `feat/vesuvius-phase11`, créée depuis `feat/vesuvius-phase10` (
 - **IR.** Résidu ≈ 52 µm médian perpendiculairement à la fissure supérieure, contour ≤ ~200 µm RMS ; seuil de 6,5 µm non atteint et inatteignable (IR natif ≈ 20 µm/px). Étiquettes non téléchargées, métriques d'encre bloquées. [Évaluation](PHASE11_INK_EVALUATION.md)
 - **A sur Frag4.** Hors recette (air ≈ 0,48 après `>> 8`, normalisation ÷ 255/÷ 200 ouverte). Inversion Z : Spearman 0,03 et −0,08, top 1 % disjoints ; réponse seulement de l'air vers le papyrus. [Compatibilité](PHASE11_CHECKPOINT_COMPATIBILITY.md) · [Z](PHASE11_Z_GENERALIZATION.md)
 - **Décisions du 21 novembre.** Tolérance 301 µm, fenêtre W2 (moments ajustés sur la recette), protocole d'évaluation gelé, note envoyée : [villa#2627](https://github.com/ScrollPrize/villa/issues/2627). Avec W2, l'effet Z est inchangé. [Décisions](PHASE11_DECISIONS.md)
-- **Suite.** Ouvrir les étiquettes selon le protocole gelé et évaluer Frag4 en exploratoire ; demander l'attestation d'entraînement. Tâches Codex T1–T5. 359 tests natifs et 65 ciblés Rust réussis. [Feuille de route](ROADMAP_SCIENTIFIC_NEXT_STEPS.md) · [Note communautaire, non envoyée](PHASE11_COMMUNITY_NOTE.md)
+- **Suite.** Ouvrir les étiquettes selon le protocole gelé et évaluer Frag4 en exploratoire ; demander l'attestation d'entraînement. Tâches Codex T1–T5. 359 tests natifs et 65 ciblés Rust réussis. [Feuille de route](ROADMAP_SCIENTIFIC_NEXT_STEPS.md) · [Note communautaire, envoyée](PHASE11_COMMUNITY_NOTE.md)
 
 ## Phase 10 · Provenance CT–IR et préparation du pilote indépendant
 
