@@ -1,0 +1,95 @@
+{
+ "blind": "CT only; ink labels and predictions not read",
+ "patch_origins_rc": [
+  [
+   2008,
+   2144
+  ],
+  [
+   2008,
+   3840
+  ],
+  [
+   3880,
+   2144
+  ],
+  [
+   3880,
+   3840
+  ],
+  [
+   5744,
+   2144
+  ],
+  [
+   5744,
+   3840
+  ],
+  [
+   7616,
+   2144
+  ],
+  [
+   7616,
+   3840
+  ]
+ ],
+ "side": 128,
+ "air_layers": [
+  52,
+  56,
+  60,
+  64
+ ],
+ "papyrus_layers": [
+  11,
+  14,
+  17,
+  20,
+  23,
+  26,
+  29,
+  32
+ ],
+ "air_level_u16": 24918.0,
+ "air_iqr_u16": [
+  23992.0,
+  25838.0
+ ],
+ "top_percentile": 99.9,
+ "top_u16": 60023.70000000065,
+ "papyrus_after_window_mean_over_200": 0.17001657009124757,
+ "papyrus_after_shift8_mean_over_200": 0.5587161111831666,
+ "w1_papyrus_clipped_to_zero": 0.33028125762939453,
+ "w2_depth_layers": [
+  11,
+  14,
+  17,
+  20,
+  23,
+  26,
+  29,
+  32,
+  35,
+  38,
+  41,
+  44,
+  47,
+  50,
+  53
+ ],
+ "w2_mean_u16": 26401.64633687337,
+ "w2_std_u16": 7416.492636253954,
+ "w2_target_mean_std_over_200": [
+  0.379,
+  0.148
+ ],
+ "w2_after_mean_std_over_200": [
+  0.37909918467203774,
+  0.14716753874821922
+ ],
+ "w2_saturated_fraction": 0.0007624308268229167,
+ "w2_zero_fraction": 0.00389556884765625,
+ "primary": "W2",
+ "rule": "(uint16 v -> uint8): round(200 * clip((v - air) / (top - air), 0, 1)), so that the\ninference rule clip 200 / 200 sends air to 0 and the window top to 1.\n\nW1 (above) was frozen first; it clips the papyrus darker than air (a large share in this DLS\nvolume) and gives a papyrus mean of 0.17 against 0.38 in the recipe. W2, decided after seeing W1's\nstatistics (never labels or scores), is primary: a linear map matching the mean and standard\ndeviation of layers 11..53 (A's whole depth range) to the verified PHerc0500P2 reference tile\n(0.379 and 0.148 after clip 200 / 200)."
+}

@@ -1,0 +1,43 @@
+{
+ "title": "Frag4 / PHercParis1Fr39: first exploratory ink evaluation of checkpoint A",
+ "frozen_utc": "2026-11-21",
+ "status_before_labels": "PHercParis1Fr39_54keV_inklabels.png not downloaded when this file was committed",
+ "label_of_results": "exploratory; direct exclusion from A's training probable, not attested",
+ "checkpoint_sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+ "regions": {
+  "rule": "ROIs 2 and 5 of phase11_z_frag4.py (1024 x 1024 px at 2.215 um, centred on frozen geometric patches 2 and 5)",
+  "support": "published mask eroded by 16 px and Hann weight >= 25 % of maximum"
+ },
+ "intensity": {
+  "primary": "W2 moment matching, docs/validation/phase11-window.json (mean 26401.6, std 7416.5 uint16 -> 0.379, 0.148)",
+  "secondary": ">> 8 (phase 11 baseline)"
+ },
+ "depth_orders": ["Z_in (air -> papyrus)", "Z_out (papyrus -> air)"],
+ "labels": {
+  "source": "working/54keV_exposed_surface/PHercParis1Fr39_54keV_inklabels.png on the 6064 x 9791 grid",
+  "resampling": "same grid mapping as the CT input (nominal 3.24 -> 2.215 um), nearest neighbour",
+  "positive": "label value > 127"
+ },
+ "registration_tolerance": {
+  "function": "vesuvius_data_explorer.core.optical_registration.registration_tolerance",
+  "residuals": "docs/validation/phase11-cracks.json, both cracks, continuity-filtered bins (n = 77)",
+  "reference_px_um": 19.58,
+  "ct_px_um": 3.24,
+  "k": 3,
+  "rule": "the larger of the upper-crack and pooled tolerances (conservative)",
+  "tolerance_um": 301.2,
+  "use": "pixels closer than the tolerance to a label edge are excluded from pixel metrics; boundary metrics use this distance"
+ },
+ "metrics": {
+  "pixel": ["TP", "FP", "FN", "TN", "precision", "recall", "Dice", "Jaccard"],
+  "ranking": ["PR-AUC (average precision)", "ROC-AUC"],
+  "thresholds": [0.5, "top 5 % of scores per ROI"],
+  "intervals": "block bootstrap, 64 x 64 blocks, 499 draws, seed 208",
+  "shift_sensitivity_um": [0, 25, -25, 50, -50, 100, -100]
+ },
+ "hypotheses": {
+  "H1": "PR-AUC(Z_in) > PR-AUC(Z_out) in both ROIs, primary window",
+  "H2": "PR-AUC(Z_in) exceeds the positive-class prevalence (chance level) by more than its block-bootstrap 95 % half-width in both ROIs"
+ },
+ "not_allowed_after_labels": ["changing ROIs, window, tolerance, thresholds or depth orders", "selecting the better order and reporting only it"]
+}

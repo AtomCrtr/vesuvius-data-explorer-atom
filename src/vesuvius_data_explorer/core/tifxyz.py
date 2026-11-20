@@ -70,7 +70,8 @@ def _filesystem(source: str):
         return fsspec.filesystem("https"), source
     raise ValueError(
         "Utiliser un dossier local, une URI s3:// publique ou une URL HTTPS officielle "
-        "(data.aws.ash2txt.org) ; cette adresse de segment n'est pas prise en charge."
+        f"({', '.join(sorted(ALLOWED_HTTPS_HOSTS))}) ; cette adresse de segment n'est pas prise "
+        "en charge."
     )
 
 

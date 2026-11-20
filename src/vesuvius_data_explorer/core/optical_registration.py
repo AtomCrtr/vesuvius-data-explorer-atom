@@ -114,6 +114,28 @@ def landmarks_fit(rows, optical, ct, *, feature_um, kind="rigid", parity=1):
             }
 
 
+def registration_tolerance(residuals_um, *, reference_px_um, ct_px_um, k=3.0, min_count=20):
+    """Spatial tolerance for evaluating against a coarse optical reference (phase 11).
+
+    Pixel-level metrics need a residual below 2 CT pixels, which a reference coarser than the CT
+    cannot reach. The tolerance is the larger of |median bias| + k robust sigmas of independent
+    residuals (sigma = 1.4826 MAD) and 2 pixels of either grid; metrics must ignore or tolerate
+    that distance around label edges.
+    """
+    residuals = np.asarray(residuals_um, float)
+    if residuals.ndim != 1 or residuals.size < min_count or not np.isfinite(residuals).all():
+        raise ValueError(f"At least {min_count} finite independent residuals are required")
+    if min(reference_px_um, ct_px_um) <= 0 or k <= 0:
+        raise ValueError("Pixel sizes and k must be positive")
+    bias = float(np.median(residuals))
+    sigma = float(1.4826 * np.median(np.abs(residuals - bias)))
+    floor = 2 * max(reference_px_um, ct_px_um)
+    tolerance = max(abs(bias) + k * sigma, floor)
+    return {"n": int(residuals.size), "bias_um": bias, "robust_sigma_um": sigma, "k": k,
+            "floor_um": floor, "tolerance_um": tolerance,
+            "pixel_metrics_valid": bool(abs(bias) + k * sigma <= 2 * ct_px_um)}
+
+
 def warp_optical(frame, optical, ct, audit, *, support, discrete=False):
     """Resample from the optical grid, respecting missing pixels and the landmark hull."""
     if (frame.shape[:2] != optical.shape or frame.ndim not in (2, 3)

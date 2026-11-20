@@ -1,0 +1,222 @@
+{
+ "blind": "ink labels not read; label-free comparison of two depth orders",
+ "recipe": "(documented in docs/PHASE11_CHECKPOINT_COMPATIBILITY.md):\n- ROIs centred on patches 2 and 5 of the frozen geometric list of phase11_geometry.select_patches;\n- 1024 x 1024 output pixels at 2.215 um from the 3.24 um surface volume (nominal pitch), 62 planes at\n  depths (k - 58.5) * 2.215 um, k in [28, 90), around layer 32, trilinear in (layer, row, col);\n- uint16 -> uint8 by >> 8 (Villa training reader), then the inference rule clip 200 / 200 (phase 6);\n  with ``--window docs/validation/phase11-window.json`` the W2 moment-matching window replaces >> 8\n  and every file name gets the suffix ``-w2`` (pass the option to all three steps);\n- Z_out: plane index increasing toward air (ascending Frag4 layers); Z_in: the reverse.",
+ "prepare": {
+  "layers_read": [
+   11,
+   53
+  ],
+  "layer_coords": [
+   11.148919753086425,
+   11.832561728395063,
+   12.516203703703706,
+   13.199845679012348,
+   13.88348765432099,
+   14.567129629629633,
+   15.250771604938272,
+   15.934413580246915,
+   16.618055555555557,
+   17.3016975308642,
+   17.985339506172842,
+   18.668981481481485,
+   19.352623456790127,
+   20.036265432098766,
+   20.71990740740741,
+   21.40354938271605,
+   22.08719135802469,
+   22.770833333333336,
+   23.454475308641975,
+   24.13811728395062,
+   24.82175925925926,
+   25.505401234567902,
+   26.189043209876544,
+   26.872685185185187,
+   27.55632716049383,
+   28.23996913580247,
+   28.92361111111111,
+   29.607253086419753,
+   30.290895061728396,
+   30.974537037037038,
+   31.65817901234568,
+   32.34182098765432,
+   33.02546296296296,
+   33.70910493827161,
+   34.39274691358025,
+   35.076388888888886,
+   35.76003086419753,
+   36.44367283950617,
+   37.12731481481482,
+   37.810956790123456,
+   38.494598765432094,
+   39.17824074074074,
+   39.86188271604938,
+   40.545524691358025,
+   41.229166666666664,
+   41.91280864197531,
+   42.59645061728395,
+   43.280092592592595,
+   43.963734567901234,
+   44.64737654320987,
+   45.33101851851852,
+   46.01466049382716,
+   46.6983024691358,
+   47.38194444444444,
+   48.06558641975309,
+   48.74922839506173,
+   49.43287037037037,
+   50.11651234567901,
+   50.80015432098765,
+   51.48379629629629,
+   52.16743827160494,
+   52.851080246913575
+  ],
+  "rois": [
+   {
+    "name": "roi2",
+    "patch_index": 2,
+    "native_origin_rc": [
+     3592,
+     1856
+    ],
+    "native_size": 706,
+    "npy_sha256": "5a7e9b71f2e8c319941d414f613c3f8ece45c39f31103435951d187779f73ba0",
+    "mask_fraction": 1.0
+   },
+   {
+    "name": "roi5",
+    "patch_index": 5,
+    "native_origin_rc": [
+     5456,
+     3552
+    ],
+    "native_size": 706,
+    "npy_sha256": "bc1da75b39675fa97805b8dbc6eb39c55b19c71c4617eb13473c7b2878060343",
+    "mask_fraction": 1.0
+   }
+  ],
+  "intensity": {
+   "window": "W2",
+   "w2_mean_u16": 26401.64633687337,
+   "w2_std_u16": 7416.492636253954,
+   "w2_target_mean_std_over_200": [
+    0.379,
+    0.148
+   ]
+  }
+ },
+ "run": {
+  "weights_sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+  "torch": "2.8.0+cu126",
+  "cuda": "12.6",
+  "gpu": "NVIDIA GeForce RTX 4080 Laptop GPU",
+  "tiles_per_map": 49,
+  "inference": "eval_fp32_no_tf32_deterministic_cudnn",
+  "repeat_max_abs_diff": {
+   "roi2_Z_out": 0.0,
+   "roi2_Z_in": 0.0,
+   "roi5_Z_out": 0.0,
+   "roi5_Z_in": 0.0
+  },
+  "scores_npz_sha256": "838bb958c9677c237875557ef8e8b50cb6e2386e4e057f6f9d239be712b96308"
+ },
+ "rois": {
+  "roi2": {
+   "valid_pixels": 876272,
+   "correlations": {
+    "paired_pixels": 876272,
+    "pearson": 0.007930122728932338,
+    "spearman": 0.02696375256533387
+   },
+   "mean_abs_change": 0.07098094077244431,
+   "mean_abs_change_block64": {
+    "block_side": 64,
+    "blocks": 252,
+    "draws": 499,
+    "seed": 208,
+    "interval_95": [
+     0.05427726395234847,
+     0.08647151339372347
+    ],
+    "estimate": 0.07098094077244431
+   },
+   "score_mean": {
+    "Z_out": 0.12598511633197293,
+    "Z_in": 0.1964425043394874
+   },
+   "score_p99": {
+    "Z_out": 0.15626610755920411,
+    "Z_in": 0.7710889536142349
+   },
+   "fraction_above_0.5": {
+    "Z_out": 0.0,
+    "Z_in": 0.0599243157375792
+   },
+   "top_overlap": {
+    "top1": {
+     "shared": 0,
+     "selected_each": 8763,
+     "jaccard": 0.0
+    },
+    "top5": {
+     "shared": 0,
+     "selected_each": 43814,
+     "jaccard": 0.0
+    },
+    "top10": {
+     "shared": 4963,
+     "selected_each": 87628,
+     "jaccard": 0.029143887300123905
+    }
+   }
+  },
+  "roi5": {
+   "valid_pixels": 876272,
+   "correlations": {
+    "paired_pixels": 876272,
+    "pearson": 0.057792907110343475,
+    "spearman": -0.006134919423913703
+   },
+   "mean_abs_change": 0.043264787383985655,
+   "mean_abs_change_block64": {
+    "block_side": 64,
+    "blocks": 252,
+    "draws": 499,
+    "seed": 208,
+    "interval_95": [
+     0.03489313701798479,
+     0.055142985954931105
+    ],
+    "estimate": 0.043264787383985655
+   },
+   "score_mean": {
+    "Z_out": 0.12452064684387291,
+    "Z_in": 0.16770284944541872
+   },
+   "score_p99": {
+    "Z_out": 0.1400589692592621,
+    "Z_in": 0.7014900779724123
+   },
+   "fraction_above_0.5": {
+    "Z_out": 0.0,
+    "Z_in": 0.023197135136122118
+   },
+   "top_overlap": {
+    "top1": {
+     "shared": 0,
+     "selected_each": 8763,
+     "jaccard": 0.0
+    },
+    "top5": {
+     "shared": 6812,
+     "selected_each": 43814,
+     "jaccard": 0.08429023955652346
+    },
+    "top10": {
+     "shared": 13795,
+     "selected_each": 87628,
+     "jaccard": 0.08543858888524164
+    }
+   }
+  }
+ }
+}
