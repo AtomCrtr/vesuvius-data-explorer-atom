@@ -152,10 +152,13 @@ def test_multimodal_uses_registered_layers_only_with_scale_and_location_proof(mu
     assert np.isnan(images["uncertainty"][0,0])
 
 
-def test_napari_open_validation_keeps_unlocalized_modalities_separate(multimodal_path, monkeypatch, qtbot):
+def test_napari_open_validation_keeps_unlocalized_modalities_separate(multimodal_path, monkeypatch, request):
     napari = pytest.importorskip("napari")
+    pytest.importorskip("pytestqt")
     from vesuvius_data_explorer.napari import multimodal
     from vesuvius_data_explorer.napari.comparison_widget import ComparisonWidget
+
+    qtbot = request.getfixturevalue("qtbot")
     viewer = napari.Viewer(show=False)
     try:
         widget = ComparisonWidget(viewer)
