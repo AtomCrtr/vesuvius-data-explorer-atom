@@ -1,6 +1,7 @@
 """Real local Zarr stores exercise metadata discovery and bounded lazy reads."""
 
 import json
+from contextlib import nullcontext
 from copy import deepcopy
 from dataclasses import FrozenInstanceError
 
@@ -8,8 +9,10 @@ import dask.array as da
 import numpy as np
 import pytest
 import zarr
+from zarr.storage import LocalStore
 
 from vesuvius_data_explorer import volume
+from vesuvius_data_explorer.core import volume as core
 
 
 @pytest.fixture(params=[2, 3], ids=["zarr-v2", "zarr-v3"])
@@ -45,6 +48,46 @@ def pyramid(tmp_path, request):
         }
     ]
     return path, root
+
+
+@pytest.mark.parametrize("opener", ["open_levels", "open_multiscale"])
+def test_open_reads_each_remote_level_metadata_once(pyramid, monkeypatch, opener):
+    path, _ = pyramid
+    root = zarr.open_group(str(path), mode="r", use_consolidated=False)
+    original_get = LocalStore.get
+    requests = []
+
+    async def track(store, key, *args, **kwargs):
+        requests.append(key)
+        return await original_get(store, key, *args, **kwargs)
+
+    monkeypatch.setattr(core, "open_volume_store", lambda *args, **kwargs: root)
+    monkeypatch.setattr(LocalStore, "get", track)
+    arrays, levels = getattr(core, opener)("s3://example/volume.zarr")
+    assert [level.key for level in levels] == ["fine", "medium", "coarse"]
+    assert [array.shape for array in arrays] == [level.shape for level in levels]
+    suffix = ".zarray" if root.metadata.zarr_format == 2 else "zarr.json"
+    assert sorted(key for key in requests if key.endswith(suffix)) == [
+        f"{level}/{suffix}" for level in ("coarse", "fine", "medium")]
+    assert all(key.rsplit("/", 1)[-1] in {suffix, ".zgroup", ".zattrs"} for key in requests)
+
+
+def test_open_uses_consolidated_children(pyramid, monkeypatch):
+    path, root = pyramid
+    expected_warning = pytest.warns(UserWarning) if root.metadata.zarr_format == 3 else nullcontext()
+    with expected_warning:
+        zarr.consolidate_metadata(str(path))
+    original_get = LocalStore.get
+    requests = []
+
+    async def track(store, key, *args, **kwargs):
+        requests.append(key)
+        return await original_get(store, key, *args, **kwargs)
+
+    monkeypatch.setattr(LocalStore, "get", track)
+    arrays, levels = core.open_levels(str(path))
+    assert len(arrays) == len(levels) == 3
+    assert requests and not any("/" in key for key in requests)
 
 
 def test_multiscale_metadata_and_json_summary(pyramid):

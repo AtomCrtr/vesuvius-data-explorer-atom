@@ -1,0 +1,346 @@
+{
+  "axes": [
+    "v",
+    "u"
+  ],
+  "bounds": "half_open",
+  "license": "https://dl.ash2txt.org/LICENSE.txt",
+  "publication": "https://arxiv.org/html/2304.02084v4",
+  "split": "reference_only",
+  "glyph_reference": {
+    "sample": "PHercParis1Fr34",
+    "figure": 3,
+    "uri": "https://arxiv.org/html/2304.02084v4#S2.F3",
+    "region_registration": "figure_only"
+  },
+  "fragments": [
+    {
+      "sample": "PHercParis2Fr47",
+      "parent_scroll": "PHercParis2",
+      "grid_shape_vu": [
+        8181,
+        6330
+      ],
+      "face": "published exposed surface",
+      "sources": {
+        "mask.png": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/mask.png",
+          "bytes": 61652,
+          "sha256": "1fdc13f7dc149dc4e00272af597ba236b650e54bb2dca38865f211207cee069f"
+        },
+        "inklabels.png": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/inklabels.png",
+          "bytes": 88875,
+          "sha256": "bc36bd54e84b423faa44d3b62ca0d3a3c28403cb714b154acb382f94241d39b6"
+        },
+        "ir.png": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/ir.png",
+          "bytes": 7971242,
+          "sha256": "58649bd0e9f4033452559cee4281ec9d583168e246a9142c572cd1f577d5550a"
+        },
+        "surface-meta.json": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/surface_volume/meta.json",
+          "sha256": "6a33b57ae1f93dd52f93af3fc508d6969d4ddd013c81c8f87f769260994cd60f",
+          "bytes": 215,
+          "published_metadata": {
+            "height": 8181,
+            "max": 65535.0,
+            "min": 0.0,
+            "name": "PHercParis2Fr47 54KeV merged, segmented and converted with vc_layers to surface volume",
+            "slices": 65,
+            "type": "vol",
+            "uuid": "20230205211313",
+            "voxelsize": 3.24,
+            "width": 6330
+          }
+        },
+        "ct": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/surface_volume/32.tif",
+          "plane": 32,
+          "dtype": "uint16",
+          "byteorder": ">",
+          "size_bytes": 103571722,
+          "pixel_data_offset": 262
+        }
+      },
+      "regions": [
+        {
+          "id": "Frag1/ink",
+          "kind": "ink",
+          "start_vu": [
+            1792,
+            3328
+          ],
+          "stop_vu": [
+            1920,
+            3456
+          ],
+          "ct_range": [
+            22693638,
+            24301714
+          ],
+          "labels": {
+            "0": 13429,
+            "1": 2955,
+            "255": 0
+          },
+          "pixels_sha256": {
+            "ct": "0efaca6558f87a1df96b12e05985d6bab353c0a5a602e8f7bf920e47bb1fa0cb",
+            "ir": "1d70997c1aa77ebfcb57c772b34b6f3e3d8a7377e3ba39c72a057bb446b522ef",
+            "labels": "952d3c6df0010d25a50d3d09699efd67c288a16c30dcfeffbf9eb7dc03a30d58"
+          },
+          "usage": "reference_only"
+        },
+        {
+          "id": "Frag1/background",
+          "kind": "background",
+          "start_vu": [
+            128,
+            4608
+          ],
+          "stop_vu": [
+            256,
+            4736
+          ],
+          "ct_range": [
+            1629958,
+            3238034
+          ],
+          "labels": {
+            "0": 16384,
+            "1": 0,
+            "255": 0
+          },
+          "pixels_sha256": {
+            "ct": "d056e6621a4675b15a62ee35e796f7e1bf4a35811a5d5a15f33e6172dee26795",
+            "ir": "c80dcba8177d35153a9b570630e21a5176d585791a3b0a1057d233b622ae0c24",
+            "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+          },
+          "usage": "reference_only"
+        },
+        {
+          "id": "Frag1/sparse_traces",
+          "kind": "sparse_traces",
+          "start_vu": [
+            3584,
+            3072
+          ],
+          "stop_vu": [
+            3712,
+            3200
+          ],
+          "ct_range": [
+            45379846,
+            46987922
+          ],
+          "labels": {
+            "0": 16218,
+            "1": 166,
+            "255": 0
+          },
+          "pixels_sha256": {
+            "ct": "fddc295b01a8b332a3355c9c05a5bd854137c1db9f1113fbe90680576bb85fd6",
+            "ir": "ed56644257797ae5ed95d373587d37f58842ca98fe9c2e763afef72ddbffe0ee",
+            "labels": "834d7e1164ca8f95a212fde4206f49fd9677c4efaa2e031a8667204ba8630c4a"
+          },
+          "usage": "reference_only"
+        },
+        {
+          "id": "Frag1/mask_edge_artifact",
+          "kind": "mask_edge_artifact",
+          "start_vu": [
+            7808,
+            2944
+          ],
+          "stop_vu": [
+            7936,
+            3072
+          ],
+          "ct_range": [
+            98855430,
+            100463506
+          ],
+          "labels": {
+            "0": 8223,
+            "1": 0,
+            "255": 8161
+          },
+          "pixels_sha256": {
+            "ct": "7c2ad80527d14e953b745f73e09f6e2553131cbd33d1e22a6ef4722b150f58ea",
+            "ir": "bb25667491371bd1f50840892436d677da4d0129fa21c458a32d91d8f46da3ed",
+            "labels": "ffda8541249fbaaefb2cf731a0f2c3f62256f2bb2c8f245486672a96ddfc8fba"
+          },
+          "usage": "mask_qa_only"
+        }
+      ],
+      "source_pixels": {
+        "ink_inside_mask": 5339364,
+        "ink_outside_mask": 0
+      }
+    },
+    {
+      "sample": "PHercParis1Fr34",
+      "parent_scroll": "PHercParis1",
+      "grid_shape_vu": [
+        7606,
+        5249
+      ],
+      "face": "published exposed surface",
+      "sources": {
+        "mask.png": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/mask.png",
+          "bytes": 40713,
+          "sha256": "f77c33cef758ffb17f63af0624aac5b04e93020a71e5103fa8370347427a87d8"
+        },
+        "inklabels.png": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/inklabels.png",
+          "bytes": 63677,
+          "sha256": "c2e716a716a9f9208fc4c26e4ecf25fb10a30824fce7709771658068af472d95"
+        },
+        "ir.png": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/ir.png",
+          "bytes": 7931111,
+          "sha256": "7d72ea4cbc33588fe406726cd108c90cbfa5f0b12d70bee26ca829b85e150b04"
+        },
+        "surface-meta.json": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/surface_volume/meta.json",
+          "sha256": "4ee01953fb2e683703fbd0c2f976f39f80560a36a4070a05ab5d536ba8543559",
+          "bytes": 215,
+          "published_metadata": {
+            "height": 7606,
+            "max": 65535.0,
+            "min": 0.0,
+            "name": "PHercParis1Fr34 54KeV merged, segmented and converted with vc_layers to surface volume",
+            "slices": 65,
+            "type": "vol",
+            "uuid": "20230301213423",
+            "voxelsize": 3.24,
+            "width": 5249
+          }
+        },
+        "ct": {
+          "uri": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/surface_volume/32.tif",
+          "plane": 32,
+          "dtype": "uint16",
+          "byteorder": "<",
+          "size_bytes": 79847973,
+          "pixel_data_offset": 8
+        }
+      },
+      "regions": [
+        {
+          "id": "Frag3/ink",
+          "kind": "ink",
+          "start_vu": [
+            5248,
+            1024
+          ],
+          "stop_vu": [
+            5376,
+            1152
+          ],
+          "ct_range": [
+            55095560,
+            56429062
+          ],
+          "labels": {
+            "0": 13440,
+            "1": 2944,
+            "255": 0
+          },
+          "pixels_sha256": {
+            "ct": "24593707c549317c60181744fe8b4a3274a2b5ec4be8b3aae14f59adc7fbeaa1",
+            "ir": "8081c67cb0b48c69dcecce4d4a7ccbde2709dac3b0336ce1d7872da69e054439",
+            "labels": "beb656db923ed3b859c6748a01691526803430e7bb10a469f86680e8d6eeea80"
+          },
+          "usage": "reference_only"
+        },
+        {
+          "id": "Frag3/background",
+          "kind": "background",
+          "start_vu": [
+            128,
+            3072
+          ],
+          "stop_vu": [
+            256,
+            3200
+          ],
+          "ct_range": [
+            1349896,
+            2683398
+          ],
+          "labels": {
+            "0": 16384,
+            "1": 0,
+            "255": 0
+          },
+          "pixels_sha256": {
+            "ct": "78384de409e56ea01c226f7f03692dc2000d09f6dbdb004acec4fd42ae59e02c",
+            "ir": "8ec5e4d27e7a6f7c0068b9b047c01c2ecbd5ab51b60c59e41ede5d364b47486d",
+            "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+          },
+          "usage": "reference_only"
+        },
+        {
+          "id": "Frag3/sparse_traces",
+          "kind": "sparse_traces",
+          "start_vu": [
+            2688,
+            2816
+          ],
+          "stop_vu": [
+            2816,
+            2944
+          ],
+          "ct_range": [
+            28224264,
+            29557766
+          ],
+          "labels": {
+            "0": 16226,
+            "1": 158,
+            "255": 0
+          },
+          "pixels_sha256": {
+            "ct": "c0ae02823f991270d53d98dade4813091205c63511cf9b57580dbee1edf63acf",
+            "ir": "92bf8aa4c711bf45089a762bdef0f7be816f33ed407baa6324c3ef39c6921646",
+            "labels": "c698295022ba4a0170c4afc446d7547cf4b612538d21400b44c01fe510ede3b8"
+          },
+          "usage": "reference_only"
+        },
+        {
+          "id": "Frag3/mask_edge_artifact",
+          "kind": "mask_edge_artifact",
+          "start_vu": [
+            5248,
+            0
+          ],
+          "stop_vu": [
+            5376,
+            128
+          ],
+          "ct_range": [
+            55093512,
+            56427014
+          ],
+          "labels": {
+            "0": 8306,
+            "1": 0,
+            "255": 8078
+          },
+          "pixels_sha256": {
+            "ct": "38f3c0642bc20bdf8d06e59f679b68d7dd1954cc1339d1b1df0d4ee998208e6b",
+            "ir": "6e34577f66f7aec6bf8ba6a5eb9c8e708ae10fa3c1db8730cab9bb280c1d0a4b",
+            "labels": "ab6414e1c790bf25c382666990547f7b0439743e329fcfed90647c407fd58b4d"
+          },
+          "usage": "mask_qa_only"
+        }
+      ],
+      "source_pixels": {
+        "ink_inside_mask": 3172435,
+        "ink_outside_mask": 48
+      }
+    }
+  ]
+}

@@ -20,6 +20,7 @@ from time import perf_counter
 from typing import Any, Callable
 
 from ..core.catalog import Catalog
+from ..core.geometry import verified_sampling
 from ..core.tifxyz import DEFAULT_MAX_BYTES
 from ..core.volume import open_levels
 from .engine import run_surface
@@ -74,6 +75,7 @@ def run_batch(catalog: Catalog, volume_id: str, *, max_segments: int | None = No
     arrays, levels = open_volume(volume.uri)
     shapes = [level.shape for level in levels]
     shared = (arrays, shapes) if alignment else None
+    sampling = verified_sampling(volume.uri, levels) if alignment else None
     folder = Path(reports_dir) if reports_dir is not None else None
     if folder is not None:
         folder.mkdir(parents=True, exist_ok=True)
@@ -83,7 +85,8 @@ def run_batch(catalog: Catalog, volume_id: str, *, max_segments: int | None = No
         try:
             report = run_surface(segment.uri, max_bytes=max_bytes, thresholds=thresholds,
                                  volume_shape=shapes[0], overlap_ratio=segment.overlap_ratio,
-                                 volume=shared, pixel_size_um=volume.pixel_size_um)
+                                 volume=shared, pixel_size_um=volume.pixel_size_um,
+                                 sampling=sampling)
         except Exception as error:  # recorded per segment: the batch goes on
             return _row(segment, error=f"{type(error).__name__} : {error}",
                         seconds=perf_counter() - begin)

@@ -1,0 +1,749 @@
+{
+  "primary_references": {
+    "profilometer": "https://doi.org/10.1038/s41598-026-58467-1",
+    "optical_repository": "https://huggingface.co/datasets/scrollprize/profilometer",
+    "frontal_figure": "https://arxiv.org/html/2606.29085v1#Sx12.F5",
+    "public_comparison": "https://github.com/ScrollPrize/villa/issues/1377"
+  },
+  "ir017": {
+    "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/multispectral/PHerc.500%20ACass.28%2BM1050IR_017.jpg",
+    "file": "PHerc.500 ACass.28+M1050IR_017.jpg",
+    "bytes": 18525702,
+    "sha256": "755b48dc366ccd72d8a4e167097603325621f7b5d266b416f878cbe9a8e3068a",
+    "width_height": [
+      8176,
+      6132
+    ],
+    "mode": "L",
+    "selected_exif": {
+      "ResolutionUnit": "2",
+      "Make": "MegaVision",
+      "Model": "E7 SN:18902777/Lens: HyperSpectral UV-IR_APOCHROMAT (3.0160 secs)",
+      "DateTime": "2025:04:09 12:01:29",
+      "XResolution": "359.156",
+      "YResolution": "359.156"
+    }
+  },
+  "frontal_assets": [
+    {
+      "id": "500P2_ir.png",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/500P2_ir.png",
+      "status": 206,
+      "content_range": "bytes 0-32/52144204",
+      "bytes_if_reported": "33",
+      "width_height": [
+        14990,
+        27160
+      ],
+      "sha256_of_prefix": "b451939b2c05c0dd2b9f8c9492f0180633f519cf2a85a80a9c928383ab32b499"
+    },
+    {
+      "id": "500P2_mask.png",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/500P2_mask.png",
+      "status": 206,
+      "content_range": "bytes 0-32/2095523",
+      "bytes_if_reported": "33",
+      "width_height": [
+        14990,
+        27160
+      ],
+      "sha256_of_prefix": "b451939b2c05c0dd2b9f8c9492f0180633f519cf2a85a80a9c928383ab32b499"
+    },
+    {
+      "id": "500P2_inklabels.png",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/500P2_inklabels.png",
+      "status": 206,
+      "content_range": "bytes 0-32/3668079",
+      "bytes_if_reported": "33",
+      "width_height": [
+        14990,
+        27160
+      ],
+      "sha256_of_prefix": "b451939b2c05c0dd2b9f8c9492f0180633f519cf2a85a80a9c928383ab32b499"
+    },
+    {
+      "id": "PHercParis1Fr39_54keV_mask.png",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/PHercParis1Fr39_54keV_mask.png",
+      "status": 206,
+      "content_range": "bytes 0-32/54426",
+      "bytes_if_reported": "33",
+      "width_height": [
+        6064,
+        9791
+      ],
+      "sha256_of_prefix": "f5d2171c12a62b388787ed8022191fb6ae5a4f241c3252ea8ac587f1d69aaa6e"
+    },
+    {
+      "id": "PHercParis1Fr39_54keV_inklabels.png",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/PHercParis1Fr39_54keV_inklabels.png",
+      "status": 206,
+      "content_range": "bytes 0-32/98366",
+      "bytes_if_reported": "33",
+      "width_height": [
+        6064,
+        9791
+      ],
+      "sha256_of_prefix": "f5d2171c12a62b388787ed8022191fb6ae5a4f241c3252ea8ac587f1d69aaa6e"
+    }
+  ],
+  "ct_headers": [
+    {
+      "id": "front_plane32",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/32.png",
+      "status": 206,
+      "prefix_bytes": 33,
+      "sha256_of_prefix": "8b61a113bf352a8430c78a450e80eb793a056df730160cbc2b9e0766c84462aa",
+      "range": "bytes 0-32/101801736",
+      "shape_xy": [
+        14990,
+        27160
+      ]
+    },
+    {
+      "id": "Frag4_plane32",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/PHercParis1Fr39_54keV_surface_volume/32.tif",
+      "status": 206,
+      "prefix_bytes": 512,
+      "sha256_of_prefix": "4ac369803d41c4997c09861005d60d308b4058090bb2727da5b8a681515fcbcb",
+      "range": "bytes 0-511/118745433",
+      "ifd_offset": 118745256,
+      "ifd_status": 206,
+      "ifd_sha256": "e8fbc2a99911d5994f93f82bd81ec05362cbb9f05e014535ce8af4dbc9cc2948",
+      "shape_xy": [
+        6064,
+        9791
+      ],
+      "bits_per_sample": 16
+    }
+  ],
+  "layer_counts": {
+    "legacy_500p2": 66,
+    "Frag4": 65
+  },
+  "atlas_front_shape_xy": [
+    15060,
+    26440
+  ],
+  "repository_history": [
+    {
+      "commit": "a806bead2f3b9100c20e19de37814fb285cfeefd",
+      "title": "lateral sampling notice"
+    },
+    {
+      "commit": "5ff7491e7bf85c2a6c2b08bc710a5363172777f8",
+      "title": "Initial profilometry dataset release"
+    },
+    {
+      "commit": "b27247d88c5e8bcd726490ace339c9f0f6a31332",
+      "title": "initial commit"
+    }
+  ],
+  "optical_discussions": [
+    {
+      "number": 2,
+      "title": "Correct eta TIFF SampleFormat so Pillow consumers can open it"
+    },
+    {
+      "number": 1,
+      "title": "[bot] Conversion to Parquet"
+    }
+  ],
+  "http_probes": [
+    {
+      "id": "chartes-search",
+      "url": "https://www.chartes.it/index.php?r=document%2Fsearch",
+      "status": 200,
+      "bytes": 15646,
+      "sha256": "1897a059a0460935b5b9e2c3fbe7018779f2368d49ca1e3df26889bcd950fa65",
+      "resolved_url": "https://www.chartes.it/index.php?r=document%2Fsearch"
+    },
+    {
+      "id": "chartes-images",
+      "url": "https://www.chartes.it/index.php?r=image%2Findex",
+      "status": 200,
+      "bytes": 7604,
+      "sha256": "e2c1d8d209f29a57e2effc4bd1f776c6627562b03a266722f975615b17219c42",
+      "resolved_url": "https://www.chartes.it/index.php?r=image%2Findex"
+    },
+    {
+      "id": "paper-pmcxml",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13547395/fullTextXML",
+      "status": 200,
+      "bytes": 117779,
+      "sha256": "99bf0bec04bc37a0d4b4e34121e0354bd4f8b1f3c031e02388b7cb498df17f07",
+      "resolved_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13547395/fullTextXML"
+    },
+    {
+      "id": "hf-discussions",
+      "url": "https://huggingface.co/api/datasets/scrollprize/profilometer/discussions",
+      "status": 200,
+      "bytes": 1430,
+      "sha256": "4e63f5a6dbc13d0f8effcb87675914cf8e66be7df3c098c2feb645f7dfa4b936",
+      "resolved_url": "https://huggingface.co/api/datasets/scrollprize/profilometer/discussions"
+    },
+    {
+      "id": "hf-revision",
+      "url": "https://huggingface.co/api/datasets/scrollprize/profilometer",
+      "status": 200,
+      "bytes": 4958,
+      "sha256": "37513be260a94035c56c809742ad348ec792246a76e3fa3bb92e5c465b4d10ac",
+      "resolved_url": "https://huggingface.co/api/datasets/scrollprize/profilometer"
+    },
+    {
+      "id": "hf-history",
+      "url": "https://huggingface.co/api/datasets/scrollprize/profilometer/commits/main",
+      "status": 200,
+      "bytes": 828,
+      "sha256": "2092f75887b4b8920ab8b036f43317bd7aac4dcfc6bcce31994ec72663fc7916",
+      "resolved_url": "https://huggingface.co/api/datasets/scrollprize/profilometer/commits/main"
+    },
+    {
+      "id": "dl-fragments",
+      "url": "https://dl.ash2txt.org/fragments/",
+      "status": 200,
+      "bytes": 2073,
+      "sha256": "89b23491cfc3eca0f5c67d7875de26617ec4cabc3b5d1098d65d00501532e344",
+      "resolved_url": "https://dl.ash2txt.org/fragments/"
+    },
+    {
+      "id": "dl-frag6",
+      "url": "https://dl.ash2txt.org/fragments/Frag6/",
+      "status": 200,
+      "bytes": 994,
+      "sha256": "6e0110b7b45a40466ee08687cf8314428303affd3b87c726592468a26bb15bea",
+      "resolved_url": "https://dl.ash2txt.org/fragments/Frag6/"
+    },
+    {
+      "id": "dl-frag6-surface",
+      "url": "https://dl.ash2txt.org/fragments/Frag6/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/",
+      "status": 404,
+      "bytes": 153,
+      "sha256": "ac121bcb304c5fa62ccd86c96327a12ea0a7b9165fc50123ee55a9030ff41000",
+      "resolved_url": "https://dl.ash2txt.org/fragments/Frag6/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/"
+    },
+    {
+      "id": "dl-frag1-surface",
+      "url": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/",
+      "status": 200,
+      "bytes": 4194,
+      "sha256": "1c4f77a24148d416db99317b551e79b7d4ee9df770f1312969b28c13e315631a",
+      "resolved_url": "https://dl.ash2txt.org/fragments/Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/"
+    },
+    {
+      "id": "dl-frag3-surface",
+      "url": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/",
+      "status": 200,
+      "bytes": 4193,
+      "sha256": "81fc4afe0430f900f3cde87f6d1e745a66b0ba519effd90557e70a2e6a38a4d5",
+      "resolved_url": "https://dl.ash2txt.org/fragments/Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/"
+    },
+    {
+      "id": "ir530-photos",
+      "url": "https://vesuvius-challenge-open-data.s3.amazonaws.com/?list-type=2&prefix=PHerc0500P2/photos/",
+      "status": 200,
+      "bytes": 614,
+      "sha256": "d3ab9934229779ee1c623aaf146e13f5c59ec7810d153bb7d63d80a94e6daeb9",
+      "resolved_url": "https://vesuvius-challenge-open-data.s3.amazonaws.com/?list-type=2&prefix=PHerc0500P2/photos/"
+    },
+    {
+      "id": "front-s3-prefix",
+      "url": "https://vesuvius-challenge-open-data.s3.amazonaws.com/?list-type=2&prefix=PHerc0500P2/segments/20250628074500-500P2_front/&delimiter=/",
+      "status": 200,
+      "bytes": 660,
+      "sha256": "520e9b5116336aa7cc37a3e0e7369c6bd864216eb366fa3de0c033809abdf059",
+      "resolved_url": "https://vesuvius-challenge-open-data.s3.amazonaws.com/?list-type=2&prefix=PHerc0500P2/segments/20250628074500-500P2_front/&delimiter=/"
+    },
+    {
+      "id": "term-license",
+      "url": "https://dl.ash2txt.org/LICENSE.txt",
+      "status": 200,
+      "bytes": 2429,
+      "sha256": "9dc08a92194617d4ae68fb96d4fd0da99d1c7207f821f2a3750b0034eac8d154",
+      "resolved_url": "https://dl.ash2txt.org/LICENSE.txt"
+    },
+    {
+      "id": "dl-p2",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/",
+      "status": 200,
+      "bytes": 1724,
+      "sha256": "6c257625adb63162e96f65d67d07d3a99f13a0b281dacd38b94b7298f606bd9c"
+    },
+    {
+      "id": "dl-9b",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0009B/",
+      "status": 200,
+      "bytes": 1556,
+      "sha256": "57f046b02f4c6359262cbed371ade17683380de1928c23bf610f5985d9080514"
+    },
+    {
+      "id": "dl-343p",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/",
+      "status": 200,
+      "bytes": 1556,
+      "sha256": "26af37deb18a10cf2d4f40f9dd51ed9267b5307b58d8543a419e38939bb8046a"
+    },
+    {
+      "id": "dl-frag4",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/",
+      "status": 200,
+      "bytes": 1000,
+      "sha256": "15104b93baa0c9214502ffaf147900d07545a749d5ecaa8c0aa3892e455c27f1"
+    },
+    {
+      "id": "dl-frag5",
+      "url": "https://dl.ash2txt.org/fragments/Frag5/",
+      "status": 200,
+      "bytes": 1000,
+      "sha256": "51f0f5c6e2b0c85be81bde582a83ec55355270096a6112f4dd1bce05e92f3fc1"
+    },
+    {
+      "id": "dl-frag6-real-working",
+      "url": "https://dl.ash2txt.org/fragments/Frag6/PHerc51Cr4Fr8.volpkg/working/",
+      "status": 200,
+      "bytes": 1715,
+      "sha256": "86991be47fcd8f876192669bd7ea3894832eb405e8d9736932c20791e1149fe7"
+    },
+    {
+      "id": "chartes-500",
+      "url": "https://www.chartes.it/index.php?r=document/index&segnatura=500",
+      "status": 200,
+      "bytes": 6252,
+      "sha256": "b5804b2b79cd362075b0134ec75a7fb74ab45403cce3448c9602b67955b40111"
+    },
+    {
+      "id": "bnn-fonds",
+      "url": "https://dl.bnnonline.it/cris/fonds/fonds00005",
+      "status": 200,
+      "bytes": 50958,
+      "sha256": "8545b11da2364d2e6b6c4d1c0ddf7bfd7c9b7e0122fb54c3c14e4b3eb2368379"
+    },
+    {
+      "id": "bnn-m1050",
+      "url": "https://dl.bnnonline.it/server/api/discover/search/objects?query=%22M1050%22",
+      "status": 404,
+      "bytes": 16459,
+      "sha256": "bdfcb1ba9fdd197b3883e22fd4a1585241d47df52153603d8b4a7ec2077abc3e"
+    },
+    {
+      "id": "hf-tiff-discussion",
+      "url": "https://huggingface.co/api/datasets/scrollprize/profilometer/discussions/2",
+      "status": 200,
+      "bytes": 36769,
+      "sha256": "46eae6e4949a4b8bf79ee4ec76674c11f059daa4104388c7aa2f3f5c5252cde2"
+    },
+    {
+      "id": "arxiv-optical-v1",
+      "url": "https://arxiv.org/html/2603.27698v1",
+      "status": 200,
+      "bytes": 140777,
+      "sha256": "6eafda248952e931f2dec658d8ff26b9fe8cb5979030cac3c3e5a2240b1148a0"
+    },
+    {
+      "id": "villa-issue1377",
+      "url": "https://api.github.com/repos/ScrollPrize/villa/issues/1377",
+      "status": 200,
+      "bytes": 6872,
+      "sha256": "526382cd079dd4e1e5bc876bc03309b52c185c9d98e68c03bafc6e45178d3344"
+    },
+    {
+      "id": "villa-issue1377-comments",
+      "url": "https://api.github.com/repos/ScrollPrize/villa/issues/1377/comments",
+      "status": 200,
+      "bytes": 2007,
+      "sha256": "0d55d1777837807d868be54aa9d71e0812a75dcc42bf32452513e3ee1448e68a"
+    },
+    {
+      "id": "p2-ms",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/multispectral/",
+      "status": 200,
+      "bytes": 5004,
+      "sha256": "f8d7ee56beb8db631c7f3fd6754e5c9f905082a2af701d0ce859f6728eb4aa3d"
+    },
+    {
+      "id": "p2-cases",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/cases/",
+      "status": 200,
+      "bytes": 1360,
+      "sha256": "8e2146e8f07487deecdc8e27cd6a79dba4702bf3c46fb7bf60c0d3fb99cbfe88"
+    },
+    {
+      "id": "p2-paths",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/",
+      "status": 200,
+      "bytes": 1181,
+      "sha256": "53f68c6947f552370a0c398fb6f21aa875b3018f2079d3140b66ec029e4e258a"
+    },
+    {
+      "id": "p2-representations",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/representations/",
+      "status": 200,
+      "bytes": 1068,
+      "sha256": "3c70fc84e3bcdcfcbb50c7484ef1cd55714c8618af8e5449b39075edbb8a8f78"
+    },
+    {
+      "id": "p2-license",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/LICENSE.txt",
+      "status": 200,
+      "bytes": 19346,
+      "sha256": "3711f963c05d0be80d53e5923308a6dee31b203da23435c9cfb7c7b6e4dd5e19"
+    },
+    {
+      "id": "chartes-500-record",
+      "url": "https://www.chartes.it/index.php?r=document%2Fview&id=520",
+      "status": 200,
+      "bytes": 17182,
+      "sha256": "94b06777dc7571690614c975281e95ab151df1fe535f9715c73716af6dbde16b"
+    },
+    {
+      "id": "frag4-working",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/",
+      "status": 200,
+      "bytes": 1653,
+      "sha256": "d205178e019e4a25720feebfafd3a0825e1df9ad0a07bf8d8b572af0ff7b921d"
+    },
+    {
+      "id": "frag4-package",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/",
+      "status": 200,
+      "bytes": 2065,
+      "sha256": "ea1d3118bcf68af239c7024d2dc2338c18fd3a28266a8454cafaa735faf1a4c1"
+    },
+    {
+      "id": "hf-readme-before",
+      "url": "https://huggingface.co/datasets/scrollprize/profilometer/resolve/5ff7491e7bf85c2a6c2b08bc710a5363172777f8/README.md",
+      "status": 200,
+      "bytes": 1874,
+      "sha256": "19536c04c112f7e7db429ab2541a8d8336710d3b6434f50bba1eb41ffd02e411"
+    },
+    {
+      "id": "independent-nist",
+      "url": "https://data.nist.gov/od/id/mds2-4227",
+      "status": 200,
+      "bytes": 6382,
+      "sha256": "aaa9ee3609f465696b8b36df76bf33f83778b22dd7e9e556dd37ca1c6e86e351"
+    },
+    {
+      "id": "p2-front-native",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/",
+      "status": 200,
+      "bytes": 1523,
+      "sha256": "84849d137ee85f508dfe514979b96153026918d4a551934ff8e2c445755322dc"
+    },
+    {
+      "id": "p2-raycasting",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/front_ray_casting/",
+      "status": 200,
+      "bytes": 1448,
+      "sha256": "0f6557181f39b3e50c3adf87bdb2d43aa118127e68691a90f4ca28b0789c364d"
+    },
+    {
+      "id": "frag4-exposed",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/",
+      "status": 200,
+      "bytes": 1734,
+      "sha256": "044d72fea0955abd53ddad55818ef0655ed5172acb4eb3b6de7b96b27ec0ad44"
+    },
+    {
+      "id": "frag4-reference",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/reference/",
+      "status": 200,
+      "bytes": 1616,
+      "sha256": "ad164343f93ca247ed02b2ad5e07821c13fa15f7318e379657e25708aa072f7f"
+    },
+    {
+      "id": "frag4-transform",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/transforms/",
+      "status": 200,
+      "bytes": 1023,
+      "sha256": "f53cae71f9c0e4dcb7cb559fcb9f3712ae2bfb74e0381c822ae5ca0c37e4f805"
+    },
+    {
+      "id": "p2-old-orthodata",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/representations/111keV_1.2m_4.32_090_surf.zarr/.zattrs",
+      "status": 200,
+      "bytes": 3018,
+      "sha256": "97e968dbbf11cc856dc57648aaaa9e6cade5e6575472dcfdeac7cfa50f546dd9"
+    },
+    {
+      "id": "p2-volumes",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/volumes/",
+      "status": 200,
+      "bytes": 1491,
+      "sha256": "ab410924c23aa9c9956065be0650f857912bd819217d32ded0bb8558cdd7256a"
+    },
+    {
+      "id": "p2-legacy-layers",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/",
+      "status": 200,
+      "bytes": 10391,
+      "sha256": "f942bdedeed8e34b5d2f4d85757d81cc8711aaec10df184294f6f42e9eeaa41a"
+    },
+    {
+      "id": "p2-ray-readme",
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/front_ray_casting/README.txt",
+      "status": 200,
+      "bytes": 955,
+      "sha256": "43261e20f05340a958c8574086d8ebe143d8c5cfe12de0fba91835b3684c69f2"
+    },
+    {
+      "id": "f4-source-layers",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/PHercParis1Fr39_54keV_surface_volume/",
+      "status": 200,
+      "bytes": 10568,
+      "sha256": "3274d46b2f55f1d844ccfd43372ca70cff93c6098b269adbaa39a768fe392fd9"
+    },
+    {
+      "id": "f4-extras",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/extras/",
+      "status": 200,
+      "bytes": 5523,
+      "sha256": "623da43a4b9b5037b1849f47292a45686f7245a4c9fd69616c9c042d2f645132"
+    },
+    {
+      "id": "f4-original-volumes",
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/",
+      "status": 200,
+      "bytes": 1235,
+      "sha256": "fc7131306d6c2da68fae648217527e7279aa817bded3a913dc61e8b9b23359f4"
+    }
+  ],
+  "status": {
+    "visible_fragment": "identified",
+    "localization_N2": "not_demonstrated",
+    "optical_calibration": "unresolved",
+    "reference_to_atlas_transform": "not_attested",
+    "registration_fit": null,
+    "ink_metrics": null
+  },
+  "dataset_audit": {
+    "eligible_for_independent_A_validation": [],
+    "preferred": "EduceLab Frag4 / PHercParis1Fr39",
+    "access_note": "Public headers confirmed. Exact A ancestry still unverified.",
+    "eight_local_EduceLab_windows_rechecked": [
+      {
+        "id": "Frag1/ink",
+        "parent_scroll": "PHercParis2",
+        "start_vu": [
+          1792,
+          3328
+        ],
+        "stop_vu": [
+          1920,
+          3456
+        ],
+        "pixels_sha256": {
+          "ct": "0efaca6558f87a1df96b12e05985d6bab353c0a5a602e8f7bf920e47bb1fa0cb",
+          "ir": "1d70997c1aa77ebfcb57c772b34b6f3e3d8a7377e3ba39c72a057bb446b522ef",
+          "labels": "952d3c6df0010d25a50d3d09699efd67c288a16c30dcfeffbf9eb7dc03a30d58"
+        },
+        "label_counts": {
+          "0": 13429,
+          "1": 2955,
+          "255": 0
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 0,
+        "use": "exploratory_reference_and_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag1/background",
+        "parent_scroll": "PHercParis2",
+        "start_vu": [
+          128,
+          4608
+        ],
+        "stop_vu": [
+          256,
+          4736
+        ],
+        "pixels_sha256": {
+          "ct": "d056e6621a4675b15a62ee35e796f7e1bf4a35811a5d5a15f33e6172dee26795",
+          "ir": "c80dcba8177d35153a9b570630e21a5176d585791a3b0a1057d233b622ae0c24",
+          "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+        },
+        "label_counts": {
+          "0": 16384,
+          "1": 0,
+          "255": 0
+        },
+        "ct_zeros_in_mask": 21,
+        "ct_zeros_outside_mask": 0,
+        "use": "exploratory_reference_and_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag1/sparse_traces",
+        "parent_scroll": "PHercParis2",
+        "start_vu": [
+          3584,
+          3072
+        ],
+        "stop_vu": [
+          3712,
+          3200
+        ],
+        "pixels_sha256": {
+          "ct": "fddc295b01a8b332a3355c9c05a5bd854137c1db9f1113fbe90680576bb85fd6",
+          "ir": "ed56644257797ae5ed95d373587d37f58842ca98fe9c2e763afef72ddbffe0ee",
+          "labels": "834d7e1164ca8f95a212fde4206f49fd9677c4efaa2e031a8667204ba8630c4a"
+        },
+        "label_counts": {
+          "0": 16218,
+          "1": 166,
+          "255": 0
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 0,
+        "use": "exploratory_reference_and_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag1/mask_edge_artifact",
+        "parent_scroll": "PHercParis2",
+        "start_vu": [
+          7808,
+          2944
+        ],
+        "stop_vu": [
+          7936,
+          3072
+        ],
+        "pixels_sha256": {
+          "ct": "7c2ad80527d14e953b745f73e09f6e2553131cbd33d1e22a6ef4722b150f58ea",
+          "ir": "bb25667491371bd1f50840892436d677da4d0129fa21c458a32d91d8f46da3ed",
+          "labels": "ffda8541249fbaaefb2cf731a0f2c3f62256f2bb2c8f245486672a96ddfc8fba"
+        },
+        "label_counts": {
+          "0": 8223,
+          "1": 0,
+          "255": 8161
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 8161,
+        "use": "geometry_and_mask_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag3/ink",
+        "parent_scroll": "PHercParis1",
+        "start_vu": [
+          5248,
+          1024
+        ],
+        "stop_vu": [
+          5376,
+          1152
+        ],
+        "pixels_sha256": {
+          "ct": "24593707c549317c60181744fe8b4a3274a2b5ec4be8b3aae14f59adc7fbeaa1",
+          "ir": "8081c67cb0b48c69dcecce4d4a7ccbde2709dac3b0336ce1d7872da69e054439",
+          "labels": "beb656db923ed3b859c6748a01691526803430e7bb10a469f86680e8d6eeea80"
+        },
+        "label_counts": {
+          "0": 13440,
+          "1": 2944,
+          "255": 0
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 0,
+        "use": "exploratory_reference_and_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag3/background",
+        "parent_scroll": "PHercParis1",
+        "start_vu": [
+          128,
+          3072
+        ],
+        "stop_vu": [
+          256,
+          3200
+        ],
+        "pixels_sha256": {
+          "ct": "78384de409e56ea01c226f7f03692dc2000d09f6dbdb004acec4fd42ae59e02c",
+          "ir": "8ec5e4d27e7a6f7c0068b9b047c01c2ecbd5ab51b60c59e41ede5d364b47486d",
+          "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+        },
+        "label_counts": {
+          "0": 16384,
+          "1": 0,
+          "255": 0
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 0,
+        "use": "exploratory_reference_and_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag3/sparse_traces",
+        "parent_scroll": "PHercParis1",
+        "start_vu": [
+          2688,
+          2816
+        ],
+        "stop_vu": [
+          2816,
+          2944
+        ],
+        "pixels_sha256": {
+          "ct": "c0ae02823f991270d53d98dade4813091205c63511cf9b57580dbee1edf63acf",
+          "ir": "92bf8aa4c711bf45089a762bdef0f7be816f33ed407baa6324c3ef39c6921646",
+          "labels": "c698295022ba4a0170c4afc446d7547cf4b612538d21400b44c01fe510ede3b8"
+        },
+        "label_counts": {
+          "0": 16226,
+          "1": 158,
+          "255": 0
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 0,
+        "use": "exploratory_reference_and_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      },
+      {
+        "id": "Frag3/mask_edge_artifact",
+        "parent_scroll": "PHercParis1",
+        "start_vu": [
+          5248,
+          0
+        ],
+        "stop_vu": [
+          5376,
+          128
+        ],
+        "pixels_sha256": {
+          "ct": "38f3c0642bc20bdf8d06e59f679b68d7dd1954cc1339d1b1df0d4ee998208e6b",
+          "ir": "6e34577f66f7aec6bf8ba6a5eb9c8e708ae10fa3c1db8730cab9bb280c1d0a4b",
+          "labels": "ab6414e1c790bf25c382666990547f7b0439743e329fcfed90647c407fd58b4d"
+        },
+        "label_counts": {
+          "0": 8306,
+          "1": 0,
+          "255": 8078
+        },
+        "ct_zeros_in_mask": 0,
+        "ct_zeros_outside_mask": 8078,
+        "use": "geometry_and_mask_QA",
+        "independent_of_ink_tiffs": true,
+        "training_exclusion_proven": false,
+        "eligible_for_generalization_metrics": false
+      }
+    ]
+  }
+}

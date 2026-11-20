@@ -5,6 +5,7 @@ All data work lives in core/reader; this module only wires widgets and workers.
 
 from dataclasses import asdict
 
+from napari.layers import Image
 from napari.qt.threading import thread_worker
 from napari.settings import get_settings
 from napari.viewer import Viewer
@@ -14,6 +15,7 @@ from qtpy.QtWidgets import (
     QGroupBox,
     QLabel,
     QLineEdit,
+    QProgressBar,
     QPushButton,
     QTableWidget,
     QTableWidgetItem,
@@ -36,11 +38,19 @@ def _async_enabled() -> bool:
     return bool(get_settings().experimental.async_)
 
 
+def _prepare_image(path):
+    # An unattached layer model has no Qt or Vispy connections. Add it on the GUI thread.
+    [(arrays, options, _)] = read_volume(path)
+    return Image(arrays, blending="translucent_no_depth", **options)
+
+
 class OpenVolumeWidget(QWidget):
     def __init__(self, napari_viewer: Viewer):
         super().__init__()
         self._viewer = napari_viewer
         self._worker = None
+        self._path_revision = 0
+        self._initial_image = None
         self.path_input = QLineEdit()
         self.path_input.setPlaceholderText("Chemin local ou s3://…/volume.zarr")
         self.open_button = QPushButton("Ouvrir")
@@ -51,6 +61,10 @@ class OpenVolumeWidget(QWidget):
         )
         self.status_label = QLabel("Indiquer le chemin d'un volume .zarr.")
         self.status_label.setWordWrap(True)
+        self.progress = QProgressBar()
+        self.progress.setRange(0, 0)
+        self.progress.setAccessibleName("Chargement du volume")
+        self.progress.hide()
         self.cache_button = QPushButton()
         self._cache_worker = None
         layout = QVBoxLayout(self)
@@ -61,11 +75,13 @@ class OpenVolumeWidget(QWidget):
             self.async_button,
             self.summary_table,
             self.status_label,
+            self.progress,
             self.cache_button,
         )
         for control in controls:
             layout.addWidget(control)
         self.open_button.clicked.connect(self._open)
+        self.path_input.textChanged.connect(self._path_changed)
         self.async_button.clicked.connect(self._enable_async)
         self.async_button.setVisible(not _async_enabled())
         self.cache_button.clicked.connect(self._clear_cache)
@@ -183,6 +199,8 @@ class OpenVolumeWidget(QWidget):
         )
 
     def _open(self):
+        if self._worker is not None:
+            return
         # Without napari's async preference, viewport Dask computations (S3 reads) run on
         # the GUI thread and freeze it. The preference is global and persisted, so the
         # plugin never changes it silently: it asks, and reads nothing until enabled.
@@ -195,15 +213,44 @@ class OpenVolumeWidget(QWidget):
             )
             return
         self.open_button.setEnabled(False)
+        self._forget_initial_slice()
+        self.progress.show()
         self.status_label.setText("Ouverture en cours…")
-        # Both metadata I/O and the bounded contrast sample run off the GUI thread.
-        self._worker = thread_worker(read_volume, ignore_errors=True)(self.path_input.text())
-        self._worker.returned.connect(self._loaded)
-        self._worker.errored.connect(self._error)
-        self._worker.finished.connect(lambda: self.open_button.setEnabled(True))
+        revision = self._path_revision
+        path = self.path_input.text()
+        self._worker = thread_worker(_prepare_image, ignore_errors=True)(path)
+        self._worker.returned.connect(lambda image: self._loaded(image, revision))
+        self._worker.errored.connect(
+            lambda error: self._error(error) if revision == self._path_revision else None)
+        self._worker.finished.connect(self._open_finished)
         self._worker.start()
 
-    def _loaded(self, layer_data):
+    def _path_changed(self, *_):
+        self._path_revision += 1
+        if self._worker is not None:
+            self.status_label.setText("Chemin modifié. Cliquer sur Ouvrir à la fin du chargement.")
+        self._forget_initial_slice()
+
+    def _forget_initial_slice(self):
+        if self._initial_image is not None:
+            self._initial_image.events.loaded.disconnect(self._initial_slice_loaded)
+            self._initial_image = None
+        if self._worker is None:
+            self.progress.hide()
+
+    def _initial_slice_loaded(self, *_):
+        if self._initial_image is not None and self._initial_image.loaded:
+            self._forget_initial_slice()
+
+    def _open_finished(self):
+        self._worker = None
+        self.open_button.setEnabled(True)
+        if self._initial_image is None:
+            self.progress.hide()
+
+    def _loaded(self, image, revision):
+        if revision != self._path_revision:
+            return
         # The preference may have been turned off while the metadata were loading: adding
         # the layer now would run viewport reads on the GUI thread and freeze it.
         if not _async_enabled():
@@ -214,14 +261,16 @@ class OpenVolumeWidget(QWidget):
             )
             return
         try:
-            [(arrays, options, _)] = layer_data
-            entry = self._catalog_entry(options["metadata"]["source"])
+            entry = self._catalog_entry(image.metadata["source"])
             if entry is not None:
                 # Physical voxel size comes from the catalogue only (OME scales are 1).
-                options["metadata"]["catalog"] = asdict(entry)
-                options["metadata"]["pixel_size_um"] = entry.pixel_size_um
-            self._viewer.add_image(arrays, **options)
-            summary = options["metadata"]["volume_summary"]
+                image.metadata["catalog"] = asdict(entry)
+                image.metadata["pixel_size_um"] = entry.pixel_size_um
+            self._viewer.add_layer(image)
+            if not image.loaded:
+                self._initial_image = image
+                image.events.loaded.connect(self._initial_slice_loaded)
+            summary = image.metadata["volume_summary"]
             self.summary_table.setRowCount(summary["level_count"])
             keys = ("key", "shape", "dtype", "chunks", "scale", "estimated_bytes")
             for row, level in enumerate(summary["levels"]):

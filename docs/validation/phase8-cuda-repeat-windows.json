@@ -1,0 +1,105 @@
+{
+  "fingerprints": {
+    "runtime": {
+      "python": "3.11.9",
+      "torch": "2.8.0+cu126",
+      "cuda": "12.6",
+      "cudnn": 91002,
+      "gpu": "NVIDIA GeForce RTX 4080 Laptop GPU"
+    },
+    "weights_sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+    "architecture_revision": "baf5e605bb42a3d55a62b7c5c728e0908137225c",
+    "inference": "eval_fp32_no_tf32_deterministic_cudnn",
+    "input_plan_sha256": "2edeafa7cae5f0e414070de78eb705fedb5c69d2cf91d6dbf3d05d92f6002033",
+    "prior_tiles_sha256": "0662424b1798bdf27aae0637b7a590d0cfddb437f9189e9243d94cbb425c665b",
+    "script_sha256": "186391db83ba3902d7b4cd2049b4261dc895facf6ba280fa4db93244fb5e3f34",
+    "repeat": true
+  },
+  "sha256_raw_tiles": "43fa766950422ccf9348109e6bacc7765b2e404ac1621176da5c05827098fe39",
+  "tiles": [
+    {
+      "origin_vu": [
+        0,
+        384
+      ],
+      "valid_pixels": 840,
+      "A_plus_ms": 477.0226999971783,
+      "A_minus_ms": 477.6192999997875,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        128
+      ],
+      "valid_pixels": 1036,
+      "A_plus_ms": 479.88870000699535,
+      "A_minus_ms": 478.0755000101635,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        1144
+      ],
+      "valid_pixels": 1164,
+      "A_plus_ms": 467.9042999923695,
+      "A_minus_ms": 477.1970999863697,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        384,
+        128
+      ],
+      "valid_pixels": 43944,
+      "A_plus_ms": 474.5510000066133,
+      "A_minus_ms": 475.09310000168625,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        512,
+        1144
+      ],
+      "valid_pixels": 11836,
+      "A_plus_ms": 474.441400001524,
+      "A_minus_ms": 477.61950000131037,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        768,
+        128
+      ],
+      "valid_pixels": 35172,
+      "A_plus_ms": 471.7765000095824,
+      "A_minus_ms": 469.77360000892077,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        1024
+      ],
+      "valid_pixels": 26204,
+      "A_plus_ms": 471.45919999456964,
+      "A_minus_ms": 488.1549999990966,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        1144
+      ],
+      "valid_pixels": 14276,
+      "A_plus_ms": 480.38579999411013,
+      "A_minus_ms": 475.2535000006901,
+      "cache": "computed"
+    }
+  ],
+  "load_ms": 2508.4332000114955,
+  "peak_allocated_vram": 1447001088,
+  "peak_reserved_vram": 1715470336,
+  "peak_ram": 1265053696
+}

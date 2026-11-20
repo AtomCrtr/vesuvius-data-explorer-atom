@@ -4,6 +4,7 @@ import json
 import sys
 from pathlib import Path
 
+from .core.geometry import verified_sampling
 from .core.tifxyz import DEFAULT_MAX_BYTES
 from .core.volume import open_levels, open_volume_store
 from .qc import run_surface, run_volume
@@ -97,12 +98,14 @@ def main(argv=None):
                                 seed=args.seed, max_voxels=args.max_voxels, thresholds=thresholds)
         else:
             volume = None
+            sampling = None
             if args.volume:
                 arrays, levels = open_levels(args.volume)
                 volume = (arrays, [level.shape for level in levels])
+                sampling = verified_sampling(args.volume, levels)
             report = run_surface(args.uri, max_bytes=args.max_bytes, window=args.window,
                                  max_voxels=args.max_voxels, thresholds=thresholds,
-                                 volume=volume, pixel_size_um=args.pixel_size_um)
+                                 volume=volume, pixel_size_um=args.pixel_size_um, sampling=sampling)
         document = json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + '\n'
         if args.output:
             Path(args.output).write_text(document, encoding='utf-8')
@@ -145,7 +148,7 @@ def _carte(args):
                      snap=args.recaler, tile=args.tuile, max_bytes=args.max_bytes,
                      max_drift_um=args.derive_max, max_shift_um=args.deplacement_max,
                      target_um=args.cible, render=not args.sans_rendu,
-                     volume_uri=volume_uri)
+                     volume_uri=volume_uri, sampling=verified_sampling(volume_uri, levels))
     folder = write_outputs(result, args.output)
     summary = result['summary']
     print(f"{summary['tiles']['reliable']} tuile(s) fiable(s) sur {summary['tiles']['measured']}"

@@ -1,0 +1,1153 @@
+{
+  "phase7_archive_sha256": "bbd04eaae8a411fede70e1bef02cc1be24ad25044d2258151b279438682ce3c3",
+  "with_scores_sha256": "1b6d210ec86c2be4b7c4ad29e1fbcf8aeee665e37d953d0fbbb4171d1bfaf350",
+  "neutral_ct_sha256": "6a7ab889a51763009f84b92a3c21d6bcaa72d20b02d3cd69545c682bee037539",
+  "full_surface_session_sha256": "7399a770a48146e43ed1458271e0abdb2d8cadd6276c75b745783b7f9b13dfc4",
+  "surface_png_source": "095cd97f6903a7b35b016b7e459f77ddad225f4dda229495029145b990c7b014",
+  "regions": [
+    {
+      "neutral_id": "R01",
+      "phase7_review_id": "335623153c72248c27e4",
+      "original_label": "Témoin bas · V128 U0",
+      "start_vu": [
+        516,
+        508
+      ],
+      "stop_vu": [
+        644,
+        636
+      ],
+      "ct_slice": 59,
+      "surface_revision": "20250919184428-on-20250526151718-2.215um.tifxyz",
+      "prior_observation": "Coupe CT 59 : faisceau oblique de plusieurs lignes claires quasi parallèles, terminé près d’une structure transverse. Les quatre cartes restent principalement sombres à échelle fixe.",
+      "prior_hypotheses": "Témoin de scores bas. La présence d’une structure CT ne renseigne pas à elle seule sur la présence ou l’absence d’encre.",
+      "validation": "no_independent_ink_reference",
+      "statistics": {
+        "agreement": {
+          "outside_mask": 0,
+          "missing_within_mask": 0,
+          "paired_pixels": 16384,
+          "pearson": 0.7384034590888217,
+          "spearman": 0.7887939988566781,
+          "thresholds": [
+            {
+              "percent": 20,
+              "both_positive": 0,
+              "a_only": 8649,
+              "b_only": 0,
+              "both_below": 7735,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.52789306640625
+            },
+            {
+              "percent": 35,
+              "both_positive": 0,
+              "a_only": 3320,
+              "b_only": 0,
+              "both_below": 13064,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.20263671875
+            },
+            {
+              "percent": 50,
+              "both_positive": 0,
+              "a_only": 0,
+              "b_only": 0,
+              "both_below": 16384,
+              "jaccard": null,
+              "dice": null,
+              "disagreement_rate": 0.0
+            },
+            {
+              "percent": 65,
+              "both_positive": 0,
+              "a_only": 0,
+              "b_only": 0,
+              "both_below": 16384,
+              "jaccard": null,
+              "dice": null,
+              "disagreement_rate": 0.0
+            },
+            {
+              "percent": 80,
+              "both_positive": 0,
+              "a_only": 0,
+              "b_only": 0,
+              "both_below": 16384,
+              "jaccard": null,
+              "dice": null,
+              "disagreement_rate": 0.0
+            }
+          ],
+          "rank_agreement": [
+            {
+              "fraction": 0.001,
+              "requested_pixels": 17,
+              "a_cutoff": 0.45642828941345215,
+              "b_cutoff": 0.17809736728668213,
+              "a_selected": 17,
+              "b_selected": 17,
+              "both_positive": 0,
+              "a_only": 17,
+              "b_only": 17,
+              "both_below": 16350,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.0020751953125
+            },
+            {
+              "fraction": 0.01,
+              "requested_pixels": 164,
+              "a_cutoff": 0.44633594155311584,
+              "b_cutoff": 0.1770857870578766,
+              "a_selected": 164,
+              "b_selected": 164,
+              "both_positive": 0,
+              "a_only": 164,
+              "b_only": 164,
+              "both_below": 16056,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.02001953125
+            },
+            {
+              "fraction": 0.05,
+              "requested_pixels": 820,
+              "a_cutoff": 0.4264165163040161,
+              "b_cutoff": 0.17467384040355682,
+              "a_selected": 820,
+              "b_selected": 820,
+              "both_positive": 50,
+              "a_only": 770,
+              "b_only": 770,
+              "both_below": 14794,
+              "jaccard": 0.031446540880503145,
+              "dice": 0.06097560975609756,
+              "disagreement_rate": 0.093994140625
+            },
+            {
+              "fraction": 0.1,
+              "requested_pixels": 1639,
+              "a_cutoff": 0.40608227252960205,
+              "b_cutoff": 0.1719505786895752,
+              "a_selected": 1639,
+              "b_selected": 1639,
+              "both_positive": 360,
+              "a_only": 1279,
+              "b_only": 1279,
+              "both_below": 13466,
+              "jaccard": 0.12337217272104181,
+              "dice": 0.21964612568639413,
+              "disagreement_rate": 0.1561279296875
+            }
+          ],
+          "score_distributions": [
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                3511,
+                4224,
+                2077,
+                1795,
+                1457,
+                1465,
+                1773,
+                82,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.12523172795772552,
+                0.4623569846153259
+              ]
+            },
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                6574,
+                9810,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.12904630601406097,
+                0.1782267540693283
+              ]
+            }
+          ],
+          "interpretation": "descriptive; cuts are fractions of each score scale"
+        },
+        "valid_fraction": 1.0,
+        "score_stats": [
+          {
+            "variance": 0.009944042551537555,
+            "almost_constant": false,
+            "entropy_bits": 2.715007846171228,
+            "top5_max_block_share": 0.27195121951219514
+          },
+          {
+            "variance": 0.00018261333835780427,
+            "almost_constant": false,
+            "entropy_bits": 0.9716742832691825,
+            "top5_max_block_share": 0.29024390243902437
+          }
+        ],
+        "absolute_Z_effect_block32": {
+          "block_side": 32,
+          "blocks": 16,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.04892472198825999,
+            0.13487918255223122
+          ],
+          "estimate": 0.09002462663011102
+        },
+        "absolute_Z_effect_block64": {
+          "block_side": 64,
+          "blocks": 4,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.026618434210831765,
+            0.15343081904939027
+          ],
+          "estimate": 0.09002462663011102
+        },
+        "signed_Z_effect": 0.0886087417602539
+      }
+    },
+    {
+      "neutral_id": "R02",
+      "phase7_review_id": "0be08f60a836aee3a525",
+      "original_label": "A et B · V256 U128",
+      "start_vu": [
+        644,
+        636
+      ],
+      "stop_vu": [
+        772,
+        764
+      ],
+      "ct_slice": 59,
+      "surface_revision": "20250919184428-on-20250526151718-2.215um.tifxyz",
+      "prior_observation": "Coupe CT 59 : bande claire allongée, légèrement inclinée, avec deux bords visibles. Les hautes réponses sont larges et déplacées entre les deux TIFF. A− reste bas.",
+      "prior_hypotheses": "Onze pixels seulement satisfont le critère de top 5 % commun dans ce bloc. Un faisceau de fibres ou un bord de couche peut expliquer la bande CT. Procéder à une relecture sans les scores.",
+      "validation": "no_independent_ink_reference",
+      "statistics": {
+        "agreement": {
+          "outside_mask": 0,
+          "missing_within_mask": 0,
+          "paired_pixels": 16384,
+          "pearson": -0.9030213220307625,
+          "spearman": -0.7267379906221405,
+          "thresholds": [
+            {
+              "percent": 20,
+              "both_positive": 0,
+              "a_only": 16384,
+              "b_only": 0,
+              "both_below": 0,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 1.0
+            },
+            {
+              "percent": 35,
+              "both_positive": 0,
+              "a_only": 15978,
+              "b_only": 0,
+              "both_below": 406,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.9752197265625
+            },
+            {
+              "percent": 50,
+              "both_positive": 0,
+              "a_only": 15134,
+              "b_only": 0,
+              "both_below": 1250,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.9237060546875
+            },
+            {
+              "percent": 65,
+              "both_positive": 0,
+              "a_only": 13792,
+              "b_only": 0,
+              "both_below": 2592,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.841796875
+            },
+            {
+              "percent": 80,
+              "both_positive": 0,
+              "a_only": 10101,
+              "b_only": 0,
+              "both_below": 6283,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.61651611328125
+            }
+          ],
+          "rank_agreement": [
+            {
+              "fraction": 0.001,
+              "requested_pixels": 17,
+              "a_cutoff": 0.8907150030136108,
+              "b_cutoff": 0.1731107085943222,
+              "a_selected": 17,
+              "b_selected": 17,
+              "both_positive": 0,
+              "a_only": 17,
+              "b_only": 17,
+              "both_below": 16350,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.0020751953125
+            },
+            {
+              "fraction": 0.01,
+              "requested_pixels": 164,
+              "a_cutoff": 0.8892475366592407,
+              "b_cutoff": 0.1716444194316864,
+              "a_selected": 164,
+              "b_selected": 164,
+              "both_positive": 0,
+              "a_only": 164,
+              "b_only": 164,
+              "both_below": 16056,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.02001953125
+            },
+            {
+              "fraction": 0.05,
+              "requested_pixels": 820,
+              "a_cutoff": 0.8778477907180786,
+              "b_cutoff": 0.16786982119083405,
+              "a_selected": 820,
+              "b_selected": 820,
+              "both_positive": 0,
+              "a_only": 820,
+              "b_only": 820,
+              "both_below": 14744,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.10009765625
+            },
+            {
+              "fraction": 0.1,
+              "requested_pixels": 1639,
+              "a_cutoff": 0.8703829050064087,
+              "b_cutoff": 0.16348685324192047,
+              "a_selected": 1639,
+              "b_selected": 1639,
+              "both_positive": 0,
+              "a_only": 1639,
+              "b_only": 1639,
+              "both_below": 13106,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.2000732421875
+            }
+          ],
+          "score_distributions": [
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                147,
+                259,
+                256,
+                267,
+                321,
+                375,
+                441,
+                526,
+                680,
+                1252,
+                1759,
+                4349,
+                5752,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.27287977933883667,
+                0.8911651968955994
+              ]
+            },
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                12741,
+                3643,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.12273968756198883,
+                0.17349976301193237
+              ]
+            }
+          ],
+          "interpretation": "descriptive; cuts are fractions of each score scale"
+        },
+        "valid_fraction": 1.0,
+        "score_stats": [
+          {
+            "variance": 0.01915378086929708,
+            "almost_constant": false,
+            "entropy_bits": 2.739451054928927,
+            "top5_max_block_share": 0.3121951219512195
+          },
+          {
+            "variance": 0.00017857970134478807,
+            "almost_constant": false,
+            "entropy_bits": 0.7644373185162077,
+            "top5_max_block_share": 0.3121951219512195
+          }
+        ],
+        "absolute_Z_effect_block32": {
+          "block_side": 32,
+          "blocks": 16,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.5491767375455311,
+            0.6864783486471424
+          ],
+          "estimate": 0.6288940193244343
+        },
+        "absolute_Z_effect_block64": {
+          "block_side": 64,
+          "blocks": 4,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.48216577045786835,
+            0.7177941682675737
+          ],
+          "estimate": 0.6288940193244343
+        },
+        "signed_Z_effect": 0.6288939714431763
+      }
+    },
+    {
+      "neutral_id": "R03",
+      "phase7_review_id": "8ff2a33771775be020ad",
+      "original_label": "A seule · V128 U256",
+      "start_vu": [
+        516,
+        764
+      ],
+      "stop_vu": [
+        644,
+        892
+      ],
+      "ct_slice": 59,
+      "surface_revision": "20250919184428-on-20250526151718-2.215um.tifxyz",
+      "prior_observation": "Coupe CT 59 : texture granuleuse et bandes obliques diffuses. A publié et A+ montrent un plateau clair, avec atténuation au coin inférieur droit. B présente un gradient différent. A− reste bas.",
+      "prior_hypotheses": "Le plateau couvre une grande zone. Il peut refléter la réponse à la structure du support et à son contexte en profondeur. Aucun contour de caractère n’a été coté.",
+      "validation": "no_independent_ink_reference",
+      "statistics": {
+        "agreement": {
+          "outside_mask": 0,
+          "missing_within_mask": 0,
+          "paired_pixels": 16384,
+          "pearson": -0.6863067358473027,
+          "spearman": -0.8397445370388541,
+          "thresholds": [
+            {
+              "percent": 20,
+              "both_positive": 0,
+              "a_only": 16384,
+              "b_only": 0,
+              "both_below": 0,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 1.0
+            },
+            {
+              "percent": 35,
+              "both_positive": 0,
+              "a_only": 16384,
+              "b_only": 0,
+              "both_below": 0,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 1.0
+            },
+            {
+              "percent": 50,
+              "both_positive": 0,
+              "a_only": 16384,
+              "b_only": 0,
+              "both_below": 0,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 1.0
+            },
+            {
+              "percent": 65,
+              "both_positive": 0,
+              "a_only": 16278,
+              "b_only": 0,
+              "both_below": 106,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.9935302734375
+            },
+            {
+              "percent": 80,
+              "both_positive": 0,
+              "a_only": 15424,
+              "b_only": 0,
+              "both_below": 960,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.94140625
+            }
+          ],
+          "rank_agreement": [
+            {
+              "fraction": 0.001,
+              "requested_pixels": 17,
+              "a_cutoff": 0.8964658379554749,
+              "b_cutoff": 0.13443660736083984,
+              "a_selected": 17,
+              "b_selected": 17,
+              "both_positive": 0,
+              "a_only": 17,
+              "b_only": 17,
+              "both_below": 16350,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.0020751953125
+            },
+            {
+              "fraction": 0.01,
+              "requested_pixels": 164,
+              "a_cutoff": 0.8958935737609863,
+              "b_cutoff": 0.13391031324863434,
+              "a_selected": 164,
+              "b_selected": 164,
+              "both_positive": 0,
+              "a_only": 164,
+              "b_only": 164,
+              "both_below": 16056,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.02001953125
+            },
+            {
+              "fraction": 0.05,
+              "requested_pixels": 820,
+              "a_cutoff": 0.8937263488769531,
+              "b_cutoff": 0.1333651840686798,
+              "a_selected": 820,
+              "b_selected": 820,
+              "both_positive": 0,
+              "a_only": 820,
+              "b_only": 820,
+              "both_below": 14744,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.10009765625
+            },
+            {
+              "fraction": 0.1,
+              "requested_pixels": 1639,
+              "a_cutoff": 0.889832615852356,
+              "b_cutoff": 0.1329801082611084,
+              "a_selected": 1639,
+              "b_selected": 1639,
+              "both_positive": 0,
+              "a_only": 1639,
+              "b_only": 1639,
+              "both_below": 13106,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.2000732421875
+            }
+          ],
+          "score_distributions": [
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                11,
+                33,
+                62,
+                102,
+                197,
+                555,
+                2420,
+                13004,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.5110111236572266,
+                0.8966321349143982
+              ]
+            },
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                16384,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.12422607094049454,
+                0.1347610205411911
+              ]
+            }
+          ],
+          "interpretation": "descriptive; cuts are fractions of each score scale"
+        },
+        "valid_fraction": 1.0,
+        "score_stats": [
+          {
+            "variance": 0.0015912671408635027,
+            "almost_constant": false,
+            "entropy_bits": 1.0154147313868445,
+            "top5_max_block_share": 0.3048780487804878
+          },
+          {
+            "variance": 4.93209902973674e-06,
+            "almost_constant": true,
+            "entropy_bits": -0.0,
+            "top5_max_block_share": 0.19634146341463415
+          }
+        ],
+        "absolute_Z_effect_block32": {
+          "block_side": 32,
+          "blocks": 16,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.7141789064636214,
+            0.747916826407527
+          ],
+          "estimate": 0.7329687984147313
+        },
+        "absolute_Z_effect_block64": {
+          "block_side": 64,
+          "blocks": 4,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.7050673335706961,
+            0.758380626077269
+          ],
+          "estimate": 0.7329687984147313
+        },
+        "signed_Z_effect": 0.732968807220459
+      }
+    },
+    {
+      "neutral_id": "R04",
+      "phase7_review_id": "33ab2c65f76ea127aa50",
+      "original_label": "B seule · V256 U256",
+      "start_vu": [
+        644,
+        764
+      ],
+      "stop_vu": [
+        772,
+        892
+      ],
+      "ct_slice": 59,
+      "surface_revision": "20250919184428-on-20250526151718-2.215um.tifxyz",
+      "prior_observation": "Coupe CT 59 : zones sombres bordées de reliefs en arc et point clair en haut à gauche. B publié montre une zone claire diffuse. A+ reproduit le gradient de A publié. A− reste bas.",
+      "prior_hypotheses": "La concordance de rang B/A− coexiste avec des amplitudes différentes. Examiner les limites de texture, les fibres et la continuité sur les coupes voisines avant toute interprétation.",
+      "validation": "no_independent_ink_reference",
+      "statistics": {
+        "agreement": {
+          "outside_mask": 0,
+          "missing_within_mask": 0,
+          "paired_pixels": 16384,
+          "pearson": -0.2137355551663412,
+          "spearman": -0.2746566414057834,
+          "thresholds": [
+            {
+              "percent": 20,
+              "both_positive": 0,
+              "a_only": 15023,
+              "b_only": 0,
+              "both_below": 1361,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.91693115234375
+            },
+            {
+              "percent": 35,
+              "both_positive": 0,
+              "a_only": 13193,
+              "b_only": 0,
+              "both_below": 3191,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.80523681640625
+            },
+            {
+              "percent": 50,
+              "both_positive": 0,
+              "a_only": 11419,
+              "b_only": 0,
+              "both_below": 4965,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.69696044921875
+            },
+            {
+              "percent": 65,
+              "both_positive": 0,
+              "a_only": 9291,
+              "b_only": 0,
+              "both_below": 7093,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.56707763671875
+            },
+            {
+              "percent": 80,
+              "both_positive": 0,
+              "a_only": 5289,
+              "b_only": 0,
+              "both_below": 11095,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.32281494140625
+            }
+          ],
+          "rank_agreement": [
+            {
+              "fraction": 0.001,
+              "requested_pixels": 17,
+              "a_cutoff": 0.8882519006729126,
+              "b_cutoff": 0.13955414295196533,
+              "a_selected": 17,
+              "b_selected": 17,
+              "both_positive": 0,
+              "a_only": 17,
+              "b_only": 17,
+              "both_below": 16350,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.0020751953125
+            },
+            {
+              "fraction": 0.01,
+              "requested_pixels": 164,
+              "a_cutoff": 0.8866661787033081,
+              "b_cutoff": 0.13877256214618683,
+              "a_selected": 164,
+              "b_selected": 164,
+              "both_positive": 0,
+              "a_only": 164,
+              "b_only": 164,
+              "both_below": 16056,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.02001953125
+            },
+            {
+              "fraction": 0.05,
+              "requested_pixels": 820,
+              "a_cutoff": 0.881147027015686,
+              "b_cutoff": 0.1377253532409668,
+              "a_selected": 820,
+              "b_selected": 820,
+              "both_positive": 0,
+              "a_only": 820,
+              "b_only": 820,
+              "both_below": 14744,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.10009765625
+            },
+            {
+              "fraction": 0.1,
+              "requested_pixels": 1639,
+              "a_cutoff": 0.8710612058639526,
+              "b_cutoff": 0.13661432266235352,
+              "a_selected": 1639,
+              "b_selected": 1639,
+              "both_positive": 0,
+              "a_only": 1639,
+              "b_only": 1639,
+              "both_below": 13106,
+              "jaccard": 0.0,
+              "dice": 0.0,
+              "disagreement_rate": 0.2000732421875
+            }
+          ],
+          "score_distributions": [
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                485,
+                876,
+                672,
+                592,
+                566,
+                570,
+                586,
+                618,
+                660,
+                711,
+                757,
+                863,
+                1076,
+                2063,
+                2171,
+                3118,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.1272137612104416,
+                0.8895849585533142
+              ]
+            },
+            {
+              "finite_pixels": 16384,
+              "normalized_bin_edges": [
+                0.0,
+                0.05,
+                0.1,
+                0.15000000000000002,
+                0.2,
+                0.25,
+                0.30000000000000004,
+                0.35000000000000003,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7000000000000001,
+                0.75,
+                0.8,
+                0.8500000000000001,
+                0.9,
+                0.9500000000000001,
+                1.0
+              ],
+              "counts": [
+                0,
+                0,
+                16384,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "raw_range": [
+                0.12354002147912979,
+                0.14013664424419403
+              ]
+            }
+          ],
+          "interpretation": "descriptive; cuts are fractions of each score scale"
+        },
+        "valid_fraction": 1.0,
+        "score_stats": [
+          {
+            "variance": 0.057852241859080486,
+            "almost_constant": false,
+            "entropy_bits": 3.7128796186874693,
+            "top5_max_block_share": 0.3121951219512195
+          },
+          {
+            "variance": 1.0251825382766858e-05,
+            "almost_constant": true,
+            "entropy_bits": -0.0,
+            "top5_max_block_share": 0.2975609756097561
+          }
+        ],
+        "absolute_Z_effect_block32": {
+          "block_side": 32,
+          "blocks": 16,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.37503179458599334,
+            0.604532553864783
+          ],
+          "estimate": 0.48912750010458694
+        },
+        "absolute_Z_effect_block64": {
+          "block_side": 64,
+          "blocks": 4,
+          "draws": 499,
+          "seed": 208,
+          "interval_95": [
+            0.2681038375412754,
+            0.6890671589371777
+          ],
+          "estimate": 0.48912750010458694
+        },
+        "signed_Z_effect": 0.48911696672439575
+      }
+    }
+  ]
+}

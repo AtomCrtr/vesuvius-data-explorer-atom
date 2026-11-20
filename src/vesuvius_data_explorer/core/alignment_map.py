@@ -30,6 +30,7 @@ from .alignment import (
     half_range_voxels,
     level_factors,
 )
+from .geometry import to_level
 from .tifxyz import TifxyzSurface, in_volume
 
 DEFAULT_TILE = 8
@@ -238,8 +239,8 @@ def _tile_profiles(surface, arrays, shapes, tile, offsets, factor, level, min_po
             if mask.sum() < min_points:
                 continue
             p, nrm = points[block][mask], normals[block][mask]
-            coords = ((p[:, None, :] + offsets[None, :, None] * nrm[:, None, :] + 0.5) / factor
-                      - 0.5).reshape(-1, 3)
+            coords = to_level(p[:, None, :] + offsets[None, :, None] * nrm[:, None, :],
+                              factor).reshape(-1, 3)
             low = np.maximum(np.floor(coords.min(axis=0)).astype(int) - 1, 0)
             high = np.minimum(np.ceil(coords.max(axis=0)).astype(int) + 2, level_shape)
             if np.any(high <= low):
@@ -282,12 +283,12 @@ def _tile_profiles(surface, arrays, shapes, tile, offsets, factor, level, min_po
 def alignment_map(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=None,
                   half_range_um=DEFAULT_HALF_RANGE_UM, tile=DEFAULT_TILE,
                   min_points=DEFAULT_MIN_POINTS, max_voxels=DEFAULT_MAP_MAX_VOXELS,
-                  workers=8) -> AlignmentMap:
+                  workers=8, sampling=None) -> AlignmentMap:
     """Measure the alignment map of ``surface`` on the volume levels ``arrays`` / ``shapes``."""
     if isinstance(tile, bool) or not isinstance(tile, int) or tile < 2:
         raise ValueError("La taille des tuiles doit être un entier ≥ 2.")
-    level = choose_level(shapes, pixel_size_um)
-    factor = level_factors(shapes)[level]
+    level = choose_level(shapes, pixel_size_um, sampling=sampling)
+    factor = level_factors(shapes, sampling)[level]
     half = half_range_voxels(pixel_size_um, half_range_um)
     step = float(factor.mean())
     count = int(np.floor(half / step))

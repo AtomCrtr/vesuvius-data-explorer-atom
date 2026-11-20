@@ -1,0 +1,694 @@
+{
+  "catalogue_sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8",
+  "sample": "PHerc0500P2",
+  "segment": "20250919184428",
+  "volume": "20250526151718",
+  "maps": {
+    "20260417190342": {
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif",
+      "sha256_tiff": "10b8bc44a347e017f62561de9a525a845bc54264bac180292c346becd46ef5ce",
+      "etag": "\"a2820511f794afe1c3136e688f71aac4\"",
+      "sha256_previous_roi": "8f1124f94aa98a17eb3d72655417ab5d69b6f2c177ee539475e5857d16be63f9",
+      "size_bytes": 148354,
+      "dtype": "uint8",
+      "range": [
+        0,
+        237
+      ],
+      "shape_vu": [
+        1160,
+        1400
+      ],
+      "description": {
+        "shape": [
+          1160,
+          1400
+        ],
+        "software": "optimized_inference"
+      },
+      "tags": {
+        "Orientation": null,
+        "XResolution": [
+          1,
+          1
+        ],
+        "YResolution": [
+          1,
+          1
+        ],
+        "ResolutionUnit": 1,
+        "XPosition": null,
+        "YPosition": null,
+        "Software": "tifffile.py"
+      },
+      "positive_code_pixels": 790200,
+      "atlas_entry": {
+        "type": "ink-detection",
+        "origins": [
+          {
+            "path": "PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif",
+            "access_roots": [
+              {
+                "type": "s3",
+                "url": "s3://vesuvius-challenge-open-data",
+                "usage": "public-read"
+              }
+            ],
+            "copy_info": {
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif",
+              "date": "2026-07-21T14:35:47.740733Z",
+              "workflow_execution": "s3copy-pherc0500p2-d7f1f1ce"
+            }
+          }
+        ],
+        "properties": null,
+        "parameters": {
+          "target_volume": "20250526151718",
+          "model_id": "20260417190342"
+        },
+        "creation_info": {
+          "process": "Run ink-detection using partitioned workflow",
+          "workflow": "ink-detection-partitioned",
+          "workflow_execution": "ink-detect-pherc0500p2-d5b71a09",
+          "date": "2026-07-21T14:35:24.315485Z",
+          "derived_from": {
+            "data_type": "layers-zarr",
+            "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+          },
+          "provenance": {
+            "workflow_template_ref": "ink-detection-partitioned",
+            "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+            "atlas_version": "0.1.0",
+            "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+            "atlas_git_dirty": true,
+            "images": {
+              "cleanup-zarr": "amazon/aws-cli:latest",
+              "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+              "validate-model": "python:3.11",
+              "check-if-zarr": "python:3.11",
+              "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+              "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+              "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+            },
+            "parameters": {
+              "model": "new_canon_autoresearch_recipe",
+              "model-type": "resnet3d-152-3d-decoder",
+              "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+              "start-layer": "28",
+              "end-layer": "90",
+              "tile-size": "256",
+              "stride": "128",
+              "batch-size": "",
+              "force-reverse": "false",
+              "add-scale-bar": "false"
+            }
+          }
+        }
+      },
+      "atlas_model": {
+        "id": "20260417190342",
+        "long_id": "20260417190342-new_canon_autoresearch_recipe",
+        "suffix": "new_canon_autoresearch_recipe",
+        "creation": {
+          "date": "2026-04-17T19:03:42Z",
+          "process": "model_training",
+          "metadata": null,
+          "derived_from": null
+        },
+        "properties": {
+          "architecture": "resnet3d-152-3d-decoder",
+          "task": "ink-detection",
+          "compatible_samples": [
+            "PHerc0009B",
+            "PHerc0139",
+            "PHerc0343P",
+            "PHerc0500P2",
+            "PHerc0814",
+            "PHerc0841",
+            "PHerc1667",
+            "PHercParis4"
+          ],
+          "excluded_samples": null,
+          "target_resolution_um_min": 2.0,
+          "target_resolution_um_max": 3.0,
+          "default_layers": 62,
+          "default_tile_size": 256,
+          "default_stride": 128,
+          "model_identifier": "new_canon_autoresearch_recipe",
+          "model_type": "resnet3d-152-3d-decoder"
+        }
+      }
+    },
+    "20260709123958": {
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260709123958-mrg20736-1um-s1z2-tile256-stride128.tif",
+      "sha256_tiff": "c0651fc66bf960e7cc3a71d96b62fe5b7d29659754acf3507dbdff2b376f751b",
+      "etag": "\"04103f85ab2fbfd7aa8809af8b7c3490\"",
+      "sha256_previous_roi": "7ed038a5c025bc7d838f838359ea5d4f07bab101dc17b15f6582a18a25410456",
+      "size_bytes": 240100,
+      "dtype": "uint8",
+      "range": [
+        0,
+        223
+      ],
+      "shape_vu": [
+        1160,
+        1400
+      ],
+      "description": {
+        "shape": [
+          1160,
+          1400
+        ],
+        "software": "optimized_inference"
+      },
+      "tags": {
+        "Orientation": null,
+        "XResolution": [
+          1,
+          1
+        ],
+        "YResolution": [
+          1,
+          1
+        ],
+        "ResolutionUnit": 1,
+        "XPosition": null,
+        "YPosition": null,
+        "Software": "tifffile.py"
+      },
+      "positive_code_pixels": 790200,
+      "atlas_entry": {
+        "type": "ink-detection",
+        "origins": [
+          {
+            "path": "PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260709123958-mrg20736-1um-s1z2-tile256-stride128.tif",
+            "access_roots": [
+              {
+                "type": "s3",
+                "url": "s3://vesuvius-challenge-open-data",
+                "usage": "public-read"
+              }
+            ],
+            "copy_info": {
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260709123958-mrg20736-1um-s1z2-tile256-stride128.tif",
+              "date": "2026-07-21T15:01:28.400204Z",
+              "workflow_execution": "s3copy-pherc0500p2-182c699b"
+            }
+          }
+        ],
+        "properties": null,
+        "parameters": {
+          "target_volume": "20250526151718",
+          "model_id": "20260709123958"
+        },
+        "creation_info": {
+          "process": "Run ink-detection using partitioned workflow",
+          "workflow": "ink-detection-partitioned",
+          "workflow_execution": "ink-detect-pherc0500p2-95ba6c57",
+          "date": "2026-07-21T14:47:59.642206Z",
+          "derived_from": {
+            "data_type": "layers-zarr",
+            "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+          },
+          "provenance": {
+            "workflow_template_ref": "ink-detection-partitioned",
+            "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+            "atlas_version": "0.1.0",
+            "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+            "atlas_git_dirty": true,
+            "images": {
+              "check-if-zarr": "python:3.11",
+              "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+              "validate-model": "python:3.11",
+              "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+              "cleanup-zarr": "amazon/aws-cli:latest",
+              "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+              "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+            },
+            "parameters": {
+              "model": "mrg20736_1um_s1z2",
+              "model-type": "resnet3d-152",
+              "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+              "start-layer": "28",
+              "end-layer": "90",
+              "tile-size": "256",
+              "stride": "128",
+              "batch-size": "",
+              "force-reverse": "true",
+              "add-scale-bar": "false"
+            }
+          }
+        }
+      },
+      "atlas_model": {
+        "id": "20260709123958",
+        "long_id": "20260709123958-mrg20736-1um-s1z2",
+        "suffix": "mrg20736-1um-s1z2",
+        "creation": {
+          "date": "2026-07-09T12:39:58Z",
+          "process": "model_training",
+          "metadata": null,
+          "derived_from": null
+        },
+        "properties": {
+          "architecture": "resnet3d-152",
+          "task": "ink-detection",
+          "compatible_samples": [
+            "PHerc0139",
+            "PHerc0814",
+            "PHerc1667",
+            "PHercMANBp",
+            "PHercParis4"
+          ],
+          "excluded_samples": null,
+          "target_resolution_um_min": 1.0,
+          "target_resolution_um_max": 1.5,
+          "required_render_level": 1,
+          "default_layers": 62,
+          "default_tile_size": 256,
+          "default_stride": 128,
+          "model_identifier": "mrg20736_1um_s1z2",
+          "model_type": "resnet3d-152",
+          "force_reverse": true
+        }
+      }
+    }
+  },
+  "ink_directory_sidecars": [],
+  "stack": {
+    "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+    "root_attrs": {
+      "canvas_size": [
+        1400,
+        1160
+      ],
+      "chunk_size": [
+        118,
+        128,
+        128
+      ],
+      "multiscales": [
+        {
+          "axes": [
+            {
+              "name": "z",
+              "type": "space",
+              "unit": "micrometer"
+            },
+            {
+              "name": "y",
+              "type": "space",
+              "unit": "micrometer"
+            },
+            {
+              "name": "x",
+              "type": "space",
+              "unit": "micrometer"
+            }
+          ],
+          "datasets": [
+            {
+              "coordinateTransformations": [
+                {
+                  "scale": [
+                    2.215,
+                    2.215,
+                    2.215
+                  ],
+                  "type": "scale"
+                },
+                {
+                  "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "type": "translation"
+                }
+              ],
+              "path": "0"
+            },
+            {
+              "coordinateTransformations": [
+                {
+                  "scale": [
+                    2.215,
+                    4.43,
+                    4.43
+                  ],
+                  "type": "scale"
+                },
+                {
+                  "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "type": "translation"
+                }
+              ],
+              "path": "1"
+            },
+            {
+              "coordinateTransformations": [
+                {
+                  "scale": [
+                    2.215,
+                    8.86,
+                    8.86
+                  ],
+                  "type": "scale"
+                },
+                {
+                  "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "type": "translation"
+                }
+              ],
+              "path": "2"
+            },
+            {
+              "coordinateTransformations": [
+                {
+                  "scale": [
+                    2.215,
+                    17.72,
+                    17.72
+                  ],
+                  "type": "scale"
+                },
+                {
+                  "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "type": "translation"
+                }
+              ],
+              "path": "3"
+            },
+            {
+              "coordinateTransformations": [
+                {
+                  "scale": [
+                    2.215,
+                    35.44,
+                    35.44
+                  ],
+                  "type": "scale"
+                },
+                {
+                  "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "type": "translation"
+                }
+              ],
+              "path": "4"
+            },
+            {
+              "coordinateTransformations": [
+                {
+                  "scale": [
+                    2.215,
+                    70.88,
+                    70.88
+                  ],
+                  "type": "scale"
+                },
+                {
+                  "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "type": "translation"
+                }
+              ],
+              "path": "5"
+            }
+          ],
+          "metadata": {
+            "downsampling_method": "mean"
+          },
+          "name": "render",
+          "version": "0.4"
+        }
+      ],
+      "note_axes_order": "ZYX (slice, row, col)",
+      "num_slices": 118,
+      "slice_step": 1.0,
+      "source_group": 0,
+      "source_zarr": "/volumes/esrf/20250506/2.215um_HEL_TA_0.4m_110keV_scroll-fragment_0500P2_TA_0001_masked.zarr/"
+    },
+    "atlas_entry": {
+      "type": "layers-zarr",
+      "origins": [
+        {
+          "path": "PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+          "access_roots": [
+            {
+              "type": "s3",
+              "url": "s3://vesuvius-challenge-open-data",
+              "usage": "public-read"
+            }
+          ],
+          "copy_info": {
+            "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+            "date": "2026-07-21T14:27:57.336061Z",
+            "workflow_execution": "s3sync-pherc0500p2-3d8826dc"
+          }
+        }
+      ],
+      "properties": null,
+      "parameters": {
+        "target_volume": "20250526151718"
+      },
+      "creation_info": {
+        "process": "render-tifxyz-to-zarr",
+        "workflow": "render-tifxyz-to-zarr",
+        "workflow_execution": "render-tifxyz-pherc0500p2-1babadf6",
+        "date": "2026-07-21T14:25:03.061911Z",
+        "derived_from": {
+          "data_type": "tifxyz-transformed",
+          "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz/"
+        },
+        "provenance": {
+          "workflow_template_ref": "vc3d-render-partitioned",
+          "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+          "atlas_version": "0.1.0",
+          "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+          "atlas_git_dirty": true,
+          "images": {
+            "run-render-stage": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/volume-cartographer:530584554c031c982ba3aa243e1ea39c4bef9818-arm64",
+            "calculate-partition-count": "ghcr.io/astral-sh/uv:python3.12-bookworm-slim",
+            "check-image-exists": "amazon/aws-cli:latest"
+          },
+          "parameters": {
+            "segmentation-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz/",
+            "scale": "1",
+            "group-idx": "0",
+            "rotate": "0",
+            "flip": "-1",
+            "flip-normals": "true",
+            "num-slices": "118",
+            "crop-x": "0",
+            "crop-y": "0",
+            "crop-width": "0",
+            "crop-height": "0",
+            "voxel-size": "2.215",
+            "voxel-unit": "micrometer",
+            "repo": "https://github.com/ScrollPrize/villa",
+            "commit": "530584554c031c982ba3aa243e1ea39c4bef9818",
+            "binary-path": "vc_render_tifxyz",
+            "affine-matrix": ""
+          }
+        }
+      }
+    }
+  },
+  "meshes": {
+    "historical": {
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz",
+      "meta": {
+        "area_vx2": 852769.9484852456,
+        "bbox": [
+          [
+            9989.900390625,
+            10943.92578125,
+            21106.916015625
+          ],
+          [
+            11149.19140625,
+            11254.7509765625,
+            22066.76171875
+          ]
+        ],
+        "format": "tifxyz",
+        "scale": [
+          0.05000000074505806,
+          0.05000000074505806
+        ],
+        "type": "seg",
+        "uuid": "out"
+      },
+      "shape": [
+        58,
+        70
+      ],
+      "atlas_entry": {
+        "type": "tifxyz-transformed",
+        "origins": [
+          {
+            "path": "PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz/",
+            "access_roots": [
+              {
+                "type": "s3",
+                "url": "s3://vesuvius-challenge-open-data",
+                "usage": "public-read"
+              }
+            ],
+            "copy_info": {
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz/",
+              "date": "2026-07-21T14:22:59.072178Z",
+              "workflow_execution": "s3copy-pherc0500p2-84116143"
+            }
+          }
+        ],
+        "properties": {
+          "superseded_by": {
+            "path": "PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um-t2.tifxyz/",
+            "parameters": {
+              "target_volume": "20250526151718",
+              "transform_revision": "2"
+            },
+            "date": "2026-11-16T07:28:25+00:00",
+            "reason": "Derived through an earlier registration of the volumes. The re-registered transform (revision 2) is clearly better, and so is every artifact derived through it: use the replacement.",
+            "retain_until": "2027-02-14"
+          }
+        },
+        "parameters": {
+          "target_volume": "20250526151718"
+        },
+        "creation_info": {
+          "process": "transform-tifxyz-normalized",
+          "workflow": "transform-tifxyz",
+          "workflow_execution": "transform-tifxyz-pherc0500p2-35e11fa2",
+          "date": "2026-07-21T14:22:07.224812Z",
+          "derived_from": {
+            "data_type": "tifxyz-normalized",
+            "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/intermediate/tifxyz_normalized/"
+          },
+          "provenance": {
+            "workflow_template_ref": "vc3d-tools",
+            "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+            "atlas_version": "0.1.0",
+            "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+            "atlas_git_dirty": true,
+            "images": {
+              "run-vc-transform-geom": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/volume-cartographer:d9a472ea2f50d9ce4ce56303cc1d682d962490d9-arm64",
+              "check-image-exists": "amazon/aws-cli:latest"
+            },
+            "parameters": {
+              "repo": "https://github.com/ScrollPrize/villa",
+              "commit": "d9a472ea2f50d9ce4ce56303cc1d682d962490d9",
+              "affine-matrix": "[[1.9486746429309512, -0.013410979609796314, 0.0015152387239145138, -18.021757798529507], [-0.0004203013392913846, 1.942159665865403, 0.0009120176877807085, -47.228696134530765], [0.001143396562488519, -0.004794755644779158, 1.9471178613953597, -828.6184266617311]]"
+            }
+          }
+        }
+      }
+    },
+    "t2": {
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um-t2.tifxyz",
+      "meta": {
+        "bbox": [
+          [
+            9987.9013671875,
+            10940.0888671875,
+            21093.177734375
+          ],
+          [
+            11166.603515625,
+            11266.9541015625,
+            22077.20703125
+          ]
+        ],
+        "format": "tifxyz",
+        "scale": [
+          0.025654389622422977,
+          0.025654389622422977
+        ],
+        "type": "seg",
+        "uuid": "output_tifxyz"
+      },
+      "shape": [
+        30,
+        36
+      ]
+    }
+  },
+  "support_checks": {
+    "meaning": "nonzero byte footprint, no ink threshold or registration",
+    "pair_identity": 1.0,
+    "pair_flip_v": 0.6752172991308035,
+    "pair_flip_u": 0.699720369972037,
+    "pair_rotate_180": 0.6182674585295924,
+    "historical_tifxyz_validity": [
+      0.905777166437414,
+      0.905777166437414
+    ]
+  },
+  "rank_agreement_nonzero": [
+    {
+      "fraction": 0.01,
+      "requested_pixels": 7902,
+      "a_cutoff": 236.0,
+      "b_cutoff": 214.0,
+      "a_selected": 9865,
+      "b_selected": 9089,
+      "both_positive": 0,
+      "a_only": 9865,
+      "b_only": 9089,
+      "both_below": 771246,
+      "jaccard": 0.0,
+      "dice": 0.0,
+      "disagreement_rate": 0.02398633257403189
+    },
+    {
+      "fraction": 0.05,
+      "requested_pixels": 39510,
+      "a_cutoff": 226.0,
+      "b_cutoff": 196.0,
+      "a_selected": 42950,
+      "b_selected": 41600,
+      "both_positive": 2860,
+      "a_only": 40090,
+      "b_only": 38740,
+      "both_below": 708510,
+      "jaccard": 0.035010405190353776,
+      "dice": 0.06765227675931401,
+      "disagreement_rate": 0.09975955454315363
+    },
+    {
+      "fraction": 0.2,
+      "requested_pixels": 158040,
+      "a_cutoff": 178.0,
+      "b_cutoff": 131.0,
+      "a_selected": 158928,
+      "b_selected": 159074,
+      "both_positive": 78000,
+      "a_only": 80928,
+      "b_only": 81074,
+      "both_below": 550198,
+      "jaccard": 0.3249972916892359,
+      "dice": 0.4905629524342614,
+      "disagreement_rate": 0.205013920526449
+    }
+  ]
+}

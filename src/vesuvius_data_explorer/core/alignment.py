@@ -17,6 +17,8 @@ from dataclasses import dataclass, field, replace
 
 import numpy as np
 
+from .geometry import level_factors as level_factors
+from .geometry import to_level
 from .tifxyz import TifxyzSurface, in_volume
 
 DEFAULT_HALF_RANGE_UM = 200.0
@@ -49,17 +51,12 @@ def grid_normals(points: np.ndarray) -> np.ndarray:
     return normals
 
 
-def level_factors(shapes) -> np.ndarray:
-    """(levels, 3) ratio of the level-0 shape to each level's shape, per axis."""
-    base = np.asarray(shapes[0], dtype=float)
-    return np.array([base / np.asarray(shape, dtype=float) for shape in shapes])
-
-
-def choose_level(shapes, pixel_size_um: float | None, max_um: float = MAX_SAMPLING_UM) -> int:
+def choose_level(shapes, pixel_size_um: float | None, max_um: float = MAX_SAMPLING_UM, *,
+                 sampling=None) -> int:
     """Coarsest level whose voxel is at most ``max_um``; level 0 when the size is unknown."""
     if pixel_size_um is None or pixel_size_um <= 0:
         return 0
-    factors = level_factors(shapes).max(axis=1)
+    factors = level_factors(shapes, sampling).max(axis=1)
     fitting = [k for k, factor in enumerate(factors) if factor * pixel_size_um <= max_um]
     return max(fitting) if fitting else 0
 
@@ -79,7 +76,7 @@ def shift_surface(surface: TifxyzSurface, offset: float) -> TifxyzSurface:
 def normal_profiles(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=None,
                     half_range_um=DEFAULT_HALF_RANGE_UM, patches=DEFAULT_PATCHES, patch_size=6,
                     seed=0,
-                    max_voxels=DEFAULT_MAX_VOXELS, patch_shifts=None) -> AlignmentProfile:
+                    max_voxels=DEFAULT_MAX_VOXELS, patch_shifts=None, sampling=None) -> AlignmentProfile:
     """Mean intensity profiles along the normals of ``patches`` random patches of the segment.
 
     ``arrays`` are the volume levels (NumPy, Zarr or Dask), ``shapes`` their (z, y, x) shapes.
@@ -92,8 +89,8 @@ def normal_profiles(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=Non
 
     if isinstance(max_voxels, bool) or not isinstance(max_voxels, int) or max_voxels < 1:
         raise ValueError("Le budget de voxels doit être un entier strictement positif.")
-    level = choose_level(shapes, pixel_size_um)
-    factor = level_factors(shapes)[level]
+    level = choose_level(shapes, pixel_size_um, sampling=sampling)
+    factor = level_factors(shapes, sampling)[level]
     half = half_range_voxels(pixel_size_um, half_range_um)
     step = float(factor.mean())
     count = int(np.floor(half / step))
@@ -127,7 +124,7 @@ def normal_profiles(surface: TifxyzSurface, arrays, shapes, *, pixel_size_um=Non
             p = p + patch_shifts[index] * n
         samples = p[:, None, :] + offsets[None, :, None] * n[:, None, :]
         # Level-0 voxel centre c0 maps to (c0 + 0.5) / factor - 0.5 on level k.
-        coords = ((samples + 0.5) / factor - 0.5).reshape(-1, 3)
+        coords = to_level(samples, factor).reshape(-1, 3)
         low = np.maximum(np.floor(coords.min(axis=0)).astype(int) - 1, 0)
         high = np.minimum(np.ceil(coords.max(axis=0)).astype(int) + 2, level_shape)
         if np.any(high <= low):

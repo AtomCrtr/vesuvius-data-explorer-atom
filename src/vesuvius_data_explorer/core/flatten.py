@@ -9,7 +9,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from .alignment import grid_normals, level_factors
+from .alignment import grid_normals
+from .geometry import level_factors, to_level
 
 DEFAULT_RENDER_MAX_PIXELS = 4 * 2**20
 DEFAULT_RENDER_MAX_VOXELS = 512 * 2**20
@@ -34,7 +35,7 @@ def upsample_grid(points: np.ndarray, factor: int) -> np.ndarray:
 
 def flatten(points: np.ndarray, arrays, shapes, *, level: int, step_voxels: float,
             normal_offsets=(0.0,), max_pixels=DEFAULT_RENDER_MAX_PIXELS,
-            max_voxels=DEFAULT_RENDER_MAX_VOXELS) -> np.ndarray:
+            max_voxels=DEFAULT_RENDER_MAX_VOXELS, sampling=None) -> np.ndarray:
     """Flattened image of a grid crop ``points`` (rows, cols, 3), NaN outside the segment.
 
     ``step_voxels`` is the level-0 distance between grid points; the grid is upsampled to about one
@@ -42,7 +43,7 @@ def flatten(points: np.ndarray, arrays, shapes, *, level: int, step_voxels: floa
     """
     from scipy import ndimage
 
-    factor = level_factors(shapes)[level]
+    factor = level_factors(shapes, sampling)[level]
     up = max(1, int(round(step_voxels / float(factor.mean()))))
     rows, cols = points.shape[:2]
     if ((rows - 1) * up + 1) * ((cols - 1) * up + 1) > max_pixels:
@@ -59,8 +60,7 @@ def flatten(points: np.ndarray, arrays, shapes, *, level: int, step_voxels: floa
         return image
     p, n = dense[valid], dense_normals[valid]
     offsets = np.asarray(normal_offsets, dtype=float)
-    coords = ((p[:, None, :] + offsets[None, :, None] * n[:, None, :] + 0.5) / factor
-              - 0.5).reshape(-1, 3)
+    coords = to_level(p[:, None, :] + offsets[None, :, None] * n[:, None, :], factor).reshape(-1, 3)
     array = arrays[level]
     if not isinstance(array, np.ndarray):  # Only the chunks the surface crosses are read.
         from .chunkcache import DecodedChunks, sample_trilinear

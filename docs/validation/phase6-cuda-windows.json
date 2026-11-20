@@ -1,0 +1,127 @@
+{
+  "scope": "same public checkpoint, one tile, two Z orders, no stitching",
+  "weights": {
+    "uri": "https://huggingface.co/scrollprize/ink_canonical_2um/resolve/e154062e55513a1d4110f40fceeddb90eaa0f022/r152_3ddec_v2_l5_epoch13.ckpt",
+    "sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+    "bytes": 1549556213,
+    "epoch": 13,
+    "global_step": 113246,
+    "hyper_parameters": {
+      "pred_shape": [
+        4608,
+        13824
+      ],
+      "size": 256,
+      "enc": "r152",
+      "with_norm": true,
+      "total_steps": 8089
+    }
+  },
+  "code": {
+    "uri": "https://raw.githubusercontent.com/ScrollPrize/villa/baf5e605bb42a3d55a62b7c5c728e0908137225c/ink-detection/optimized_inference",
+    "sha256_files": {
+      "model_resnet3d_3d_decoder.py": "7b2b2cfc6c7fb963a3da1bf128543ceadf8ad887f32a319bc0a38fb378f9e2ca",
+      "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "models/resnetall.py": "2b49ac430d77bae189cf002ed9c2748f940a6cd92b809a23db6f7dba381afbf6"
+    },
+    "script_sha256": "b19082b140e0972063608c241d8313748c404c1054763a6662e5f154619eed83"
+  },
+  "data": {
+    "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+    "origin_vu": [
+      512,
+      512
+    ],
+    "stop_vu": [
+      768,
+      768
+    ],
+    "layer_slice": [
+      28,
+      90
+    ],
+    "axes": [
+      "z",
+      "v",
+      "u"
+    ],
+    "resolution_um": 2.215,
+    "chunk_hashes": {
+      "0/0/4/4": "0d3e7ff308bc34fb43aa0495ba88ec5aa76b48c46c7d781cc1193e42b9fbf3ce",
+      "0/0/4/5": "1def0c0bcaddf71469c301247219a9d8ee171dbf2703c8536fc44c86c66e845a",
+      "0/0/5/4": "4e6f929593f8de3a90d88a90d911c85dea9f38a24e1676aa46d0c17ac84b737b",
+      "0/0/5/5": "a88c0a2ef56c5fcc2d5806621b65298dae4b0f2a6dbea69d72f86c9d7d7f83c2"
+    },
+    "npy_sha256": "d5043abc0b66eeed3defb7d22053c617af346a2d05d2d622213fe4d84b35aea0"
+  },
+  "runtime": {
+    "python": "3.11.9",
+    "torch": "2.8.0+cu126",
+    "cuda": "12.6",
+    "cudnn": 91002,
+    "device": "NVIDIA GeForce RTX 4080 Laptop GPU",
+    "memory_bytes": 12878086144,
+    "free_start_bytes": 11600396288,
+    "allocator_limit_bytes": 9663676416
+  },
+  "settings": {
+    "input_shape_bczvu": [
+      1,
+      1,
+      62,
+      256,
+      256
+    ],
+    "clip_and_divisor": 200,
+    "eval": true,
+    "autocast": "fp32",
+    "tf32": false,
+    "cudnn_deterministic": true,
+    "warmups_each": 1,
+    "timed_runs_each": 3,
+    "interpolation": "bilinear mask"
+  },
+  "load_ms": 1990.2247999998508,
+  "runs": {
+    "normal": {
+      "times_ms": [
+        230.99139999976614,
+        237.32909999671392,
+        238.08879999705823
+      ],
+      "logits_shape": [
+        64,
+        64
+      ],
+      "logits_range": [
+        -1.6106067895889282,
+        1.7298768758773804
+      ],
+      "logits_sha256": "268db74f55c8de7c65066232937833702d0b7b7ab27c4a14188b15eccfd46e87",
+      "scores_sha256": "a08b6a7e23adc6d30a6aa38d8df02e3879071bf15f193e916d65ceda640b4a9f",
+      "nonzero_input_stack_pixels": 65536,
+      "peak_allocated_bytes": 1447001088,
+      "peak_reserved_bytes": 1715470336
+    },
+    "reversed_z": {
+      "times_ms": [
+        241.36780000117142,
+        239.4757000001846,
+        238.86649999622023
+      ],
+      "logits_shape": [
+        64,
+        64
+      ],
+      "logits_range": [
+        -1.6949039697647095,
+        -1.1692744493484497
+      ],
+      "logits_sha256": "c4fcd47100aa803a7dd485508a35e1df2dbc60e0b4c77cc5a4ad09c6b32d2590",
+      "scores_sha256": "92eadd10e233b8da826ed2a62e6bbe2c6af1c9f11be469eee0cf6220fdf28d28",
+      "nonzero_input_stack_pixels": 65536,
+      "peak_allocated_bytes": 1447001088,
+      "peak_reserved_bytes": 1715470336
+    }
+  }
+}

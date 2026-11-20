@@ -1,0 +1,857 @@
+{
+  "python": "3.11.9",
+  "system": "Windows-10-10.0.26300-SP0",
+  "nvidia_smi": "NVIDIA GeForce RTX 4080 Laptop GPU, 616.64, 12282 MiB",
+  "cpu_pair_analysis_ms": [
+    16.279599993140437,
+    14.316699998744298,
+    13.928200001828372,
+    14.259799994761124,
+    14.73009999608621,
+    14.209100001608022,
+    14.853999993647449
+  ],
+  "cpu_summary_ms": {
+    "p50": 14.316699998744298,
+    "p95": 15.851919993292539,
+    "max": 16.279599993140437
+  },
+  "rss_before_cpu_bytes": 105689088,
+  "rss_after_cpu_bytes": 106065920,
+  "repeated_report_sha256": "0b89df8000c7801897be8e4a796086ba40c317848940deea8f4a9365b1ddb0c8",
+  "agreement": {
+    "interpretation": "descriptive",
+    "manifest_sha256": "4205b187a07f0fa6cb07805b48cd28c76a367cfd115fefeb309b9f094139ebed",
+    "volume_id": "20250526151718",
+    "segment_id": "20250919184428",
+    "surface_revision": "20250919184428-on-20250526151718-2.215um.tifxyz",
+    "roi": [
+      0,
+      0,
+      384,
+      384
+    ],
+    "axes": [
+      "v",
+      "u"
+    ],
+    "coordinates": {
+      "start_vu": [
+        388,
+        508
+      ],
+      "stop_vu": [
+        772,
+        892
+      ],
+      "start_um_vu": [
+        859.42,
+        1125.22
+      ],
+      "stop_um_vu": [
+        1709.9799999999998,
+        1975.78
+      ]
+    },
+    "paired_pixels": 147456,
+    "missing_pixels": 0,
+    "uncertainty_margin_percent_points": 5,
+    "models": [
+      {
+        "name": "new_canon_autoresearch_recipe",
+        "model": "20260417190342-new_canon_autoresearch_recipe",
+        "score_scale": 255.0,
+        "registration": null,
+        "calibration": null,
+        "provenance": {
+          "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif",
+          "sha256_tiff": "10b8bc44a347e017f62561de9a525a845bc54264bac180292c346becd46ef5ce",
+          "etag": "\"a2820511f794afe1c3136e688f71aac4\"",
+          "dtype": "uint8",
+          "shape": [
+            1160,
+            1400
+          ],
+          "description": "{\"shape\": [1160, 1400], \"software\": \"optimized_inference\"}",
+          "catalogue_target": "20250526151718",
+          "catalogue_model": "20260417190342",
+          "model_properties": {
+            "architecture": "resnet3d-152-3d-decoder",
+            "task": "ink-detection",
+            "compatible_samples": [
+              "PHerc0009B",
+              "PHerc0139",
+              "PHerc0343P",
+              "PHerc0500P2",
+              "PHerc0814",
+              "PHerc0841",
+              "PHerc1667",
+              "PHercParis4"
+            ],
+            "excluded_samples": null,
+            "target_resolution_um_min": 2.0,
+            "target_resolution_um_max": 3.0,
+            "default_layers": 62,
+            "default_tile_size": 256,
+            "default_stride": 128,
+            "model_identifier": "new_canon_autoresearch_recipe",
+            "model_type": "resnet3d-152-3d-decoder"
+          },
+          "cropped_sha256": "8f1124f94aa98a17eb3d72655417ab5d69b6f2c177ee539475e5857d16be63f9",
+          "calibration": "undocumented",
+          "registration": {
+            "input_stack": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+            "mesh": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz",
+            "uv_orientation": [
+              "+v",
+              "+u"
+            ],
+            "anatomical_face": "undetermined"
+          },
+          "atlas_creation_info": {
+            "process": "Run ink-detection using partitioned workflow",
+            "workflow": "ink-detection-partitioned",
+            "workflow_execution": "ink-detect-pherc0500p2-d5b71a09",
+            "date": "2026-07-21T14:35:24.315485Z",
+            "derived_from": {
+              "data_type": "layers-zarr",
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+            },
+            "provenance": {
+              "workflow_template_ref": "ink-detection-partitioned",
+              "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+              "atlas_version": "0.1.0",
+              "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+              "atlas_git_dirty": true,
+              "images": {
+                "cleanup-zarr": "amazon/aws-cli:latest",
+                "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "validate-model": "python:3.11",
+                "check-if-zarr": "python:3.11",
+                "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+              },
+              "parameters": {
+                "model": "new_canon_autoresearch_recipe",
+                "model-type": "resnet3d-152-3d-decoder",
+                "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+                "start-layer": "28",
+                "end-layer": "90",
+                "tile-size": "256",
+                "stride": "128",
+                "batch-size": "",
+                "force-reverse": "false",
+                "add-scale-bar": "false"
+              }
+            }
+          },
+          "atlas_catalogue_sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8"
+        }
+      },
+      {
+        "name": "mrg20736-1um-s1z2",
+        "model": "20260709123958-mrg20736-1um-s1z2",
+        "score_scale": 255.0,
+        "registration": null,
+        "calibration": null,
+        "provenance": {
+          "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260709123958-mrg20736-1um-s1z2-tile256-stride128.tif",
+          "sha256_tiff": "c0651fc66bf960e7cc3a71d96b62fe5b7d29659754acf3507dbdff2b376f751b",
+          "etag": "\"04103f85ab2fbfd7aa8809af8b7c3490\"",
+          "dtype": "uint8",
+          "shape": [
+            1160,
+            1400
+          ],
+          "description": "{\"shape\": [1160, 1400], \"software\": \"optimized_inference\"}",
+          "catalogue_target": "20250526151718",
+          "catalogue_model": "20260709123958",
+          "model_properties": {
+            "architecture": "resnet3d-152",
+            "task": "ink-detection",
+            "compatible_samples": [
+              "PHerc0139",
+              "PHerc0814",
+              "PHerc1667",
+              "PHercMANBp",
+              "PHercParis4"
+            ],
+            "excluded_samples": null,
+            "target_resolution_um_min": 1.0,
+            "target_resolution_um_max": 1.5,
+            "required_render_level": 1,
+            "default_layers": 62,
+            "default_tile_size": 256,
+            "default_stride": 128,
+            "model_identifier": "mrg20736_1um_s1z2",
+            "model_type": "resnet3d-152",
+            "force_reverse": true
+          },
+          "cropped_sha256": "7ed038a5c025bc7d838f838359ea5d4f07bab101dc17b15f6582a18a25410456",
+          "calibration": "undocumented",
+          "registration": {
+            "input_stack": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+            "mesh": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz",
+            "uv_orientation": [
+              "+v",
+              "+u"
+            ],
+            "anatomical_face": "undetermined"
+          },
+          "atlas_creation_info": {
+            "process": "Run ink-detection using partitioned workflow",
+            "workflow": "ink-detection-partitioned",
+            "workflow_execution": "ink-detect-pherc0500p2-95ba6c57",
+            "date": "2026-07-21T14:47:59.642206Z",
+            "derived_from": {
+              "data_type": "layers-zarr",
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+            },
+            "provenance": {
+              "workflow_template_ref": "ink-detection-partitioned",
+              "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+              "atlas_version": "0.1.0",
+              "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+              "atlas_git_dirty": true,
+              "images": {
+                "check-if-zarr": "python:3.11",
+                "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "validate-model": "python:3.11",
+                "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "cleanup-zarr": "amazon/aws-cli:latest",
+                "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+              },
+              "parameters": {
+                "model": "mrg20736_1um_s1z2",
+                "model-type": "resnet3d-152",
+                "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+                "start-layer": "28",
+                "end-layer": "90",
+                "tile-size": "256",
+                "stride": "128",
+                "batch-size": "",
+                "force-reverse": "true",
+                "add-scale-bar": "false"
+              }
+            }
+          },
+          "atlas_catalogue_sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8"
+        }
+      }
+    ],
+    "thresholds": [
+      {
+        "thresholds_percent": [
+          5,
+          5
+        ],
+        "uncertain_pixels": 0,
+        "both_positive": 147456,
+        "a_only": 0,
+        "b_only": 0,
+        "both_below": 0,
+        "jaccard": 1.0,
+        "dice": 1.0,
+        "disagreement_rate": 0.0,
+        "selected_by_strategy": {
+          "A": 147456,
+          "B": 147456,
+          "intersection": 147456,
+          "union": 147456
+        }
+      },
+      {
+        "thresholds_percent": [
+          10,
+          10
+        ],
+        "uncertain_pixels": 30262,
+        "both_positive": 147456,
+        "a_only": 0,
+        "b_only": 0,
+        "both_below": 0,
+        "jaccard": 1.0,
+        "dice": 1.0,
+        "disagreement_rate": 0.0,
+        "selected_by_strategy": {
+          "A": 147456,
+          "B": 147456,
+          "intersection": 147456,
+          "union": 147456
+        }
+      },
+      {
+        "thresholds_percent": [
+          15,
+          15
+        ],
+        "uncertain_pixels": 59262,
+        "both_positive": 117194,
+        "a_only": 20184,
+        "b_only": 8813,
+        "both_below": 1265,
+        "jaccard": 0.8016498963684495,
+        "dice": 0.8899064107675076,
+        "disagreement_rate": 0.1966484917534722,
+        "selected_by_strategy": {
+          "A": 137378,
+          "B": 126007,
+          "intersection": 117194,
+          "union": 146191
+        }
+      },
+      {
+        "thresholds_percent": [
+          20,
+          20
+        ],
+        "uncertain_pixels": 50964,
+        "both_positive": 89818,
+        "a_only": 36631,
+        "b_only": 14068,
+        "both_below": 6939,
+        "jaccard": 0.6391966808286542,
+        "dice": 0.7798901599843706,
+        "disagreement_rate": 0.3438245985243056,
+        "selected_by_strategy": {
+          "A": 126449,
+          "B": 103886,
+          "intersection": 89818,
+          "union": 140517
+        }
+      },
+      {
+        "thresholds_percent": [
+          25,
+          25
+        ],
+        "uncertain_pixels": 43921,
+        "both_positive": 75570,
+        "a_only": 37859,
+        "b_only": 12552,
+        "both_below": 21475,
+        "jaccard": 0.5998523586890087,
+        "dice": 0.7498846445812722,
+        "disagreement_rate": 0.3418714735243056,
+        "selected_by_strategy": {
+          "A": 113429,
+          "B": 88122,
+          "intersection": 75570,
+          "union": 125981
+        }
+      },
+      {
+        "thresholds_percent": [
+          30,
+          30
+        ],
+        "uncertain_pixels": 29274,
+        "both_positive": 67413,
+        "a_only": 36713,
+        "b_only": 12777,
+        "both_below": 30553,
+        "jaccard": 0.5766575708065661,
+        "dice": 0.7314937390134334,
+        "disagreement_rate": 0.3356255425347222,
+        "selected_by_strategy": {
+          "A": 104126,
+          "B": 80190,
+          "intersection": 67413,
+          "union": 116903
+        }
+      },
+      {
+        "thresholds_percent": [
+          35,
+          35
+        ],
+        "uncertain_pixels": 23495,
+        "both_positive": 60926,
+        "a_only": 37043,
+        "b_only": 13066,
+        "both_below": 36421,
+        "jaccard": 0.548709866258387,
+        "dice": 0.7086025319694582,
+        "disagreement_rate": 0.3398234049479167,
+        "selected_by_strategy": {
+          "A": 97969,
+          "B": 73992,
+          "intersection": 60926,
+          "union": 111035
+        }
+      },
+      {
+        "thresholds_percent": [
+          40,
+          40
+        ],
+        "uncertain_pixels": 22107,
+        "both_positive": 55287,
+        "a_only": 37657,
+        "b_only": 13251,
+        "both_below": 41261,
+        "jaccard": 0.5206177315316164,
+        "dice": 0.6847450489837876,
+        "disagreement_rate": 0.3452419704861111,
+        "selected_by_strategy": {
+          "A": 92944,
+          "B": 68538,
+          "intersection": 55287,
+          "union": 106195
+        }
+      },
+      {
+        "thresholds_percent": [
+          45,
+          45
+        ],
+        "uncertain_pixels": 21653,
+        "both_positive": 50193,
+        "a_only": 35842,
+        "b_only": 13338,
+        "both_below": 48083,
+        "jaccard": 0.5050969579261972,
+        "dice": 0.6711819531176871,
+        "disagreement_rate": 0.3335232204861111,
+        "selected_by_strategy": {
+          "A": 86035,
+          "B": 63531,
+          "intersection": 50193,
+          "union": 99373
+        }
+      },
+      {
+        "thresholds_percent": [
+          50,
+          50
+        ],
+        "uncertain_pixels": 18983,
+        "both_positive": 45060,
+        "a_only": 35941,
+        "b_only": 13428,
+        "both_below": 53027,
+        "jaccard": 0.47718391595802134,
+        "dice": 0.64607245015736,
+        "disagreement_rate": 0.3348049587673611,
+        "selected_by_strategy": {
+          "A": 81001,
+          "B": 58488,
+          "intersection": 45060,
+          "union": 94429
+        }
+      },
+      {
+        "thresholds_percent": [
+          55,
+          55
+        ],
+        "uncertain_pixels": 18440,
+        "both_positive": 39519,
+        "a_only": 37644,
+        "b_only": 13477,
+        "both_below": 56816,
+        "jaccard": 0.43599955869373347,
+        "dice": 0.6072419118155487,
+        "disagreement_rate": 0.3466864691840278,
+        "selected_by_strategy": {
+          "A": 77163,
+          "B": 52996,
+          "intersection": 39519,
+          "union": 90640
+        }
+      },
+      {
+        "thresholds_percent": [
+          60,
+          60
+        ],
+        "uncertain_pixels": 18926,
+        "both_positive": 34357,
+        "a_only": 39212,
+        "b_only": 13210,
+        "both_below": 60677,
+        "jaccard": 0.39591375793682804,
+        "dice": 0.5672467309470347,
+        "disagreement_rate": 0.3555094401041667,
+        "selected_by_strategy": {
+          "A": 73569,
+          "B": 47567,
+          "intersection": 34357,
+          "union": 86779
+        }
+      },
+      {
+        "thresholds_percent": [
+          65,
+          65
+        ],
+        "uncertain_pixels": 22527,
+        "both_positive": 28697,
+        "a_only": 40114,
+        "b_only": 12808,
+        "both_below": 65837,
+        "jaccard": 0.3515970546073831,
+        "dice": 0.5202690452880815,
+        "disagreement_rate": 0.3589002821180556,
+        "selected_by_strategy": {
+          "A": 68811,
+          "B": 41505,
+          "intersection": 28697,
+          "union": 81619
+        }
+      },
+      {
+        "thresholds_percent": [
+          70,
+          70
+        ],
+        "uncertain_pixels": 26899,
+        "both_positive": 22237,
+        "a_only": 39859,
+        "b_only": 12717,
+        "both_below": 72643,
+        "jaccard": 0.2972344378650769,
+        "dice": 0.4582586295723854,
+        "disagreement_rate": 0.3565538194444444,
+        "selected_by_strategy": {
+          "A": 62096,
+          "B": 34954,
+          "intersection": 22237,
+          "union": 74813
+        }
+      },
+      {
+        "thresholds_percent": [
+          75,
+          75
+        ],
+        "uncertain_pixels": 33831,
+        "both_positive": 15478,
+        "a_only": 40175,
+        "b_only": 10300,
+        "both_below": 81503,
+        "jaccard": 0.23468227374039088,
+        "dice": 0.3801500656997949,
+        "disagreement_rate": 0.3423055013020833,
+        "selected_by_strategy": {
+          "A": 55653,
+          "B": 25778,
+          "intersection": 15478,
+          "union": 65953
+        }
+      },
+      {
+        "thresholds_percent": [
+          80,
+          80
+        ],
+        "uncertain_pixels": 44367,
+        "both_positive": 8225,
+        "a_only": 38934,
+        "b_only": 8082,
+        "both_below": 92215,
+        "jaccard": 0.14889303234916096,
+        "dice": 0.2591938990955787,
+        "disagreement_rate": 0.31884765625,
+        "selected_by_strategy": {
+          "A": 47159,
+          "B": 16307,
+          "intersection": 8225,
+          "union": 55241
+        }
+      },
+      {
+        "thresholds_percent": [
+          85,
+          85
+        ],
+        "uncertain_pixels": 55241,
+        "both_positive": 505,
+        "a_only": 29862,
+        "b_only": 3459,
+        "both_below": 113630,
+        "jaccard": 0.014929344291373499,
+        "dice": 0.029419475109958928,
+        "disagreement_rate": 0.22597249348958334,
+        "selected_by_strategy": {
+          "A": 30367,
+          "B": 3964,
+          "intersection": 505,
+          "union": 33826
+        }
+      },
+      {
+        "thresholds_percent": [
+          90,
+          90
+        ],
+        "uncertain_pixels": 33826,
+        "both_positive": 0,
+        "a_only": 0,
+        "b_only": 0,
+        "both_below": 147456,
+        "jaccard": null,
+        "dice": null,
+        "disagreement_rate": 0.0,
+        "selected_by_strategy": {
+          "A": 0,
+          "B": 0,
+          "intersection": 0,
+          "union": 0
+        }
+      },
+      {
+        "thresholds_percent": [
+          95,
+          95
+        ],
+        "uncertain_pixels": 0,
+        "both_positive": 0,
+        "a_only": 0,
+        "b_only": 0,
+        "both_below": 147456,
+        "jaccard": null,
+        "dice": null,
+        "disagreement_rate": 0.0,
+        "selected_by_strategy": {
+          "A": 0,
+          "B": 0,
+          "intersection": 0,
+          "union": 0
+        }
+      }
+    ],
+    "rank_agreement": [
+      {
+        "fraction": 0.01,
+        "requested_pixels": 1475,
+        "a_cutoff": 227.0,
+        "b_cutoff": 219.0,
+        "a_selected": 2073,
+        "b_selected": 1935,
+        "both_positive": 0,
+        "a_only": 2073,
+        "b_only": 1935,
+        "both_below": 143448,
+        "jaccard": 0.0,
+        "dice": 0.0,
+        "disagreement_rate": 0.027180989583333332
+      },
+      {
+        "fraction": 0.05,
+        "requested_pixels": 7373,
+        "a_cutoff": 225.0,
+        "b_cutoff": 213.0,
+        "a_selected": 8461,
+        "b_selected": 8321,
+        "both_positive": 618,
+        "a_only": 7843,
+        "b_only": 7703,
+        "both_below": 131292,
+        "jaccard": 0.03823311061618411,
+        "dice": 0.0736503396496246,
+        "disagreement_rate": 0.10542805989583333
+      },
+      {
+        "fraction": 0.2,
+        "requested_pixels": 29492,
+        "a_cutoff": 217.0,
+        "b_cutoff": 187.0,
+        "a_selected": 30367,
+        "b_selected": 29598,
+        "both_positive": 13505,
+        "a_only": 16862,
+        "b_only": 16093,
+        "both_below": 100996,
+        "jaccard": 0.29068015497201893,
+        "dice": 0.45042941716001,
+        "disagreement_rate": 0.22349039713541666
+      }
+    ],
+    "score_distributions": [
+      {
+        "finite_pixels": 147456,
+        "normalized_bin_edges": [
+          0.0,
+          0.05,
+          0.1,
+          0.15000000000000002,
+          0.2,
+          0.25,
+          0.30000000000000004,
+          0.35000000000000003,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6000000000000001,
+          0.65,
+          0.7000000000000001,
+          0.75,
+          0.8,
+          0.8500000000000001,
+          0.9,
+          0.9500000000000001,
+          1.0
+        ],
+        "counts": [
+          0,
+          0,
+          10078,
+          10929,
+          13020,
+          9303,
+          6157,
+          5025,
+          6909,
+          5034,
+          3838,
+          3914,
+          4438,
+          6715,
+          6443,
+          8494,
+          16792,
+          30367,
+          0,
+          0
+        ],
+        "raw_range": [
+          31.0,
+          228.0
+        ]
+      },
+      {
+        "finite_pixels": 147456,
+        "normalized_bin_edges": [
+          0.0,
+          0.05,
+          0.1,
+          0.15000000000000002,
+          0.2,
+          0.25,
+          0.30000000000000004,
+          0.35000000000000003,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6000000000000001,
+          0.65,
+          0.7000000000000001,
+          0.75,
+          0.8,
+          0.8500000000000001,
+          0.9,
+          0.9500000000000001,
+          1.0
+        ],
+        "counts": [
+          0,
+          0,
+          21449,
+          22121,
+          15764,
+          7932,
+          6198,
+          5454,
+          5007,
+          5043,
+          5492,
+          5856,
+          5635,
+          6551,
+          9176,
+          9471,
+          12343,
+          3964,
+          0,
+          0
+        ],
+        "raw_range": [
+          29.0,
+          223.0
+        ]
+      }
+    ],
+    "probability_differences": null
+  },
+  "napari": {
+    "qt": "6.12.0",
+    "napari": "0.10.0",
+    "open_ms": 441.3910000002943,
+    "opengl_renderer": "NVIDIA GeForce RTX 4080 Laptop GPU/PCIe/SSE2",
+    "process_dedicated_gpu_bytes": 47833088,
+    "timer_interval_ms": 8,
+    "startup_timer_gaps_ms": {
+      "p50": 7.899099997302983,
+      "p95": 219.54564999759896,
+      "max": 357.84399999829475
+    },
+    "startup_timer_ticks": 12,
+    "analysis_timer_gaps_ms": {
+      "p50": 7.9131000020424835,
+      "p95": 21.72043999744346,
+      "max": 118.91460000333609
+    },
+    "analysis_timer_ticks": 118,
+    "frames": [
+      {
+        "mode": "consensus",
+        "ms_to_layer": 137.49959999404382,
+        "ms_to_frame": 141.48559999739518,
+        "sha256": "8f49843446d6327f6bfd78f457682b722e33d8d0cea56a600f0d3602792e85ea"
+      },
+      {
+        "mode": "uncertainty",
+        "ms_to_layer": 42.635099998733494,
+        "ms_to_frame": 46.256400004494935,
+        "sha256": "351ee8531aedca337564776630eb120dd626551905ca09f92f228f58cbe666f2"
+      },
+      {
+        "mode": "disagreement",
+        "ms_to_layer": 51.97040000348352,
+        "ms_to_frame": 55.55370000365656,
+        "sha256": "d36a0d719caac912ef202b59039e8f79154b5beaa57b3a9f0e6927d8466902ed"
+      },
+      {
+        "mode": "consensus",
+        "ms_to_layer": 44.468799998867325,
+        "ms_to_frame": 48.69390000385465,
+        "sha256": "8f49843446d6327f6bfd78f457682b722e33d8d0cea56a600f0d3602792e85ea"
+      },
+      {
+        "mode": "uncertainty",
+        "ms_to_layer": 39.726200004224665,
+        "ms_to_frame": 43.295900002704,
+        "sha256": "351ee8531aedca337564776630eb120dd626551905ca09f92f228f58cbe666f2"
+      },
+      {
+        "mode": "disagreement",
+        "ms_to_layer": 48.608299999614246,
+        "ms_to_frame": 52.73809999926016,
+        "sha256": "d36a0d719caac912ef202b59039e8f79154b5beaa57b3a9f0e6927d8466902ed"
+      },
+      {
+        "mode": "consensus",
+        "ms_to_layer": 40.980099998705555,
+        "ms_to_frame": 45.0217999969027,
+        "sha256": "8f49843446d6327f6bfd78f457682b722e33d8d0cea56a600f0d3602792e85ea"
+      },
+      {
+        "mode": "uncertainty",
+        "ms_to_layer": 44.676099998469,
+        "ms_to_frame": 49.03279999416554,
+        "sha256": "351ee8531aedca337564776630eb120dd626551905ca09f92f228f58cbe666f2"
+      },
+      {
+        "mode": "disagreement",
+        "ms_to_layer": 51.64810000133002,
+        "ms_to_frame": 55.1259999992908,
+        "sha256": "d36a0d719caac912ef202b59039e8f79154b5beaa57b3a9f0e6927d8466902ed"
+      }
+    ]
+  }
+}
