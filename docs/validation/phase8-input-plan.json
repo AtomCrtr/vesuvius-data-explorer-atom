@@ -1,0 +1,1486 @@
+{
+  "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+  "shape_zvu": [
+    118,
+    1160,
+    1400
+  ],
+  "layers": [
+    28,
+    90
+  ],
+  "axes": [
+    "z",
+    "v",
+    "u"
+  ],
+  "pixel_size_um": 2.215,
+  "tile_size": 256,
+  "stride": 128,
+  "tiles": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      128
+    ],
+    [
+      0,
+      256
+    ],
+    [
+      0,
+      384
+    ],
+    [
+      0,
+      512
+    ],
+    [
+      0,
+      640
+    ],
+    [
+      0,
+      768
+    ],
+    [
+      0,
+      896
+    ],
+    [
+      0,
+      1024
+    ],
+    [
+      0,
+      1144
+    ],
+    [
+      128,
+      0
+    ],
+    [
+      128,
+      128
+    ],
+    [
+      128,
+      256
+    ],
+    [
+      128,
+      384
+    ],
+    [
+      128,
+      512
+    ],
+    [
+      128,
+      640
+    ],
+    [
+      128,
+      768
+    ],
+    [
+      128,
+      896
+    ],
+    [
+      128,
+      1024
+    ],
+    [
+      128,
+      1144
+    ],
+    [
+      256,
+      0
+    ],
+    [
+      256,
+      128
+    ],
+    [
+      256,
+      256
+    ],
+    [
+      256,
+      384
+    ],
+    [
+      256,
+      512
+    ],
+    [
+      256,
+      640
+    ],
+    [
+      256,
+      768
+    ],
+    [
+      256,
+      896
+    ],
+    [
+      256,
+      1024
+    ],
+    [
+      256,
+      1144
+    ],
+    [
+      384,
+      0
+    ],
+    [
+      384,
+      128
+    ],
+    [
+      384,
+      256
+    ],
+    [
+      384,
+      384
+    ],
+    [
+      384,
+      512
+    ],
+    [
+      384,
+      640
+    ],
+    [
+      384,
+      768
+    ],
+    [
+      384,
+      896
+    ],
+    [
+      384,
+      1024
+    ],
+    [
+      384,
+      1144
+    ],
+    [
+      512,
+      0
+    ],
+    [
+      512,
+      128
+    ],
+    [
+      512,
+      256
+    ],
+    [
+      512,
+      384
+    ],
+    [
+      512,
+      512
+    ],
+    [
+      512,
+      640
+    ],
+    [
+      512,
+      768
+    ],
+    [
+      512,
+      896
+    ],
+    [
+      512,
+      1024
+    ],
+    [
+      512,
+      1144
+    ],
+    [
+      640,
+      0
+    ],
+    [
+      640,
+      128
+    ],
+    [
+      640,
+      256
+    ],
+    [
+      640,
+      384
+    ],
+    [
+      640,
+      512
+    ],
+    [
+      640,
+      640
+    ],
+    [
+      640,
+      768
+    ],
+    [
+      640,
+      896
+    ],
+    [
+      640,
+      1024
+    ],
+    [
+      640,
+      1144
+    ],
+    [
+      768,
+      0
+    ],
+    [
+      768,
+      128
+    ],
+    [
+      768,
+      256
+    ],
+    [
+      768,
+      384
+    ],
+    [
+      768,
+      512
+    ],
+    [
+      768,
+      640
+    ],
+    [
+      768,
+      768
+    ],
+    [
+      768,
+      896
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      768,
+      1144
+    ],
+    [
+      896,
+      0
+    ],
+    [
+      896,
+      128
+    ],
+    [
+      896,
+      256
+    ],
+    [
+      896,
+      384
+    ],
+    [
+      896,
+      512
+    ],
+    [
+      896,
+      640
+    ],
+    [
+      896,
+      768
+    ],
+    [
+      896,
+      896
+    ],
+    [
+      896,
+      1024
+    ],
+    [
+      896,
+      1144
+    ],
+    [
+      904,
+      0
+    ],
+    [
+      904,
+      128
+    ],
+    [
+      904,
+      256
+    ],
+    [
+      904,
+      384
+    ],
+    [
+      904,
+      512
+    ],
+    [
+      904,
+      640
+    ],
+    [
+      904,
+      768
+    ],
+    [
+      904,
+      896
+    ],
+    [
+      904,
+      1024
+    ],
+    [
+      904,
+      1144
+    ]
+  ],
+  "chunks": [
+    {
+      "key": [
+        0,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        1
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        2
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        3
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        4
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        5
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        6
+      ],
+      "sha256": "5e1bb67bba13f1f5acc0e0c9a88f351a157b211936b17b87d5aa8f950b26071d",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        0,
+        7
+      ],
+      "sha256": "cf6ce98a8bf91adae7966939387aeb882ca102b49539e69e497173072ecd2422",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        0,
+        8
+      ],
+      "sha256": "b8b8c777c313071217e4f66726b53368412dd75be89bb4a5934b923fb80638e6",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        0,
+        9
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        0,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        1,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        1,
+        1
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        1,
+        2
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        1,
+        3
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        1,
+        4
+      ],
+      "sha256": "cea7d2d6c0b09a75a52b154f21c184782b2d78eadc95daeb0a1c17d6d90fdb04",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        1,
+        5
+      ],
+      "sha256": "17d7d12632ce0144c57d22d32ba4017e75aabd38f148d4e677361dc64588a253",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        1,
+        6
+      ],
+      "sha256": "79018370c4189667ae964908765d13067b67f50d5f89518a36c6dfcc3f86e439",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        1,
+        7
+      ],
+      "sha256": "37a361bde75b13001c5ac3004a4589622eaedb0d077e2269a83880e589d00bbe",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        1,
+        8
+      ],
+      "sha256": "b653e5f2fd904f28f46b81b3f26ff50277a5e1cbab048ac781962bce2528bc2c",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        1,
+        9
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        1,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        1
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        2
+      ],
+      "sha256": "b88ecaf4d371582b1cd3dc81a6506d3b3d403eaeb26615903ca6bdad5651bb28",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        3
+      ],
+      "sha256": "264103cfe9bfefb9176a4b80b49a289806086d7d2d767bf18b82decef8d00ddc",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        4
+      ],
+      "sha256": "ccf319ee71c7b0c1dd15207e9968e41d7c495112e8df4803c9b5b6789ee222ce",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        5
+      ],
+      "sha256": "ca4596881bce0f95d6613083211798f3a7418a3e60199081c5080bdf1f7d5e31",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        6
+      ],
+      "sha256": "1a7ed0c39834bb980ebf47defbdfe52a7ae88f75235259029701deb35b1ed715",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        7
+      ],
+      "sha256": "67cded3ece701ad3c53bb687c3149f1f8fb13c8de5929663e142adc871296a1c",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        8
+      ],
+      "sha256": "e999c24d957cbf85f61eab215c159e4aebe20140baea41c30f792b6839e12fef",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        2,
+        9
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        2,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        1
+      ],
+      "sha256": "a1a97fa93cf75f7046275d017107ba5f98a620ad5c87e4acfe149cc2e2bd5350",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        3,
+        2
+      ],
+      "sha256": "70f50fc0c8a0c84d150203ebe6cc9b02e2cf2c6cfc39c064f272d303eede70ef",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        3
+      ],
+      "sha256": "e55db10ba8d78bd9547482f85ee974378990dd6696699e3e7a6348b3a474aeb0",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        4
+      ],
+      "sha256": "5e7a15190816bab81adbff6a99def8d5696f854d6acfd26b76bdc8f48b696239",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        5
+      ],
+      "sha256": "7224bbca509933e90aa01f0d307eead7b47fd8ecf3d2619b553ad1dfc6eacfe5",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        6
+      ],
+      "sha256": "0b77947cd9a9aa73e6f5d6284549860b8956cdfcce9ee688fce92b5a926cc13d",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        7
+      ],
+      "sha256": "60401ff9d4fbd53ff69a5190d359a24299b5a146c06603390637152e7b484a89",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        8
+      ],
+      "sha256": "9c020f405e5d56a02afe5bcd372667b2974f7263d208211ffc6f2023dfe2f8f1",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        3,
+        9
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        3,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        1
+      ],
+      "sha256": "da215e1a9c8b1e153ed49a89cc3145e0048e09d6d437e2dda6ef43aff20f83ce",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        4,
+        2
+      ],
+      "sha256": "234eedc140745f71e2137168ec176ec3409f465fcd9741659c87acde17caf51a",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        3
+      ],
+      "sha256": "edef979bb7ea82fc4cddf9ed02522bb9ffa8655adf2d09d5c2133b829acfc7b2",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        4
+      ],
+      "sha256": "0d3e7ff308bc34fb43aa0495ba88ec5aa76b48c46c7d781cc1193e42b9fbf3ce",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        5
+      ],
+      "sha256": "1def0c0bcaddf71469c301247219a9d8ee171dbf2703c8536fc44c86c66e845a",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        6
+      ],
+      "sha256": "1429f7058cc9f98562ba5f8b1e230df4e9a2effddc77692bb6eaf1dfe659e39c",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        7
+      ],
+      "sha256": "51a6ba9c01dc1e9dc499b7715665b4d6d96734cf8bcfc14c4bdb314f46625e51",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        4,
+        8
+      ],
+      "sha256": "9c154b080ab436e63517dd8e6b90dc9020e19adb0080a1d3b46dc5381c7db5b7",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        4,
+        9
+      ],
+      "sha256": "bc47909993d1caad906e79f1b2ffc4c76e3704c2f956485ee82be7d69655307d",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        4,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        0
+      ],
+      "sha256": "bae94a224ba043c6f9ec4835c3870a5f5cc26aed284a03f198a09ca5e124910b",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        5,
+        1
+      ],
+      "sha256": "db88fc48ab0284babbf5523993a9d04f92cb6bd0a073ed28ce6eb03d057e5140",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        5,
+        2
+      ],
+      "sha256": "6ade75257a71da051fc4130280298d74920d304203b060987d43d364844670e1",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        3
+      ],
+      "sha256": "bf1a1bb9326cbbfd108166d96b7e33f004e8f1253d6fa827d8e538a664b36929",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        4
+      ],
+      "sha256": "4e6f929593f8de3a90d88a90d911c85dea9f38a24e1676aa46d0c17ac84b737b",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        5
+      ],
+      "sha256": "a88c0a2ef56c5fcc2d5806621b65298dae4b0f2a6dbea69d72f86c9d7d7f83c2",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        6
+      ],
+      "sha256": "62eebf8e94ad2adcca40e4090af9eb3bd0475db4868ffd3b731d18db8f762adc",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        7
+      ],
+      "sha256": "a6c820d5f88b646e44492691ffbea72e94c993f0258fa93044522a6568479abe",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        5,
+        8
+      ],
+      "sha256": "84b7879ed6884e9a64d6f7204f74ea9e141d388f302acaa395562e48aade6e52",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        5,
+        9
+      ],
+      "sha256": "33e9020a4946d9a9edd12843031486b8f8f84de4db79ccc98e5b606ab9fef251",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        5,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        0
+      ],
+      "sha256": "3667602018dd10d54c34158c92510892e3c0844eee02debadffebaa944ed3a11",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        6,
+        1
+      ],
+      "sha256": "29fdf998f7ca3d9924b281ffe9b7b96fee49e090f8ffa441728f09d8c6ccf899",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        6,
+        2
+      ],
+      "sha256": "a282ff8dfbab74bd7eb8d98035277d784d53f3f93d9109560b176f7a34bb533f",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        3
+      ],
+      "sha256": "b71218da93f1323bb5194fed091d4253abee2f6a10719c05b69e9e1fb04906b9",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        4
+      ],
+      "sha256": "c9f7fd20b74adbe5b7923db8ea5d282943630962e203a92916ae5ee33e9dba52",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        5
+      ],
+      "sha256": "2891c31878a5043591d105559e60032e251943f56035d282a5859c6ce515c312",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        6
+      ],
+      "sha256": "19bbe40714de78f5148202e1b3f9c3799ea127c6803cf3662ee693ce69fa43e5",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        7
+      ],
+      "sha256": "79043848ad2ee44648f400588c1a76f6164262420e09856c3d91042ce5f9b35d",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        8
+      ],
+      "sha256": "4ace179140bab55633f8b466343d68f5ee8c71adcdc7d3dc957ea4bb7c6d2968",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        6,
+        9
+      ],
+      "sha256": "15bf12d396bbbda33fadcf3369dd2b4decc216ac6e82db9e8736e7dbcbf37908",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        6,
+        10
+      ],
+      "sha256": "9d202d8114585ef7efd64d318fa5dd50fecab854e31785e49872802744e00b8e",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        7,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        1
+      ],
+      "sha256": "64b3e04880767af11811eb69be3ea116cadf22b4c8db12d3da20c435bc88e90d",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        7,
+        2
+      ],
+      "sha256": "40e3341a979a7b7ee5c3e9bdba660851c9602a6e7b07ccd03cdeccb409f99aad",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        3
+      ],
+      "sha256": "302ad621adc2892d17310a23b0e02597627bcf94d26e09998b0a08e2ca3f37c3",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        4
+      ],
+      "sha256": "c77c946862d6ab1a63b45ff7f0c772dcc92e2281898756745c68455bcb470431",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        5
+      ],
+      "sha256": "d7e2636a9f9fae8bd2d2a8c8bc97a5352d90158d1a46ce81fa01133df6c0c08f",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        6
+      ],
+      "sha256": "5b18a86bd517fe4ce74d4403d953ff8338e74f702cf54fd93bb9bb5c7bd2a4cf",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        7
+      ],
+      "sha256": "bc7281f3f16e6f7f82d61b424808ebf0c4ee3aedcbae22fd89e46cb72ec73d94",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        8
+      ],
+      "sha256": "afc1a8797e1d52f0ed14753a4e822e8e91dcadd563253b8d505986a1510688f5",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        7,
+        9
+      ],
+      "sha256": "e43ccc1f8d15af23f2d40f64e44564dbd4e787b7bc4ee1b8b9e508e2d4314da4",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        7,
+        10
+      ],
+      "sha256": "2efa9d0a20f02d3e01774c1ddf8419ae6ab6fbca538d753814fcf8a4a15e69e2",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        8,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        1
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        2
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        3
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        4
+      ],
+      "sha256": "721453f1e757e8912306ad0b99ce801800e5ff3a6325c73a6b3f4ed45e30ae07",
+      "previous_cache": false,
+      "storage": "s3_object",
+      "additional_payload_bytes": 1933312
+    },
+    {
+      "key": [
+        8,
+        5
+      ],
+      "sha256": "613dfe28e6d95f238092fd67f8b7ce8ff25decd8807c7c58ed332c3fbcecaeba",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        6
+      ],
+      "sha256": "9a374b2c45aa2848e550467be5f0bccd33ffd57d37c74df2bb1c25bc294a8dc4",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        7
+      ],
+      "sha256": "2143d3cfd64da8abda0519b37f92d3a6187a8746861c3df684b7faa85d80c136",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        8
+      ],
+      "sha256": "8dcc627b4db7bf1df02867318d98833d50cb761368b40b39320d750e51a67f81",
+      "previous_cache": true,
+      "storage": "s3_object",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        9
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        8,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        0
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        1
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        2
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        3
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        4
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        5
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": true,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        6
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": true,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        7
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": true,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        8
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": true,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        9
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    },
+    {
+      "key": [
+        9,
+        10
+      ],
+      "sha256": "33d02ea638f2d02daa37a19ca3453aff85abd345a9a4d9f7d9272d110986f2fe",
+      "previous_cache": false,
+      "storage": "absent_zarr_fill",
+      "additional_payload_bytes": 0
+    }
+  ],
+  "prior_plan_sha256": "1feede130149273d095988d723e4ecd3f28b0c44b50130516e59cef2600e8e38",
+  "new_payload_bytes": 50266112
+}

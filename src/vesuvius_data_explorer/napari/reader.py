@@ -2,6 +2,7 @@
 
 from pathlib import Path, PureWindowsPath
 
+from vesuvius_data_explorer.core.geometry import verified_sampling
 from vesuvius_data_explorer.core.volume import (
     estimate_contrast,
     open_levels,
@@ -31,6 +32,10 @@ def read_volume(path: str) -> list[tuple]:
     source = path.strip().rstrip("/")
     # Zarr arrays, not Dask graphs: concurrent chunk reads and the local cache (T6).
     arrays, levels = open_levels(source)
+    metadata = {"source": source, "volume_summary": volume_summary(levels)}
+    sampling = verified_sampling(source, levels)
+    if sampling is not None:
+        metadata["verified_sampling"] = sampling
     return [
         (
             arrays,
@@ -40,7 +45,7 @@ def read_volume(path: str) -> list[tuple]:
                 "scale": levels[0].scale,
                 "contrast_limits": estimate_contrast(arrays),
                 "name": PureWindowsPath(source).name,
-                "metadata": {"source": source, "volume_summary": volume_summary(levels)},
+                "metadata": metadata,
             },
             "image",
         )

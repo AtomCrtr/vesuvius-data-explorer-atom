@@ -6,6 +6,7 @@ Only the requested 2D window is materialized. Coordinate order is Z, Y, X.
 from __future__ import annotations
 
 import re
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from math import isfinite, prod
 from typing import Any
@@ -25,6 +26,7 @@ class Level:
     scale: tuple[float, float, float] = (1.0, 1.0, 1.0)
     # False when scale is the unit fallback (no usable OME metadata), not a measurement.
     scale_from_metadata: bool = True
+    translation: tuple[float, float, float] | None = None
 
 
 # HTTPS hosts serving official Vesuvius Challenge volumes outside the open-data S3 bucket
@@ -103,9 +105,11 @@ def open_volume_store(path: str, *, cache: bool = False) -> Any:
     try:
         if path.startswith("s3://"):
             set_remote_concurrency()
-            # Supported Zarr 3 remote store API. Anonymous access to the public bucket.
+            # Zarr parallelizes independent chunks. Disable s3fs multipart GET per object:
+            # its size probe adds HEAD (and sometimes LIST) before small metadata and chunks.
             store = zarr.storage.FsspecStore.from_url(
-                path.rstrip("/"), storage_options={"anon": True}, read_only=True
+                path.rstrip("/"), storage_options={"anon": True, "max_concurrency": 1},
+                read_only=True,
             )
             if cache:
                 store = cached_store(store, path)
@@ -141,37 +145,49 @@ class _AxisOrderError(ValueError):
 
 
 def _level(
-    node: Any, key: str, scale: tuple[float, float, float], from_metadata: bool = True
+    node: Any, key: str, scale: tuple[float, float, float], from_metadata: bool = True,
+    translation: tuple[float, float, float] | None = None,
 ) -> Level:
     shape = tuple(int(n) for n in node.shape)
     # NumPy arrays and the legacy array-like API have no storage chunk grid.
     chunks = tuple(int(n) for n in getattr(node, "chunks", shape))
-    return Level(key, shape, str(node.dtype), chunks, scale, from_metadata)
+    return Level(key, shape, str(node.dtype), chunks, scale, from_metadata, translation)
 
 
-def _dataset_scale(dataset: dict) -> tuple[tuple[float, float, float], bool]:
-    """(combined scale, whether any scale transform was declared)."""
+def _dataset_transform(dataset: dict):
+    """Compose NGFF inline transforms in the order of declaration."""
     transformations = dataset.get("coordinateTransformations", [])
     if not isinstance(transformations, list):
         raise ValueError("coordinateTransformations doit être une liste.")
     scale = (1.0, 1.0, 1.0)
+    translation = (0.0, 0.0, 0.0)
     declared = False
+    affine_known = True
     for transform in transformations:
         if not isinstance(transform, dict):
             raise ValueError("Transformation de coordonnées invalide.")
-        if transform.get("type") == "scale":
-            values = transform.get("scale")
-            if not isinstance(values, list) or len(values) != 3:
-                raise ValueError("L'échelle doit contenir trois valeurs (z, y, x).")
-            factors = tuple(float(value) for value in values)
-            if not all(isfinite(value) and value > 0 for value in factors):
-                raise ValueError("L'échelle doit contenir des valeurs finies positives.")
-            scale = tuple(a * b for a, b in zip(scale, factors))
+        kind = transform.get("type")
+        if kind not in ("scale", "translation"):
+            affine_known = False
+            continue
+        values = transform.get(kind)
+        if not isinstance(values, list) or len(values) != 3:
+            raise ValueError(f"{kind} doit contenir trois valeurs (z, y, x).")
+        values = tuple(float(value) for value in values)
+        if not all(isfinite(value) and (kind == "translation" or value > 0) for value in values):
+            raise ValueError(f"Valeurs {kind} invalides.")
+        if kind == "scale":
+            scale = tuple(a * b for a, b in zip(scale, values))
+            translation = tuple(a * b for a, b in zip(translation, values))
             declared = True
-    return scale, declared
+        else:
+            translation = tuple(a + b for a, b in zip(translation, values))
+    if not all(isfinite(value) for value in (*scale, *translation)):
+        raise ValueError("Transformation de coordonnées hors limites.")
+    return scale, declared, translation if affine_known else None
 
 
-def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
+def _metadata_levels(root: Any, metadata: Any, *, parallel: bool) -> list[tuple[Level, Any]]:
     if not isinstance(metadata, list) or not metadata or not isinstance(metadata[0], dict):
         raise ValueError("multiscales doit contenir une pyramide.")
     # One image/pyramid per open call, consistent with the prototype.
@@ -188,43 +204,45 @@ def _metadata_levels(root: Any, metadata: Any) -> list[Level]:
     datasets = pyramid.get("datasets")
     if not isinstance(datasets, list) or not datasets:
         raise ValueError("datasets doit contenir des niveaux.")
-    levels = []
-    seen = set()
-    pyramid_scale, _ = _dataset_scale(pyramid)
+    scales = {}
+    pyramid_scale, _, pyramid_translation = _dataset_transform(pyramid)
     for dataset in datasets:
         if not isinstance(dataset, dict):
             raise ValueError("Description de niveau invalide.")
         key = dataset.get("path")
         if not isinstance(key, str) or not key.strip():
             raise ValueError("Chemin de niveau invalide.")
-        node = root[key]
+        scale, declared, translation = _dataset_transform(dataset)
+        scale = tuple(a * b for a, b in zip(scale, pyramid_scale))
+        if pyramid_translation is None or translation is None:
+            translation = None
+        else:
+            translation = tuple(a*b+c for a, b, c in zip(translation, pyramid_scale, pyramid_translation))
+        scales.setdefault(key, (scale, declared, translation))
+    levels = []
+    # Consolidated children are already in memory. For remote unconsolidated pyramids,
+    # independent lookups can share Zarr's I/O loop without waiting one level at a time.
+    if parallel and len(scales) > 1 and root.metadata.consolidated_metadata is None:
+        with ThreadPoolExecutor(max_workers=min(len(scales), 8)) as pool:
+            nodes = list(pool.map(root.__getitem__, scales))
+    else:
+        nodes = [root[key] for key in scales]
+    for (key, (scale, declared, translation)), node in zip(scales.items(), nodes):
         if not _is_3d_array(node):
             raise ValueError("Le tableau doit être 3D (z, y, x).")
-        scale, declared = _dataset_scale(dataset)
-        scale = tuple(a * b for a, b in zip(scale, pyramid_scale))
-        if key not in seen:
-            # Without a per-level scale transform the unit scale is a default, not a
-            # measurement: checks comparing scales across levels must not use it.
-            levels.append(_level(node, key, scale, from_metadata=declared))
-            seen.add(key)
+        # Without a per-level scale transform the unit scale is a default, not a
+        # measurement: checks comparing scales across levels must not use it.
+        levels.append((_level(node, key, scale, declared, translation), node))
     return levels
 
 
-def list_levels(root: Any) -> list[Level]:
-    """Read metadata only, returning levels from finest to coarsest.
-
-    NGFF 0.5 (ome.multiscales) takes precedence over NGFF 0.4 (multiscales).
-    Malformed OME metadata emits a French warning and falls back to group
-    arrays with unit scales. Numeric fallback without OME metadata warns that
-    unit scales are not physical measurements. Missing axes assume the legacy
-    (z, y, x) order; explicitly different axes are rejected.
-    """
+def _level_arrays(root: Any, *, parallel: bool = False) -> list[tuple[Level, Any]]:
     if _is_3d_array(root):
-        return [_level(root, "__root__", (1.0, 1.0, 1.0), False)]
+        return [(_level(root, "__root__", (1.0, 1.0, 1.0), False), root)]
     if hasattr(root, "shape"):
         raise ValueError("Le tableau doit être 3D (z, y, x).")
     attrs = dict(getattr(root, "attrs", {}))
-    levels: list[Level] = []
+    levels: list[tuple[Level, Any]] = []
     has_metadata = "ome" in attrs or "multiscales" in attrs
     if has_metadata:
         try:
@@ -235,7 +253,7 @@ def list_levels(root: Any) -> list[Level]:
                 metadata = ome.get("multiscales")
             else:
                 metadata = attrs["multiscales"]
-            levels = _metadata_levels(root, metadata)
+            levels = _metadata_levels(root, metadata, parallel=parallel)
         except _AxisOrderError:
             raise
         except ValueError as exc:
@@ -265,17 +283,27 @@ def list_levels(root: Any) -> list[Level]:
         for key in candidates:
             node = root[key]
             if _is_3d_array(node):
-                levels.append(_level(node, key, (1.0, 1.0, 1.0), False))
+                levels.append((_level(node, key, (1.0, 1.0, 1.0), False), node))
     if not levels:
         raise ValueError("Aucun tableau 3D détecté ; vérifier le chemin de la racine .zarr.")
-    if not has_metadata and any(level.key.isdigit() for level in levels):
+    if not has_metadata and any(level.key.isdigit() for level, _ in levels):
         warn(
             "Métadonnées multiscales absentes : repli numérique avec des échelles unitaires ; "
             "ce ne sont pas des mesures physiques.",
             UserWarning,
             stacklevel=2,
         )
-    return sorted(levels, key=lambda level: prod(level.shape), reverse=True)
+    return sorted(levels, key=lambda pair: prod(pair[0].shape), reverse=True)
+
+
+def list_levels(root: Any) -> list[Level]:
+    """Read metadata only, returning levels from finest to coarsest.
+
+    NGFF 0.5 (ome.multiscales) takes precedence over NGFF 0.4 (multiscales).
+    Malformed OME metadata falls back to group arrays with unit scales. Missing
+    axes assume the legacy (z, y, x) order; explicitly different axes are rejected.
+    """
+    return [level for level, _ in _level_arrays(root)]
 
 
 def volume_summary(levels: list[Level]) -> dict:
@@ -302,10 +330,8 @@ def open_multiscale(path: str) -> tuple[list[da.Array], list[Level]]:
     Metadata I/O is necessary. Call read_slice for a bounded materialized ROI;
     computing an entire returned Dask array explicitly loads the entire level.
     """
-    root = open_volume_store(path)
-    levels = list_levels(root)
-    arrays = [da.from_zarr(get_array(root, level.key)) for level in levels]
-    return arrays, levels
+    arrays, levels = open_levels(path, cache=False)
+    return [da.from_zarr(array) for array in arrays], levels
 
 
 def open_levels(path: str, *, cache: bool = True) -> tuple[list[Any], list[Level]]:
@@ -316,8 +342,9 @@ def open_levels(path: str, *, cache: bool = True) -> tuple[list[Any], list[Level
     workloads. Nothing is read until an array is indexed.
     """
     root = open_volume_store(path, cache=cache)
-    levels = list_levels(root)
-    return [get_array(root, level.key) for level in levels], levels
+    remote = path.lstrip().startswith(("s3://", "https://"))
+    levels, arrays = zip(*_level_arrays(root, parallel=remote))
+    return list(arrays), list(levels)
 
 
 def get_array(root: Any, key: str) -> Any:

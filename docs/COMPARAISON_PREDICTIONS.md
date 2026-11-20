@@ -1,6 +1,15 @@
 # Comparer les prédictions Reader sur une surface
 
-Le panneau **Vesuvius — Comparer les prédictions** superpose une carte de scores au CT projeté ou au rendu de surface déroulée. Le choix de la prédiction et du fond garde les mêmes coordonnées, le même zoom et le même point de vue. Le seuil règle la transparence d’affichage. Les fichiers source et leurs valeurs restent disponibles pour les métriques et la revue scientifique.
+Le panneau **Vesuvius — Comparer les prédictions** superpose les cartes A
+(orange) et B (bleu) au CT projeté ou à la surface déroulée. Les deux cartes
+partagent les coordonnées, le zoom et le point de vue. Régler le seuil
+commun et l’opacité pour explorer la zone. Activer **Désaccord au seuil**
+pour colorer les pixels où une seule carte atteint le seuil. Les accords
+et les pixels dont un score manque sont transparents dans ce mode.
+Le champ **Analyse** affiche aussi le consensus positif ou la
+différence signée A−B. L’orange indique un score A plus élevé
+et le bleu un score B plus élevé. La différence et le consensus
+sont attachés à la même grille UV que les deux TIFF.
 
 Utiliser une vue napari 2D dédiée au repère UV. Les couches CT 3D d’une autre scène utilisent des voxels ZYX. Le panneau compare des artefacts déjà projetés sur une grille UV commune. L’exporteur doit attester leur recalage, orientation, origine, recadrage et pas physique avant de créer le manifeste.
 
@@ -24,7 +33,8 @@ Préparer le CT projeté, le rendu de surface et jusqu’à quatre cartes dans l
       "name": "Reader V3",
       "model": "Reader V3, run et révision des poids",
       "path": "reader-v3.tif",
-      "score_scale": 255
+      "score_scale": 255,
+      "provenance": {"checkpoint": "révision-ou-hash", "pile": "identifiant-de-la-pile"}
     },
     {
       "name": "Modèle témoin",
@@ -38,6 +48,35 @@ Préparer le CT projeté, le rendu de surface et jusqu’à quatre cartes dans l
 
 Pour un TIFF Reader entier 8 bits encodé sur `[0, 255]`, renseigner `255`. Pour une probabilité flottante sur `[0, 1]`, renseigner `1`. Un seuil de 50 % correspond alors à 127,5 et 0,5 unités des fichiers respectifs. Cette conversion harmonise l’affichage. Une même valeur de seuil ne démontre pas une calibration équivalente des modèles.
 
+Pour une carte avec calibration attestée, ajouter
+`"calibration": {"method": "...", "reference": "...", "event": "..."}`.
+Le champ `reference` identifie les données et la recette de
+validation. Le panneau affiche une différence de probabilités
+lorsque les deux cartes déclarent une calibration pour le même
+événement. Sinon, il affiche une différence de scores normalisés.
+L’analyse et la calibration déclarée sont conservées dans
+la session et la provenance des captures.
+
 Le chargement valide les axes, l’origine, le pas, le format des plans, leurs formes et la plage des scores. Les métadonnées napari gardent le volume, le segment, la révision de surface, l’origine, le modèle et le fichier source. Les poids et les cartes sont produits par le pipeline Reader ou PyTorch/CUDA. Le contrôle de performance ou de précision d’un modèle doit porter sur des cartes calculées sur la même pile orientée, des témoins sans encre, et des zones annotées indépendantes. [Reader V3](https://github.com/DomRusso2/reader-v3) · [Tutoriel Vesuvius](https://scrollprize.org/tutorial5)
 
-La version suivante pourra ajouter des panneaux UV côte à côte synchronisés, des annotations exportables et un contrôle de provenance par hash. Enregistrer la génération CT, l’orientation des normales, la méthode de projection, la profondeur de la pile, les paramètres de normalisation et le hash des poids avant d’utiliser une telle comparaison pour une conclusion scientifique.
+## Régions, captures et candidats
+
+- Saisir la ligne V, la colonne U, la hauteur et la largeur dans **Région**.
+  La boîte s’affiche sur les plans et les bornes dans le repère du segment
+  apparaissent sous les champs.
+- **Exporter la région en PNG** compose une image à la résolution des
+  données à partir du fond et des réglages du panneau. Le bloc texte
+  PNG `vesuvius_comparison` contient le JSON de provenance, les bornes
+  [début, fin[ en pixels source et en µm, ainsi que les candidats. La
+  vignette utilise le contraste min/max du plan de référence.
+- **Ajouter un candidat à la région** associe un libellé hypothétique
+  à la boîte courante. Sélectionner le candidat pour retrouver sa boîte
+  ou le retirer. Le statut exporté `candidat_non_valide` exige une
+  validation indépendante avant toute lecture paléographique confirmée.
+- **Enregistrer la session** et **Reprendre une session** conservent les
+  cartes sélectionnées, le mode, le seuil, l’opacité, la région et les
+  candidats. Le manifeste et les pixels TIFF sont vérifiés par SHA-256
+  à la reprise. L’objet facultatif `provenance` accueille les paramètres
+  amont disponibles, par exemple la révision de la pile, l’orientation
+  des normales, la méthode de projection, la normalisation et le hash
+  des poids.

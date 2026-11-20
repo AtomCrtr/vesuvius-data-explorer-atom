@@ -1,0 +1,217 @@
+{
+  "phase5_audit_sha256": "6caa774207c01d8aea287bab30b6fcf9b36bba78e33adfd51c9006e16fef17a8",
+  "public_A": {
+    "status": "available",
+    "uri": "https://huggingface.co/scrollprize/ink_canonical_2um/resolve/e154062e55513a1d4110f40fceeddb90eaa0f022/r152_3ddec_v2_l5_epoch13.ckpt",
+    "sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+    "size_bytes": 1549556213,
+    "licence": "MIT",
+    "release": "e154062e55513a1d4110f40fceeddb90eaa0f022",
+    "public_lfs_attestation": {
+      "type": "file",
+      "oid": "041ea255fd845812206abb05240a8ca3ac74f6cc",
+      "size": 1549556213,
+      "lfs": {
+        "oid": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+        "size": 1549556213,
+        "pointerSize": 135
+      },
+      "xetHash": "92e82fb2c876a1128cd7cb723fe47bd293d535ddbc40ae84b0a2b976a8fd97b4",
+      "path": "r152_3ddec_v2_l5_epoch13.ckpt"
+    },
+    "lfs_lookup_http": 200
+  },
+  "production_bindings": {
+    "20260417190342": {
+      "model": {
+        "id": "20260417190342",
+        "long_id": "20260417190342-new_canon_autoresearch_recipe",
+        "suffix": "new_canon_autoresearch_recipe",
+        "creation": {
+          "date": "2026-04-17T19:03:42Z",
+          "process": "model_training",
+          "metadata": null,
+          "derived_from": null
+        },
+        "properties": {
+          "architecture": "resnet3d-152-3d-decoder",
+          "task": "ink-detection",
+          "compatible_samples": [
+            "PHerc0009B",
+            "PHerc0139",
+            "PHerc0343P",
+            "PHerc0500P2",
+            "PHerc0814",
+            "PHerc0841",
+            "PHerc1667",
+            "PHercParis4"
+          ],
+          "excluded_samples": null,
+          "target_resolution_um_min": 2.0,
+          "target_resolution_um_max": 3.0,
+          "default_layers": 62,
+          "default_tile_size": 256,
+          "default_stride": 128,
+          "model_identifier": "new_canon_autoresearch_recipe",
+          "model_type": "resnet3d-152-3d-decoder"
+        }
+      },
+      "id": "20260417190342",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif",
+      "workflow": {
+        "process": "Run ink-detection using partitioned workflow",
+        "workflow": "ink-detection-partitioned",
+        "workflow_execution": "ink-detect-pherc0500p2-d5b71a09",
+        "date": "2026-07-21T14:35:24.315485Z",
+        "derived_from": {
+          "data_type": "layers-zarr",
+          "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+        },
+        "provenance": {
+          "workflow_template_ref": "ink-detection-partitioned",
+          "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+          "atlas_version": "0.1.0",
+          "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+          "atlas_git_dirty": true,
+          "images": {
+            "cleanup-zarr": "amazon/aws-cli:latest",
+            "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+            "validate-model": "python:3.11",
+            "check-if-zarr": "python:3.11",
+            "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+            "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+            "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+          },
+          "parameters": {
+            "model": "new_canon_autoresearch_recipe",
+            "model-type": "resnet3d-152-3d-decoder",
+            "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+            "start-layer": "28",
+            "end-layer": "90",
+            "tile-size": "256",
+            "stride": "128",
+            "batch-size": "",
+            "force-reverse": "false",
+            "add-scale-bar": "false"
+          }
+        }
+      },
+      "sha256_tiff": "10b8bc44a347e017f62561de9a525a845bc54264bac180292c346becd46ef5ce",
+      "checkpoint_sha256": null
+    },
+    "20260709123958": {
+      "model": {
+        "id": "20260709123958",
+        "long_id": "20260709123958-mrg20736-1um-s1z2",
+        "suffix": "mrg20736-1um-s1z2",
+        "creation": {
+          "date": "2026-07-09T12:39:58Z",
+          "process": "model_training",
+          "metadata": null,
+          "derived_from": null
+        },
+        "properties": {
+          "architecture": "resnet3d-152",
+          "task": "ink-detection",
+          "compatible_samples": [
+            "PHerc0139",
+            "PHerc0814",
+            "PHerc1667",
+            "PHercMANBp",
+            "PHercParis4"
+          ],
+          "excluded_samples": null,
+          "target_resolution_um_min": 1.0,
+          "target_resolution_um_max": 1.5,
+          "required_render_level": 1,
+          "default_layers": 62,
+          "default_tile_size": 256,
+          "default_stride": 128,
+          "model_identifier": "mrg20736_1um_s1z2",
+          "model_type": "resnet3d-152",
+          "force_reverse": true
+        }
+      },
+      "id": "20260709123958",
+      "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260709123958-mrg20736-1um-s1z2-tile256-stride128.tif",
+      "workflow": {
+        "process": "Run ink-detection using partitioned workflow",
+        "workflow": "ink-detection-partitioned",
+        "workflow_execution": "ink-detect-pherc0500p2-95ba6c57",
+        "date": "2026-07-21T14:47:59.642206Z",
+        "derived_from": {
+          "data_type": "layers-zarr",
+          "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+        },
+        "provenance": {
+          "workflow_template_ref": "ink-detection-partitioned",
+          "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+          "atlas_version": "0.1.0",
+          "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+          "atlas_git_dirty": true,
+          "images": {
+            "check-if-zarr": "python:3.11",
+            "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+            "validate-model": "python:3.11",
+            "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+            "cleanup-zarr": "amazon/aws-cli:latest",
+            "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+            "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+          },
+          "parameters": {
+            "model": "mrg20736_1um_s1z2",
+            "model-type": "resnet3d-152",
+            "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+            "start-layer": "28",
+            "end-layer": "90",
+            "tile-size": "256",
+            "stride": "128",
+            "batch-size": "",
+            "force-reverse": "true",
+            "add-scale-bar": "false"
+          }
+        }
+      },
+      "sha256_tiff": "c0651fc66bf960e7cc3a71d96b62fe5b7d29659754acf3507dbdff2b376f751b",
+      "checkpoint_sha256": null
+    }
+  },
+  "B_searches": [
+    {
+      "url": "https://huggingface.co/api/models?search=mrg20736_1um_s1z2&limit=50",
+      "status": 200,
+      "payload": []
+    },
+    {
+      "url": "https://huggingface.co/api/models?search=mrg20736-1um-s1z2&limit=50",
+      "status": 200,
+      "payload": []
+    },
+    {
+      "url": "https://huggingface.co/api/models?search=20260709123958&limit=50",
+      "status": 200,
+      "payload": []
+    },
+    {
+      "url": "https://huggingface.co/api/models?search=mrg20736&limit=50",
+      "status": 200,
+      "payload": []
+    }
+  ],
+  "anonymous_registry_queries": [
+    {
+      "url": "https://scrollprize-models-registry.s3.amazonaws.com/?list-type=2&prefix=ink-detection%2Fnew_canon_autoresearch_recipe%2F&max-keys=20",
+      "status": 403
+    },
+    {
+      "url": "https://scrollprize-models-registry.s3.amazonaws.com/?list-type=2&prefix=ink-detection%2Fmrg20736_1um_s1z2%2F&max-keys=20",
+      "status": 403
+    }
+  ],
+  "available_for_intervention": [
+    "A"
+  ],
+  "unavailable_for_intervention": [
+    "B"
+  ]
+}

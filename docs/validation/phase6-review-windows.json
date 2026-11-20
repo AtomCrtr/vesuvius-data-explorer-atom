@@ -1,0 +1,666 @@
+{
+  "educe_lab": [
+    {
+      "id": "Frag1/ink",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        1792,
+        3328
+      ],
+      "stop_vu": [
+        1920,
+        3456
+      ],
+      "pixels_sha256": {
+        "ct": "0efaca6558f87a1df96b12e05985d6bab353c0a5a602e8f7bf920e47bb1fa0cb",
+        "ir": "1d70997c1aa77ebfcb57c772b34b6f3e3d8a7377e3ba39c72a057bb446b522ef",
+        "labels": "952d3c6df0010d25a50d3d09699efd67c288a16c30dcfeffbf9eb7dc03a30d58"
+      },
+      "label_counts": {
+        "0": 13429,
+        "1": 2955,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag1/background",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        128,
+        4608
+      ],
+      "stop_vu": [
+        256,
+        4736
+      ],
+      "pixels_sha256": {
+        "ct": "d056e6621a4675b15a62ee35e796f7e1bf4a35811a5d5a15f33e6172dee26795",
+        "ir": "c80dcba8177d35153a9b570630e21a5176d585791a3b0a1057d233b622ae0c24",
+        "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      "label_counts": {
+        "0": 16384,
+        "1": 0,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 21,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag1/sparse_traces",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        3584,
+        3072
+      ],
+      "stop_vu": [
+        3712,
+        3200
+      ],
+      "pixels_sha256": {
+        "ct": "fddc295b01a8b332a3355c9c05a5bd854137c1db9f1113fbe90680576bb85fd6",
+        "ir": "ed56644257797ae5ed95d373587d37f58842ca98fe9c2e763afef72ddbffe0ee",
+        "labels": "834d7e1164ca8f95a212fde4206f49fd9677c4efaa2e031a8667204ba8630c4a"
+      },
+      "label_counts": {
+        "0": 16218,
+        "1": 166,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag1/mask_edge_artifact",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        7808,
+        2944
+      ],
+      "stop_vu": [
+        7936,
+        3072
+      ],
+      "pixels_sha256": {
+        "ct": "7c2ad80527d14e953b745f73e09f6e2553131cbd33d1e22a6ef4722b150f58ea",
+        "ir": "bb25667491371bd1f50840892436d677da4d0129fa21c458a32d91d8f46da3ed",
+        "labels": "ffda8541249fbaaefb2cf731a0f2c3f62256f2bb2c8f245486672a96ddfc8fba"
+      },
+      "label_counts": {
+        "0": 8223,
+        "1": 0,
+        "255": 8161
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 8161,
+      "use": "geometry_and_mask_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag3/ink",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        5248,
+        1024
+      ],
+      "stop_vu": [
+        5376,
+        1152
+      ],
+      "pixels_sha256": {
+        "ct": "24593707c549317c60181744fe8b4a3274a2b5ec4be8b3aae14f59adc7fbeaa1",
+        "ir": "8081c67cb0b48c69dcecce4d4a7ccbde2709dac3b0336ce1d7872da69e054439",
+        "labels": "beb656db923ed3b859c6748a01691526803430e7bb10a469f86680e8d6eeea80"
+      },
+      "label_counts": {
+        "0": 13440,
+        "1": 2944,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag3/background",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        128,
+        3072
+      ],
+      "stop_vu": [
+        256,
+        3200
+      ],
+      "pixels_sha256": {
+        "ct": "78384de409e56ea01c226f7f03692dc2000d09f6dbdb004acec4fd42ae59e02c",
+        "ir": "8ec5e4d27e7a6f7c0068b9b047c01c2ecbd5ab51b60c59e41ede5d364b47486d",
+        "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      "label_counts": {
+        "0": 16384,
+        "1": 0,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag3/sparse_traces",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        2688,
+        2816
+      ],
+      "stop_vu": [
+        2816,
+        2944
+      ],
+      "pixels_sha256": {
+        "ct": "c0ae02823f991270d53d98dade4813091205c63511cf9b57580dbee1edf63acf",
+        "ir": "92bf8aa4c711bf45089a762bdef0f7be816f33ed407baa6324c3ef39c6921646",
+        "labels": "c698295022ba4a0170c4afc446d7547cf4b612538d21400b44c01fe510ede3b8"
+      },
+      "label_counts": {
+        "0": 16226,
+        "1": 158,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    },
+    {
+      "id": "Frag3/mask_edge_artifact",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        5248,
+        0
+      ],
+      "stop_vu": [
+        5376,
+        128
+      ],
+      "pixels_sha256": {
+        "ct": "38f3c0642bc20bdf8d06e59f679b68d7dd1954cc1339d1b1df0d4ee998208e6b",
+        "ir": "6e34577f66f7aec6bf8ba6a5eb9c8e708ae10fa3c1db8730cab9bb280c1d0a4b",
+        "labels": "ab6414e1c790bf25c382666990547f7b0439743e329fcfed90647c407fd58b4d"
+      },
+      "label_counts": {
+        "0": 8306,
+        "1": 0,
+        "255": 8078
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 8078,
+      "use": "geometry_and_mask_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false
+    }
+  ],
+  "cuda_order_effect": {
+    "scope": "normal vs reversed Z with strictly identical public A weights",
+    "raw_stack_plane_59_exactly_matches_phase4_ct": true,
+    "cross_process_repeat": {
+      "normal": {
+        "logits_sha256": "268db74f55c8de7c65066232937833702d0b7b7ab27c4a14188b15eccfd46e87",
+        "scores_sha256": "a08b6a7e23adc6d30a6aa38d8df02e3879071bf15f193e916d65ceda640b4a9f",
+        "times_ms": [
+          247.94200000178535,
+          235.96269999688957,
+          240.17839999578428
+        ]
+      },
+      "reversed_z": {
+        "logits_sha256": "c4fcd47100aa803a7dd485508a35e1df2dbc60e0b4c77cc5a4ad09c6b32d2590",
+        "scores_sha256": "92eadd10e233b8da826ed2a62e6bbe2c6af1c9f11be469eee0cf6220fdf28d28",
+        "times_ms": [
+          238.6839000027976,
+          238.75409999891417,
+          240.33580000104848
+        ]
+      }
+    },
+    "scores_range": [
+      [
+        0.16695648431777954,
+        0.8428555130958557
+      ],
+      [
+        0.15528887510299683,
+        0.23670010268688202
+      ]
+    ],
+    "mean_absolute_score_difference": 0.24648356437683105,
+    "full_tile": {
+      "paired_pixels": 65536,
+      "pearson": -0.2942993822327222,
+      "spearman": -0.3344031400231384
+    },
+    "center_128": {
+      "paired_pixels": 16384,
+      "pearson": -0.45808406102898364,
+      "spearman": -0.4226484020744189
+    },
+    "top": [
+      {
+        "fraction": 0.01,
+        "requested_pixels": 656,
+        "a_cutoff": 0.8154911994934082,
+        "b_cutoff": 0.21617886424064636,
+        "a_selected": 657,
+        "b_selected": 656,
+        "both_positive": 0,
+        "a_only": 657,
+        "b_only": 656,
+        "both_below": 64223,
+        "jaccard": 0.0,
+        "dice": 0.0,
+        "disagreement_rate": 0.0200347900390625
+      },
+      {
+        "fraction": 0.05,
+        "requested_pixels": 3277,
+        "a_cutoff": 0.7826511859893799,
+        "b_cutoff": 0.20361056923866272,
+        "a_selected": 3277,
+        "b_selected": 3277,
+        "both_positive": 0,
+        "a_only": 3277,
+        "b_only": 3277,
+        "both_below": 58982,
+        "jaccard": 0.0,
+        "dice": 0.0,
+        "disagreement_rate": 0.100006103515625
+      },
+      {
+        "fraction": 0.2,
+        "requested_pixels": 13108,
+        "a_cutoff": 0.646425187587738,
+        "b_cutoff": 0.19029894471168518,
+        "a_selected": 13108,
+        "b_selected": 13108,
+        "both_positive": 837,
+        "a_only": 12271,
+        "b_only": 12271,
+        "both_below": 40157,
+        "jaccard": 0.032980022853540326,
+        "dice": 0.06385413487946293,
+        "disagreement_rate": 0.374481201171875
+      }
+    ],
+    "center_top": [
+      {
+        "fraction": 0.01,
+        "requested_pixels": 164,
+        "a_cutoff": 0.6746152639389038,
+        "b_cutoff": 0.18341751396656036,
+        "a_selected": 164,
+        "b_selected": 164,
+        "both_positive": 0,
+        "a_only": 164,
+        "b_only": 164,
+        "both_below": 16056,
+        "jaccard": 0.0,
+        "dice": 0.0,
+        "disagreement_rate": 0.02001953125
+      },
+      {
+        "fraction": 0.05,
+        "requested_pixels": 820,
+        "a_cutoff": 0.6346253752708435,
+        "b_cutoff": 0.17841313779354095,
+        "a_selected": 820,
+        "b_selected": 820,
+        "both_positive": 0,
+        "a_only": 820,
+        "b_only": 820,
+        "both_below": 14744,
+        "jaccard": 0.0,
+        "dice": 0.0,
+        "disagreement_rate": 0.10009765625
+      },
+      {
+        "fraction": 0.2,
+        "requested_pixels": 3277,
+        "a_cutoff": 0.5628727078437805,
+        "b_cutoff": 0.17383472621440887,
+        "a_selected": 3277,
+        "b_selected": 3277,
+        "both_positive": 0,
+        "a_only": 3277,
+        "b_only": 3277,
+        "both_below": 9830,
+        "jaccard": 0.0,
+        "dice": 0.0,
+        "disagreement_rate": 0.4000244140625
+      }
+    ],
+    "input_clip_fraction": 0.00013511411605342743
+  },
+  "examination": {
+    "manifest_sha256": "4205b187a07f0fa6cb07805b48cd28c76a367cfd115fefeb309b9f094139ebed",
+    "archive_sha256": "bf92f7c65519cd7f82488dc2484d34606015e91785007e4e6be522aa19c8cb9f",
+    "selected_on": {
+      "start_vu": [
+        388,
+        508
+      ],
+      "stop_vu": [
+        772,
+        892
+      ],
+      "start_um_vu": [
+        859.42,
+        1125.22
+      ],
+      "stop_um_vu": [
+        1709.9799999999998,
+        1975.78
+      ]
+    },
+    "display": {
+      "threshold": 50,
+      "opacity": 100,
+      "mode": "disagreement"
+    },
+    "models": [
+      {
+        "id": "20260417190342-new_canon_autoresearch_recipe",
+        "provenance": {
+          "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260417190342-new_canon_autoresearch_recipe-tile256-stride128.tif",
+          "sha256_tiff": "10b8bc44a347e017f62561de9a525a845bc54264bac180292c346becd46ef5ce",
+          "etag": "\"a2820511f794afe1c3136e688f71aac4\"",
+          "dtype": "uint8",
+          "shape": [
+            1160,
+            1400
+          ],
+          "description": "{\"shape\": [1160, 1400], \"software\": \"optimized_inference\"}",
+          "catalogue_target": "20250526151718",
+          "catalogue_model": "20260417190342",
+          "model_properties": {
+            "architecture": "resnet3d-152-3d-decoder",
+            "task": "ink-detection",
+            "compatible_samples": [
+              "PHerc0009B",
+              "PHerc0139",
+              "PHerc0343P",
+              "PHerc0500P2",
+              "PHerc0814",
+              "PHerc0841",
+              "PHerc1667",
+              "PHercParis4"
+            ],
+            "excluded_samples": null,
+            "target_resolution_um_min": 2.0,
+            "target_resolution_um_max": 3.0,
+            "default_layers": 62,
+            "default_tile_size": 256,
+            "default_stride": 128,
+            "model_identifier": "new_canon_autoresearch_recipe",
+            "model_type": "resnet3d-152-3d-decoder"
+          },
+          "cropped_sha256": "8f1124f94aa98a17eb3d72655417ab5d69b6f2c177ee539475e5857d16be63f9",
+          "calibration": "undocumented",
+          "registration": {
+            "input_stack": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+            "mesh": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz",
+            "uv_orientation": [
+              "+v",
+              "+u"
+            ],
+            "anatomical_face": "undetermined"
+          },
+          "atlas_creation_info": {
+            "process": "Run ink-detection using partitioned workflow",
+            "workflow": "ink-detection-partitioned",
+            "workflow_execution": "ink-detect-pherc0500p2-d5b71a09",
+            "date": "2026-07-21T14:35:24.315485Z",
+            "derived_from": {
+              "data_type": "layers-zarr",
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+            },
+            "provenance": {
+              "workflow_template_ref": "ink-detection-partitioned",
+              "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+              "atlas_version": "0.1.0",
+              "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+              "atlas_git_dirty": true,
+              "images": {
+                "cleanup-zarr": "amazon/aws-cli:latest",
+                "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "validate-model": "python:3.11",
+                "check-if-zarr": "python:3.11",
+                "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+              },
+              "parameters": {
+                "model": "new_canon_autoresearch_recipe",
+                "model-type": "resnet3d-152-3d-decoder",
+                "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+                "start-layer": "28",
+                "end-layer": "90",
+                "tile-size": "256",
+                "stride": "128",
+                "batch-size": "",
+                "force-reverse": "false",
+                "add-scale-bar": "false"
+              }
+            }
+          },
+          "atlas_catalogue_sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8"
+        }
+      },
+      {
+        "id": "20260709123958-mrg20736-1um-s1z2",
+        "provenance": {
+          "uri": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/ink-detection/PHerc0500P2-20250919184428-2.215um-0.4m-111keV-volume-20250526151718-20260709123958-mrg20736-1um-s1z2-tile256-stride128.tif",
+          "sha256_tiff": "c0651fc66bf960e7cc3a71d96b62fe5b7d29659754acf3507dbdff2b376f751b",
+          "etag": "\"04103f85ab2fbfd7aa8809af8b7c3490\"",
+          "dtype": "uint8",
+          "shape": [
+            1160,
+            1400
+          ],
+          "description": "{\"shape\": [1160, 1400], \"software\": \"optimized_inference\"}",
+          "catalogue_target": "20250526151718",
+          "catalogue_model": "20260709123958",
+          "model_properties": {
+            "architecture": "resnet3d-152",
+            "task": "ink-detection",
+            "compatible_samples": [
+              "PHerc0139",
+              "PHerc0814",
+              "PHerc1667",
+              "PHercMANBp",
+              "PHercParis4"
+            ],
+            "excluded_samples": null,
+            "target_resolution_um_min": 1.0,
+            "target_resolution_um_max": 1.5,
+            "required_render_level": 1,
+            "default_layers": 62,
+            "default_tile_size": 256,
+            "default_stride": 128,
+            "model_identifier": "mrg20736_1um_s1z2",
+            "model_type": "resnet3d-152",
+            "force_reverse": true
+          },
+          "cropped_sha256": "7ed038a5c025bc7d838f838359ea5d4f07bab101dc17b15f6582a18a25410456",
+          "calibration": "undocumented",
+          "registration": {
+            "input_stack": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr",
+            "mesh": "s3://vesuvius-challenge-open-data/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/mesh/20250919184428-on-20250526151718-2.215um.tifxyz",
+            "uv_orientation": [
+              "+v",
+              "+u"
+            ],
+            "anatomical_face": "undetermined"
+          },
+          "atlas_creation_info": {
+            "process": "Run ink-detection using partitioned workflow",
+            "workflow": "ink-detection-partitioned",
+            "workflow_execution": "ink-detect-pherc0500p2-95ba6c57",
+            "date": "2026-07-21T14:47:59.642206Z",
+            "derived_from": {
+              "data_type": "layers-zarr",
+              "source_path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/"
+            },
+            "provenance": {
+              "workflow_template_ref": "ink-detection-partitioned",
+              "infra_revision": "main@sha1:345960ef4c3ffd915bab09cc23b35d8c567a8651",
+              "atlas_version": "0.1.0",
+              "atlas_git_sha": "28cd60ec3aa7f5722ecd1056f2965b7df4c2cbe0",
+              "atlas_git_dirty": true,
+              "images": {
+                "check-if-zarr": "python:3.11",
+                "calculate-partition-count": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "validate-model": "python:3.11",
+                "reduce-ink-detection": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "cleanup-zarr": "amazon/aws-cli:latest",
+                "aggregate-profiling": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43-cpu",
+                "run-ink-detection-partition": "585768151128.dkr.ecr.us-east-1.amazonaws.com/scrollprize/ink-detection:v43"
+              },
+              "parameters": {
+                "model": "mrg20736_1um_s1z2",
+                "model-type": "resnet3d-152",
+                "s3-path": "s3://vesuvius-challenge/PHerc0500P2/segments/20250919184428-0500P2-wrap01_0919/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+                "start-layer": "28",
+                "end-layer": "90",
+                "tile-size": "256",
+                "stride": "128",
+                "batch-size": "",
+                "force-reverse": "true",
+                "add-scale-bar": "false"
+              }
+            }
+          },
+          "atlas_catalogue_sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8"
+        }
+      }
+    ],
+    "regions": [
+      {
+        "id": "1cd8a75406a446a6deb3",
+        "label": "A seule · V128 U256",
+        "coordinates": {
+          "start_vu": [
+            516,
+            764
+          ],
+          "stop_vu": [
+            644,
+            892
+          ],
+          "start_um_vu": [
+            1142.9399999999998,
+            1692.26
+          ],
+          "stop_um_vu": [
+            1426.4599999999998,
+            1975.78
+          ]
+        },
+        "selection": "A seule · top 5 % par carte, ex æquo inclus · 5164/16384 · grille 128 · ROI (0, 0, 384, 384)"
+      },
+      {
+        "id": "c6d6da47479063e44ef2",
+        "label": "B seule · V256 U256",
+        "coordinates": {
+          "start_vu": [
+            644,
+            764
+          ],
+          "stop_vu": [
+            772,
+            892
+          ],
+          "start_um_vu": [
+            1426.4599999999998,
+            1692.26
+          ],
+          "stop_um_vu": [
+            1709.9799999999998,
+            1975.78
+          ]
+        },
+        "selection": "B seule · top 5 % par carte, ex æquo inclus · 6305/16384 · grille 128 · ROI (0, 0, 384, 384)"
+      },
+      {
+        "id": "5121a59842084faad865",
+        "label": "A et B · V256 U128",
+        "coordinates": {
+          "start_vu": [
+            644,
+            636
+          ],
+          "stop_vu": [
+            772,
+            764
+          ],
+          "start_um_vu": [
+            1426.4599999999998,
+            1408.74
+          ],
+          "stop_um_vu": [
+            1709.9799999999998,
+            1692.26
+          ]
+        },
+        "selection": "A et B · top 5 % par carte, ex æquo inclus · 11/16384 · grille 128 · ROI (0, 0, 384, 384)"
+      },
+      {
+        "id": "0a451e906e4d03a32bd0",
+        "label": "Témoin bas · V128 U0",
+        "coordinates": {
+          "start_vu": [
+            516,
+            508
+          ],
+          "stop_vu": [
+            644,
+            636
+          ],
+          "start_um_vu": [
+            1142.9399999999998,
+            1125.22
+          ],
+          "stop_um_vu": [
+            1426.4599999999998,
+            1408.74
+          ]
+        },
+        "selection": "Témoin bas · scores <20 % A et B · 4847/16384 · grille 128 · ROI (0, 0, 384, 384)"
+      }
+    ]
+  }
+}

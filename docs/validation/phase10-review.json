@@ -1,0 +1,94 @@
+{
+  "source_volume": "s3://vesuvius-challenge-open-data/PHerc0500P2/volumes/20250526151718-2.215um-0.4m-111keV-masked.zarr",
+  "mesh_sha256": {
+    "meta.json": "cedea13a2e17d95fd8f3368cbb2c03210bf54328317057b31e084ab843785c6f",
+    "x.tif": "bc8691fde69079339f7addd38bb0670ce0bfdd4212f983e15a243b06fcdc6e6e",
+    "y.tif": "7a269ee7379ae9303825b0f2677ffa7ec407d5f9b1e734c6d3e21331684d18df",
+    "z.tif": "b22ace683ce8cac372da3f3b169e86057d4e72ac79127344807e3ec5f9ed4bdc"
+  },
+  "source_packet_sha256": "105d8a99ffb7fd1e83dcdbbed793417680e09a1a8b6b1a24d5bdc66246b0448f",
+  "witnesses": [
+    {
+      "id": "R02",
+      "render_witness_vu": [
+        700,
+        700
+      ],
+      "tifxyz_knot_index_vu": [
+        35,
+        35
+      ],
+      "raw_center_zyx": [
+        21676.09961901841,
+        11028.806633777232,
+        10532.164053241635
+      ],
+      "raw_bounds_zyx": [
+        [
+          21636,
+          10989,
+          10492
+        ],
+        [
+          21716,
+          11069,
+          10572
+        ]
+      ],
+      "raw_pitch_um": 2.215,
+      "mesh_normal_xyz": [
+        -0.263933045120979,
+        0.8818940047499946,
+        0.3906434590252136
+      ],
+      "tiff_sha256": "1b4798052f9cf8da34e6ce2dad649dace2d99163a056c25cd5736100d53fec3f",
+      "voxel_sha256": "42e5752d5e18a6f3e5f5c8c810ba99a436c2d05ad60a4356960ac888cbeec4cb",
+      "dtype": "uint8",
+      "min_code": 35,
+      "max_code": 251,
+      "raw_cache_file": "R02-raw-L0.tif"
+    },
+    {
+      "id": "R04",
+      "render_witness_vu": [
+        700,
+        820
+      ],
+      "tifxyz_knot_index_vu": [
+        35,
+        41
+      ],
+      "raw_center_zyx": [
+        21677.095714051335,
+        11010.924802469557,
+        10415.207019788211
+      ],
+      "raw_bounds_zyx": [
+        [
+          21637,
+          10971,
+          10375
+        ],
+        [
+          21717,
+          11051,
+          10455
+        ]
+      ],
+      "raw_pitch_um": 2.215,
+      "mesh_normal_xyz": [
+        -0.08550721750517422,
+        0.9879059230889423,
+        0.12934605861914472
+      ],
+      "tiff_sha256": "bee3c30d90e4f9b7bd6ab3c7dfad411432c2e8aea3064358912d8919229d98b6",
+      "voxel_sha256": "1d4457128ed44c03b73b7ac9dd68a258904471b6e2b587c2167d750c4a463253",
+      "dtype": "uint8",
+      "min_code": 36,
+      "max_code": 255,
+      "raw_cache_file": "R04-raw-L0.tif"
+    }
+  ],
+  "archive_sha256": "f5c8975c94797a2ae807a821670f8be24203a993778dcdf4eb22742a6c219d4b",
+  "figure_sha256": "677eb032b03fa20cf0faeaa5f73823dedcf545bc8ea12ae9b43a254f265d112d"
+}

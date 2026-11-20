@@ -52,6 +52,40 @@ def test_async_widget_adds_one_multiscale_layer(
     assert "ouvert" in widget.status_label.text().lower()
 
 
+def test_path_change_discards_obsolete_image(async_loading, napari_pyramid, make_napari_viewer,
+                                           qtbot, monkeypatch):
+    from vesuvius_data_explorer.napari import widget as widget_module
+
+    actual = widget_module.read_volume
+    entered, release = threading.Event(), threading.Event()
+
+    def delayed(path):
+        entered.set()
+        assert release.wait(10)
+        return actual(path)
+
+    monkeypatch.setattr(widget_module, "read_volume", delayed)
+    viewer = make_napari_viewer()
+    widget = OpenVolumeWidget(viewer)
+    qtbot.addWidget(widget)
+    original = str(napari_pyramid)
+    widget.path_input.setText(original)
+    widget.open_button.click()
+    try:
+        qtbot.waitUntil(entered.is_set)
+        assert not widget.progress.isHidden()
+        widget.path_input.setText(original + ".other")
+        widget.path_input.setText(original)
+    finally:
+        release.set()
+    qtbot.waitUntil(widget.open_button.isEnabled, timeout=10000)
+    assert not viewer.layers
+    assert widget.progress.isHidden()
+    widget.open_button.click()
+    qtbot.waitUntil(widget.open_button.isEnabled, timeout=10000)
+    assert len(viewer.layers) == 1
+
+
 @pytest.mark.parametrize(
     "source, message",
     [

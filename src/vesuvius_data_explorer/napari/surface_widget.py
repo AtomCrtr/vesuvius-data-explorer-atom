@@ -38,6 +38,7 @@ from vesuvius_data_explorer.core.alignment_map import (
     review_zones,
 )
 from vesuvius_data_explorer.core.catalog import load_catalog
+from vesuvius_data_explorer.core.geometry import sampling_details
 from vesuvius_data_explorer.core.tifxyz import in_volume, load_tifxyz
 from vesuvius_data_explorer.qc import run_surface
 from vesuvius_data_explorer.qc.carte import drift_rgb
@@ -97,21 +98,22 @@ def prepare_overlay(source, max_bytes, volume_shape, overlap_ratio):
 
 
 def measure_alignment(surface, arrays, shapes, pixel_size_um, max_voxels,
-                      patches=DEFAULT_PATCHES):
+                      patches=DEFAULT_PATCHES, sampling=None):
     """Worker body (no Qt): alignment profile, its metrics and its grade (same rule as QC)."""
     profile = normal_profiles(surface, arrays, shapes, pixel_size_um=pixel_size_um,
-                              max_voxels=max_voxels, patches=patches)
+                              max_voxels=max_voxels, patches=patches, sampling=sampling)
     metrics = alignment_metrics(profile)
     status, note = grade_alignment(metrics, pixel_size_um,
                                    load_thresholds()["surface.alignment"])
     return {"profile": profile, "metrics": metrics, "pixel_size_um": pixel_size_um,
-            "status": status, "note": note}
+            "status": status, "note": note,
+            "sampling": sampling_details(shapes, profile.level, sampling)}
 
 
-def measure_drift(overlay, arrays, shapes, pixel_size_um):
+def measure_drift(overlay, arrays, shapes, pixel_size_um, sampling=None):
     """Worker body: compute T10 and colour each displayed point by its tile."""
     surface = overlay["surface"]
-    amap = alignment_map(surface, arrays, shapes, pixel_size_um=pixel_size_um)
+    amap = alignment_map(surface, arrays, shapes, pixel_size_um=pixel_size_um, sampling=sampling)
     rows, cols = np.unravel_index(overlay["point_indices"], surface.points.shape[:2])
     rgb = drift_rgb(amap, pixel_size_um)
     colors = rgb[rows // amap.tile, cols // amap.tile].astype(np.float32) / 255
@@ -492,7 +494,7 @@ class SurfaceWidget(QWidget):
         self._start(measure_alignment,
                     (self._overlay["surface"], list(layer.data), shapes,
                      layer.metadata.get("pixel_size_um"), DEFAULT_MAX_VOXELS,
-                     self.patches_spin.value()),
+                     self.patches_spin.value(), layer.metadata.get("verified_sampling")),
                     self._show_alignment, "Mesure de l'alignement…")
 
     def _show_alignment(self, result):
@@ -506,7 +508,8 @@ class SurfaceWidget(QWidget):
         patch_extent = 6 * self._overlay["step"]  # 6 x 6 grid points per patch (step has stride)
         points_layer = self._viewer.add_points(
             np.empty((0, 3)), name=name, size=patch_extent / 2, face_color="transparent",
-            border_color="yellow", border_width=0.1, scale=tuple(self._target.scale))
+            border_color="yellow", border_width=0.1, scale=tuple(self._target.scale),
+            metadata={"sampling": result["sampling"]})
         self._traces[name] = SliceTrace(self._viewer, points_layer, profile.patch_centers,
                                         patch_extent / 2)
         self._viewer.layers.selection.active = self._target
@@ -520,7 +523,11 @@ class SurfaceWidget(QWidget):
             return
         shapes = [tuple(level["shape"]) for level in layer.metadata["volume_summary"]["levels"]]
         pixel_size_um = layer.metadata.get("pixel_size_um")
-        self._start(measure_drift, (self._overlay, list(layer.data), shapes, pixel_size_um),
+        sampling = layer.metadata.get("verified_sampling")
+        args = (self._overlay, list(layer.data), shapes, pixel_size_um)
+        if sampling is not None:
+            args += (sampling,)
+        self._start(measure_drift, args,
                     self._show_drift, "Calcul de la carte de dérive…")
 
     def _show_drift(self, result):

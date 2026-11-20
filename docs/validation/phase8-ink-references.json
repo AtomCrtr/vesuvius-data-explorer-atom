@@ -1,0 +1,1245 @@
+{
+  "educe_lab": [
+    {
+      "id": "Frag1/ink",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        1792,
+        3328
+      ],
+      "stop_vu": [
+        1920,
+        3456
+      ],
+      "pixels_sha256": {
+        "ct": "0efaca6558f87a1df96b12e05985d6bab353c0a5a602e8f7bf920e47bb1fa0cb",
+        "ir": "1d70997c1aa77ebfcb57c772b34b6f3e3d8a7377e3ba39c72a057bb446b522ef",
+        "labels": "952d3c6df0010d25a50d3d09699efd67c288a16c30dcfeffbf9eb7dc03a30d58"
+      },
+      "label_counts": {
+        "0": 13429,
+        "1": 2955,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "exploratory_evaluation"
+    },
+    {
+      "id": "Frag1/background",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        128,
+        4608
+      ],
+      "stop_vu": [
+        256,
+        4736
+      ],
+      "pixels_sha256": {
+        "ct": "d056e6621a4675b15a62ee35e796f7e1bf4a35811a5d5a15f33e6172dee26795",
+        "ir": "c80dcba8177d35153a9b570630e21a5176d585791a3b0a1057d233b622ae0c24",
+        "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      "label_counts": {
+        "0": 16384,
+        "1": 0,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 21,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "exploratory_evaluation"
+    },
+    {
+      "id": "Frag1/sparse_traces",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        3584,
+        3072
+      ],
+      "stop_vu": [
+        3712,
+        3200
+      ],
+      "pixels_sha256": {
+        "ct": "fddc295b01a8b332a3355c9c05a5bd854137c1db9f1113fbe90680576bb85fd6",
+        "ir": "ed56644257797ae5ed95d373587d37f58842ca98fe9c2e763afef72ddbffe0ee",
+        "labels": "834d7e1164ca8f95a212fde4206f49fd9677c4efaa2e031a8667204ba8630c4a"
+      },
+      "label_counts": {
+        "0": 16218,
+        "1": 166,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "exploratory_evaluation"
+    },
+    {
+      "id": "Frag1/mask_edge_artifact",
+      "parent_scroll": "PHercParis2",
+      "start_vu": [
+        7808,
+        2944
+      ],
+      "stop_vu": [
+        7936,
+        3072
+      ],
+      "pixels_sha256": {
+        "ct": "7c2ad80527d14e953b745f73e09f6e2553131cbd33d1e22a6ef4722b150f58ea",
+        "ir": "bb25667491371bd1f50840892436d677da4d0129fa21c458a32d91d8f46da3ed",
+        "labels": "ffda8541249fbaaefb2cf731a0f2c3f62256f2bb2c8f245486672a96ddfc8fba"
+      },
+      "label_counts": {
+        "0": 8223,
+        "1": 0,
+        "255": 8161
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 8161,
+      "use": "geometry_and_mask_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "geometry_control"
+    },
+    {
+      "id": "Frag3/ink",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        5248,
+        1024
+      ],
+      "stop_vu": [
+        5376,
+        1152
+      ],
+      "pixels_sha256": {
+        "ct": "24593707c549317c60181744fe8b4a3274a2b5ec4be8b3aae14f59adc7fbeaa1",
+        "ir": "8081c67cb0b48c69dcecce4d4a7ccbde2709dac3b0336ce1d7872da69e054439",
+        "labels": "beb656db923ed3b859c6748a01691526803430e7bb10a469f86680e8d6eeea80"
+      },
+      "label_counts": {
+        "0": 13440,
+        "1": 2944,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "exploratory_evaluation"
+    },
+    {
+      "id": "Frag3/background",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        128,
+        3072
+      ],
+      "stop_vu": [
+        256,
+        3200
+      ],
+      "pixels_sha256": {
+        "ct": "78384de409e56ea01c226f7f03692dc2000d09f6dbdb004acec4fd42ae59e02c",
+        "ir": "8ec5e4d27e7a6f7c0068b9b047c01c2ecbd5ab51b60c59e41ede5d364b47486d",
+        "labels": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      "label_counts": {
+        "0": 16384,
+        "1": 0,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "exploratory_evaluation"
+    },
+    {
+      "id": "Frag3/sparse_traces",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        2688,
+        2816
+      ],
+      "stop_vu": [
+        2816,
+        2944
+      ],
+      "pixels_sha256": {
+        "ct": "c0ae02823f991270d53d98dade4813091205c63511cf9b57580dbee1edf63acf",
+        "ir": "92bf8aa4c711bf45089a762bdef0f7be816f33ed407baa6324c3ef39c6921646",
+        "labels": "c698295022ba4a0170c4afc446d7547cf4b612538d21400b44c01fe510ede3b8"
+      },
+      "label_counts": {
+        "0": 16226,
+        "1": 158,
+        "255": 0
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 0,
+      "use": "exploratory_reference_and_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "exploratory_evaluation"
+    },
+    {
+      "id": "Frag3/mask_edge_artifact",
+      "parent_scroll": "PHercParis1",
+      "start_vu": [
+        5248,
+        0
+      ],
+      "stop_vu": [
+        5376,
+        128
+      ],
+      "pixels_sha256": {
+        "ct": "38f3c0642bc20bdf8d06e59f679b68d7dd1954cc1339d1b1df0d4ee998208e6b",
+        "ir": "6e34577f66f7aec6bf8ba6a5eb9c8e708ae10fa3c1db8730cab9bb280c1d0a4b",
+        "labels": "ab6414e1c790bf25c382666990547f7b0439743e329fcfed90647c407fd58b4d"
+      },
+      "label_counts": {
+        "0": 8306,
+        "1": 0,
+        "255": 8078
+      },
+      "ct_zeros_in_mask": 0,
+      "ct_zeros_outside_mask": 8078,
+      "use": "geometry_and_mask_QA",
+      "independent_of_ink_tiffs": true,
+      "training_exclusion_proven": false,
+      "eligible_for_generalization_metrics": false,
+      "tier": "geometry_control"
+    }
+  ],
+  "independent_ink_evaluation_confirmed": [],
+  "atlas": {
+    "sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8",
+    "sample": {
+      "id": "PHerc0500P2",
+      "properties": {
+        "type": "fragment",
+        "volume_transforms": [
+          {
+            "from_volume_id": "20250526151718",
+            "transforms": [
+              {
+                "to_volume_id": "20250528085330",
+                "revision": 2,
+                "created": "2026-11-16T07:21:50+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250528085330",
+                    "to_volume_id": "20250526151718",
+                    "revision": 2,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    0.5137731241693234,
+                    -0.0007467436003515887,
+                    -8.588986777796413e-05,
+                    38.91574156001286
+                  ],
+                  [
+                    0.00027014691901161613,
+                    0.5137170876893227,
+                    -0.0001648184269129348,
+                    33.048082927513164
+                  ],
+                  [
+                    0.0003607538428165642,
+                    0.00044507728202484287,
+                    0.5138548880685377,
+                    422.7903756836876
+                  ]
+                ],
+                "derivation_path": "20250526151718-20250528085330⁻¹"
+              },
+              {
+                "to_volume_id": "20250820143440",
+                "revision": 2,
+                "created": "2026-11-16T07:21:48+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250526151718",
+                    "to_volume_id": "20250820143440",
+                    "revision": 2,
+                    "inverted": false
+                  }
+                ],
+                "matrix": [
+                  [
+                    -0.22657620186441904,
+                    0.06864513574931606,
+                    -0.018447713493151184,
+                    3651.366731654823
+                  ],
+                  [
+                    -0.0710402253812603,
+                    -0.21996390642890146,
+                    0.054741631682045676,
+                    3576.032455923921
+                  ],
+                  [
+                    -0.001262761532659208,
+                    0.057755444727996055,
+                    0.23041167821925052,
+                    156.23055976555133
+                  ]
+                ],
+                "derivation_path": "20250526151718-20250820143440"
+              },
+              {
+                "to_volume_id": "20250821110041",
+                "revision": 1,
+                "created": "2026-07-08T13:28:56+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250821110041",
+                    "to_volume_id": "20250526151718",
+                    "revision": 1,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    1.1581306977056174,
+                    3.838931237562678,
+                    -0.5373464765487903,
+                    -40882.99423789905
+                  ],
+                  [
+                    3.858781467515337,
+                    -1.1234126797495365,
+                    0.271326830845526,
+                    -24017.114551415732
+                  ],
+                  [
+                    -0.10715506057886039,
+                    0.6153544084926883,
+                    4.006569631565133,
+                    -79779.17637696104
+                  ]
+                ],
+                "derivation_path": "20250526151718-20250821110041⁻¹"
+              }
+            ]
+          },
+          {
+            "from_volume_id": "20250528085330",
+            "transforms": [
+              {
+                "to_volume_id": "20250526151718",
+                "revision": 2,
+                "created": "2026-11-16T07:21:50+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250528085330",
+                    "to_volume_id": "20250526151718",
+                    "revision": 2,
+                    "inverted": false
+                  }
+                ],
+                "matrix": [
+                  [
+                    1.9463826950452998,
+                    0.0028289960631597832,
+                    0.0003262415652671019,
+                    -75.97635062770405
+                  ],
+                  [
+                    -0.0010239767635190238,
+                    1.946594694823006,
+                    0.0006241970907673546,
+                    -64.55527860818151
+                  ],
+                  [
+                    -0.0013655786961024208,
+                    -0.0016880361894333201,
+                    1.946073935873074,
+                    -822.672401588419
+                  ]
+                ],
+                "derivation_path": "20250528085330-20250526151718"
+              },
+              {
+                "to_volume_id": "20250820143440",
+                "revision": 2,
+                "created": "2026-11-16T07:21:50+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250528085330",
+                    "to_volume_id": "20250526151718",
+                    "revision": 2,
+                    "inverted": false
+                  },
+                  {
+                    "from_volume_id": "20250526151718",
+                    "to_volume_id": "20250820143440",
+                    "revision": 2,
+                    "inverted": false
+                  }
+                ],
+                "matrix": [
+                  [
+                    -0.4410490976373937,
+                    0.13301441429993233,
+                    -0.03593168488619401,
+                    3679.3261835114
+                  ],
+                  [
+                    -0.13812098141122175,
+                    -0.42847395168032115,
+                    0.10637078551880075,
+                    3550.5952346566833
+                  ],
+                  [
+                    -0.0028316027076143524,
+                    0.1120339267059537,
+                    0.4484338003185333,
+                    -36.95524772168821
+                  ]
+                ],
+                "derivation_path": "20250528085330-20250526151718.20250526151718-20250820143440"
+              },
+              {
+                "to_volume_id": "20250821110041",
+                "revision": 2,
+                "created": "2026-11-16T07:21:50+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250528085330",
+                    "to_volume_id": "20250526151718",
+                    "revision": 2,
+                    "inverted": false
+                  },
+                  {
+                    "from_volume_id": "20250821110041",
+                    "to_volume_id": "20250526151718",
+                    "revision": 1,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    2.250968361131742,
+                    7.477026588312938,
+                    -1.0429418924630869,
+                    -40776.74794111168
+                  ],
+                  [
+                    7.511445302673382,
+                    -2.176370694426781,
+                    0.5285797375910757,
+                    -24460.981562201232
+                  ],
+                  [
+                    -0.21466615034616643,
+                    1.1907792512297242,
+                    7.797429876246374,
+                    -83106.8537627209
+                  ]
+                ],
+                "derivation_path": "20250528085330-20250526151718.20250526151718-20250821110041⁻¹"
+              }
+            ]
+          },
+          {
+            "from_volume_id": "20250820143440",
+            "transforms": [
+              {
+                "to_volume_id": "20250526151718",
+                "revision": 2,
+                "created": "2026-11-16T07:21:48+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250526151718",
+                    "to_volume_id": "20250820143440",
+                    "revision": 2,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    -4.01837131454561,
+                    -1.2599116831419552,
+                    -0.022395311944481338,
+                    19181.531236002476
+                  ],
+                  [
+                    1.2164228961849117,
+                    -3.8978600478193,
+                    1.0234526391358556,
+                    9337.373366192465
+                  ],
+                  [
+                    -0.3269334725071775,
+                    0.970140377731064,
+                    4.083394405186987,
+                    -2913.4504662573663
+                  ]
+                ],
+                "derivation_path": "20250820143440-20250526151718⁻¹"
+              },
+              {
+                "to_volume_id": "20250528085330",
+                "revision": 2,
+                "created": "2026-11-16T07:21:50+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250526151718",
+                    "to_volume_id": "20250820143440",
+                    "revision": 2,
+                    "inverted": true
+                  },
+                  {
+                    "from_volume_id": "20250528085330",
+                    "to_volume_id": "20250526151718",
+                    "revision": 2,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    -2.065411460086811,
+                    -0.6444813848082673,
+                    -0.012621088298547176,
+                    9887.148583102497
+                  ],
+                  [
+                    0.6238655616572988,
+                    -2.002897570256665,
+                    0.5250860404979729,
+                    4835.478357163822
+                  ],
+                  [
+                    -0.16890460361819348,
+                    0.4963220082726652,
+                    2.098719611341115,
+                    -1063.2247236846504
+                  ]
+                ],
+                "derivation_path": "20250820143440-20250526151718⁻¹.20250526151718-20250528085330⁻¹"
+              },
+              {
+                "to_volume_id": "20250821110041",
+                "revision": 2,
+                "created": "2026-11-16T07:21:48+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250526151718",
+                    "to_volume_id": "20250820143440",
+                    "revision": 2,
+                    "inverted": true
+                  },
+                  {
+                    "from_volume_id": "20250821110041",
+                    "to_volume_id": "20250526151718",
+                    "revision": 1,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    0.1916412296133662,
+                    -16.94406060759722,
+                    1.708830012310731,
+                    18742.79255041945
+                  ],
+                  [
+                    -16.961267486668323,
+                    -0.21959333783984455,
+                    -0.1282438235671994,
+                    38720.00178366592
+                  ],
+                  [
+                    -0.13076170909207316,
+                    1.6233755243903714,
+                    16.992589881908973,
+                    -87761.72281509748
+                  ]
+                ],
+                "derivation_path": "20250820143440-20250526151718⁻¹.20250526151718-20250821110041⁻¹"
+              }
+            ]
+          },
+          {
+            "from_volume_id": "20250821110041",
+            "transforms": [
+              {
+                "to_volume_id": "20250526151718",
+                "revision": 1,
+                "created": "2026-07-08T13:28:56+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250821110041",
+                    "to_volume_id": "20250526151718",
+                    "revision": 1,
+                    "inverted": false
+                  }
+                ],
+                "matrix": [
+                  [
+                    0.07064077536329116,
+                    0.23776381173153105,
+                    -0.006627397556137504,
+                    8069.678796124244
+                  ],
+                  [
+                    0.2344034798196123,
+                    -0.06934779006422383,
+                    0.036133603902837194,
+                    10800.2914558484
+                  ],
+                  [
+                    -0.03411189887550876,
+                    0.01700982891895377,
+                    0.24386319425462577,
+                    18469.135230764176
+                  ]
+                ],
+                "derivation_path": "20250821110041-20250526151718"
+              },
+              {
+                "to_volume_id": "20250528085330",
+                "revision": 2,
+                "created": "2026-11-16T07:21:50+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250821110041",
+                    "to_volume_id": "20250526151718",
+                    "revision": 1,
+                    "inverted": false
+                  },
+                  {
+                    "from_volume_id": "20250528085330",
+                    "to_volume_id": "20250526151718",
+                    "revision": 2,
+                    "inverted": true
+                  }
+                ],
+                "matrix": [
+                  [
+                    0.03612122242017011,
+                    0.12220698041418775,
+                    -0.0034529066625114293,
+                    4175.248467578181
+                  ],
+                  [
+                    0.12044177865450681,
+                    -0.03556371712153636,
+                    0.0185204662455952,
+                    5580.478300870837
+                  ],
+                  [
+                    -0.017398754383612703,
+                    0.008795492818062614,
+                    0.1253239857748254,
+                    9920.963924412943
+                  ]
+                ],
+                "derivation_path": "20250821110041-20250526151718.20250526151718-20250528085330⁻¹"
+              },
+              {
+                "to_volume_id": "20250820143440",
+                "revision": 2,
+                "created": "2026-11-16T07:21:48+00:00",
+                "steps": [
+                  {
+                    "from_volume_id": "20250821110041",
+                    "to_volume_id": "20250526151718",
+                    "revision": 1,
+                    "inverted": false
+                  },
+                  {
+                    "from_volume_id": "20250526151718",
+                    "to_volume_id": "20250820143440",
+                    "revision": 2,
+                    "inverted": false
+                  }
+                ],
+                "matrix": [
+                  [
+                    0.0007144266509199479,
+                    -0.05894580231627519,
+                    -0.000516711627596564,
+                    2223.643717678644
+                  ],
+                  [
+                    -0.05844598270878356,
+                    -0.0007056381785214982,
+                    0.005872192308950434,
+                    1638.1169545821624
+                  ],
+                  [
+                    0.005589094901854235,
+                    -0.0003861882239374791,
+                    0.05828420902984456,
+                    5025.320559804049
+                  ]
+                ],
+                "derivation_path": "20250821110041-20250526151718.20250526151718-20250820143440"
+              }
+            ]
+          }
+        ]
+      },
+      "data": [
+        {
+          "type": "photo",
+          "origins": [
+            {
+              "path": "PHerc0500P2/photos/PHerc0500P2_photo.jpg",
+              "access_roots": [
+                {
+                  "type": "s3",
+                  "url": "s3://vesuvius-challenge-open-data",
+                  "usage": "public-read"
+                }
+              ],
+              "copy_info": {
+                "source_path": "s3://vesuvius-challenge/PHerc0500P2/photos/PHerc0500P2_photo.jpg",
+                "date": "2026-03-04T17:32:11.290457Z",
+                "workflow_execution": "s3copy-pherc0500p2-d90bd998"
+              }
+            }
+          ],
+          "properties": null,
+          "parameters": null,
+          "creation_info": null
+        },
+        {
+          "type": "volume-transform",
+          "origins": [
+            {
+              "path": "PHerc0500P2/transforms/20250526151718-to-20250820143440-r1/",
+              "access_roots": [
+                {
+                  "type": "s3",
+                  "url": "s3://vesuvius-challenge-open-data",
+                  "usage": "public-read"
+                }
+              ],
+              "copy_info": {
+                "source_path": "s3://scrollprize-volumes/atlas/staging/transforms/PHerc0500P2/20250526151718-to-20250820143440-r1/",
+                "date": "2026-11-09T14:59:59.432180Z",
+                "workflow_execution": "s3sync-pherc0500p2-d80a0be6"
+              }
+            }
+          ],
+          "properties": {
+            "created": "2026-07-20T13:07:57+00:00",
+            "transformation_matrix": [
+              [
+                -0.22668740143479876,
+                0.06829000653424222,
+                -0.01838088604499233,
+                3654.690187878843
+              ],
+              [
+                -0.07094406316509316,
+                -0.21952731717684904,
+                0.05474403624931551,
+                3571.0835279760922
+              ],
+              [
+                -0.0012371029641354003,
+                0.05737681441756459,
+                0.23042731975594216,
+                159.17139938311448
+              ]
+            ],
+            "bent": false,
+            "sha256": "f6fc92a96286d00743a15cb37f4d6e53cee2d392723962c6d3fc6d30950a05f0",
+            "fit": null
+          },
+          "parameters": {
+            "from_volume": "20250526151718",
+            "to_volume": "20250820143440",
+            "revision": 1
+          },
+          "creation_info": {
+            "source": "s3://vesuvius-challenge/PHerc0500P2/volumes/20250526151718-2.215um-0.4m-111keV-masked.zarr/transform.json"
+          }
+        },
+        {
+          "type": "volume-transform",
+          "origins": [
+            {
+              "path": "PHerc0500P2/transforms/20250528085330-to-20250526151718-r1/",
+              "access_roots": [
+                {
+                  "type": "s3",
+                  "url": "s3://vesuvius-challenge-open-data",
+                  "usage": "public-read"
+                }
+              ],
+              "copy_info": {
+                "source_path": "s3://scrollprize-volumes/atlas/staging/transforms/PHerc0500P2/20250528085330-to-20250526151718-r1/",
+                "date": "2026-11-09T14:59:59.319882Z",
+                "workflow_execution": "s3sync-pherc0500p2-5db04940"
+              }
+            }
+          ],
+          "properties": {
+            "created": "2026-07-20T13:07:57+00:00",
+            "transformation_matrix": [
+              [
+                1.9486746429309512,
+                -0.013410979609796314,
+                0.0015152387239145138,
+                -18.021757798529507
+              ],
+              [
+                -0.0004203013392913846,
+                1.942159665865403,
+                0.0009120176877807085,
+                -47.228696134530765
+              ],
+              [
+                0.001143396562488519,
+                -0.004794755644779158,
+                1.9471178613953597,
+                -828.6184266617311
+              ]
+            ],
+            "bent": false,
+            "sha256": "8ac69b883b45a20fccd4149848773a65afe3a0a2d2bcbeba1916875bed2058b8",
+            "fit": null
+          },
+          "parameters": {
+            "from_volume": "20250528085330",
+            "to_volume": "20250526151718",
+            "revision": 1
+          },
+          "creation_info": {
+            "source": "s3://vesuvius-challenge/PHerc0500P2/volumes/20250528085330-4.317um-1.2m-111keV-masked.zarr/transform.json"
+          }
+        },
+        {
+          "type": "volume-transform",
+          "origins": [
+            {
+              "path": "PHerc0500P2/transforms/20250821110041-to-20250526151718-r1/",
+              "access_roots": [
+                {
+                  "type": "s3",
+                  "url": "s3://vesuvius-challenge-open-data",
+                  "usage": "public-read"
+                }
+              ],
+              "copy_info": {
+                "source_path": "s3://scrollprize-volumes/atlas/staging/transforms/PHerc0500P2/20250821110041-to-20250526151718-r1/",
+                "date": "2026-11-09T15:00:29.688459Z",
+                "workflow_execution": "s3sync-pherc0500p2-548a835d"
+              }
+            }
+          ],
+          "properties": {
+            "created": "2026-07-08T13:28:56+00:00",
+            "transformation_matrix": [
+              [
+                0.07064077536329116,
+                0.23776381173153105,
+                -0.006627397556137504,
+                8069.678796124244
+              ],
+              [
+                0.2344034798196123,
+                -0.06934779006422383,
+                0.036133603902837194,
+                10800.2914558484
+              ],
+              [
+                -0.03411189887550876,
+                0.01700982891895377,
+                0.24386319425462577,
+                18469.135230764176
+              ]
+            ],
+            "bent": false,
+            "sha256": "1178f7e00e7544c9df8903bccbf5062e1214dfd433636dff83f8ff84e91fca60",
+            "fit": null
+          },
+          "parameters": {
+            "from_volume": "20250821110041",
+            "to_volume": "20250526151718",
+            "revision": 1
+          },
+          "creation_info": {
+            "source": "s3://vesuvius-challenge/PHerc0500P2/volumes/20250821110041-0.550um-0.1m-65keV-masked.zarr/transform.json"
+          }
+        },
+        {
+          "type": "volume-transform",
+          "origins": [
+            {
+              "path": "PHerc0500P2/transforms/20250526151718-to-20250820143440-r2/",
+              "access_roots": [
+                {
+                  "type": "s3",
+                  "url": "s3://vesuvius-challenge-open-data",
+                  "usage": "public-read"
+                }
+              ],
+              "copy_info": {
+                "source_path": "s3://scrollprize-volumes/atlas/staging/transforms/PHerc0500P2/20250526151718-to-20250820143440-r2/",
+                "date": "2026-11-16T08:24:13.171703Z",
+                "workflow_execution": "s3sync-pherc0500p2-24af6e3f"
+              }
+            }
+          ],
+          "properties": {
+            "created": "2026-11-16T07:21:48+00:00",
+            "transformation_matrix": [
+              [
+                -0.22657620186441904,
+                0.06864513574931606,
+                -0.018447713493151184,
+                3651.366731654823
+              ],
+              [
+                -0.0710402253812603,
+                -0.21996390642890146,
+                0.054741631682045676,
+                3576.032455923921
+              ],
+              [
+                -0.001262761532659208,
+                0.057755444727996055,
+                0.23041167821925052,
+                156.23055976555133
+              ]
+            ],
+            "bent": true,
+            "sha256": "6d2f92e46ba6aca96f67152a458934430a14572ab32e36d0ebf9c2a9b24ff349",
+            "fit": {
+              "method": "dense-correlation",
+              "model": "scaled-rigid9",
+              "landmark_pairs": 209,
+              "held_out_rms": 0.5878,
+              "test_median_um": 1.687824774353715,
+              "test_p90_um": 3.7177624270603618,
+              "provenance": "s3://scrollprize-volumes/atlas/staging/rfi/20261103-volume-transform-refits/data/release-2026-11-09-2/PHerc0500P2-20250526151718-to-20250820143440/ (pipeline-smoke/0500p2-2um f004)"
+            }
+          },
+          "parameters": {
+            "from_volume": "20250526151718",
+            "to_volume": "20250820143440",
+            "revision": 2
+          },
+          "creation_info": {
+            "source": "s3://scrollprize-volumes/atlas/staging/rfi/20261103-volume-transform-refits/data/release-2026-11-09-2/PHerc0500P2-20250526151718-to-20250820143440/ (pipeline-smoke/0500p2-2um f004)"
+          }
+        },
+        {
+          "type": "volume-transform",
+          "origins": [
+            {
+              "path": "PHerc0500P2/transforms/20250528085330-to-20250526151718-r2/",
+              "access_roots": [
+                {
+                  "type": "s3",
+                  "url": "s3://vesuvius-challenge-open-data",
+                  "usage": "public-read"
+                }
+              ],
+              "copy_info": {
+                "source_path": "s3://scrollprize-volumes/atlas/staging/transforms/PHerc0500P2/20250528085330-to-20250526151718-r2/",
+                "date": "2026-11-16T08:24:13.286318Z",
+                "workflow_execution": "s3sync-pherc0500p2-973590b5"
+              }
+            }
+          ],
+          "properties": {
+            "created": "2026-11-16T07:21:50+00:00",
+            "transformation_matrix": [
+              [
+                1.9463826950452998,
+                0.0028289960631597832,
+                0.0003262415652671019,
+                -75.97635062770405
+              ],
+              [
+                -0.0010239767635190238,
+                1.946594694823006,
+                0.0006241970907673546,
+                -64.55527860818151
+              ],
+              [
+                -0.0013655786961024208,
+                -0.0016880361894333201,
+                1.946073935873074,
+                -822.672401588419
+              ]
+            ],
+            "bent": true,
+            "sha256": "c217f032d0e76e894c74db712c3ff815b5b2e009f062a0fd30f5ec5e174b59e2",
+            "fit": {
+              "method": "dense-correlation",
+              "model": "affine12",
+              "landmark_pairs": 138,
+              "held_out_rms": 2.2141,
+              "test_median_um": 1.7838039350332617,
+              "test_p90_um": 3.7088897858484584,
+              "provenance": "s3://scrollprize-volumes/atlas/staging/rfi/20261103-volume-transform-refits/data/release-2026-11-09-2/PHerc0500P2-20250528085330-to-20250526151718/ (pipeline-smoke/0500p2-4um f002)"
+            }
+          },
+          "parameters": {
+            "from_volume": "20250528085330",
+            "to_volume": "20250526151718",
+            "revision": 2
+          },
+          "creation_info": {
+            "source": "s3://scrollprize-volumes/atlas/staging/rfi/20261103-volume-transform-refits/data/release-2026-11-09-2/PHerc0500P2-20250528085330-to-20250526151718/ (pipeline-smoke/0500p2-4um f002)"
+          }
+        }
+      ],
+      "canonical_volume_id": "20250528085330"
+    },
+    "original_volume_id": "20250528085330",
+    "segment_id": "20250919184428-0500P2-wrap01_0919",
+    "roles": [
+      "ink-detection",
+      "ink-detection-downsampled",
+      "layers-zarr",
+      "obj",
+      "obj-flattened",
+      "obj-legacy-units",
+      "obj-normalized",
+      "tifxyz",
+      "tifxyz-normalized",
+      "tifxyz-transformed"
+    ],
+    "volume_ids": [
+      "20250526151718",
+      "20250528085330",
+      "20250820143440",
+      "20250821110041"
+    ],
+    "model_B": {
+      "id": "20260709123958",
+      "long_id": "20260709123958-mrg20736-1um-s1z2",
+      "suffix": "mrg20736-1um-s1z2",
+      "creation": {
+        "date": "2026-07-09T12:39:58Z",
+        "process": "model_training",
+        "metadata": null,
+        "derived_from": null
+      },
+      "properties": {
+        "architecture": "resnet3d-152",
+        "task": "ink-detection",
+        "compatible_samples": [
+          "PHerc0139",
+          "PHerc0814",
+          "PHerc1667",
+          "PHercMANBp",
+          "PHercParis4"
+        ],
+        "excluded_samples": null,
+        "target_resolution_um_min": 1.0,
+        "target_resolution_um_max": 1.5,
+        "required_render_level": 1,
+        "default_layers": 62,
+        "default_tile_size": 256,
+        "default_stride": 128,
+        "model_identifier": "mrg20736_1um_s1z2",
+        "model_type": "resnet3d-152",
+        "force_reverse": true
+      }
+    }
+  },
+  "optical_profilometry": {
+    "revision": "a806bead2f3b9100c20e19de37814fb285cfeefd",
+    "record_count": 14,
+    "matching_specimen_records": [
+      {
+        "papyrus_dir": "pherc0500p2",
+        "papyrus_id": "PHerc. 500P2",
+        "sample_id": "η",
+        "acquisition_date": "2025-09-23",
+        "width_px": "5369",
+        "height_px": "3617",
+        "pixel_count": "19419673",
+        "x_extent_um": "3692.8418",
+        "y_extent_um": "2487.5774",
+        "lateral_sampling_x_um": "0.68793625",
+        "lateral_sampling_y_um": "0.68793625",
+        "raw_height_txt": "data/pherc0500p2/η.txt",
+        "normalized_height_tif": "data/pherc0500p2/η_z.tif",
+        "brightfield_tif": "data/pherc0500p2/η_stack.tif",
+        "label_png": "data/pherc0500p2/η_label.png"
+      },
+      {
+        "papyrus_dir": "pherc0500p2",
+        "papyrus_id": "PHerc. 500P2",
+        "sample_id": "ιτ",
+        "acquisition_date": "2025-09-23",
+        "width_px": "7105",
+        "height_px": "5352",
+        "pixel_count": "38025960",
+        "x_extent_um": "4887.0991",
+        "y_extent_um": "3681.1470",
+        "lateral_sampling_x_um": "0.68793625",
+        "lateral_sampling_y_um": "0.68793625",
+        "raw_height_txt": "data/pherc0500p2/ιτ.txt",
+        "normalized_height_tif": "data/pherc0500p2/ιτ_z.tif",
+        "brightfield_tif": "data/pherc0500p2/ιτ_stack.tif",
+        "label_png": "data/pherc0500p2/ιτ_label.png"
+      },
+      {
+        "papyrus_dir": "pherc0500p2",
+        "papyrus_id": "PHerc. 500P2",
+        "sample_id": "ν",
+        "acquisition_date": "2025-09-23",
+        "width_px": "5365",
+        "height_px": "3622",
+        "pixel_count": "19432030",
+        "x_extent_um": "3690.0901",
+        "y_extent_um": "2491.0171",
+        "lateral_sampling_x_um": "0.68793625",
+        "lateral_sampling_y_um": "0.68793625",
+        "raw_height_txt": "data/pherc0500p2/ν.txt",
+        "normalized_height_tif": "data/pherc0500p2/ν_z.tif",
+        "brightfield_tif": "data/pherc0500p2/ν_stack.tif",
+        "label_png": "data/pherc0500p2/ν_label.png"
+      },
+      {
+        "papyrus_dir": "pherc0500p2",
+        "papyrus_id": "PHerc. 500P2",
+        "sample_id": "ν2",
+        "acquisition_date": "2025-09-23",
+        "width_px": "4499",
+        "height_px": "3628",
+        "pixel_count": "16322372",
+        "x_extent_um": "3094.3372",
+        "y_extent_um": "2495.1448",
+        "lateral_sampling_x_um": "0.68793625",
+        "lateral_sampling_y_um": "0.68793625",
+        "raw_height_txt": "data/pherc0500p2/ν2.txt",
+        "normalized_height_tif": "data/pherc0500p2/ν2_z.tif",
+        "brightfield_tif": "data/pherc0500p2/ν2_stack.tif",
+        "label_png": "data/pherc0500p2/ν2_label.png"
+      }
+    ],
+    "metadata": {
+      "manifest.csv": {
+        "url": "https://huggingface.co/datasets/scrollprize/profilometer/resolve/a806bead2f3b9100c20e19de37814fb285cfeefd/manifest.csv",
+        "sha256": "cfdadaca5e34f310f3c758dfbec6ac460179af6604888e08ff97f64ed41445af",
+        "bytes": 3047
+      },
+      "configs/case_manifest.json": {
+        "url": "https://huggingface.co/datasets/scrollprize/profilometer/resolve/a806bead2f3b9100c20e19de37814fb285cfeefd/configs/case_manifest.json",
+        "sha256": "18439a435675875497bede3d22af3d6569ccdb40f0f9a781fd194df1160d8c21",
+        "bytes": 5627
+      },
+      "configs/sampling.json": {
+        "url": "https://huggingface.co/datasets/scrollprize/profilometer/resolve/a806bead2f3b9100c20e19de37814fb285cfeefd/configs/sampling.json",
+        "sha256": "3ebc6c41dd7bfa38f885543c46674ebfdc1e4ba350993c3b4d1722c56549efd3",
+        "bytes": 707
+      }
+    },
+    "case_manifest_keys": [
+      "schema_version",
+      "dataset_version",
+      "samples"
+    ],
+    "sampling": {
+      "schema_version": "1.0",
+      "dataset_version": "1.0.0",
+      "units": {
+        "lateral_sampling": "µm/pixel",
+        "vertical_sensitivity": "µm"
+      },
+      "native_lateral_sampling_um_per_pixel": 0.68793625,
+      "vertical_sensitivity_um": 0.008,
+      "resolution_factors": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        8,
+        10,
+        16,
+        32
+      ],
+      "effective_lateral_sampling_um_per_pixel_exact": [
+        "0.68793625",
+        "1.37587250",
+        "2.06380875",
+        "2.75174500",
+        "4.12761750",
+        "5.50349000",
+        "6.87936250",
+        "11.00698000",
+        "22.01396000"
+      ],
+      "effective_lateral_sampling_um_per_pixel_display": [
+        0.69,
+        1.38,
+        2.06,
+        2.75,
+        4.13,
+        5.5,
+        6.88,
+        11.01,
+        22.01
+      ]
+    },
+    "license": "CC BY-NC 4.0",
+    "evidence": "height and brightfield/ink labels registered within each optical acquisition",
+    "ct_uv_transform_found": false,
+    "confirmed_excluded_from_checkpoint_training": false,
+    "tier": "exploratory_same_specimen"
+  },
+  "other_public_controls": [
+    {
+      "kind": "synthetic_leaded_ink",
+      "doi": "10.18434/mds2-4227",
+      "study": "https://doi.org/10.1371/journal.pone.0353485",
+      "tier": "tooling_control",
+      "directly_applicable_to_Herculaneum_carbon_ink": false
+    },
+    {
+      "kind": "curated_scroll_pseudo_labels",
+      "tier": "not_independent_for_ink",
+      "uri": "https://scrollprize.org/data_datasets#ink-labels-2026-07"
+    }
+  ],
+  "model_B": {
+    "production_id": "20260709123958",
+    "checkpoint_found": false,
+    "official_hf_record_probe": {
+      "url": "https://huggingface.co/api/models/scrollprize/mrg20736_1um_s1z2",
+      "status": 401
+    },
+    "registry_evidence": "docs/validation/phase7-checkpoints.json",
+    "public_contact": "https://github.com/ScrollPrize/villa/issues/1377",
+    "maintainer": "erdpx"
+  }
+}

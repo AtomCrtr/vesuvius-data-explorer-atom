@@ -6,6 +6,7 @@ from time import perf_counter
 import numpy as np
 
 from ..core.alignment import DEFAULT_MAX_VOXELS, alignment_metrics, normal_profiles
+from ..core.geometry import sampling_details
 from ..core.tifxyz import DEFAULT_MAX_BYTES, load_tifxyz, tifxyz_metrics
 from ..core.volume import get_array, list_levels, read_slice
 from .checks import run_checks
@@ -144,7 +145,7 @@ def run_volume(root, *, uri='', level=None, samples=16, seed=0, max_voxels=16777
 
 def run_surface(source, *, max_bytes=DEFAULT_MAX_BYTES, thresholds=None, volume_shape=None,
                 overlap_ratio=None, window=None, max_voxels=None, surface=None, volume=None,
-                pixel_size_um=None, alignment_voxels=DEFAULT_MAX_VOXELS):
+                pixel_size_um=None, alignment_voxels=DEFAULT_MAX_VOXELS, sampling=None):
     """QC of a tifxyz segment read within ``max_bytes`` per grid.
 
     ``volume_shape`` (z, y, x) enables surface.bounds; ``overlap_ratio`` is the catalogue
@@ -164,7 +165,7 @@ def run_surface(source, *, max_bytes=DEFAULT_MAX_BYTES, thresholds=None, volume_
     if volume is not None:
         try:
             profile = normal_profiles(surface, volume[0], volume[1], pixel_size_um=pixel_size_um,
-                                      max_voxels=alignment_voxels)
+                                      max_voxels=alignment_voxels, sampling=sampling)
             alignment = alignment_metrics(profile)
         except ValueError as error:
             alignment_note = f'Profil d\'alignement impossible : {error}'
@@ -179,6 +180,8 @@ def run_surface(source, *, max_bytes=DEFAULT_MAX_BYTES, thresholds=None, volume_
     warnings += list(surface.warnings)
     if alignment is not None:
         warnings += list(profile.warnings)
+        convention = sampling_details(volume[1], profile.level, sampling)["convention"]
+        warnings.append(f"Convention d'échantillonnage CT : {convention}.")
     if surface.stride > 1:
         warnings.append('Grille décimée : les trous plus petits que le pas de lecture peuvent '
                         'échapper à surface.holes.')

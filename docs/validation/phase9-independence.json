@@ -1,0 +1,104 @@
+{
+  "checkpoint_A": {
+    "source": "https://huggingface.co/scrollprize/ink_canonical_2um/resolve/e154062e55513a1d4110f40fceeddb90eaa0f022/r152_3ddec_v2_l5_epoch13.ckpt",
+    "weights_sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+    "known_training_sources": [],
+    "exhaustive_manifest_available": false,
+    "status_for_N2": "unknown"
+  },
+  "reference_N2": {
+    "manuscript": "PHerc0500",
+    "sample": "500P2_230925_N2",
+    "sha256": "561c41ac3da18251ba7974c0d310cfcfbac424a0a6a98584208154f9abbb2a77"
+  },
+  "alternate_resnet50": {
+    "source": "https://arxiv.org/html/2606.29085v1",
+    "model_card": "https://huggingface.co/scrollprize/PHerc.1667-iteration-0/commit/d106772bbf1ab2e2790c4444a3cf1a4125147811",
+    "public_manuscripts": [
+      "PHerc0009B",
+      "PHerc0343",
+      "PHerc0500"
+    ],
+    "source_on_500P2": "fragment-aligned infrared",
+    "documented_proximity": "same_manuscript",
+    "optical_spatial_overlap_known": false,
+    "attributable_to_checkpoint_A": false
+  },
+  "raw_metadata_sha256": {
+    "article.json": "c4cec3fd769b5933fd04f339c24598a982f4c4ca9a2aadac86263b1f2c92a366",
+    "canonical-config.json": "19b38c27cf1a5e2bcbd8329ecf83ab5517c5b231426581cd0ea5a8e0da8ce6c4",
+    "canonical-readme.md": "844b99e0b5b9855171c03350a37984553d8daa4ce2e7058e57405ae3840e8258",
+    "iteration0-readme.md": "c0db7c59f81f434457a1c1917c26eaf6a99e63dff6a37e5f862cf6fef86265d6"
+  },
+  "optical_cv": {
+    "split_sha256": "fa82a0e845139ca27b941551f37e3984d626905cc160fdedadf858cb4fc038e5",
+    "case_holdout_for_N2": [
+      2,
+      5
+    ],
+    "manuscript_holdout_for_500P2": 5,
+    "attributable_to_checkpoint_A": false
+  },
+  "educe_lab": {
+    "paper_experiment": "eight folds of one half-fragment each",
+    "windows": [
+      {
+        "id": "Frag1/ink",
+        "parent": "PHercParis2",
+        "tier": "exploratory_evaluation",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "952d3c6df0010d25a50d3d09699efd67c288a16c30dcfeffbf9eb7dc03a30d58"
+      },
+      {
+        "id": "Frag1/background",
+        "parent": "PHercParis2",
+        "tier": "exploratory_evaluation",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      {
+        "id": "Frag1/sparse_traces",
+        "parent": "PHercParis2",
+        "tier": "exploratory_evaluation",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "834d7e1164ca8f95a212fde4206f49fd9677c4efaa2e031a8667204ba8630c4a"
+      },
+      {
+        "id": "Frag1/mask_edge_artifact",
+        "parent": "PHercParis2",
+        "tier": "geometry_control",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "ffda8541249fbaaefb2cf731a0f2c3f62256f2bb2c8f245486672a96ddfc8fba"
+      },
+      {
+        "id": "Frag3/ink",
+        "parent": "PHercParis1",
+        "tier": "exploratory_evaluation",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "beb656db923ed3b859c6748a01691526803430e7bb10a469f86680e8d6eeea80"
+      },
+      {
+        "id": "Frag3/background",
+        "parent": "PHercParis1",
+        "tier": "exploratory_evaluation",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "4fe7b59af6de3b665b67788cc2f99892ab827efae3a467342b3bb4e3bc8e5bfe"
+      },
+      {
+        "id": "Frag3/sparse_traces",
+        "parent": "PHercParis1",
+        "tier": "exploratory_evaluation",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "c698295022ba4a0170c4afc446d7547cf4b612538d21400b44c01fe510ede3b8"
+      },
+      {
+        "id": "Frag3/mask_edge_artifact",
+        "parent": "PHercParis1",
+        "tier": "geometry_control",
+        "training_exclusion_A": "unknown",
+        "annotation_sha256": "ab6414e1c790bf25c382666990547f7b0439743e329fcfed90647c407fd58b4d"
+      }
+    ]
+  },
+  "actual_metrics_computed": false
+}

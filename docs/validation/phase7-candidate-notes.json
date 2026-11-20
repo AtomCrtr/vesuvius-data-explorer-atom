@@ -1,0 +1,18 @@
+{
+  "1cd8a75406a446a6deb3": {
+    "observation": "Coupe CT 59 : texture granuleuse et bandes obliques diffuses. A publié et A+ montrent un plateau clair, avec atténuation au coin inférieur droit. B présente un gradient différent. A− reste bas.",
+    "incertitude": "Le plateau couvre une grande zone. Il peut refléter la réponse à la structure du support et à son contexte en profondeur. Aucun contour de caractère n’a été coté."
+  },
+  "c6d6da47479063e44ef2": {
+    "observation": "Coupe CT 59 : zones sombres bordées de reliefs en arc et point clair en haut à gauche. B publié montre une zone claire diffuse. A+ reproduit le gradient de A publié. A− reste bas.",
+    "incertitude": "La concordance de rang B/A− coexiste avec des amplitudes différentes. Examiner les limites de texture, les fibres et la continuité sur les coupes voisines avant toute interprétation."
+  },
+  "5121a59842084faad865": {
+    "observation": "Coupe CT 59 : bande claire allongée, légèrement inclinée, avec deux bords visibles. Les hautes réponses sont larges et déplacées entre les deux TIFF. A− reste bas.",
+    "incertitude": "Onze pixels seulement satisfont le critère de top 5 % commun dans ce bloc. Un faisceau de fibres ou un bord de couche peut expliquer la bande CT. Procéder à une relecture sans les scores."
+  },
+  "0a451e906e4d03a32bd0": {
+    "observation": "Coupe CT 59 : faisceau oblique de plusieurs lignes claires quasi parallèles, terminé près d’une structure transverse. Les quatre cartes restent principalement sombres à échelle fixe.",
+    "incertitude": "Témoin de scores bas. La présence d’une structure CT ne renseigne pas à elle seule sur la présence ou l’absence d’encre."
+  }
+}

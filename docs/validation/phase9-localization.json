@@ -1,0 +1,220 @@
+{
+  "status": "field_not_localized",
+  "front_face_of_optical_field": "indeterminate",
+  "accepted_landmarks": [],
+  "fit": null,
+  "ct_reference_volume": "20250526151718",
+  "atlas_sha256": "82d88b2e57331cb1a2bc97a4da6ae7a1a65ac181ee07a9fc1013c370c1f25db8",
+  "atlas_segment_count": 46,
+  "atlas_segment_roles": [
+    "ink-detection",
+    "ink-detection-downsampled",
+    "ink-labels",
+    "layers-zarr",
+    "obj",
+    "obj-flattened",
+    "obj-legacy-units",
+    "obj-normalized",
+    "tifxyz",
+    "tifxyz-normalized",
+    "tifxyz-transformed"
+  ],
+  "atlas_geometry_and_photo_paths": [
+    "PHerc0500P2/photos/PHerc0500P2_photo.jpg",
+    "PHerc0500P2/segments/20250628074500-500P2_front/mesh/20250628074500-on-20250526151718-2.215um.tifxyz/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/mesh/20250628074500-on-20250528085330-4.317um.tifxyz/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/mesh/20250628074500-on-20250820143440-9.362um.tifxyz/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/surface-volumes/2.215um-0.4m-111keV-volume-20250526151718.zarr/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/surface-volumes/4.317um-1.2m-111keV-volume-20250528085330.zarr/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/surface-volumes/9.362um-1.2m-113keV-volume-20250820143440.zarr/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/mesh/20250628074500-on-20250526151718-2.215um-t2.tifxyz/",
+    "PHerc0500P2/segments/20250628074500-500P2_front/mesh/20250628074500-on-20250820143440-9.362um-t2.tifxyz/"
+  ],
+  "front_atlas_segment": "20250628074500-500P2_front",
+  "wrap_atlas_segment": "20250919184428-0500P2-wrap01_0919",
+  "front_mesh": {
+    "meta.json": "0e84d8e152ebe595175cc86497a6d15231f1d141b57dbf84c7c85d1940ffbc4c",
+    "x.tif": "5696c0c104edd2399651105402cb4ebd81d426afe41eb584a247aa1fe88390be",
+    "y.tif": "a4c872edc29d2c69e9aba1f7d024f6c54af44f42fdde41c36fc6f003f63ac342",
+    "z.tif": "e0b6386db03d7bb2521a5a50859fc25cb3ad3f68e06ad2f1f74b81f2445ab459"
+  },
+  "front_mesh_revision_2": {
+    "meta.json": "352eda0567bc2f2f3493173545ee4b5c0f4e72cb26cfbad15cf8981eef488a74",
+    "x.tif": "c2432239be618c7644f689dcd1bd2c5c5fa944c0b17fa6790514a9d74009f7e5",
+    "y.tif": "6d488d2548771c57925eddc6c31d5268bdd55b8892cafefc4a3cc05ecac4ce85",
+    "z.tif": "4fd8311b4daaa30d14a51d3ea8264dee395ca47156ca460141f9e8a780e01371"
+  },
+  "wrap_mesh": {
+    "meta.json": "cedea13a2e17d95fd8f3368cbb2c03210bf54328317057b31e084ab843785c6f",
+    "x.tif": "bc8691fde69079339f7addd38bb0670ce0bfdd4212f983e15a243b06fcdc6e6e",
+    "y.tif": "7a269ee7379ae9303825b0f2677ffa7ec407d5f9b1e734c6d3e21331684d18df",
+    "z.tif": "b22ace683ce8cac372da3f3b169e86057d4e72ac79127344807e3ec5f9ed4bdc"
+  },
+  "front_zarr_attributes_sha256": "69a56fec351318f0452a0ad72a6dabee2ee87d5692d57febe097bb9ef978df0f",
+  "optical_audit_sha256": "93eb062ecfe8c4b58408b8086a4d9ad18fc50df3a20f2fb875629edae706f9d9",
+  "ct_pitch_um": 2.215,
+  "optical_sample_center_span_yx_um": [
+    2495.1448,
+    3094.3372
+  ],
+  "optical_nominal_xy_diagonal_um": 3975.0056956274766,
+  "optical_diagonal_um_if_paper_pitch": 1964.5744004236644,
+  "wrap_raster_nominal_center_span_vu_um": [
+    2567.185,
+    3098.785
+  ],
+  "wrap_mesh_3d_diameter_um": 2723.3823907811234,
+  "front_mesh_step_um": 44.29999933987857,
+  "front_relative_geometry_all_wrap": {
+    "sample_knots": 2181,
+    "nearest_front_knot_um_min_p10_p50_p90_max": [
+      4420.513495065265,
+      4479.3330693672515,
+      4654.532293205952,
+      4839.484624883574,
+      5054.672576478014
+    ],
+    "nearest_tangent_pairs": 2181,
+    "front_signed_tangent_offset_um_min_p10_p50_p90_max": [
+      4419.0829537638665,
+      4473.4539631909,
+      4635.753269456528,
+      4834.2495846722695,
+      5054.179958623324
+    ]
+  },
+  "front_relative_geometry_all_wrap_revision_2": {
+    "sample_knots": 2181,
+    "nearest_front_knot_um_min_p10_p50_p90_max": [
+      4427.193250091673,
+      4485.744652943795,
+      4660.889756368316,
+      4848.254432772375,
+      5065.774132702049
+    ],
+    "nearest_tangent_pairs": 2181,
+    "front_signed_tangent_offset_um_min_p10_p50_p90_max": [
+      4256.698816747404,
+      4471.680663291807,
+      4638.169340717547,
+      4839.043985527224,
+      5063.5782029228485
+    ]
+  },
+  "front_relative_geometry_review": {
+    "R02": {
+      "bounds_vu": [
+        [
+          644,
+          636
+        ],
+        [
+          772,
+          764
+        ]
+      ],
+      "valid_render_fraction": 1.0,
+      "sample_knots": 42,
+      "nearest_front_knot_um_min_p10_p50_p90_max": [
+        4575.075059447417,
+        4590.612684589627,
+        4634.006723492442,
+        4682.427149351352,
+        4706.653309399019
+      ],
+      "nearest_tangent_pairs": 42,
+      "front_signed_tangent_offset_um_min_p10_p50_p90_max": [
+        4574.86201602842,
+        4590.234671879844,
+        4633.218743980048,
+        4681.652805886543,
+        4706.270445350866
+      ],
+      "front_revision_2": {
+        "sample_knots": 42,
+        "nearest_front_knot_um_min_p10_p50_p90_max": [
+          4585.546188147997,
+          4600.666495048712,
+          4644.201417913409,
+          4692.4531863191205,
+          4716.43035199584
+        ],
+        "nearest_tangent_pairs": 42,
+        "front_signed_tangent_offset_um_min_p10_p50_p90_max": [
+          4584.986998416761,
+          4599.737365508681,
+          4638.0816552644155,
+          4685.378562574499,
+          4712.138036343276
+        ]
+      }
+    },
+    "R04": {
+      "bounds_vu": [
+        [
+          644,
+          764
+        ],
+        [
+          772,
+          892
+        ]
+      ],
+      "valid_render_fraction": 1.0,
+      "sample_knots": 36,
+      "nearest_front_knot_um_min_p10_p50_p90_max": [
+        4501.726381452518,
+        4517.666485875999,
+        4549.173657230525,
+        4573.3099691781645,
+        4589.928257165744
+      ],
+      "nearest_tangent_pairs": 36,
+      "front_signed_tangent_offset_um_min_p10_p50_p90_max": [
+        4496.8309230961495,
+        4514.6406760141235,
+        4548.068127600594,
+        4571.925667145162,
+        4589.6062326140145
+      ],
+      "front_revision_2": {
+        "sample_knots": 36,
+        "nearest_front_knot_um_min_p10_p50_p90_max": [
+          4510.426345770804,
+          4526.1240343276,
+          4558.707382394043,
+          4583.070385733647,
+          4599.557575933881
+        ],
+        "nearest_tangent_pairs": 36,
+        "front_signed_tangent_offset_um_min_p10_p50_p90_max": [
+          4482.20115779757,
+          4510.076415830846,
+          4557.050399352559,
+          4582.3634807036415,
+          4598.889307561691
+        ]
+      }
+    }
+  },
+  "photo": {
+    "shape_yx": [
+      574,
+      352
+    ],
+    "sha256": "d1326ae08b80f0839275698b94d1b040c8f388a5c4551bb6b3c1fad1ba8b3938",
+    "instrument_coordinates": null,
+    "roi_footprint": null
+  },
+  "front_registration_reference": {
+    "source": "https://arxiv.org/abs/2606.29085v1",
+    "reference_image": "Naples M1050 IR #017",
+    "extent_mm": [
+      35.8,
+      58.1
+    ],
+    "figure": "Extended Data Fig. 5",
+    "ct_to_ir_control_points_found": false,
+    "profilometer_to_ir_crosswalk_found": false
+  }
+}

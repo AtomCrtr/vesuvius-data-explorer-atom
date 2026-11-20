@@ -19,7 +19,6 @@ from typing import Any
 
 import numpy as np
 
-from ..core.alignment import level_factors
 from ..core.alignment_map import (
     DEFAULT_MAX_DRIFT_UM,
     DEFAULT_MAX_SHIFT_UM,
@@ -36,6 +35,7 @@ from ..core.alignment_map import (
     switch_tiles,
 )
 from ..core.flatten import flatten, sharpness
+from ..core.geometry import level_factors, sampling_details
 from ..core.tifxyz import TifxyzSurface, load_tifxyz, write_tifxyz
 
 DEFAULT_MAP_MAX_BYTES = 512 * 2**20
@@ -49,9 +49,9 @@ def _finite(value):
     return value if np.isfinite(value) else None
 
 
-def render_crop(surface: TifxyzSurface, amap, level: int, shapes) -> tuple[slice, slice]:
+def render_crop(surface: TifxyzSurface, amap, level: int, shapes, sampling=None) -> tuple[slice, slice]:
     """Grid window of at most RENDER_SIDE pixels per side, centred on the most reliable tiles."""
-    factor = float(level_factors(shapes)[level].mean())
+    factor = float(level_factors(shapes, sampling)[level].mean())
     up = max(1, int(round(surface.step_voxels / factor)))
     side = max(2, RENDER_SIDE // up + 1)
     weight = np.nan_to_num(amap.reliability, nan=0.0, posinf=1e6)
@@ -67,14 +67,15 @@ def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
             tile=DEFAULT_TILE, max_bytes=DEFAULT_MAP_MAX_BYTES,
             max_drift_um=DEFAULT_MAX_DRIFT_UM, min_reliability=DEFAULT_MIN_RELIABILITY,
             smoothing=DEFAULT_SMOOTHING, max_shift_um=DEFAULT_MAX_SHIFT_UM, target_um=None,
-            render=True, volume_uri=None) -> dict[str, Any]:
+            render=True, volume_uri=None, sampling=None) -> dict[str, Any]:
     """Measure the map of ``segment_uri``; returns a result dict (arrays included)."""
     started = perf_counter()
     surface = load_tifxyz(segment_uri, max_bytes=max_bytes)
     if snap and surface.stride > 1:
         raise ValueError("Recalage impossible sur une grille décimée : augmenter --max-bytes "
                          f"(grille de {surface.grid_shape[0]} × {surface.grid_shape[1]} points).")
-    amap = alignment_map(surface, arrays, shapes, pixel_size_um=pixel_size_um, tile=tile)
+    amap = alignment_map(surface, arrays, shapes, pixel_size_um=pixel_size_um, tile=tile,
+                         sampling=sampling)
     zones = review_zones(amap, pixel_size_um=pixel_size_um, max_drift_um=max_drift_um,
                          min_reliability=min_reliability)
     scale = pixel_size_um if pixel_size_um and pixel_size_um > 0 else None
@@ -89,17 +90,19 @@ def run_map(segment_uri: str, arrays, shapes, *, pixel_size_um=None, snap=False,
         snapped_points = snap_points(surface.points, grid)
         result.update(field=field, field_grid=grid, snapped_points=snapped_points)
     if render:
-        crop = render_crop(surface, amap, amap.level, shapes)
+        crop = render_crop(surface, amap, amap.level, shapes, sampling)
         before = flatten(surface.points[crop], arrays, shapes, level=amap.level,
-                         step_voxels=surface.step_voxels)
+                         step_voxels=surface.step_voxels, sampling=sampling)
         result.update(crop=crop, render_before=before)
         if snapped_points is not None:
             result["render_after"] = flatten(snapped_points[crop], arrays, shapes,
-                                             level=amap.level, step_voxels=surface.step_voxels)
+                                             level=amap.level, step_voxels=surface.step_voxels,
+                                             sampling=sampling)
     result["summary"] = summarize(result, segment_uri=segment_uri, volume_uri=volume_uri,
                                   max_drift_um=max_drift_um, min_reliability=min_reliability,
                                   smoothing=smoothing, seconds=perf_counter() - started)
     result["summary"]["parameters"].update(max_shift=max_shift_um, target=target_um)
+    result["summary"]["sampling"] = sampling_details(shapes, amap.level, sampling)
     return result
 
 

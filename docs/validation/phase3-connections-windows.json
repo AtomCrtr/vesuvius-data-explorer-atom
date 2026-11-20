@@ -1,0 +1,1026 @@
+{
+  "uri": "s3://vesuvius-challenge-open-data/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr",
+  "zarr": "3.1.6",
+  "dask": "2026.8.0",
+  "s3fs": "2026.9.0",
+  "delay_s": 0,
+  "rows": [
+    {
+      "spans": [
+        {
+          "name": "from_url",
+          "start_ms": 0.21520000154851004,
+          "ms": 1.4754000003449619,
+          "process_cpu_ms": 0.0
+        },
+        {
+          "name": "store_path_open",
+          "start_ms": 9.475500002736226,
+          "ms": 0.027799993404187262,
+          "process_cpu_ms": 0.0
+        },
+        {
+          "name": "open",
+          "start_ms": 7.5637999980244786,
+          "ms": 1049.2230000018026,
+          "process_cpu_ms": 578.125
+        },
+        {
+          "name": "open_volume_store",
+          "start_ms": 0.1829999964684248,
+          "ms": 1056.6294000018388,
+          "process_cpu_ms": 578.125
+        },
+        {
+          "name": "_metadata_levels",
+          "start_ms": 1056.8570000032196,
+          "ms": 496.3302999967709,
+          "process_cpu_ms": 109.375
+        },
+        {
+          "name": "_level_arrays",
+          "start_ms": 1056.827799999155,
+          "ms": 496.3837000032072,
+          "process_cpu_ms": 109.375
+        },
+        {
+          "name": "open_levels",
+          "start_ms": 0.18029999773716554,
+          "ms": 1553.0453000028501,
+          "process_cpu_ms": 687.5
+        },
+        {
+          "name": "cold_open_metadata",
+          "start_ms": 0.1660999987507239,
+          "ms": 1553.0827000038698,
+          "process_cpu_ms": 687.5
+        },
+        {
+          "name": "from_url",
+          "start_ms": 1553.3259000003454,
+          "ms": 0.12689999857684597,
+          "process_cpu_ms": 0.0
+        },
+        {
+          "name": "store_path_open",
+          "start_ms": 1568.202000002202,
+          "ms": 0.02989999484270811,
+          "process_cpu_ms": 0.0
+        },
+        {
+          "name": "open",
+          "start_ms": 1567.2685000026831,
+          "ms": 234.73620000004303,
+          "process_cpu_ms": 15.625
+        },
+        {
+          "name": "open_volume_store",
+          "start_ms": 1553.268299998308,
+          "ms": 248.75479999900563,
+          "process_cpu_ms": 31.25
+        },
+        {
+          "name": "_metadata_levels",
+          "start_ms": 1802.0640999966417,
+          "ms": 145.61720000347123,
+          "process_cpu_ms": 62.5
+        },
+        {
+          "name": "_level_arrays",
+          "start_ms": 1802.0382000031532,
+          "ms": 145.676199994341,
+          "process_cpu_ms": 62.5
+        },
+        {
+          "name": "open_levels",
+          "start_ms": 1553.2634999981383,
+          "ms": 394.4695000027423,
+          "process_cpu_ms": 93.75
+        },
+        {
+          "name": "warm_open_metadata",
+          "start_ms": 1553.25879999873,
+          "ms": 394.53599999978906,
+          "process_cpu_ms": 93.75
+        }
+      ],
+      "http": [
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/zarr.json",
+          "stage": "cold",
+          "start_ms": 269.21020000008866,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 623.6782999985735
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/.zarray",
+          "stage": "cold",
+          "start_ms": 270.21200000308454,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 626.6274999943562
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/.zattrs",
+          "stage": "cold",
+          "start_ms": 270.6820000021253,
+          "client": 0,
+          "status": 200,
+          "content_length": 3018,
+          "range": "",
+          "headers_ms": 648.1853000004776
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/zarr.json",
+          "stage": "cold",
+          "start_ms": 925.4835000028834,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 107.09939999651397
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/.zmetadata",
+          "stage": "cold",
+          "start_ms": 927.7067000002717,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 108.93819999910193
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/.zgroup",
+          "stage": "cold",
+          "start_ms": 926.7923000006704,
+          "client": 0,
+          "status": 200,
+          "content_length": 24,
+          "range": "",
+          "headers_ms": 125.8975000018836
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/0/.zgroup",
+          "stage": "cold",
+          "start_ms": 1065.580599999521,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 108.99239999707788
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/0/.zattrs",
+          "stage": "cold",
+          "start_ms": 1068.3183000001009,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 108.5460999966017
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/0/.zarray",
+          "stage": "cold",
+          "start_ms": 1067.2641999990446,
+          "client": 0,
+          "status": 200,
+          "content_length": 239,
+          "range": "",
+          "headers_ms": 125.448899998446
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/4/.zgroup",
+          "stage": "cold",
+          "start_ms": 1075.8856000029482,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 226.44769999897107
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/3/.zattrs",
+          "stage": "cold",
+          "start_ms": 1074.4811999975354,
+          "client": 0,
+          "status": 200,
+          "content_length": 2,
+          "range": "",
+          "headers_ms": 228.6235999999917
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/4/.zarray",
+          "stage": "cold",
+          "start_ms": 1075.206599998637,
+          "client": 0,
+          "status": 200,
+          "content_length": 236,
+          "range": "",
+          "headers_ms": 241.43270000058692
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/2/.zgroup",
+          "stage": "cold",
+          "start_ms": 1071.6801000016858,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 337.987200000498
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/1/.zgroup",
+          "stage": "cold",
+          "start_ms": 1070.250800003123,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 342.7644999974291
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/3/.zgroup",
+          "stage": "cold",
+          "start_ms": 1079.6222999997553,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 335.63670000148704
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/3/.zarray",
+          "stage": "cold",
+          "start_ms": 1073.768199996266,
+          "client": 0,
+          "status": 200,
+          "content_length": 238,
+          "range": "",
+          "headers_ms": 353.15770000306657
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/2/.zarray",
+          "stage": "cold",
+          "start_ms": 1072.465099998226,
+          "client": 0,
+          "status": 200,
+          "content_length": 238,
+          "range": "",
+          "headers_ms": 355.77660000126343
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/1/.zattrs",
+          "stage": "cold",
+          "start_ms": 1070.9882000010111,
+          "client": 0,
+          "status": 200,
+          "content_length": 2,
+          "range": "",
+          "headers_ms": 357.9239999962738
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/2/.zattrs",
+          "stage": "cold",
+          "start_ms": 1073.1162000010954,
+          "client": 0,
+          "status": 200,
+          "content_length": 2,
+          "range": "",
+          "headers_ms": 357.75769999600016
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/4/.zattrs",
+          "stage": "cold",
+          "start_ms": 1078.6358999976073,
+          "client": 0,
+          "status": 200,
+          "content_length": 2,
+          "range": "",
+          "headers_ms": 352.7914000005694
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/5/.zarray",
+          "stage": "cold",
+          "start_ms": 1080.2639999965322,
+          "client": 0,
+          "status": 200,
+          "content_length": 235,
+          "range": "",
+          "headers_ms": 353.3378000065568
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/1/.zarray",
+          "stage": "cold",
+          "start_ms": 1069.394199999806,
+          "client": 0,
+          "status": 200,
+          "content_length": 239,
+          "range": "",
+          "headers_ms": 368.5205000001588
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/5/.zgroup",
+          "stage": "cold",
+          "start_ms": 1080.819299997529,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 437.81619999936083
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/5/.zattrs",
+          "stage": "cold",
+          "start_ms": 1081.3694000025862,
+          "client": 0,
+          "status": 200,
+          "content_length": 2,
+          "range": "",
+          "headers_ms": 467.26420000049984
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/zarr.json",
+          "stage": "warm",
+          "start_ms": 1570.4681999995955,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 108.2488000029116
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/.zarray",
+          "stage": "warm",
+          "start_ms": 1572.429400002875,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 110.00509999576025
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/.zmetadata",
+          "stage": "warm",
+          "start_ms": 1686.3206999987597,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 113.49119999795221
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/zarr.json",
+          "stage": "warm",
+          "start_ms": 1684.9265999990166,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 115.86450000322657
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/0/.zgroup",
+          "stage": "warm",
+          "start_ms": 1811.3352000000305,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 107.61240000283578
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/2/.zgroup",
+          "stage": "warm",
+          "start_ms": 1815.148900001077,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 108.01530000026105
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/1/.zgroup",
+          "stage": "warm",
+          "start_ms": 1814.1466000015498,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 109.86419999971986
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/0/.zattrs",
+          "stage": "warm",
+          "start_ms": 1812.7768999984255,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 113.02850000356557
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/3/.zgroup",
+          "stage": "warm",
+          "start_ms": 1816.0809999972116,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 110.98230000061449
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/4/.zgroup",
+          "stage": "warm",
+          "start_ms": 1817.3019000023487,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 117.72909999854164
+        },
+        {
+          "method": "GET",
+          "path": "/PHerc0800/volumes/20250521135224-8.640um-1.2m-116keV-masked.zarr/5/.zgroup",
+          "stage": "warm",
+          "start_ms": 1818.6877999978606,
+          "client": 0,
+          "status": 404,
+          "content_length": 0,
+          "range": "",
+          "headers_ms": 125.95090000104392
+        }
+      ],
+      "source_reads": [
+        {
+          "key": "zarr.json",
+          "start_ms": 10.922299996309448,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 885.1953000048525
+        },
+        {
+          "key": ".zarray",
+          "start_ms": 269.60959999996703,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 627.6956000001519
+        },
+        {
+          "key": ".zattrs",
+          "start_ms": 270.29400000174064,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 3018,
+          "present": true,
+          "ms": 649.3598000015481
+        },
+        {
+          "key": "zarr.json",
+          "start_ms": 924.5945000002393,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 108.49600000074133
+        },
+        {
+          "key": ".zmetadata",
+          "start_ms": 927.1996000024956,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 109.88269999506883
+        },
+        {
+          "key": ".zgroup",
+          "start_ms": 926.1553000033018,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 24,
+          "present": true,
+          "ms": 127.24519999756012
+        },
+        {
+          "key": "0/.zgroup",
+          "start_ms": 1064.709899997979,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 110.28559999977006
+        },
+        {
+          "key": "0/.zattrs",
+          "start_ms": 1067.7385000017239,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 109.51769999519456
+        },
+        {
+          "key": "0/.zarray",
+          "start_ms": 1066.5588999981992,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 239,
+          "present": true,
+          "ms": 126.81780000275467
+        },
+        {
+          "key": "4/.zgroup",
+          "start_ms": 1075.3586999999243,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 227.43040000204928
+        },
+        {
+          "key": "3/.zattrs",
+          "start_ms": 1073.96190000145,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 2,
+          "present": true,
+          "ms": 229.69239999656565
+        },
+        {
+          "key": "4/.zarray",
+          "start_ms": 1074.6308000016143,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 236,
+          "present": true,
+          "ms": 242.63719999726163
+        },
+        {
+          "key": "2/.zgroup",
+          "start_ms": 1071.2110000022221,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 338.83480000076815
+        },
+        {
+          "key": "1/.zgroup",
+          "start_ms": 1069.7086000000127,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 343.6632000011741
+        },
+        {
+          "key": "3/.zgroup",
+          "start_ms": 1079.0789000020595,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 336.4867999989656
+        },
+        {
+          "key": "3/.zarray",
+          "start_ms": 1073.2910000006086,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 238,
+          "present": true,
+          "ms": 354.5347999970545
+        },
+        {
+          "key": "2/.zarray",
+          "start_ms": 1071.848300001875,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 238,
+          "present": true,
+          "ms": 356.929499997932
+        },
+        {
+          "key": "1/.zattrs",
+          "start_ms": 1070.4677000030642,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 2,
+          "present": true,
+          "ms": 358.8726999951177
+        },
+        {
+          "key": "2/.zattrs",
+          "start_ms": 1072.6372999997693,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 2,
+          "present": true,
+          "ms": 358.67989999678684
+        },
+        {
+          "key": "4/.zattrs",
+          "start_ms": 1077.9104999965057,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 2,
+          "present": true,
+          "ms": 353.88760000205366
+        },
+        {
+          "key": "5/.zarray",
+          "start_ms": 1079.7724000003655,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 235,
+          "present": true,
+          "ms": 354.43369999848073
+        },
+        {
+          "key": "1/.zarray",
+          "start_ms": 1068.7433999992209,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 239,
+          "present": true,
+          "ms": 369.9278999993112
+        },
+        {
+          "key": "5/.zgroup",
+          "start_ms": 1080.3919000027236,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 438.63129999954253
+        },
+        {
+          "key": "5/.zattrs",
+          "start_ms": 1080.9282999980496,
+          "stage": "cold",
+          "fs": 0,
+          "range": null,
+          "bytes": 2,
+          "present": true,
+          "ms": 468.35419999843
+        },
+        {
+          "key": "zarr.json",
+          "start_ms": 1569.6699999971315,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 109.52499999984866
+        },
+        {
+          "key": ".zarray",
+          "start_ms": 1571.1277000009432,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 111.6120000006049
+        },
+        {
+          "key": ".zmetadata",
+          "start_ms": 1685.6912000002922,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 114.53040000196779
+        },
+        {
+          "key": "zarr.json",
+          "start_ms": 1684.1980000026524,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 116.84719999902882
+        },
+        {
+          "key": "0/.zgroup",
+          "start_ms": 1810.4945000013686,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 111.20759999903385
+        },
+        {
+          "key": "2/.zgroup",
+          "start_ms": 1814.6249999990687,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 108.90669999935199
+        },
+        {
+          "key": "1/.zgroup",
+          "start_ms": 1813.5411999974167,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 110.75540000456385
+        },
+        {
+          "key": "0/.zattrs",
+          "start_ms": 1812.095399996906,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 114.05139999988023
+        },
+        {
+          "key": "3/.zgroup",
+          "start_ms": 1815.4477999996743,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 111.9198000014876
+        },
+        {
+          "key": "4/.zgroup",
+          "start_ms": 1816.5157999974326,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 118.9650000014808
+        },
+        {
+          "key": "5/.zgroup",
+          "start_ms": 1818.03360000049,
+          "stage": "warm",
+          "fs": 0,
+          "range": null,
+          "bytes": 0,
+          "present": false,
+          "ms": 127.0994000005885
+        }
+      ],
+      "s3_clients": 1,
+      "tcp_tls": [
+        {
+          "stage": "cold",
+          "start_ms": 538.501000002725,
+          "ms": 243.40829999709968
+        },
+        {
+          "stage": "cold",
+          "start_ms": 538.1391999981133,
+          "ms": 244.4623000046704
+        },
+        {
+          "stage": "cold",
+          "start_ms": 538.3101999977953,
+          "ms": 244.53210000501713
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1071.777999997721,
+          "ms": 229.13559999869904
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1070.3667999987374,
+          "ms": 230.77660000126343
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1072.5628000000142,
+          "ms": 228.73190000245813
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1069.557499999064,
+          "ms": 231.87650000181748
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1071.0958999989089,
+          "ms": 230.46910000266507
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1073.216800003138,
+          "ms": 228.46859999845037
+        },
+        {
+          "stage": "cold",
+          "start_ms": 1073.8787000009324,
+          "ms": 227.93979999551084
+        }
+      ],
+      "levels": {
+        "level_count": 6,
+        "levels": [
+          {
+            "key": "0",
+            "shape": [
+              24298,
+              9867,
+              9867
+            ],
+            "dtype": "uint8",
+            "chunks": [
+              128,
+              128,
+              128
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "estimated_bytes": 2365597127322
+          },
+          {
+            "key": "1",
+            "shape": [
+              12149,
+              4934,
+              4934
+            ],
+            "dtype": "uint8",
+            "chunks": [
+              128,
+              128,
+              128
+            ],
+            "scale": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "estimated_bytes": 295759581044
+          },
+          {
+            "key": "2",
+            "shape": [
+              6075,
+              2467,
+              2467
+            ],
+            "dtype": "uint8",
+            "chunks": [
+              128,
+              128,
+              128
+            ],
+            "scale": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "estimated_bytes": 36972990675
+          },
+          {
+            "key": "3",
+            "shape": [
+              3038,
+              1234,
+              1234
+            ],
+            "dtype": "uint8",
+            "chunks": [
+              128,
+              128,
+              128
+            ],
+            "scale": [
+              8.0,
+              8.0,
+              8.0
+            ],
+            "estimated_bytes": 4626132728
+          },
+          {
+            "key": "4",
+            "shape": [
+              1519,
+              617,
+              617
+            ],
+            "dtype": "uint8",
+            "chunks": [
+              128,
+              128,
+              128
+            ],
+            "scale": [
+              16.0,
+              16.0,
+              16.0
+            ],
+            "estimated_bytes": 578266591
+          },
+          {
+            "key": "5",
+            "shape": [
+              760,
+              309,
+              309
+            ],
+            "dtype": "uint8",
+            "chunks": [
+              128,
+              128,
+              128
+            ],
+            "scale": [
+              32.0,
+              32.0,
+              32.0
+            ],
+            "estimated_bytes": 72565560
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,853 @@
+{
+  "fingerprints": {
+    "runtime": {
+      "python": "3.11.9",
+      "torch": "2.8.0+cu126",
+      "cuda": "12.6",
+      "cudnn": 91002,
+      "gpu": "NVIDIA GeForce RTX 4080 Laptop GPU"
+    },
+    "weights_sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+    "architecture_revision": "baf5e605bb42a3d55a62b7c5c728e0908137225c",
+    "inference": "eval_fp32_no_tf32_deterministic_cudnn",
+    "input_plan_sha256": "2edeafa7cae5f0e414070de78eb705fedb5c69d2cf91d6dbf3d05d92f6002033",
+    "prior_tiles_sha256": "0662424b1798bdf27aae0637b7a590d0cfddb437f9189e9243d94cbb425c665b",
+    "script_sha256": "186391db83ba3902d7b4cd2049b4261dc895facf6ba280fa4db93244fb5e3f34",
+    "repeat": false
+  },
+  "sha256_raw_tiles": "9752b651f2d73959f7efa9b0a12f3d3eea69eb1a7717e4e4e00c2999face50d0",
+  "tiles": [
+    {
+      "origin_vu": [
+        0,
+        0
+      ],
+      "valid_pixels": 0,
+      "cache": "empty_support"
+    },
+    {
+      "origin_vu": [
+        0,
+        128
+      ],
+      "valid_pixels": 0,
+      "cache": "empty_support"
+    },
+    {
+      "origin_vu": [
+        0,
+        256
+      ],
+      "valid_pixels": 0,
+      "cache": "empty_support"
+    },
+    {
+      "origin_vu": [
+        0,
+        384
+      ],
+      "valid_pixels": 840,
+      "A_plus_ms": 467.8130999964196,
+      "A_minus_ms": 467.1607999916887,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        0,
+        512
+      ],
+      "valid_pixels": 7588,
+      "A_plus_ms": 479.09120000258554,
+      "A_minus_ms": 481.5560999995796,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        0,
+        640
+      ],
+      "valid_pixels": 19476,
+      "A_plus_ms": 477.9051000077743,
+      "A_minus_ms": 477.37310000229627,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        0,
+        768
+      ],
+      "valid_pixels": 33876,
+      "A_plus_ms": 478.2166000077268,
+      "A_minus_ms": 476.1360000120476,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        0,
+        896
+      ],
+      "valid_pixels": 35884,
+      "A_plus_ms": 476.40189999947324,
+      "A_minus_ms": 470.96849999797996,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        0,
+        1024
+      ],
+      "valid_pixels": 14736,
+      "A_plus_ms": 474.5573999971384,
+      "A_minus_ms": 463.4368999977596,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        0,
+        1144
+      ],
+      "valid_pixels": 396,
+      "A_plus_ms": 470.5337000050349,
+      "A_minus_ms": 464.8404000035953,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        0
+      ],
+      "valid_pixels": 0,
+      "cache": "empty_support"
+    },
+    {
+      "origin_vu": [
+        128,
+        128
+      ],
+      "valid_pixels": 1036,
+      "A_plus_ms": 463.48829999624286,
+      "A_minus_ms": 471.6785000055097,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        256
+      ],
+      "valid_pixels": 8768,
+      "A_plus_ms": 476.0954000084894,
+      "A_minus_ms": 470.1274000108242,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        384
+      ],
+      "valid_pixels": 23384,
+      "A_plus_ms": 485.49110000021756,
+      "A_minus_ms": 479.3114000058267,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        512
+      ],
+      "valid_pixels": 38784,
+      "A_plus_ms": 471.8113999988418,
+      "A_minus_ms": 479.133400003775,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        640
+      ],
+      "valid_pixels": 52136,
+      "A_plus_ms": 473.3020999992732,
+      "A_minus_ms": 471.93159999733325,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        768
+      ],
+      "valid_pixels": 61772,
+      "A_plus_ms": 476.2325000046985,
+      "A_minus_ms": 471.8951999966521,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        896
+      ],
+      "valid_pixels": 62264,
+      "A_plus_ms": 472.7621999918483,
+      "A_minus_ms": 478.8379000092391,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        1024
+      ],
+      "valid_pixels": 29496,
+      "A_plus_ms": 467.04570000292733,
+      "A_minus_ms": 464.9511000025086,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        128,
+        1144
+      ],
+      "valid_pixels": 1164,
+      "A_plus_ms": 474.13000000233296,
+      "A_minus_ms": 477.1513000014238,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        256,
+        0
+      ],
+      "valid_pixels": 2672,
+      "A_plus_ms": 470.93429999949876,
+      "A_minus_ms": 476.0963000007905,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        256,
+        128
+      ],
+      "valid_pixels": 18988,
+      "A_plus_ms": 471.93590000097174,
+      "A_minus_ms": 469.9389000015799,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        256,
+        256
+      ],
+      "valid_pixels": 40432,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        256,
+        384
+      ],
+      "valid_pixels": 55312,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        256,
+        512
+      ],
+      "valid_pixels": 63964,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        256,
+        640
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        256,
+        768
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        256,
+        896
+      ],
+      "valid_pixels": 65024,
+      "A_plus_ms": 475.9981999959564,
+      "A_minus_ms": 470.6609999993816,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        256,
+        1024
+      ],
+      "valid_pixels": 32256,
+      "A_plus_ms": 477.355200011516,
+      "A_minus_ms": 473.7520000053337,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        256,
+        1144
+      ],
+      "valid_pixels": 1536,
+      "A_plus_ms": 474.6748000034131,
+      "A_minus_ms": 472.7410999912536,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        384,
+        0
+      ],
+      "valid_pixels": 12280,
+      "A_plus_ms": 477.97009999339934,
+      "A_minus_ms": 477.18309999618214,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        384,
+        128
+      ],
+      "valid_pixels": 43944,
+      "A_plus_ms": 478.04960000212304,
+      "A_minus_ms": 465.0809000013396,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        384,
+        256
+      ],
+      "valid_pixels": 64432,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        384,
+        384
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        384,
+        512
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        384,
+        640
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        384,
+        768
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        384,
+        896
+      ],
+      "valid_pixels": 65124,
+      "A_plus_ms": 468.50659999472555,
+      "A_minus_ms": 472.55890000087675,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        384,
+        1024
+      ],
+      "valid_pixels": 33756,
+      "A_plus_ms": 475.71070000412874,
+      "A_minus_ms": 481.6580999904545,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        384,
+        1144
+      ],
+      "valid_pixels": 3036,
+      "A_plus_ms": 468.0120999983046,
+      "A_minus_ms": 474.5498999982374,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        512,
+        0
+      ],
+      "valid_pixels": 29916,
+      "A_plus_ms": 472.10139999515377,
+      "A_minus_ms": 469.1196000057971,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        512,
+        128
+      ],
+      "valid_pixels": 58740,
+      "A_plus_ms": 485.18719999992754,
+      "A_minus_ms": 480.81929999170825,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        512,
+        256
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        512,
+        384
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        512,
+        512
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        512,
+        640
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        512,
+        768
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        512,
+        896
+      ],
+      "valid_pixels": 65380,
+      "A_plus_ms": 485.79410000820644,
+      "A_minus_ms": 486.89800000283867,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        512,
+        1024
+      ],
+      "valid_pixels": 42556,
+      "A_plus_ms": 478.5268000123324,
+      "A_minus_ms": 502.46570000308566,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        512,
+        1144
+      ],
+      "valid_pixels": 11836,
+      "A_plus_ms": 482.8288999997312,
+      "A_minus_ms": 480.73479998856783,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        640,
+        0
+      ],
+      "valid_pixels": 33156,
+      "A_plus_ms": 482.9255000076955,
+      "A_minus_ms": 476.2953000026755,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        640,
+        128
+      ],
+      "valid_pixels": 60844,
+      "A_plus_ms": 484.8201999993762,
+      "A_minus_ms": 478.91299999901094,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        640,
+        256
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        640,
+        384
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        640,
+        512
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        640,
+        640
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        640,
+        768
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        640,
+        896
+      ],
+      "valid_pixels": 65536,
+      "A_plus_ms": 475.5730000033509,
+      "A_minus_ms": 463.17080000881106,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        640,
+        1024
+      ],
+      "valid_pixels": 57036,
+      "A_plus_ms": 474.1626000031829,
+      "A_minus_ms": 476.9150000065565,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        640,
+        1144
+      ],
+      "valid_pixels": 27796,
+      "A_plus_ms": 481.07889998937026,
+      "A_minus_ms": 482.8161000041291,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        768,
+        0
+      ],
+      "valid_pixels": 13212,
+      "A_plus_ms": 481.19980000774376,
+      "A_minus_ms": 476.67590000492055,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        768,
+        128
+      ],
+      "valid_pixels": 35172,
+      "A_plus_ms": 480.33180000493303,
+      "A_minus_ms": 483.44200001156423,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        768,
+        256
+      ],
+      "valid_pixels": 51512,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        768,
+        384
+      ],
+      "valid_pixels": 58152,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        768,
+        512
+      ],
+      "valid_pixels": 62504,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        768,
+        640
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        768,
+        768
+      ],
+      "valid_pixels": 65536,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        768,
+        896
+      ],
+      "valid_pixels": 63048,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        768,
+        1024
+      ],
+      "valid_pixels": 58036,
+      "A_plus_ms": 470.9353999933228,
+      "A_minus_ms": 476.0614999977406,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        768,
+        1144
+      ],
+      "valid_pixels": 33832,
+      "A_plus_ms": 481.6607999964617,
+      "A_minus_ms": 489.95250000734814,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        0
+      ],
+      "valid_pixels": 364,
+      "A_plus_ms": 478.68719999678433,
+      "A_minus_ms": 481.4385000063339,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        128
+      ],
+      "valid_pixels": 7076,
+      "A_plus_ms": 483.1038999982411,
+      "A_minus_ms": 477.289300004486,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        256
+      ],
+      "valid_pixels": 18744,
+      "A_plus_ms": 476.8595999921672,
+      "A_minus_ms": 478.2167999946978,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        384
+      ],
+      "valid_pixels": 25564,
+      "A_plus_ms": 482.41859998961445,
+      "A_minus_ms": 474.5705999957863,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        512
+      ],
+      "valid_pixels": 30684,
+      "A_plus_ms": 477.1192000043811,
+      "A_minus_ms": 497.52190000435803,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        640
+      ],
+      "valid_pixels": 36504,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        896,
+        768
+      ],
+      "valid_pixels": 36504,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        896,
+        896
+      ],
+      "valid_pixels": 31324,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        896,
+        1024
+      ],
+      "valid_pixels": 26204,
+      "A_plus_ms": 484.64419999800157,
+      "A_minus_ms": 484.46680000051856,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        896,
+        1144
+      ],
+      "valid_pixels": 15604,
+      "A_plus_ms": 483.03599999053404,
+      "A_minus_ms": 490.0729000073625,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        0
+      ],
+      "valid_pixels": 156,
+      "A_plus_ms": 473.5911000025226,
+      "A_minus_ms": 478.11840000213124,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        128
+      ],
+      "valid_pixels": 5844,
+      "A_plus_ms": 479.06130000774283,
+      "A_minus_ms": 492.54690000088885,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        256
+      ],
+      "valid_pixels": 16696,
+      "A_plus_ms": 487.58109999471344,
+      "A_minus_ms": 478.1632000085665,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        384
+      ],
+      "valid_pixels": 23516,
+      "A_plus_ms": 490.67420000210404,
+      "A_minus_ms": 485.42209999868646,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        512
+      ],
+      "valid_pixels": 28636,
+      "A_plus_ms": 483.35880000377074,
+      "A_minus_ms": 485.2907000022242,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        640
+      ],
+      "valid_pixels": 34456,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        904,
+        768
+      ],
+      "valid_pixels": 34456,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        904,
+        896
+      ],
+      "valid_pixels": 29276,
+      "cache": "phase7"
+    },
+    {
+      "origin_vu": [
+        904,
+        1024
+      ],
+      "valid_pixels": 24156,
+      "A_plus_ms": 484.97829999541864,
+      "A_minus_ms": 490.59989998931997,
+      "cache": "computed"
+    },
+    {
+      "origin_vu": [
+        904,
+        1144
+      ],
+      "valid_pixels": 14276,
+      "A_plus_ms": 484.49930000060704,
+      "A_minus_ms": 493.7338000017917,
+      "cache": "computed"
+    }
+  ],
+  "load_ms": 3700.1133000012487,
+  "peak_allocated_vram": 1447001088,
+  "peak_reserved_vram": 1715470336,
+  "peak_ram": 1260564480
+}
