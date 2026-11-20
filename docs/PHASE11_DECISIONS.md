@@ -35,4 +35,4 @@ L'asymétrie (réponse seulement de l'air vers le papyrus) ne s'explique donc pa
 
 ## 3 · Envoi aux mainteneurs
 
-La [note corrigée](PHASE11_COMMUNITY_NOTE.md) et ses trois questions (données exactes d'entraînement de A, normalisation ÷ 255/÷ 200, ordre attendu pour une surface exposée) sont envoyées sous forme d'issue publique sur `ScrollPrize/villa`, le dépôt où les mainteneurs ont répondu aux issues #1377 et #1765. Elle ne contient ni image, ni extrait, ni transcription Frag4, conformément à la licence EduceLab. Le lien de l'issue est consigné dans le bilan de phase 11.
+La [note corrigée](PHASE11_COMMUNITY_NOTE.md) et ses trois questions (données exactes d'entraînement de A, normalisation ÷ 255/÷ 200, ordre attendu pour une surface exposée) sont envoyées sous forme d'issue publique sur `ScrollPrize/villa`, le dépôt où les mainteneurs ont répondu aux issues #1377 et #1765. Elle ne contient ni image, ni extrait, ni transcription Frag4, conformément à la licence EduceLab. Envoyée le 21 novembre 2026 : [ScrollPrize/villa#2627](https://github.com/ScrollPrize/villa/issues/2627), liens épinglés au commit `5c0602f`.

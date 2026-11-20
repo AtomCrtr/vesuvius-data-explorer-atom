@@ -22,7 +22,7 @@
 
 ## Décisions du 21 novembre
 
-Tolérance de recalage de **301 µm** (biais + 3σ robuste des résidus de fissures), fenêtre d'intensité **W2** fixée sur le CT seul (W1, air → 0, écartée : elle écrêtait 33 % du papyrus), protocole d'évaluation gelé avant les étiquettes, et note envoyée aux mainteneurs. Avec W2, l'expérience Z garde le même schéma (Spearman 0,027 et −0,006, top 1 % disjoints). [Décisions](PHASE11_DECISIONS.md) · [Protocole gelé](validation/phase12-protocol.json)
+Tolérance de recalage de **301 µm** (biais + 3σ robuste des résidus de fissures), fenêtre d'intensité **W2** fixée sur le CT seul (W1, air → 0, écartée : elle écrêtait 33 % du papyrus), protocole d'évaluation gelé avant les étiquettes, et note envoyée aux mainteneurs ([villa#2627](https://github.com/ScrollPrize/villa/issues/2627)). Avec W2, l'expérience Z garde le même schéma (Spearman 0,027 et −0,006, top 1 % disjoints). [Décisions](PHASE11_DECISIONS.md) · [Protocole gelé](validation/phase12-protocol.json)
 
 ## Modifications du code
 

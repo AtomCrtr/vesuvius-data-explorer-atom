@@ -1,6 +1,6 @@
 # Depth order changes what the canonical 2 µm ink model sees: a paired intervention on two fragments
 
-*Draft for a GitHub comment or Discord post. Not sent. Replaces the phase 10 draft, which omitted that PHerc. 500P2 is very likely in the model's training data.*
+*Sent on 2026-11-21 as [ScrollPrize/villa#2627](https://github.com/ScrollPrize/villa/issues/2627). Replaces the phase 10 draft, which omitted that PHerc. 500P2 is very likely in the model's training data.*
 
 **Summary.** With the public `ink_canonical_2um` checkpoint held fixed, reversing only the order of the 62 input planes decorrelates its scores (Spearman ≈ 0) and makes the top-1% pixel sets disjoint, on PHerc. 500P2 and on Frag4 (PHerc. Paris 1 Fr 39). On Frag4, whose written face is known, the model gives structured output only when the planes run from air into the papyrus. This is a sensitivity result. It is not an ink evaluation and says nothing about which order finds ink.
 
