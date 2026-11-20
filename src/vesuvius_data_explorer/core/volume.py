@@ -31,7 +31,9 @@ class Level:
 
 # HTTPS hosts serving official Vesuvius Challenge volumes outside the open-data S3 bucket
 # (catalogue access root, see docs/investigations/I1-ecosysteme-donnees.md).
-ALLOWED_HTTPS_HOSTS = frozenset({"data.aws.ash2txt.org"})
+# dl.ash2txt.org is the legacy data server: the EduceLab fragments (e.g. Frag4/PHercParis1Fr39)
+# have their CT only there, the open-data S3 prefix holding just a photograph (phase 11).
+ALLOWED_HTTPS_HOSTS = frozenset({"data.aws.ash2txt.org", "dl.ash2txt.org"})
 CODEC_EXTRAS = {"vc-delta3d": "vcdelta3d"}
 
 

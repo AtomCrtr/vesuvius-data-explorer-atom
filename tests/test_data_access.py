@@ -60,6 +60,15 @@ def test_other_https_hosts_and_plain_http_are_refused(url, fake_http):
     assert calls == []
 
 
+def test_legacy_data_server_is_accepted(fake_http):
+    # Frag4's CT is served only by dl.ash2txt.org: the host passes the allow-list check.
+    path, calls = fake_http
+    path.mkdir()
+    with pytest.raises(FileNotFoundError, match="Volume introuvable"):
+        open_volume_store("https://dl.ash2txt.org/fragments/Frag4/x.volpkg/volumes_zarr/a.zarr")
+    assert len(calls) == 1
+
+
 def test_missing_remote_volume_is_a_french_not_found(fake_http):
     path, _ = fake_http
     path.mkdir()

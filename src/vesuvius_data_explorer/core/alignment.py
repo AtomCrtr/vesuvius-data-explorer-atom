@@ -44,7 +44,12 @@ class AlignmentProfile:
 
 
 def grid_normals(points: np.ndarray) -> np.ndarray:
-    """Unit normals of a (rows, cols, 3) grid by central differences; NaN where undefined."""
+    """Unit normals of a (rows, cols, 3) grid by central differences; NaN where undefined.
+
+    Convention: the cross product is taken on (z, y, x) components, which is the OPPOSITE of the
+    right-handed VC3D/XYZ normal dP/dcol x dP/drow (reversing the component order flips the sign).
+    T10 signed offsets use this core normal; the phase 7-10 orientation reports use the XYZ one.
+    """
     with np.errstate(invalid="ignore", divide="ignore"):
         normals = np.cross(np.gradient(points, axis=1), np.gradient(points, axis=0))
         normals /= np.linalg.norm(normals, axis=2, keepdims=True)

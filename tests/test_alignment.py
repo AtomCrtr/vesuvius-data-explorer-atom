@@ -258,3 +258,18 @@ def test_identical_patches_give_an_infinite_not_undefined_prominence():
                          pixel_size_um=5.0)
     result = alignment_result(report)
     assert result["status"] == "warn" and "très élevée" in result["message"]
+
+
+def test_core_normal_is_opposite_to_the_vc3d_xyz_normal():
+    # Pins the sign convention documented in grid_normals (phase 11 review): orientation reports
+    # use the right-handed XYZ normal dP/dcol x dP/drow, the core uses the (z, y, x) cross product.
+    from vesuvius_data_explorer.core.alignment import grid_normals
+
+    rng = np.random.default_rng(3)
+    rows, cols = np.mgrid[0:6, 0:7].astype(float)
+    points = np.stack([0.3 * rows + 0.1 * cols**2, rows + 0.2 * cols, cols + 0.05 * rows**2], axis=-1)
+    points += rng.normal(scale=0.01, size=points.shape)
+    xyz = points[..., ::-1]
+    vc3d = np.cross(np.gradient(xyz, axis=1), np.gradient(xyz, axis=0))
+    vc3d /= np.linalg.norm(vc3d, axis=2, keepdims=True)
+    np.testing.assert_allclose(grid_normals(points), -vc3d[..., ::-1], atol=1e-12)
