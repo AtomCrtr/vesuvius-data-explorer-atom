@@ -1,5 +1,15 @@
 # Passation à Claude Opus
 
+## Phase 11 · Revue complète et premier contrôle multimodal sur Frag4
+
+Branche locale `feat/vesuvius-phase11`, créée depuis `feat/vesuvius-phase10` (`dbac5b6`). [Bilan](VESUVIUS_PHASE11.md)
+
+- **Revue.** Code fiable, aucun P0 logiciel. P0 scientifique : la configuration Villa qui concorde avec A sur trois identifiants liste `500p2a` et `-1` dans l'entraînement, donc PHerc0500P2 est très probablement vu par A. Deux P1 corrigés (hôte `dl.ash2txt.org`, signe de `grid_normals` documenté). [Revue](CLAUDE_FULL_REVIEW.md)
+- **Géométrie Frag4.** La PPM `extras/PHercParis1Fr39_54keV.ppm` relie l'UV au CT recadré publié sans décalage ; couches = `p + (k − 32)·n`, trilinéaire, résidu < 0,25 voxel. La PPM `…_surface_volume.ppm` est une identité. La normale sort du papyrus. Pas non isométrique (0,94–1,26 voxel/px). [Recalage](PHASE11_FRAG4_REGISTRATION.md)
+- **IR.** Résidu ≈ 52 µm médian perpendiculairement à la fissure supérieure, contour ≤ ~200 µm RMS ; seuil de 6,5 µm non atteint et inatteignable (IR natif ≈ 20 µm/px). Étiquettes non téléchargées, métriques d'encre bloquées. [Évaluation](PHASE11_INK_EVALUATION.md)
+- **A sur Frag4.** Hors recette (air ≈ 0,48 après `>> 8`, normalisation ÷ 255/÷ 200 ouverte). Inversion Z : Spearman 0,03 et −0,08, top 1 % disjoints ; réponse seulement de l'air vers le papyrus. [Compatibilité](PHASE11_CHECKPOINT_COMPATIBILITY.md) · [Z](PHASE11_Z_GENERALIZATION.md)
+- **Suite.** Geler tolérance et fenêtre d'intensité, puis évaluer Frag4 en exploratoire ; demander l'attestation d'entraînement. Tâches Codex T1–T5. 359 tests natifs et 65 ciblés Rust réussis. [Feuille de route](ROADMAP_SCIENTIFIC_NEXT_STEPS.md) · [Note communautaire, non envoyée](PHASE11_COMMUNITY_NOTE.md)
+
 ## Phase 10 · Provenance CT–IR et préparation du pilote indépendant
 
 Branche locale `feat/vesuvius-phase10`, avec un point de restauration vérifié de la phase 9. [Bilan](VESUVIUS_PHASE10.md)

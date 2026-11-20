@@ -1,0 +1,53 @@
+{
+ "created_utc": "2026-11-20T22:32:13+00:00",
+ "license": "Frag4 data: EduceLab-Scrolls terms (no redistribution). Only code, hashes and statistics are archived.",
+ "source_package": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/",
+ "checkpoint": {
+  "uri": "https://huggingface.co/scrollprize/ink_canonical_2um/resolve/e154062e55513a1d4110f40fceeddb90eaa0f022/r152_3ddec_v2_l5_epoch13.ckpt",
+  "sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0"
+ },
+ "scripts": {
+  "docs/validation/phase11_cracks.py": "2f8c217b48b1b5486018edc9b95fe927ac293b4cf1452fe83be51314f3903e3a",
+  "docs/validation/phase11_geometry.py": "70a3b2a850938df0c560280d06590911046bf39ee28c797a89f9ec3bf8309ad3",
+  "docs/validation/phase11_inventory.py": "b1d94bb4a6ddbf7f9551a5a2fa7187c89b10854f01d254cf334f5d22fad8ea32",
+  "docs/validation/phase11_ir_registration.py": "9607f155d548136eb72960d51abc26d3d81b5fd520a56b7b773dda5a06b2f16e",
+  "docs/validation/phase11_z_frag4.py": "b36270b236f4aa6c44419f4de410cb0d09dc990f596666109647763224503a65"
+ },
+ "results": {
+  "docs/validation/phase11-cracks.json": "9eb94072dbd0f114893ad7e05376af5a74b076177e2799867e0a880cd661b049",
+  "docs/validation/phase11-frag4-inventory.json": "1000b4cd67c130a16e8e62aa6762768a0099ab92d87ff27312ffbbe9d839cec6",
+  "docs/validation/phase11-geometry-identity-ppm.json": "75bc1d4fe373d75f13f4700de265aba3ee2d936f8c140872a24870279b5249f0",
+  "docs/validation/phase11-geometry-ppm.json": "aedb11ea98b0e7183d568ecb2f10c0565771d6bc5bb9c784b3e1e5616e9e6d5a",
+  "docs/validation/phase11-ir-registration.json": "80f07065a7a3b897fadb32d8e54f14fa30770a19efc8cbd11b0e09cb82b73308",
+  "docs/validation/phase11-z-frag4.json": "02b2a76bb96b7abd54f051608a5bab41e654c8c91830548a71c9ac725b7bcdcd"
+ },
+ "documents": {
+  "docs/PHASE11_CHECKPOINT_COMPATIBILITY.md": "60de1bc74de950988e2bbfe91b1f5d100f77f157ccdf6564ebb9c965dc30ece4",
+  "docs/PHASE11_COMMUNITY_NOTE.md": "7c4ae1f1b57b9284a66e76618e10d9d6ada7966996be195fdd1c7ade787797a3",
+  "docs/PHASE11_FRAG4_DATA_AUDIT.md": "300952aefe0eff1539a0826fb48763472e2c63f20b7eea1a23979c0322b947a2",
+  "docs/PHASE11_FRAG4_REGISTRATION.md": "151e2f426e2a98cb12a01001d436db79564a47a37919ade7654cd68f55c35658",
+  "docs/PHASE11_INK_EVALUATION.md": "3e96050416d6e5fdb76339e308b975929252f91e1ddc5a698aba4ed5653974fa",
+  "docs/PHASE11_PR.md": "3d1e83cea6777934a938dfd63680de05eb5674eb21c8d8559374a080dea876a9",
+  "docs/PHASE11_TRAINING_INDEPENDENCE.md": "c5f59a7ddeca54164f9364c99eae55f865974a1a6d9a5e69252739bc09afe156",
+  "docs/PHASE11_Z_GENERALIZATION.md": "240e7f3932b08024f982a64b27ddb9acc15a448a181ea658b2345257ed191e3b",
+  "docs/VESUVIUS_PHASE11.md": "e7ed1c0222ae5cdb36937d92f6583d771322f7de2debb506b76e5b1f9d458576",
+  "docs/CLAUDE_FULL_REVIEW.md": "61210433d742a76d8c0942b3fa29d5edc3a10200a1aa752c95c0f24cd1b7b5f8"
+ },
+ "local_inputs_not_archived": {
+  "ir_aligned.png": "817670615d5dabba500ac874b865e787882d7f15c86c99eec383a4b10b0d36e2",
+  "ir_raw_1000nm.tif": "181a1343a86990410825e2fae26eb2d8bd7fe3a8e1ebb8a109448b797c7735ae",
+  "LICENSE_dl.txt": "9dc08a92194617d4ae68fb96d4fd0da99d1c7207f821f2a3750b0034eac8d154",
+  "mask.png": "5d437887925ecd6a0f5b943c5b318a6a15c85e9fc97c95d442ada2255b4f51c7",
+  "photo_ImgA.jpg": "cccd08334e38c3588e31f8cffd9f29c9f851d2944d9784d5fd6d4be7d1199a41",
+  "photo_ImgB.jpg": "a2ce1e7180dcd8ef29112fc547f530aa0ab09796bbe8b06019beee32eba42809",
+  "ppm2_head.bin": "0c1dc605757a8990f049ed8556941b359a076983979ac85c3aebe98489f5d98f",
+  "ppm_head.bin": "cff25d856e652ee42beb1f52888681150647a3499495c4c685c677e613de989e",
+  "sv_32.tif": "b0d219dc9cf9bac0576cc0cfde6f9ee1a94d73ae8214770e5f4aa48b0359be97"
+ },
+ "local_outputs_not_archived": {
+  "z-frag4-scores.npz": "15e805af13ee7128c7d98345d16fdb9f553a876bb8b5c245f3c036a48376dc4f",
+  "z-frag4-run.json": "7c526f213fd472c9630620d6bf98ed6fa71f42bd02f820728dde364165e3b204",
+  "z-frag4-prepare.json": "2ec7d9b697cc46e055a4d667c2f31afafd2df666db1fca5de13e965e59fba10f",
+  "phase11-cracks-run1.json": "11e4345d85d5d27bb2da0cceee59af62a5663b2b4d4ab41a87e6b2fa52a65ac9"
+ }
+}

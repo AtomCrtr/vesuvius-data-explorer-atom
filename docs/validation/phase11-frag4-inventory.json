@@ -1,0 +1,836 @@
+{
+ "root": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/",
+ "retrieved_utc": "2026-11-20T21:52:04+00:00",
+ "method": "HTML index parsing; small text files only; numbered series summarised",
+ "tree": {
+  "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/",
+  "dirs": {
+   "paths/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/paths/",
+    "dirs": {},
+    "files": [
+     {
+      "name": ".vckeep",
+      "bytes": 0,
+      "date": "2023-Nov-24 20:24"
+     }
+    ]
+   },
+   "renders/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/renders/",
+    "dirs": {},
+    "files": [
+     {
+      "name": ".vckeep",
+      "bytes": 0,
+      "date": "2023-Nov-24 20:24"
+     }
+    ]
+   },
+   "transforms/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/transforms/",
+    "dirs": {},
+    "files": [
+     {
+      "name": ".vckeep",
+      "bytes": 0,
+      "date": "2023-Nov-24 20:24"
+     }
+    ]
+   },
+   "volumes/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes/",
+    "dirs": {
+     "20230215185642/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes/20230215185642/",
+      "dirs": {},
+      "files": [
+       {
+        "name": "meta.json",
+        "bytes": 196,
+        "date": "2023-Feb-20 04:11",
+        "sha256": "c1043530fc293afa57a25edac24977a4d892e57315acd3431d102dfa7db43bb1",
+        "text": "{\"height\":1968,\"max\":65535.0,\"min\":0.0,\"name\":\"PHercParis1Fr39 54keV merged, cropped 5808x1968x9231+996+4584+500\",\"slices\":9231,\"type\":\"vol\",\"uuid\":\"20230215185642\",\"voxelsize\":3.24,\"width\":5808}\n"
+       },
+       {
+        "series": "*.tif",
+        "count": 9231,
+        "first": "0000.tif",
+        "last": "9230.tif",
+        "bytes_total": 211011022836,
+        "bytes_each_min_max": [
+         22858956,
+         22858956
+        ]
+       }
+      ]
+     },
+     "20230222173037/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes/20230222173037/",
+      "dirs": {},
+      "files": [
+       {
+        "name": "meta.json",
+        "bytes": 203,
+        "date": "2023-Feb-28 18:11",
+        "sha256": "72bf8741f5a71d756b65a11cf5abb31f2aab67a9e412aa8cc5d36ac5e5658fe3",
+        "text": "{\"height\":1969,\"max\":65535.0,\"min\":0.0,\"name\":\"PHercParis1Fr39 88keV merged volume, cropped 5957x1969x9209+901+4528+511\",\"slices\":9209,\"type\":\"vol\",\"uuid\":\"20230222173037\",\"voxelsize\":3.24,\"width\":5957}\n"
+       },
+       {
+        "series": "*.tif",
+        "count": 9209,
+        "first": "0000.tif",
+        "last": "9208.tif",
+        "bytes_total": 216301931318,
+        "bytes_each_min_max": [
+         23488102,
+         23488102
+        ]
+       }
+      ]
+     }
+    },
+    "files": [
+     {
+      "name": ".vckeep",
+      "bytes": 0,
+      "date": "2023-Nov-24 20:24"
+     }
+    ]
+   },
+   "volumes_standardized/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/",
+    "dirs": {
+     "54keV_3.24um_.zarr/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/",
+      "dirs": {
+       "0/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/0/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 401,
+          "date": "2025-Feb-19 09:30",
+          "sha256": "9d68b064308665128730046ed873f192f3eed7dad41d50e243e5972c5a03788f",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        9231,\n        1968,\n        5808\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 73,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "1/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/1/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 12:26",
+          "sha256": "f93516307d24b38fcf75ea419ee023bafc7f5d9e69dd2fab600b3b3068b77262",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        4616,\n        984,\n        2904\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 37,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "2/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/2/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 12:31",
+          "sha256": "aac8aaa93fef119b70864589c8c25330bd6bf3340008aaf63c51f81f922a1d93",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        2308,\n        492,\n        1452\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 19,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "3/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/3/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 399,
+          "date": "2025-Feb-19 12:32",
+          "sha256": "6567ded43451ae293cd58158aa58d0f06a51fa27086194d25760e0215fd79bd3",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        1154,\n        246,\n        726\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 10,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "4/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/4/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 398,
+          "date": "2025-Feb-19 12:32",
+          "sha256": "a094dda70cafb787d0f0e1abd5cfac4d6890f0de2cedee60be2696573aa4c599",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        577,\n        123,\n        363\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 5,
+         "first": "0/",
+         "last": "4/"
+        }
+       },
+       "5/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/54keV_3.24um_.zarr/5/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 397,
+          "date": "2025-Feb-19 12:32",
+          "sha256": "5f2a295fd19fa6a307ee4c2d93d5b5aef46146dd336eec2ecfbcd862abb3ba9b",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        289,\n        62,\n        182\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 3,
+         "first": "0/",
+         "last": "2/"
+        }
+       }
+      },
+      "files": [
+       {
+        "name": ".zattrs",
+        "bytes": 2969,
+        "date": "2025-Feb-19 09:30",
+        "sha256": "97e968dbbf11cc856dc57648aaaa9e6cade5e6575472dcfdeac7cfa50f546dd9",
+        "text": "{\n    \"multiscales\": [\n        {\n            \"axes\": [\n                {\n                    \"name\": \"z\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"y\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"x\",\n                    \"type\": \"space\"\n                }\n            ],\n            \"datasets\": [\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                1.0,\n                                1.0,\n                                1.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"0\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                2.0,\n                                2.0,\n                                2.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"1\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                4.0,\n                                4.0,\n                                4.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"2\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                8.0,\n                                8.0,\n                                8.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"3\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                16.0,\n                                16.0,\n                                16.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"4\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                32.0,\n                                32.0,\n                                32.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"5\"\n                }\n            ],\n            \"name\": \"/\",\n            \"version\": \"0.4\"\n        }\n    ]\n}"
+       },
+       {
+        "name": ".zgroup",
+        "bytes": 24,
+        "date": "2025-Feb-19 09:30",
+        "sha256": "2383746e67b4bcc2762b3f100f06c3fa2d5f149ab5a8e5da5d33521464a01959",
+        "text": "{\n    \"zarr_format\": 2\n}"
+       }
+      ]
+     },
+     "88keV_3.24um_.zarr/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/",
+      "dirs": {
+       "0/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/0/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 401,
+          "date": "2025-Feb-19 12:32",
+          "sha256": "dd8016b06c0251294bd0ba5730984b789fc59cc2f33d88cd75cc515cf15a0ba7",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        9209,\n        1969,\n        5957\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 72,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "1/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/1/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 15:20",
+          "sha256": "912f9df7c30b435096200607970000cd66f8f6db1cbf0d0488870d5590380e7d",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        4605,\n        985,\n        2979\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 36,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "2/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/2/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 15:23",
+          "sha256": "f62dbce7cbfe8e0e5d0d0eb5693d6f2d2f3aedbccd07e4239cebf8dac2576c33",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        2303,\n        493,\n        1490\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 18,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "3/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/3/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 399,
+          "date": "2025-Feb-19 15:23",
+          "sha256": "047acb65dd78563731e7b6f00995e145665b93fd12306cb7c1678ea3130964c9",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        1152,\n        247,\n        745\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 9,
+         "first": "0/",
+         "last": "8/"
+        }
+       },
+       "4/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/4/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 398,
+          "date": "2025-Feb-19 15:24",
+          "sha256": "85ee39a80dd48e07a416fb8626a6d47fe6d8f1da4635e8c35ff08b0fab3e3694",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        576,\n        124,\n        373\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 5,
+         "first": "0/",
+         "last": "4/"
+        }
+       },
+       "5/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_standardized/88keV_3.24um_.zarr/5/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 397,
+          "date": "2025-Feb-19 15:24",
+          "sha256": "9345710c522eebc1a02eb6b8b4b73a7018f1d85fc3edbbbacc6af7a6534cc64f",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"|u1\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        288,\n        62,\n        187\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 3,
+         "first": "0/",
+         "last": "2/"
+        }
+       }
+      },
+      "files": [
+       {
+        "name": ".zattrs",
+        "bytes": 2969,
+        "date": "2025-Feb-19 12:32",
+        "sha256": "97e968dbbf11cc856dc57648aaaa9e6cade5e6575472dcfdeac7cfa50f546dd9",
+        "text": "{\n    \"multiscales\": [\n        {\n            \"axes\": [\n                {\n                    \"name\": \"z\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"y\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"x\",\n                    \"type\": \"space\"\n                }\n            ],\n            \"datasets\": [\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                1.0,\n                                1.0,\n                                1.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"0\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                2.0,\n                                2.0,\n                                2.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"1\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                4.0,\n                                4.0,\n                                4.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"2\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                8.0,\n                                8.0,\n                                8.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"3\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                16.0,\n                                16.0,\n                                16.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"4\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                32.0,\n                                32.0,\n                                32.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"5\"\n                }\n            ],\n            \"name\": \"/\",\n            \"version\": \"0.4\"\n        }\n    ]\n}"
+       },
+       {
+        "name": ".zgroup",
+        "bytes": 24,
+        "date": "2025-Feb-19 12:32",
+        "sha256": "2383746e67b4bcc2762b3f100f06c3fa2d5f149ab5a8e5da5d33521464a01959",
+        "text": "{\n    \"zarr_format\": 2\n}"
+       }
+      ]
+     }
+    },
+    "files": []
+   },
+   "volumes_zarr/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/",
+    "dirs": {
+     "54keV_3.24um_.zarr/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/",
+      "dirs": {
+       "0/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/0/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 401,
+          "date": "2025-Feb-19 16:12",
+          "sha256": "3b20f4f293b5a8c902f9e0f3438d1f8243f41e591cbe63be45f3dd202eada3ff",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        9231,\n        1968,\n        5808\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 73,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "1/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/1/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 16:40",
+          "sha256": "ee994bb2bb3398d5c4ce7aacc02087c5af3399a7a1afae56529c8879d1feef9b",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        4616,\n        984,\n        2904\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 37,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "2/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/2/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 16:47",
+          "sha256": "d5f71dd9321f5b991981eb455aa614550c3c4be016fdc28e99c40fef74116232",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        2308,\n        492,\n        1452\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 19,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "3/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/3/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 399,
+          "date": "2025-Feb-19 16:47",
+          "sha256": "7a3a450663133abebcdbc7868cdaa4d54fc7c72397451ddd477e6da3e0ffe99b",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        1154,\n        246,\n        726\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 10,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "4/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/4/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 398,
+          "date": "2025-Feb-19 16:47",
+          "sha256": "4645bffce8143d6023b8c1a39fee09190420b44170df91dbd3f173d8d5b0ef4c",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        577,\n        123,\n        363\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 5,
+         "first": "0/",
+         "last": "4/"
+        }
+       },
+       "5/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/54keV_3.24um_.zarr/5/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 397,
+          "date": "2025-Feb-19 16:47",
+          "sha256": "20c46a9d64a951e89c3238a152584febca30d5f1628d5d9b5266252641ae4532",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        289,\n        62,\n        182\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 3,
+         "first": "0/",
+         "last": "2/"
+        }
+       }
+      },
+      "files": [
+       {
+        "name": ".zattrs",
+        "bytes": 2969,
+        "date": "2025-Feb-19 16:12",
+        "sha256": "97e968dbbf11cc856dc57648aaaa9e6cade5e6575472dcfdeac7cfa50f546dd9",
+        "text": "{\n    \"multiscales\": [\n        {\n            \"axes\": [\n                {\n                    \"name\": \"z\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"y\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"x\",\n                    \"type\": \"space\"\n                }\n            ],\n            \"datasets\": [\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                1.0,\n                                1.0,\n                                1.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"0\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                2.0,\n                                2.0,\n                                2.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"1\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                4.0,\n                                4.0,\n                                4.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"2\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                8.0,\n                                8.0,\n                                8.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"3\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                16.0,\n                                16.0,\n                                16.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"4\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                32.0,\n                                32.0,\n                                32.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"5\"\n                }\n            ],\n            \"name\": \"/\",\n            \"version\": \"0.4\"\n        }\n    ]\n}"
+       },
+       {
+        "name": ".zgroup",
+        "bytes": 24,
+        "date": "2025-Feb-19 16:12",
+        "sha256": "2383746e67b4bcc2762b3f100f06c3fa2d5f149ab5a8e5da5d33521464a01959",
+        "text": "{\n    \"zarr_format\": 2\n}"
+       }
+      ]
+     },
+     "88keV_3.24um_.zarr/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/",
+      "dirs": {
+       "0/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/0/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 401,
+          "date": "2025-Feb-19 16:48",
+          "sha256": "7400f8e8a06b50a9931dc6febf6f1dba2dbc85ba0208336384c04e8bb91eb25c",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        9209,\n        1969,\n        5957\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 72,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "1/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/1/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 17:21",
+          "sha256": "8ba1c61c8db4c26fda5c88f34acc719507309bac7be8144023cfd804588526d1",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        4605,\n        985,\n        2979\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 36,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "2/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/2/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 400,
+          "date": "2025-Feb-19 17:28",
+          "sha256": "363bf021fcba4048c464ff8a90163e388f128c967daea08c8ac7926c40fdafa8",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        2303,\n        493,\n        1490\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 18,
+         "first": "0/",
+         "last": "9/"
+        }
+       },
+       "3/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/3/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 399,
+          "date": "2025-Feb-19 17:29",
+          "sha256": "11c548e1a0ee54260324961f59e4134ec126b65c695141b2dcf7dd50b13273ec",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        1152,\n        247,\n        745\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 9,
+         "first": "0/",
+         "last": "8/"
+        }
+       },
+       "4/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/4/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 398,
+          "date": "2025-Feb-19 17:29",
+          "sha256": "ef09b36bb2d2f5191156df53f3990cac983cc4a0166bbb38397c6b4eb6ac3968",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        576,\n        124,\n        373\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 5,
+         "first": "0/",
+         "last": "4/"
+        }
+       },
+       "5/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/volumes_zarr/88keV_3.24um_.zarr/5/",
+        "dirs": {},
+        "files": [
+         {
+          "name": ".zarray",
+          "bytes": 397,
+          "date": "2025-Feb-19 17:29",
+          "sha256": "9c95e364e243ff7734b90e1d3837d2b44c6c64d7099af4afdffe086740fd8b60",
+          "text": "{\n    \"chunks\": [\n        128,\n        128,\n        128\n    ],\n    \"compressor\": {\n        \"blocksize\": 0,\n        \"clevel\": 3,\n        \"cname\": \"zstd\",\n        \"id\": \"blosc\",\n        \"shuffle\": 0\n    },\n    \"dimension_separator\": \"/\",\n    \"dtype\": \"<u2\",\n    \"fill_value\": 0,\n    \"filters\": null,\n    \"order\": \"C\",\n    \"shape\": [\n        288,\n        62,\n        187\n    ],\n    \"zarr_format\": 2\n}"
+         }
+        ],
+        "chunk_dirs": {
+         "count": 3,
+         "first": "0/",
+         "last": "2/"
+        }
+       }
+      },
+      "files": [
+       {
+        "name": ".zattrs",
+        "bytes": 2969,
+        "date": "2025-Feb-19 16:48",
+        "sha256": "97e968dbbf11cc856dc57648aaaa9e6cade5e6575472dcfdeac7cfa50f546dd9",
+        "text": "{\n    \"multiscales\": [\n        {\n            \"axes\": [\n                {\n                    \"name\": \"z\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"y\",\n                    \"type\": \"space\"\n                },\n                {\n                    \"name\": \"x\",\n                    \"type\": \"space\"\n                }\n            ],\n            \"datasets\": [\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                1.0,\n                                1.0,\n                                1.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"0\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                2.0,\n                                2.0,\n                                2.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"1\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                4.0,\n                                4.0,\n                                4.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"2\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                8.0,\n                                8.0,\n                                8.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"3\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                16.0,\n                                16.0,\n                                16.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"4\"\n                },\n                {\n                    \"coordinateTransformations\": [\n                        {\n                            \"scale\": [\n                                32.0,\n                                32.0,\n                                32.0\n                            ],\n                            \"type\": \"scale\"\n                        }\n                    ],\n                    \"path\": \"5\"\n                }\n            ],\n            \"name\": \"/\",\n            \"version\": \"0.4\"\n        }\n    ]\n}"
+       },
+       {
+        "name": ".zgroup",
+        "bytes": 24,
+        "date": "2025-Feb-19 16:48",
+        "sha256": "2383746e67b4bcc2762b3f100f06c3fa2d5f149ab5a8e5da5d33521464a01959",
+        "text": "{\n    \"zarr_format\": 2\n}"
+       }
+      ]
+     }
+    },
+    "files": []
+   },
+   "working/": {
+    "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/",
+    "dirs": {
+     "54keV_exposed_surface/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/",
+      "dirs": {
+       "PHercParis1Fr39_54keV_surface_volume/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/PHercParis1Fr39_54keV_surface_volume/",
+        "dirs": {},
+        "files": [
+         {
+          "name": "meta.json",
+          "bytes": 215,
+          "date": "2023-Mar-02 02:36",
+          "sha256": "a09f65bdfdf4a58982695f6b6e95dc34d0279f41eb88d33a416a406e834f94fd",
+          "text": "{\"height\":9791,\"max\":65535.0,\"min\":0.0,\"name\":\"PHercParis1Fr39 54KeV merged, segmented and converted with vc_layers to surface volume\",\"slices\":65,\"type\":\"vol\",\"uuid\":\"20230301213512\",\"voxelsize\":3.24,\"width\":6064}\n"
+         },
+         {
+          "series": "*.tif",
+          "count": 65,
+          "first": "00.tif",
+          "last": "64.tif",
+          "bytes_total": 7715422195,
+          "bytes_each_min_max": [
+           118698803,
+           118698803
+          ]
+         }
+        ]
+       },
+       "extras/": {
+        "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/extras/",
+        "dirs": {},
+        "files": [
+         {
+          "name": "00_canny_raw.ply",
+          "bytes": 2791728742,
+          "date": "2023-Feb-24 22:21"
+         },
+         {
+          "name": "01_simplified.ply",
+          "bytes": 4089446,
+          "date": "2023-Feb-25 18:18"
+         },
+         {
+          "name": "02_cleaned.ply",
+          "bytes": 2831155,
+          "date": "2023-Feb-25 19:06"
+         },
+         {
+          "name": "03_outliers_removed.ply",
+          "bytes": 2726297,
+          "date": "2023-Feb-25 19:09"
+         },
+         {
+          "name": "04_poisson_repaired.ply",
+          "bytes": 4089446,
+          "date": "2023-Feb-25 19:16"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV.mtl",
+          "bytes": 107,
+          "date": "2023-Feb-26 18:02"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV.obj",
+          "bytes": 7654604,
+          "date": "2023-Feb-26 18:02"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV.png",
+          "bytes": 77804339,
+          "date": "2023-Mar-02 14:43"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV.ppm",
+          "bytes": 2899102924,
+          "date": "2023-Feb-26 17:36"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV.tif",
+          "bytes": 118593945,
+          "date": "2023-Feb-26 18:02"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_alignment.psd",
+          "bytes": 207408332,
+          "date": "2023-Mar-01 00:37"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_cellmap.tif",
+          "bytes": 61236838,
+          "date": "2023-Feb-26 17:36"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_faux_rgb.png",
+          "bytes": 25270681,
+          "date": "2023-Mar-02 14:33"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_faux_rgb.psd",
+          "bytes": 198180864,
+          "date": "2023-Mar-02 12:27"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_ir.png",
+          "bytes": 12058624,
+          "date": "2023-Mar-01 00:51"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_surface_volume.json",
+          "bytes": 442,
+          "date": "2023-Mar-02 14:44",
+          "sha256": "a0a82a127a164963e4ad58d1d1873c1cfc5c9391125baf35eb8806a25d320519",
+          "text": "{\n    \"schema_version\": \"0.1\",\n    \"type\": \"region\",\n    \"volume\": \"../PHercParis1Fr39_54keV_surface_volume\",\n    \"ppm\": \"PHercParis1Fr39_54keV_surface_volume.ppm\",\n    \"mask\": \"../PHercParis1Fr39_54keV_mask.png\",\n    \"invert_normals\": false,\n    \"bounding_box\": null,\n    \"ink_label\": \"../PHercParis1Fr39_54keV_inklabels.png\",\n    \"rgb_label\": \"PHercParis1Fr39_54keV_faux_rgb.png\",\n    \"volcart_texture_label\": \"PHercParis1Fr39_54keV.png\"\n}\n"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_surface_volume.ppm",
+          "bytes": 2899102924,
+          "date": "2023-Mar-02 02:50"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_surface_volume_grid2x1.txt",
+          "bytes": 120,
+          "date": "2023-Mar-02 14:50"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_surface_volume_grid2x1_row0_col0.json",
+          "bytes": 493,
+          "date": "2023-Mar-02 14:50",
+          "sha256": "4368f1a8d6ce56e342caaaec5ddbffeb02d70cced5d95151e97b2b3ccac67ab0",
+          "text": "{\n    \"schema_version\": \"0.1\",\n    \"type\": \"region\",\n    \"volume\": \"../PHercParis1Fr39_54keV_surface_volume\",\n    \"ppm\": \"PHercParis1Fr39_54keV_surface_volume.ppm\",\n    \"mask\": \"../PHercParis1Fr39_54keV_mask.png\",\n    \"invert_normals\": false,\n    \"bounding_box\": [\n        0,\n        0,\n        6064,\n        4895\n    ],\n    \"ink_label\": \"../PHercParis1Fr39_54keV_inklabels.png\",\n    \"rgb_label\": \"PHercParis1Fr39_54keV_faux_rgb.png\",\n    \"volcart_texture_label\": \"PHercParis1Fr39_54keV.png\"\n}"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_surface_volume_grid2x1_row1_col0.json",
+          "bytes": 496,
+          "date": "2023-Mar-02 14:50",
+          "sha256": "38bb9125a768cef83ff7bb688558c7425ac90f5615ede17e28ec55bc5469f310",
+          "text": "{\n    \"schema_version\": \"0.1\",\n    \"type\": \"region\",\n    \"volume\": \"../PHercParis1Fr39_54keV_surface_volume\",\n    \"ppm\": \"PHercParis1Fr39_54keV_surface_volume.ppm\",\n    \"mask\": \"../PHercParis1Fr39_54keV_mask.png\",\n    \"invert_normals\": false,\n    \"bounding_box\": [\n        0,\n        4895,\n        6064,\n        9790\n    ],\n    \"ink_label\": \"../PHercParis1Fr39_54keV_inklabels.png\",\n    \"rgb_label\": \"PHercParis1Fr39_54keV_faux_rgb.png\",\n    \"volcart_texture_label\": \"PHercParis1Fr39_54keV.png\"\n}"
+         },
+         {
+          "name": "PHercParis1Fr39_54keV_uvs.png",
+          "bytes": 39531315,
+          "date": "2023-Feb-26 17:34"
+         }
+        ]
+       }
+      },
+      "files": [
+       {
+        "name": "PHercParis1Fr39_54keV_inklabels.png",
+        "bytes": 98406,
+        "date": "2023-Mar-01 00:46"
+       },
+       {
+        "name": "PHercParis1Fr39_54keV_mask.png",
+        "bytes": 54476,
+        "date": "2023-Mar-01 22:03"
+       }
+      ]
+     },
+     "reference/": {
+      "url": "https://dl.ash2txt.org/fragments/Frag4/PHercParis1Fr39.volpkg/working/reference/",
+      "dirs": {},
+      "files": [
+       {
+        "name": "PHerc Paris 1 Cornici 2-FRR 39-01392-1000nmS40-FStop 8-Lens=.tif",
+        "bytes": 6291456,
+        "date": "2023-Jan-29 22:33"
+       },
+       {
+        "name": "PHercParis1-Fg39_ImgA.jpg",
+        "bytes": 1887436,
+        "date": "2023-Jan-29 22:33"
+       },
+       {
+        "name": "PHercParis1-Fg39_ImgB.jpg",
+        "bytes": 1572864,
+        "date": "2023-Jan-29 22:33"
+       }
+      ]
+     }
+    },
+    "files": [
+     {
+      "name": "PHercParis1Fr39_54keV_3.24um.mp4",
+      "bytes": 156237824,
+      "date": "2023-Feb-23 14:07"
+     },
+     {
+      "name": "PHercParis1Fr39_88keV_3.24um.mp4",
+      "bytes": 107583897,
+      "date": "2023-Feb-26 19:24"
+     }
+    ]
+   }
+  },
+  "files": [
+   {
+    "name": "config.json",
+    "bytes": 65,
+    "date": "2023-Nov-24 20:24",
+    "sha256": "b5994aa3e6545702e55fefc6fb3f755ea5ad7110c408a2a78f51b90e4f3d5f70",
+    "text": "{\"materialthickness\":150.0,\"name\":\"PHercParis1Fr39\",\"version\":7}\n"
+   }
+  ]
+ }
+}
