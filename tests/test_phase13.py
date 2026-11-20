@@ -1,0 +1,37 @@
+"""Phase 13 evaluation script: paired block bootstrap and non-learned baselines."""
+
+from pathlib import Path
+
+import numpy as np
+import pytest
+
+
+@pytest.fixture
+def module(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).parents[1] / "docs" / "validation"))
+    return pytest.importorskip("phase13_eval")
+
+
+def test_paired_bootstrap_separates_informative_and_identical_scores(module):
+    rng = np.random.default_rng(3)
+    truth = np.zeros((256, 256), bool)
+    truth[::16, :] = True  # Thin lines spread over every block.
+    valid = np.ones_like(truth)
+    noise = rng.random(truth.shape)
+    maps = {"Z_out": np.clip(0.3 * noise + 0.6 * truth, 0, 1), "Z_in": noise, "B1": noise, "B2": noise}
+    result = module.pooled(maps, truth, valid)
+    assert result["Z_out"]["ROC_AUC"] == pytest.approx(1.0)
+    assert result["Z_out"]["ROC_AUC_95"][0] > 0.99
+    assert abs(result["Z_in"]["ROC_AUC"] - 0.5) < 0.05
+    assert result["diff_PR_Zout_minus_Zin"]["interval_95"][0] > 0.5
+    same = module.pooled({s: noise for s in module.SCORES}, truth, valid)
+    assert same["diff_PR_Zout_minus_Zin"]["interval_95"] == [0.0, 0.0]
+
+
+def test_baselines_follow_the_surface_planes(module):
+    volume = np.full((62, 64, 64), 100, np.uint8)
+    volume[30:32, :, :32] = 50  # Darker surface on the left half.
+    b1, b2 = module.baselines(volume)
+    assert b1.shape == b2.shape == (64, 64)
+    assert b1[:, :16].mean() > b1[:, 48:].mean()
+    assert b2[:, 32].mean() > b2[:, 0].mean()  # Texture peaks at the edge.

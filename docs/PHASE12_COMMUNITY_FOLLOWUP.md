@@ -1,6 +1,6 @@
-# Draft follow-up to ScrollPrize/villa#2627 (not sent)
+# Follow-up to ScrollPrize/villa#2627 (sent)
 
-*Draft. Not posted: any external publication waits for the project owner's approval.*
+*Posted on 2026-11-21 with the project owner's approval: [comment](https://github.com/ScrollPrize/villa/issues/2627#issuecomment-7053242080), links pinned to commit `7c696e5`.*
 
 ---
 
