@@ -20,11 +20,16 @@
 | Prochaine expérience ? | Évaluation Frag4 à tolérance spatiale et fenêtre d'intensité gelées, en parallèle de la demande d'attestation. | [Feuille de route](ROADMAP_SCIENTIFIC_NEXT_STEPS.md) |
 | Logiciel, modèles ou validation ? | Validation scientifique d'abord. | [Feuille de route](ROADMAP_SCIENTIFIC_NEXT_STEPS.md) |
 
+## Décisions du 21 novembre
+
+Tolérance de recalage de **301 µm** (biais + 3σ robuste des résidus de fissures), fenêtre d'intensité **W2** fixée sur le CT seul (W1, air → 0, écartée : elle écrêtait 33 % du papyrus), protocole d'évaluation gelé avant les étiquettes, et note envoyée aux mainteneurs. Avec W2, l'expérience Z garde le même schéma (Spearman 0,027 et −0,006, top 1 % disjoints). [Décisions](PHASE11_DECISIONS.md) · [Protocole gelé](validation/phase12-protocol.json)
+
 ## Modifications du code
 
 - `core/volume.py` : `dl.ash2txt.org` ajouté aux hôtes HTTPS autorisés (seul serveur du CT des fragments EduceLab) ; message de `core/tifxyz.py` dérivé de la liste.
 - `core/alignment.py` : convention de signe de `grid_normals` documentée.
-- Tests : `test_legacy_data_server_is_accepted`, `test_core_normal_is_opposite_to_the_vc3d_xyz_normal`, `tests/test_phase11.py` (deux tests de conventions des scripts).
+- `core/optical_registration.py` : `registration_tolerance`, tolérance spatiale pour une référence optique grossière.
+- Tests : `test_registration_tolerance_follows_robust_spread_and_reference_resolution`, `test_legacy_data_server_is_accepted`, `test_core_normal_is_opposite_to_the_vc3d_xyz_normal`, `tests/test_phase11.py` (deux tests de conventions des scripts).
 - Scripts : `docs/validation/phase11_inventory.py`, `phase11_geometry.py`, `phase11_ir_registration.py`, `phase11_cracks.py`, `phase11_z_frag4.py`.
 
 ## Vérification

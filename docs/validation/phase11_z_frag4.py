@@ -12,6 +12,8 @@ Input recipe (documented in docs/PHASE11_CHECKPOINT_COMPATIBILITY.md):
 - 1024 x 1024 output pixels at 2.215 um from the 3.24 um surface volume (nominal pitch), 62 planes at
   depths (k - 58.5) * 2.215 um, k in [28, 90), around layer 32, trilinear in (layer, row, col);
 - uint16 -> uint8 by >> 8 (Villa training reader), then the inference rule clip 200 / 200 (phase 6);
+  with ``--window docs/validation/phase11-window.json`` the W2 moment-matching window replaces >> 8
+  and every file name gets the suffix ``-w2`` (pass the option to all three steps);
 - Z_out: plane index increasing toward air (ascending Frag4 layers); Z_in: the reverse.
 """
 
@@ -29,6 +31,7 @@ OUT_PX, OUT_UM, NATIVE_UM, PLANES, CENTER_A, CENTER_F4 = 1024, 2.215, 3.24, 62, 
 DEPTHS_A = np.arange(28, 90)
 TILE, STRIDE = 256, 128
 ROI_PATCHES = (2, 5)
+TAG, WINDOW = "", None  # Set by --window.
 
 
 def layer_coords():
@@ -47,7 +50,9 @@ def prepare(work):
     span = OUT_PX * OUT_UM / NATIVE_UM  # ~700 native px
     layers = layer_coords()
     lo, hi = int(np.floor(layers.min())), int(np.ceil(layers.max()))
-    manifest = {"layers_read": [lo, hi], "layer_coords": layers.tolist(), "rois": []}
+    manifest = {"layers_read": [lo, hi], "layer_coords": layers.tolist(), "rois": [],
+                "intensity": ">> 8" if WINDOW is None else {"window": "W2", **{k: WINDOW[k] for k in (
+                    "w2_mean_u16", "w2_std_u16", "w2_target_mean_std_over_200")}}}
     for index in ROI_PATCHES:
         r, c = patches[index]
         r0 = int(round(r + PATCH / 2 - span / 2)) - 2
@@ -62,16 +67,21 @@ def prepare(work):
         planes = [(1 - f) * block[b] + f * block[min(b + 1, len(block) - 1)] for b, f in zip(below, frac)]
         resampled = np.stack([ndimage.map_coordinates(plane, [yy, xx], order=1, mode="nearest")
                               for plane in planes])
-        u8 = (np.clip(resampled, 0, 65535).astype(np.uint16) >> 8).astype(np.uint8)
+        if WINDOW is None:
+            u8 = (np.clip(resampled, 0, 65535).astype(np.uint16) >> 8).astype(np.uint8)
+        else:
+            from phase11_window import moments_u8
+
+            u8 = moments_u8(resampled, WINDOW["w2_mean_u16"], WINDOW["w2_std_u16"])
         roi_mask = ndimage.map_coordinates(mask[r0:r0 + n, c0:c0 + n].astype(np.float32),
                                            [yy, xx], order=0) > 0.5
         name = f"roi{index}"
-        np.save(work / f"{name}-zout.npy", u8)
+        np.save(work / f"{name}-zout{TAG}.npy", u8)
         np.save(work / f"{name}-mask.npy", roi_mask)
         manifest["rois"].append({"name": name, "patch_index": index, "native_origin_rc": [r0, c0],
-                                 "native_size": n, "npy_sha256": digest(work / f"{name}-zout.npy"),
+                                 "native_size": n, "npy_sha256": digest(work / f"{name}-zout{TAG}.npy"),
                                  "mask_fraction": float(roi_mask.mean())})
-    (work / "z-frag4-prepare.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8")
+    (work / f"z-frag4{TAG}-prepare.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8")
     print(json.dumps(manifest["rois"], indent=1))
 
 
@@ -83,7 +93,7 @@ def hann():
 def run(work, phase6):
     import torch
 
-    manifest = json.loads((work / "z-frag4-prepare.json").read_bytes())
+    manifest = json.loads((work / f"z-frag4{TAG}-prepare.json").read_bytes())
     ckpt = phase6 / "canonical" / CHECKPOINT
     if digest(ckpt) != WEIGHTS_SHA or any(digest(phase6 / "villa" / p) != h for p, h in CODE.items()):
         raise ValueError("The checkpoint or the audited model code changed")
@@ -105,7 +115,7 @@ def run(work, phase6):
     origins = [(v, u) for v in range(0, OUT_PX - TILE + 1, STRIDE) for u in range(0, OUT_PX - TILE + 1, STRIDE)]
     outputs, repeat = {}, {}
     for roi in manifest["rois"]:
-        path = work / f"{roi['name']}-zout.npy"
+        path = work / f"{roi['name']}-zout{TAG}.npy"
         if digest(path) != roi["npy_sha256"]:
             raise ValueError(f"{path} changed since --prepare")
         volume = np.load(path, allow_pickle=False)
@@ -138,13 +148,13 @@ def run(work, phase6):
                 score = torch.nn.functional.interpolate(logits.sigmoid(), size=(TILE, TILE),
                                                         mode="bilinear", align_corners=False)
             repeat[f"{roi['name']}_{label}"].append(score[0, 0].cpu().numpy().astype(np.float64))
-    np.savez_compressed(work / "z-frag4-scores.npz", **outputs)
+    np.savez_compressed(work / f"z-frag4{TAG}-scores.npz", **outputs)
     run_report = {"weights_sha256": WEIGHTS_SHA, "torch": torch.__version__, "cuda": torch.version.cuda,
                   "gpu": torch.cuda.get_device_name(), "tiles_per_map": len(origins),
                   "inference": "eval_fp32_no_tf32_deterministic_cudnn",
                   "repeat_max_abs_diff": {k: float(np.abs(a[0] - a[1]).max()) for k, a in repeat.items()},
-                  "scores_npz_sha256": digest(work / "z-frag4-scores.npz")}
-    (work / "z-frag4-run.json").write_text(json.dumps(run_report, indent=1), encoding="utf-8")
+                  "scores_npz_sha256": digest(work / f"z-frag4{TAG}-scores.npz")}
+    (work / f"z-frag4{TAG}-run.json").write_text(json.dumps(run_report, indent=1), encoding="utf-8")
     print(json.dumps(run_report, indent=1))
 
 
@@ -154,11 +164,11 @@ def report(work, out):
     from vesuvius_data_explorer.core.ink_disagreement import correlations, top_masks
     from vesuvius_data_explorer.core.ink_spatial import block_interval
 
-    manifest = json.loads((work / "z-frag4-prepare.json").read_bytes())
-    run_report = json.loads((work / "z-frag4-run.json").read_bytes())
-    if digest(work / "z-frag4-scores.npz") != run_report["scores_npz_sha256"]:
+    manifest = json.loads((work / f"z-frag4{TAG}-prepare.json").read_bytes())
+    run_report = json.loads((work / f"z-frag4{TAG}-run.json").read_bytes())
+    if digest(work / f"z-frag4{TAG}-scores.npz") != run_report["scores_npz_sha256"]:
         raise ValueError("Scores changed since the CUDA run")
-    scores = np.load(work / "z-frag4-scores.npz")
+    scores = np.load(work / f"z-frag4{TAG}-scores.npz")
     result = {"blind": "ink labels not read; label-free comparison of two depth orders",
               "recipe": __doc__.split("Input recipe")[1].strip(), "prepare": manifest, "run": run_report,
               "rois": {}}
@@ -193,7 +203,10 @@ if __name__ == "__main__":
     cli.add_argument("--phase6", type=Path, default=Path("data/phase6"))
     cli.add_argument("--prepare", action="store_true")
     cli.add_argument("--report", type=Path)
+    cli.add_argument("--window", type=Path)
     args = cli.parse_args()
+    if args.window:
+        TAG, WINDOW = "-w2", json.loads(args.window.read_bytes())
     if args.prepare:
         prepare(args.work)
     elif args.report:

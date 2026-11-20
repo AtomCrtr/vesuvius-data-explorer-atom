@@ -24,7 +24,7 @@ On Frag4 the "air → papyrus" order yields structured scores (p99 0.71–0.84);
 ## Caveats, stated up front
 
 - **PHerc. 500P2 is very likely in the training set.** The public training script whose identifiers match this checkpoint (checkpoint name, `pred_shape` [4608, 13824], and 8,089 steps × 14 epochs = global step 113,246) lists `500p2a` with `reverse_layers=True`, and a segment named `-1`. The 500P2 numbers are therefore in-distribution. Frag4 and all `Frag*` are absent from that list, but label lineage and pretraining are undocumented.
-- **Frag4 input is out of recipe.** DLS 54 keV uint16 converted with `>> 8` leaves air at ≈ 0.48 after normalisation (≈ 0 on 500P2); the flattened grid is not isometric (3.05–4.09 µm per pixel). We did not correct these, so Frag4 outputs are out-of-distribution responses.
+- **Frag4 input is out of recipe.** DLS 54 keV uint16 converted with `>> 8` leaves air at ≈ 0.48 after normalisation (≈ 0 on 500P2); the flattened grid is not isometric (3.05–4.09 µm per pixel). As a control we repeated the run with a CT-only linear window matching the input mean and standard deviation to a verified 500P2 tile (0.379, 0.148): the pattern is unchanged (Spearman 0.027 and −0.006, top-1 % disjoint, pixels > 0.5: 0 % vs 6.0 % and 0 % vs 2.3 %). The non-isometric pitch is not corrected.
 - Two fragments, one model, a few windows. Block bootstrap intervals are optimistic because spatial autocorrelation exceeds the block size.
 - We did not open Frag4 ink labels: our IR-to-CT registration check (≈ 50 µm median along a shared crack, IR native pixel ≈ 20 µm) did not meet the threshold we had set in advance.
 

@@ -2,7 +2,11 @@
 
 **Priorité : valider, pas développer.** L'infrastructure suffit. Ce qui manque est une mesure d'encre contre une référence indépendante, avec un protocole gelé avant de regarder les résultats.
 
-## Décisions attendues
+## Décisions
+
+Les trois décisions ci-dessous ont été appliquées le 21 novembre 2026 (tolérance 301 µm, fenêtre W2, envoi). [Décisions](PHASE11_DECISIONS.md)
+
+### Options examinées
 
 | Décision | Options | Recommandation |
 | --- | --- | --- |
@@ -12,7 +16,7 @@
 
 ## Phase 12 proposée : première évaluation Frag4, exploratoire et pré-enregistrée
 
-1. **Geler** dans un fichier haché et commité avant toute mesure : ROI (règle géométrique existante), fenêtre d'intensité, tolérance spatiale, seuils, métriques, ordre(s) Z évalués, critère de succès.
+1. **Geler** (fait : [phase12-protocol.json](validation/phase12-protocol.json)) dans un fichier haché et commité avant toute mesure : ROI (règle géométrique existante), fenêtre d'intensité, tolérance spatiale, seuils, métriques, ordre(s) Z évalués, critère de succès.
 2. **Ouvrir** ensuite seulement `PHercParis1Fr39_54keV_inklabels.png` et calculer VP/FP/FN, Dice, Jaccard, PR-AUC à tolérance, pour `Z_in` et `Z_out`, avec intervalles par blocs et sensibilité au décalage (0, ±25, ±50, ±100 µm).
 3. **Intituler** le résultat « exploratoire, exclusion directe probable » tant que l'attestation manque.
 

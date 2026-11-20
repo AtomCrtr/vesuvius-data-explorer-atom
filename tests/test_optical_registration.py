@@ -10,6 +10,7 @@ from vesuvius_data_explorer.core.multimodal import LAYER_ROLES, export_multimoda
 from vesuvius_data_explorer.core.optical_registration import (
     Grid,
     landmarks_fit,
+    registration_tolerance,
     spatial_uncertainty,
     transform,
     warp_optical,
@@ -174,3 +175,16 @@ def test_napari_open_validation_keeps_unlocalized_modalities_separate(multimodal
         assert layers["ink_mask"].visible and layers["a_plus"].visible
     finally:
         viewer.close()
+
+
+def test_registration_tolerance_follows_robust_spread_and_reference_resolution():
+    rng = np.random.default_rng(5)
+    residuals = np.concatenate([rng.normal(10, 50, 200), [900, -800]])  # Two tracer failures.
+    result = registration_tolerance(residuals, reference_px_um=20, ct_px_um=3.24)
+    assert 40 < result["robust_sigma_um"] < 60  # Outliers do not inflate the spread.
+    assert result["tolerance_um"] == pytest.approx(abs(result["bias_um"]) + 3 * result["robust_sigma_um"])
+    assert not result["pixel_metrics_valid"]
+    tight = registration_tolerance(np.full(30, 0.5), reference_px_um=20, ct_px_um=3.24)
+    assert tight["tolerance_um"] == 40 and tight["pixel_metrics_valid"]  # Floor: 2 reference px.
+    with pytest.raises(ValueError, match="At least 20"):
+        registration_tolerance(residuals[:5], reference_px_um=20, ct_px_um=3.24)
