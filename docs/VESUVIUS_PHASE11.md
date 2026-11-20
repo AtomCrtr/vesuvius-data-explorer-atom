@@ -31,7 +31,7 @@
 
 Windows natif, Python 3.11 : **359 tests réussis**, 1 ignoré, 8 réseau désélectionnés ; `ruff check .` propre. Avec `VESUVIUS_RUST_SAMPLER=1`, 65 tests ciblés réussis. Journaux locaux sous `data/phase11/`. Inférence : torch 2.8.0+cu126, RTX 4080 Laptop, FP32 déterministe, répétition au bit près.
 
-Une modification de `tests/test_optical_registration.py` (rendre `qtbot` facultatif) est apparue dans l'arbre de travail pendant la session sans venir de cette phase ; elle n'est pas incluse dans les commits de phase 11.
+Pendant la session, un autre processus a commité `04c63d8` (« Corriger le test napari dans la CI sans Qt », `qtbot` rendu facultatif dans `tests/test_optical_registration.py`) et y a placé `feat/vesuvius-phase10` et son suivi distant. La branche de phase 11 part de ce commit ; il ne provient pas de cette phase.
 
 ## Reproduction
 
