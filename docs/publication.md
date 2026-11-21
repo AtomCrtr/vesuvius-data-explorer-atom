@@ -22,8 +22,9 @@ bien du workflow de ce dépôt. **Aucun mot de passe ni jeton n'est stocké** da
 
 1. Vérifier que `version` dans `pyproject.toml` (et `__version__` dans
    `src/vesuvius_data_explorer/__init__.py`) est la nouvelle version, par exemple `0.2.0`.
-2. Sur GitHub : **Releases** → **Draft a new release** → tag `v0.2.0` sur `main` → titre et notes →
-   **Publish release**.
+2. Dans **Releases → Draft a new release**, sélectionner le tag existant de la version
+   (par exemple `v0.2.0`) ou le créer sur le commit validé de `main`. Vérifier le commit cible,
+   renseigner le titre et les notes, puis choisir **Publish release** lorsque le paquet est prêt pour PyPI.
 3. Le workflow **Publish** construit le paquet, vérifie que le tag correspond à la version, puis
    publie sur PyPI (après votre approbation si l'environnement l'exige).
 4. Vérifier sur `https://pypi.org/project/vesuvius-data-explorer/`, puis dans un environnement neuf :

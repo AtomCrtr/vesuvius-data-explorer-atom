@@ -1,92 +1,69 @@
-# 📜 Vesuvius Data Explorer
+# Vesuvius Data Explorer
 
-**Explorer et contrôler la qualité des scans 3D des rouleaux d'Herculanum, dans napari ou en ligne de
-commande, sans télécharger les volumes en entier.**
+Outil libre développé par une équipe participante au **Vesuvius Challenge**. Nous l’utilisons pour vérifier où une surface segmentée suit la feuille de papyrus dans le scan. [Alignment map walkthrough (English)](docs/en/alignment-map.md) · [Validation sur des segments publiés](docs/validation/T10-carte-alignement.md) · [Contribuer](CONTRIBUTING.md)
 
-> Projet communautaire indépendant, ni affilié au [Vesuvius Challenge](https://scrollprize.org) ni
-> approuvé par lui. Ce n'est pas un outil de déroulement virtuel ni de détection d'encre.
+Explorez les scans 3D des rouleaux d’Herculanum dans **napari**. L’explorateur lit les blocs OME-Zarr à la demande. Vous pouvez parcourir une coupe, superposer une surface VC3D et examiner une anomalie sans télécharger le volume entier. La commande `vesuvius-qc` permet de reproduire les contrôles et d’exporter leurs résultats.
 
-![PHerc0332 ouvert depuis le catalogue officiel dans napari](docs/validation/t6-contraste-pherc0332.png)
-<sub>Extrait des données PHerc0332, Vesuvius Challenge, CC BY-NC 4.0.</sub>
+![Dans napari, les points cyan du segment suivent le bord d’une feuille sur une coupe de PHerc0800.](docs/validation/t5-surface-pherc0800.png)
 
-## Ce que fait l'outil
+Sur PHerc0800, la ligne de points cyan indique où le segment `20251029010146` traverse la coupe 12 058. En changeant de coupe, on peut suivre le segment à travers les couches du papyrus. [Voir le détail agrandi](docs/validation/t5-surface-pherc0800-zoom.png) · [Validation sur PHerc0800](docs/validation/T5-surfaces.md)
 
-| Besoin | Réponse |
-|---|---|
-| Ouvrir un scan publié | Choix dans le **catalogue officiel** (échantillon → volume, taille de voxel en µm) ou chemin local / S3 / HTTPS |
-| Naviguer vite | Lecture des seuls blocs affichés, **cache local** : la coupe suivante s'affiche en 0,2 s |
-| Contrôler un volume | Saturation, zones vides, contraste, cohérence des niveaux ; **anomalies dessinées sur l'image** |
-| Contrôler une surface VC3D | Trace sur la coupe, **trous**, replis, étirement, points hors volume, **alignement sur la feuille de papyrus** |
-| Contrôler tous les segments d'un volume | Une commande, une synthèse HTML / CSV / JSON |
-| Savoir où une surface quitte sa feuille | **Carte d'alignement** tuile par tuile, zones à revoir, **recalage** sur demande (`vesuvius-qc carte`) |
+## Ouvrir un premier rouleau
 
-## Installation
+Avec **Python 3.11 ou plus** et Git, créez un environnement virtuel.
 
-Python **3.11 ou plus**. Dans un terminal :
-
-```bash
+```sh
 python -m venv .venv
-source .venv/bin/activate          # Windows : .venv\Scripts\activate
-pip install "vesuvius-data-explorer[napari] @ git+https://github.com/AtomCrtr/vesuvius-data-explorer-atom.git"
 ```
 
-- Sans interface graphique (serveur, calcul) : retirer `[napari]`.
-- Volumes récents au format `*.vcd3d.zarr` : ajouter l'option `vcdelta3d` (Python 3.12 ou plus), par
-  exemple `[napari,vcdelta3d]`.
-- Pour contribuer : `git clone` du dépôt puis `pip install -e ".[napari,dev]"`.
+Activez-le avec `source .venv/bin/activate` sous Linux ou macOS, ou `.\.venv\Scripts\Activate.ps1` sous Windows PowerShell. Installez le plugin et lancez napari.
 
-## Démarrer
-
-**Dans napari :**
-
-```bash
+```sh
+python -m pip install "vesuvius-data-explorer[napari] @ git+https://github.com/AtomCrtr/vesuvius-data-explorer-atom.git"
 napari -w vesuvius-data-explorer
 ```
 
-1. Dans **Vesuvius — Ouvrir un volume**, cliquer sur **Charger le catalogue officiel**, choisir un
-   échantillon puis un volume, et cliquer sur **Ouvrir**.
-2. Menu **Plugins → Vesuvius — Contrôle qualité** : **Lancer le QC**, puis cliquer sur une anomalie
-   pour y aller.
-3. Menu **Plugins → Vesuvius — Surfaces** : **Lister les segments du catalogue**, **Superposer**, puis
-   **Mesurer l'alignement**.
+1. Dans **Vesuvius — Ouvrir un volume**, cliquez sur **Charger le catalogue officiel**, choisissez **PHerc0332** et son volume, puis cliquez sur **Ouvrir**.
+2. Parcourez les coupes avec le curseur sous l’image. Le cache local réutilise les blocs déjà lus.
+3. Dans **Plugins → Vesuvius — Contrôle qualité**, cliquez sur **Lancer le QC**, puis sélectionnez une anomalie et sa localisation pour centrer la vue sur la zone mesurée.
 
-**En ligne de commande :**
+| Ouvrir une coupe depuis le catalogue | Examiner une alerte sur la coupe |
+| --- | --- |
+| ![Coupe entière de PHerc0332 avec sa taille de voxel et ses niveaux de résolution à droite.](docs/validation/t6-contraste-pherc0332.png) | ![Le rectangle rouge localise la région mesurée et le tableau à droite affiche le contrôle de saturation.](docs/validation/t4-anomalie-fond.png) |
+| Le volume sélectionné a un pas de **2,399 µm**. Le panneau liste les six niveaux de résolution disponibles. [Capture en grand](docs/validation/t6-contraste-pherc0332.png) | Dans cet essai, le calcul inclut le fond noir autour du rouleau. Le cadre montre pourquoi cette région déclenche l’alerte de saturation. [Détail du contrôle](docs/validation/T4-donnees-reelles.md) |
 
-```bash
+Pour travailler sur un serveur, installez le même paquet en retirant `[napari]`. Les volumes `*.vcd3d.zarr` nécessitent **Python 3.12 ou plus** et l’option `vcdelta3d`, par exemple `[napari,vcdelta3d]` avec l’interface graphique. [Guide d’utilisation et dépannage](docs/guide.md)
+
+## Essayer la ligne de commande
+
+**Contrôler un volume public.** Cette commande échantillonne PHerc0332 et écrit un rapport JSON ainsi qu’une version HTML à ouvrir dans un navigateur.
+
+```sh
 vesuvius-qc volume s3://vesuvius-challenge-open-data/PHerc0332/volumes/20251211183505-2.399um-0.2m-78keV-masked.zarr -o rapport.json --html rapport.html
-vesuvius-qc lot 20250804134230 -o PHerc0814/      # tous les segments d'un volume du catalogue
 ```
 
-Le [guide d'utilisation](docs/guide.md) détaille chaque étape, avec des captures.
+Pour contrôler les segments d’un même volume, utilisez `vesuvius-qc lot 20250804134230 -o PHerc0814`. Le dépôt contient la synthèse obtenue sur ses 19 segments. [Résultats de PHerc0814](docs/validation/T7-qc-en-lot.md)
 
-## Bon à savoir
+**Comparer deux cartes d’encre hors ligne.** Depuis la racine du dépôt cloné, après installation, générez deux fenêtres synthétiques puis lancez la comparaison dans un nouveau dossier de sortie.
 
-- **Codes de sortie** de `vesuvius-qc` : 0 si tout passe (avertissements compris), 1 si un contrôle
-  échoue, 2 si l'entrée est invalide.
-- **Cache local** : `~/.cache/vesuvius-data-explorer/`, 10 Gio au plus, bouton pour le vider ;
-  `VESUVIUS_CACHE=0` le désactive.
-- **Seuils** : provisoires, réglables par un fichier TOML (`--config`). Chaque seuil a été calibré sur
-  des données réelles (voir `docs/validation/`).
-- **Limites** : un segment décalé d'une feuille entière n'est pas détectable ; la première vue d'une
-  région jamais lue dépend du réseau (environ 3 s).
+```sh
+python docs/examples/generate_ink_example.py data/encre-demo
+vesuvius-qc encre data/encre-demo/manifest.toml -o data/encre-rapport
+```
 
-## Documentation
+L’exemple permet d’examiner les accords et les erreurs des deux cartes sur des pixels dont la référence est connue. Pour des prédictions déjà calculées sur une même surface, napari propose aussi un panneau de comparaison interactif. [Exemple de comparaison synthétique](docs/validation/ink-synthetic/comparaison-001.png) · [Comparer des prédictions dans napari](docs/COMPARAISON_PREDICTIONS.md)
 
-- [Guide d'utilisation](docs/guide.md) : pas à pas, dépannage.
-- [Vesuvius Explorer et accélération Rust](docs/VESUVIUS_EXPLORER.md) · lancement, périmètre et mesures.
-- [Référence technique](docs/reference.md) : comportement détaillé, formats, API Python, tests.
-- [Feuille de route](docs/ROADMAP.md) : tâches, décisions, validations sur données réelles.
-- [Alignment map (English)](docs/en/alignment-map.md) : carte d'alignement et recalage des
-  segments (T10).
-- [Recherche communautaire et benchmark d'encre](docs/discord_research_2026-11-19.md) :
-  comparaison de cartes déjà calculées avec `vesuvius-qc encre`.
+## Se repérer dans le dépôt
+
+| Pour… | Point d’entrée |
+| --- | --- |
+| Utiliser le plugin ou automatiser un contrôle | [Guide illustré](docs/guide.md) · [Référence CLI et API](docs/reference.md) |
+| Retrouver un protocole, un benchmark ou une campagne sur données réelles | [Index de la documentation](docs/README.md) · [Exemples de rapports](docs/examples/README.md) |
+| Modifier l’explorateur | [Code Python](src/vesuvius_data_explorer/) · [Extension Rust facultative](rust/) · [Tests](tests/) · [Contribuer](CONTRIBUTING.md) |
+| Suivre les travaux en cours | [Feuille de route du projet](docs/ROADMAP.md) · [Prochaines étapes scientifiques](docs/ROADMAP_SCIENTIFIC_NEXT_STEPS.md) |
 
 ## Données et licence
 
-- Code sous **licence MIT**. Elle ne s'applique pas aux données.
-- Les scans du Vesuvius Challenge sont sous **CC BY-NC 4.0** sauf mention contraire. Citer le jeu de
-  données d'origine exact pour tout résultat publié, selon les
-  [consignes officielles](https://scrollprize.org/data). Les captures de `docs/` contiennent des
-  extraits de ces données, attribués dans chaque rapport de validation.
-- Outils officiels de l'écosystème : [villa / VC3D](https://github.com/ScrollPrize/villa),
-  [vesuvius-gui](https://github.com/ScrollPrize/vesuvius-gui).
+Le projet est maintenu indépendamment des organisateurs. La licence du logiciel (identifiant SPDX `MIT`) autorise son utilisation, sa modification et sa redistribution, y compris à des fins commerciales. Les copies du logiciel ou de portions substantielles doivent conserver la notice de copyright et de permission. [Licence MIT du projet](LICENSE)
+
+Les trois captures ci-dessus utilisent des extraits de **Vesuvius Challenge – CT Scans of Herculaneum Papyri**, acquisitions PHerc0800 et PHerc0332, sous CC BY-NC 4.0. Les autres scans, annotations et poids de modèles ont leurs propres conditions. Pour citer un résultat, indiquez le jeu d’origine, l’acquisition et la version du code. Les fragments historiques EduceLab-Scrolls ont une citation spécifique. [Licence des captures](https://creativecommons.org/licenses/by-nc/4.0/) · [Citations et licences par jeu de données](https://scrollprize.org/data#how-to-cite) · [Outils officiels](https://github.com/ScrollPrize/villa)

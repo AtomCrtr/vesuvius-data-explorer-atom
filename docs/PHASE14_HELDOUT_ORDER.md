@@ -11,7 +11,7 @@
 | Préparation sans étiquettes et inférence de A | `8f1af22` · [Frag2](validation/phase14-prepare-frag2.json) · [Frag5](validation/phase14-prepare-frag5.json) · [Frag6](validation/phase14-prepare-frag6.json) |
 | Téléchargement des étiquettes, évaluation avec le script commité | commit suivant · [résultats](validation/phase14-eval.json) |
 
-L'évaluation a été lancée avec la version commitée de `phase13_eval.py`. Une copie de travail contenant des modifications d'un autre processus (vérification centralisée du protocole, bootstrap par matrices creuses) donne un JSON identique, en 11 s au lieu de plusieurs minutes.
+L'évaluation a été lancée avec la version commitée de `phase13_eval.py`. La version fusionnée avec `main` (`c2cef13`, d'un autre processus : vérification centralisée du protocole, bootstrap par matrices creuses) donne un JSON identique, en 11 s au lieu de plusieurs minutes.
 
 ## Découverte (données déjà vues)
 

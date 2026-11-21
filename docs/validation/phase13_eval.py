@@ -25,6 +25,7 @@ import numpy as np
 import tifffile
 from PIL import Image
 from scipy import ndimage
+from scipy.sparse import csr_matrix
 
 sys.path.insert(0, str(Path(__file__).parent))
 from phase11_geometry import PATCH, select_patches  # noqa: E402
@@ -56,22 +57,28 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def read_frozen_protocol(path):
+    # Hash the text as Git stores it: a Windows checkout with core.autocrlf rewrites LF to CRLF.
+    content = path.read_bytes().replace(b"\r\n", b"\n")
+    if PROTOCOL_SHA.get(path.name) != hashlib.sha256(content).hexdigest():
+        raise ValueError(f"{path} is not a frozen protocol (unknown name or modified content)")
+    return json.loads(content)
+
+
 def use_protocol(path):
-    """Select a frozen protocol and its work directory; refuse a protocol whose bytes changed."""
+    """Select a frozen protocol and its work directory."""
     global PROTOCOL, WORK
     path = Path(path)
-    # Hash the text as Git stores it: a Windows checkout with core.autocrlf rewrites LF to CRLF.
-    if PROTOCOL_SHA.get(path.name) != hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest():
-        raise ValueError(f"{path} is not a frozen protocol (unknown name or modified content)")
+    protocol = read_frozen_protocol(path)
     PROTOCOL = path
-    WORK = Path(json.loads(path.read_bytes()).get("work_dir", "data/phase13"))
+    WORK = Path(protocol.get("work_dir", "data/phase13"))
 
 
 class Surface:
     """Byte-range reader of one fragment's uncompressed surface-volume layers and identity PPM."""
 
     def __init__(self, fragment, shape):
-        protocol = json.loads(PROTOCOL.read_bytes())
+        protocol = read_frozen_protocol(PROTOCOL)
         self.base = ROOT + protocol["fragments"][fragment]["surface"]
         self.layer_url, self.ppm_url, self.label_url = (f and self.base + f for f in FILES[fragment])
         self.shape, self.fs, self.offsets = shape, fsspec.filesystem("https"), {}
@@ -144,7 +151,7 @@ def extract(surface, mask, patch, coords, w2):
 
 
 def prepare(fragment):
-    protocol = json.loads(PROTOCOL.read_bytes())
+    protocol = read_frozen_protocol(PROTOCOL)
     work = WORK / fragment.lower()
     mask = np.asarray(Image.open(work / "mask.png")) > 0  # Palette masks, index 0 = black.
     surface = Surface(fragment, mask.shape)
@@ -206,6 +213,11 @@ def interval(values):
     return [float(lo), float(hi)]
 
 
+def bootstrap_counts(weights, histograms):
+    """Sum block histograms for each draw, skipping empty bins and keeping integer counts."""
+    return (csr_matrix(histograms.T) @ weights.T).T
+
+
 def pooled(maps, truth, valid):
     """Block bootstrap with the same draws for every score; paired differences for H4 and H5."""
     hist = {s: block_histograms(maps[s], truth, valid) for s in SCORES}
@@ -213,8 +225,11 @@ def pooled(maps, truth, valid):
     draws = np.random.default_rng(SEED).integers(0, blocks, (DRAWS, blocks))
     weights = np.stack([np.bincount(d, minlength=blocks) for d in draws])
     est = {s: ranking(p.sum(0), n.sum(0)) for s, (p, n) in hist.items()}
-    boot = {s: np.array([ranking(a, b) for a, b in zip(weights @ p, weights @ n)], dtype=float)
-            for s, (p, n) in hist.items()}
+    boot = {}
+    for s, (p, n) in hist.items():
+        positives = bootstrap_counts(weights, p)
+        negatives = bootstrap_counts(weights, n)
+        boot[s] = np.array([ranking(a, b) for a, b in zip(positives, negatives)], dtype=float)
     out = {"blocks": blocks, "prevalence": float(truth[valid].mean())}
     for s in SCORES:
         out[s] = {"PR_AUC": est[s][0], "PR_AUC_95": interval(boot[s][:, 0]),
@@ -254,8 +269,9 @@ def roi_scores(maps, truth, valid):
 
 
 def report(out):
-    protocol = json.loads(PROTOCOL.read_bytes())
-    result = {"protocol_sha256": sha(PROTOCOL), "label_of_results": protocol["label_of_results"], "fragments": {}}
+    protocol = read_frozen_protocol(PROTOCOL)
+    result = {"protocol_sha256": PROTOCOL_SHA[PROTOCOL.name],
+              "label_of_results": protocol["label_of_results"], "fragments": {}}
     for fragment in protocol["fragments"]:
         work = WORK / fragment.lower()
         prep = json.loads((work / "z-frag4-w2-prepare.json").read_bytes())

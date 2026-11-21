@@ -28,6 +28,29 @@ def test_paired_bootstrap_separates_informative_and_identical_scores(module):
     assert same["diff_PR_Zout_minus_Zin"]["interval_95"] == [0.0, 0.0]
 
 
+def test_sparse_bootstrap_matches_dense_integer_counts(module):
+    weights = np.array([[2, 0, 1], [0, 3, 0]], dtype=np.int64)
+    histograms = np.array([[0, 0, 4, 0], [0, 2**30, 0, 0], [0, 5, 6, 0]], dtype=np.int64)
+    counts = module.bootstrap_counts(weights, histograms)
+    np.testing.assert_array_equal(counts, weights @ histograms, strict=True)
+
+
+def test_phase13_rechecks_protocol_before_preparation_or_report(module, monkeypatch, tmp_path):
+    path = tmp_path / "phase13-protocol.json"
+    frozen = (module.HERE / path.name).read_bytes().replace(b"\r\n", b"\n")
+    path.write_bytes(frozen.replace(b"\n", b"\r\n"))
+    monkeypatch.setattr(module, "PROTOCOL", path)
+    monkeypatch.setattr(module, "WORK", tmp_path)
+    module.use_protocol(path)
+    path.write_bytes(frozen.replace(b'"Frag3":', b'"Frag9":'))
+    with pytest.raises(ValueError, match="not a frozen protocol"):
+        module.prepare("Frag4")
+    output = tmp_path / "report.json"
+    with pytest.raises(ValueError, match="not a frozen protocol"):
+        module.report(output)
+    assert not output.exists()
+
+
 def test_frozen_protocols_are_verified_and_modified_ones_refused(module, tmp_path):
     source = Path(module.__file__).parent / "phase14-protocol.json"
     text = source.read_bytes().replace(b"\r\n", b"\n")

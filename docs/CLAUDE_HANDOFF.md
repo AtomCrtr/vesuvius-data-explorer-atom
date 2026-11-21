@@ -7,7 +7,7 @@ Branche `feat/vesuvius-phase14` depuis `main` (`3b157d0`). Découverte et protoc
 - **Découverte (19 ROI vues).** Aucun sélecteur sans étiquettes ne bat « toujours Z_out » (ROC moyenne 0,675 ; oracle 0,713).
 - **Fragments réservés.** ROC-AUC de Z_out regroupée : 0,63 sur Frag2, 0,73 sur Frag5 et 0,77 sur Frag6. H3, H4 et H5 tiennent partout : Z_out est un défaut utilisable au sens du protocole. Avec les phases précédentes, 5 fragments sur 6 vont dans ce sens ; Frag3 est l'exception.
 - **Outillage.** `phase13_eval.py --protocol` refuse un protocole modifié (empreinte des fins de ligne normalisées). La fixture `async_loading` attend les threads Qt, ce qui corrige un test napari instable en CI.
-- **Non commité, d'un autre processus.** Dans `phase13_eval.py` et `test_phase13.py` : vérification du protocole centralisée et bootstrap par matrices creuses. Le JSON obtenu est identique et le calcul passe à 11 s.
+- **Fusion avec `main`.** Un autre processus a poussé `c2cef13` sur `main` : vérification du protocole centralisée et bootstrap par matrices creuses. La fusion garde ces changements et ajoute les empreintes par protocole et `--protocol`. Le JSON est identique et le calcul passe à 11 s.
 
 ## Phase 13 · Généralisation du classement de Z_out
 
@@ -40,33 +40,33 @@ Branche locale `feat/vesuvius-phase11`, créée depuis `feat/vesuvius-phase10` (
 
 ## Phase 10 · Provenance CT–IR et préparation du pilote indépendant
 
-Branche locale `feat/vesuvius-phase10`, avec un point de restauration vérifié de la phase 9. [Bilan](VESUVIUS_PHASE10.md)
+Branche locale `feat/vesuvius-phase10`, avec un point de restauration vérifié de la phase 9. [Bilan](recherche/phase-10/VESUVIUS_PHASE10.md)
 
-- **Source retrouvée.** Le JPEG public Naples M1050 IR n° 017 est bien dans la collection multispectrale de PHerc0500P2. Le frontal historique diffuse 66 couches, de l’IR aligné et des masques sur 14 990 × 27 160 pixels. Ces dimensions diffèrent du Zarr Atlas. Aucune emprise ni paire de repères de ν2 n’est documentée. La calibration du champ reste ouverte. [Vérification](PHASE10_SOURCE_INVESTIGATION.md)
-- **Reprise conditionnelle.** Obtenir l’emprise et la face du champ `500P2_230925_N2`, les points IR→CT ou la transformation et sa révision, ainsi que l’étalonnage original. Les 4,42 mm de phase 9 comparent des nœuds de deux maillages précis et laissent ouverte la position de ν2. Deux brouillons en anglais attendent accord. [Éléments manquants](PHASE10_REGISTRATION_EVIDENCE.md) · [Demandes](PHASE10_AUTHOR_CONTACT.md)
-- **Autre jeu.** PHercParis1Fr39 est **Frag4**. La pile 54 keV, l’IR, les masques et artefacts d’alignement sont publics. La réserve Kaggle n’atteste pas l’exclusion du checkpoint A. Préparer un contrôle CT/IR borné puis demander le manifeste d’entraînement avant les métriques. [Classement](PHASE10_ALTERNATIVE_DATASETS.md)
-- **Relecture et contribution.** R02 et R04 ont un dossier neutre enrichi de cubes CT natifs et d’une fiche d’observation. La note de méthode en anglais détaille ce que l’intervention à A fixe apporte à Villa #1377. Rien n’a été publié. 355 tests natifs et 80 ciblés avec Rust ont réussi. [Relecture et journaux](VESUVIUS_PHASE10.md) · [Note de méthode](PHASE10_COMMUNITY_REPORT.md)
+- **Source retrouvée.** Le JPEG public Naples M1050 IR n° 017 est bien dans la collection multispectrale de PHerc0500P2. Le frontal historique diffuse 66 couches, de l’IR aligné et des masques sur 14 990 × 27 160 pixels. Ces dimensions diffèrent du Zarr Atlas. Aucune emprise ni paire de repères de ν2 n’est documentée. La calibration du champ reste ouverte. [Vérification](recherche/phase-10/PHASE10_SOURCE_INVESTIGATION.md)
+- **Reprise conditionnelle.** Obtenir l’emprise et la face du champ `500P2_230925_N2`, les points IR→CT ou la transformation et sa révision, ainsi que l’étalonnage original. Les 4,42 mm de phase 9 comparent des nœuds de deux maillages précis et laissent ouverte la position de ν2. Deux brouillons en anglais attendent accord. [Éléments manquants](recherche/phase-10/PHASE10_REGISTRATION_EVIDENCE.md) · [Demandes](recherche/phase-10/PHASE10_AUTHOR_CONTACT.md)
+- **Autre jeu.** PHercParis1Fr39 est **Frag4**. La pile 54 keV, l’IR, les masques et artefacts d’alignement sont publics. La réserve Kaggle n’atteste pas l’exclusion du checkpoint A. Préparer un contrôle CT/IR borné puis demander le manifeste d’entraînement avant les métriques. [Classement](recherche/phase-10/PHASE10_ALTERNATIVE_DATASETS.md)
+- **Relecture et contribution.** R02 et R04 ont un dossier neutre enrichi de cubes CT natifs et d’une fiche d’observation. La note de méthode en anglais détaille ce que l’intervention à A fixe apporte à Villa #1377. Rien n’a été publié. 355 tests natifs et 80 ciblés avec Rust ont réussi. [Relecture et journaux](recherche/phase-10/VESUVIUS_PHASE10.md) · [Note de méthode](recherche/phase-10/PHASE10_COMMUNITY_REPORT.md)
 
 ## Phase 9 · Recalage CT–optique de PHerc0500P2
 
-Branche locale `feat/vesuvius-phase9`, avec 137 fichiers dans le point de restauration de phase 8. [Bilan et reproduction](VESUVIUS_PHASE9.md)
+Branche locale `feat/vesuvius-phase9`, avec 137 fichiers dans le point de restauration de phase 8. [Bilan et reproduction](recherche/phase-09/VESUVIUS_PHASE9.md)
 
-- **Optique.** Seul ν2 a été téléchargé. Les axes numériques donnent 0,68793625 µm/pixel, contre 0,34 µm/pixel dans l’article. La calibration instrumentale reste à obtenir. Les quatre fichiers concordent avec les SHA-256 LFS. Le TIFF RGB présente un type TIFF incohérent. Le décodeur de validation lit ses bandes uint8 après contrôle, en conservant l’original. [Audit](PHASE9_PROFILOMETER_AUDIT.md)
-- **Géométrie.** Le frontal `20250628074500-500P2_front` et le segment `wrap01_0919` sont séparés d’au moins 4,42 mm entre nœuds sondés sur deux révisions frontales. La recherche grossière sur le composite CT publié n’isole pas un emplacement de ν2. La face anatomique et l’orientation du champ dans le CT restent indéterminées. [Localisation](PHASE9_CT_OPTICAL_REGISTRATION.md)
-- **Évaluation.** Le pipeline par repères structuraux et la mesure d’erreur sont prêts. Le pilote réel reste sans transformation ni métrique d’encre. Le préprint documente l’entraînement d’une autre famille sur PHerc0500P2. Les provenances du poids A exact et de ses dérivés restent inconnues. [Géométrie](PHASE9_GEOMETRIC_UNCERTAINTY.md) · [Indépendance](PHASE9_DATA_INDEPENDENCE.md)
-- **Relecture.** Le panneau napari charge le CT et l’optique dans des repères distincts, avec annotation et prédictions masquées à l’ouverture. Les cubes indépendants de R02 et R04 sont exportés. 355 tests natifs, 80 ciblés avec Rust et 8 tests réseau ont réussi. [Session et dossier CT](VESUVIUS_PHASE9.md#reproduction-windows)
+- **Optique.** Seul ν2 a été téléchargé. Les axes numériques donnent 0,68793625 µm/pixel, contre 0,34 µm/pixel dans l’article. La calibration instrumentale reste à obtenir. Les quatre fichiers concordent avec les SHA-256 LFS. Le TIFF RGB présente un type TIFF incohérent. Le décodeur de validation lit ses bandes uint8 après contrôle, en conservant l’original. [Audit](recherche/phase-09/PHASE9_PROFILOMETER_AUDIT.md)
+- **Géométrie.** Le frontal `20250628074500-500P2_front` et le segment `wrap01_0919` sont séparés d’au moins 4,42 mm entre nœuds sondés sur deux révisions frontales. La recherche grossière sur le composite CT publié n’isole pas un emplacement de ν2. La face anatomique et l’orientation du champ dans le CT restent indéterminées. [Localisation](recherche/phase-09/PHASE9_CT_OPTICAL_REGISTRATION.md)
+- **Évaluation.** Le pipeline par repères structuraux et la mesure d’erreur sont prêts. Le pilote réel reste sans transformation ni métrique d’encre. Le préprint documente l’entraînement d’une autre famille sur PHerc0500P2. Les provenances du poids A exact et de ses dérivés restent inconnues. [Géométrie](recherche/phase-09/PHASE9_GEOMETRIC_UNCERTAINTY.md) · [Indépendance](recherche/phase-09/PHASE9_DATA_INDEPENDENCE.md)
+- **Relecture.** Le panneau napari charge le CT et l’optique dans des repères distincts, avec annotation et prédictions masquées à l’ouverture. Les cubes indépendants de R02 et R04 sont exportés. 355 tests natifs, 80 ciblés avec Rust et 8 tests réseau ont réussi. [Session et dossier CT](recherche/phase-09/VESUVIUS_PHASE9.md#reproduction-windows)
 
 Demander la photo de situation de `500P2_230925_N2` en lien avec Naples M1050 IR n° 017, les points IR→CT du frontal, la calibration du profilomètre et le manifeste d’entraînement lié au SHA-256 d’A. Ces pièces serviront à vérifier où se trouve le champ et si ses données dérivées recoupent l’entraînement.
 
 ## Phase 8 · Support spatial, orientation et validation indépendante
 
-Branche locale `feat/vesuvius-phase8`. Le ZIP `data/phase8/phase7-before-phase8.zip` et son manifeste préservent l’état de travail de la phase 7 et les artefacts repris. [Bilan et restauration](VESUVIUS_PHASE8.md)
+Branche locale `feat/vesuvius-phase8`. Le ZIP `data/phase8/phase7-before-phase8.zip` et son manifeste préservent l’état de travail de la phase 7 et les artefacts repris. [Bilan et restauration](recherche/phase-08/VESUVIUS_PHASE8.md)
 
 - **Sensibilité spatiale.** La grille couvre 110 cellules, dont 61 satisfont le critère de support. Sur 790 200 pixels valides, Spearman A+/A− vaut 0,021 et l’écart absolu moyen 0,247, intervalle par blocs 64² [0,209 ; 0,283]. Au-delà de 16 pixels du bord, la moyenne vaut 0,255. L’inclusion mécanique du fond à zéro ferait monter Spearman à 0,870. La distance au bord et le taux de support sont modérément associés aux écarts. [Mesures](PHASE8_SPATIAL_ROBUSTNESS.md)
-- **Orientation.** Six nouveaux témoins CT confirment `−N` pour la profondeur croissante. Le masque public de recto `0500p2_5217` cite le même scan et ne contient pas d’étiquette dans les six voisinages sondés. La face reste indéterminée. [Contrôle](PHASE8_PHYSICAL_ORIENTATION.md)
-- **Référence d’encre.** EduceLab donne deux contrôles géométriques et six fenêtres exploratoires. Quatre champs optiques annotés couvrent des territoires de PHerc0500P2. Il faut lever la divergence de pas publiée, localiser les champs sur le segment, déterminer la face et obtenir des exclusions d’entraînement par manuscrit. La demande au mainteneur Villa couvre également les poids exacts de B et les empreintes des jobs. Elle reste au stade de brouillon local. [Provenance et expérience prioritaire](PHASE8_INK_VALIDATION.md)
-- **Examen.** Commencer la relecture humaine avec les cubes CT de R02 et R04, puis examiner R03 et le témoin R01. La vue napari affiche la sensibilité sur le CT, les mesures par ROI et la provenance. La session du segment entier référence les 61 cellules mesurées. [Relecture et sessions](PHASE8_CANDIDATE_REVIEW.md)
-- **Reproductibilité.** 54 nouvelles tuiles non vides calculées dans les deux orientations, 32 reprises vérifiées et 4 tuiles vides. Huit nouvelles tuiles reproduites à l’identique dans un second processus CUDA. Les suites ont validé 347 tests natifs, 8 réseau et 73 avec Rust. [Procédure et journaux](VESUVIUS_PHASE8.md#reproduction)
+- **Orientation.** Six nouveaux témoins CT confirment `−N` pour la profondeur croissante. Le masque public de recto `0500p2_5217` cite le même scan et ne contient pas d’étiquette dans les six voisinages sondés. La face reste indéterminée. [Contrôle](recherche/phase-08/PHASE8_PHYSICAL_ORIENTATION.md)
+- **Référence d’encre.** EduceLab donne deux contrôles géométriques et six fenêtres exploratoires. Quatre champs optiques annotés couvrent des territoires de PHerc0500P2. Il faut lever la divergence de pas publiée, localiser les champs sur le segment, déterminer la face et obtenir des exclusions d’entraînement par manuscrit. La demande au mainteneur Villa couvre également les poids exacts de B et les empreintes des jobs. Elle reste au stade de brouillon local. [Provenance et expérience prioritaire](recherche/phase-08/PHASE8_INK_VALIDATION.md)
+- **Examen.** Commencer la relecture humaine avec les cubes CT de R02 et R04, puis examiner R03 et le témoin R01. La vue napari affiche la sensibilité sur le CT, les mesures par ROI et la provenance. La session du segment entier référence les 61 cellules mesurées. [Relecture et sessions](recherche/phase-08/PHASE8_CANDIDATE_REVIEW.md)
+- **Reproductibilité.** 54 nouvelles tuiles non vides calculées dans les deux orientations, 32 reprises vérifiées et 4 tuiles vides. Huit nouvelles tuiles reproduites à l’identique dans un second processus CUDA. Les suites ont validé 347 tests natifs, 8 réseau et 73 avec Rust. [Procédure et journaux](recherche/phase-08/VESUVIUS_PHASE8.md#reproduction)
 
 La prochaine expérience prioritaire est le recalage géométrique d’un champ optique sur le même fragment, avec vérification de la face et de l’erreur sur des repères tenus à l’écart. L’expérience factorielle avec B peut reprendre dès l’obtention du poids et de son empreinte.
 
@@ -74,31 +74,31 @@ La prochaine expérience prioritaire est le recalage géométrique d’un champ 
 
 Branche locale `feat/vesuvius-phase7`. Référence phase 6
 préservée dans `data/phase7/phase6-before-phase7.zip`.
-[Bilan et restauration](VESUVIUS_PHASE7.md)
+[Bilan et restauration](recherche/phase-07/VESUVIUS_PHASE7.md)
 
 - **Poids.** A public correspond au SHA-256 Hugging Face et
   tourne en FP32. Les recherches publiques de B restent vides
   et le registre S3 renvoie HTTP 403 en accès anonyme. Les
   digests des jobs d’origine restent inconnus. B+ et B− ne sont
-  pas mesurées. [Audit](PHASE7_CHECKPOINT_AUDIT.md)
+  pas mesurées. [Audit](recherche/phase-07/PHASE7_CHECKPOINT_AUDIT.md)
 - **Intervention.** Les mêmes 32 tuiles sont assemblées pour
   A+ et A−. Sur le recadrage CT, Spearman −0,444 et aucun
   recouvrement jusqu’au top 10 %. A+ retrouve le TIFF A publié
   à un code près. Sur la zone distante le Spearman A+/A−
   remonte à 0,809. L’effet Z dépend du secteur et ne quantifie
   pas la contribution de Z à la différence A/B de production.
-  [Mesures](PHASE7_MODEL_COMPARISON.md)
+  [Mesures](recherche/phase-07/PHASE7_MODEL_COMPARISON.md)
 - **Orientation.** Le CT brut confirme le signe `−N` pour
   l’augmentation de Z aux quatre témoins, Pearson 0,991–0,997.
   Le recto/verso anatomique reste inconnu. Les deux processus
   CUDA indépendants reproduisent tous les tableaux.
-  [Protocole](PHASE7_Z_ORDER_EXPERIMENT.md)
+  [Protocole](recherche/phase-07/PHASE7_Z_ORDER_EXPERIMENT.md)
 - **Relecture.** La vue napari 2 × 2 affiche les conditions
   présentes et l’indisponibilité de B±. Le nouveau ZIP garde
   les quatre régions annotées, le CT et quatre cartes.
-  [Dossier de relecture](PHASE7_CANDIDATE_REVIEW.md)
+  [Dossier de relecture](recherche/phase-07/PHASE7_CANDIDATE_REVIEW.md)
 - **Tests.** 341 tests Windows natifs, 8 réseau et 73 ciblés
-  avec Rust activé. [Bilan](VESUVIUS_PHASE7.md#reproductibilité-et-compatibilité)
+  avec Rust activé. [Bilan](recherche/phase-07/VESUVIUS_PHASE7.md#reproductibilité-et-compatibilité)
 
 Le prochain contrôle est l’expérience croisée avec le poids B
 attesté, à résolution, support et assemblage fixes. L’encre
@@ -109,27 +109,27 @@ et la face exigent toujours une preuve indépendante.
 Branche locale `feat/vesuvius-phase6`, base
 `eba4082134df544dc56b5f9d6622d9fd0161f36c`. La phase 5 a un
 ZIP de restauration vérifié sous `data/phase6-restore/`.
-[État et restauration](VESUVIUS_PHASE6.md)
+[État et restauration](recherche/phase-06/VESUVIUS_PHASE6.md)
 
 - Sur PHerc0500P2, la distance minimale entre top 1 % est de
   208 pixels en norme de Chebyshev. Les 14 641 translations
   de ±60 px par axe gardent l’intersection vide. Spearman
   vaut 0,636 sur le support commun et 0,952 avec les zéros
-  partagés. [Désaccord et géométrie](PHASE6_MODEL_DISAGREEMENT.md)
+  partagés. [Désaccord et géométrie](recherche/phase-06/PHASE6_MODEL_DISAGREEMENT.md)
 - CUDA FP32 exécuté en Windows natif avec le poids canonique
   public vérifié. Médianes de 237 et 239 ms par tuile, pic
   réservé de 1,60 Gio, sorties reprises bit à bit dans un
   second processus. Le seul changement d’ordre Z donne un
   top 1 % et 5 % disjoint avec le même checkpoint.
-  [Conditions et traces CUDA](CUDA_INFERENCE_VALIDATION.md)
+  [Conditions et traces CUDA](recherche/encre/CUDA_INFERENCE_VALIDATION.md)
 - Les huit fenêtres EduceLab ont des références IR cohérentes
   avec les sources. Aucune séparation des rouleaux d’entraînement
   n’a été attestée. Le ZIP local d’examen propose quatre régions
   sur la grille validée. Il conserve les paramètres d’affichage,
   les TIFF et des statuts renseignés indépendamment.
-  [Audit EduceLab](EDUCELAB_INDEPENDENCE_AUDIT.md) · [Dossier candidat](CANDIDATE_REVIEW_PROTOCOL.md)
+  [Audit EduceLab](recherche/encre/EDUCELAB_INDEPENDENCE_AUDIT.md) · [Dossier candidat](recherche/encre/CANDIDATE_REVIEW_PROTOCOL.md)
 - Windows natif, 334 tests principaux, 8 réseau et 73 ciblés
-  avec Rust activé. [Vérifications](VESUVIUS_PHASE6.md#vérification)
+  avec Rust activé. [Vérifications](recherche/phase-06/VESUVIUS_PHASE6.md#vérification)
 
 Priorité à l’obtention du poids B, de sa licence et des digests
 des deux exécutions. Une fois ces éléments acquis, commencer par
@@ -146,25 +146,25 @@ descriptif de la fenêtre est 0,477 à 50 %, et le top 1 % des
 scores sur le support non nul est disjoint. La face anatomique,
 le poids exact de B, le digest des images de production et
 l’absence de fuite d’entraînement restent à établir.
-[Atlas et géométrie](INK_PROVENANCE_AUDIT.md)
+[Atlas et géométrie](recherche/encre/INK_PROVENANCE_AUDIT.md)
 
 - **Application.** Accord par seuil et par rang, distributions,
   zones proches des seuils et pixels manquants dans napari. La
   galerie conserve la région, le modèle, l’observation,
   l’hypothèse et la référence de relecture externe dans les
   exports. Les différences probabilistes exigent une calibration et
-  un recalage documentés. [Utilisation](MODEL_CONSENSUS_ANALYSIS.md)
+  un recalage documentés. [Utilisation](recherche/encre/MODEL_CONSENSUS_ANALYSIS.md)
 - **Références indépendantes.** Huit fenêtres CT/IR/annotations
   EduceLab locales, dont deux contrôles de bord à relire. La
   figure 3 de Parsons et al. documente la référence papyrologique.
   Ces fenêtres sont pour le contrôle méthodologique, en attente
-  d’une preuve d’indépendance des poids. [Données et fenêtres](INK_EVALUATION_DATASET.md)
+  d’une preuve d’indépendance des poids. [Données et fenêtres](recherche/encre/INK_EVALUATION_DATASET.md)
 - **Mesures et suite.** Windows natif, 328 tests réussis et huit
   contrôles réseau réussis sous Python 3.12. Sur
   RTX 4080 Laptop, les calculs CPU prennent 14,3 ms en médiane
   et les bascules OpenGL après la première couche 43 à 56 ms.
   Priorité scientifique au rattachement de la face et des poids
-  et à un test par rouleau indépendant. [Bilan et protocole CUDA](VESUVIUS_PHASE5.md)
+  et à un test par rouleau indépendant. [Bilan et protocole CUDA](recherche/phase-05/VESUVIUS_PHASE5.md)
 
 ## Phase 4 · État du lot
 
@@ -173,8 +173,8 @@ napari. Python reste le moteur par défaut, Rust/PyO3 est une
 accélération optionnelle, et PyTorch/CUDA reste réservé aux
 pipelines d’inférence. L’arbre de travail
 `feat/rust-explorer-first-kernel` contient les phases 3 et 4.
-Le corps de Pull Request est sous `docs/PHASE4_PR.md`.
-[Bilan](RUST_PHASE4.md) · [Revue GitHub](PHASE4_PR.md)
+Le corps de Pull Request est sous `docs/recherche/phase-04/PHASE4_PR.md`.
+[Bilan](ingenierie/RUST_PHASE4.md) · [Revue GitHub](recherche/phase-04/PHASE4_PR.md)
 
 - **Géométrie.** Les 24 comparaisons L0–L3 sur trois acquisitions
   et quatre URI publiques retrouvent exactement la moyenne 2³,
@@ -186,7 +186,7 @@ Le corps de Pull Request est sous `docs/PHASE4_PR.md`.
   convention. Les cas dont la source ou les métadonnées
   divergent conservent le calcul historique. Les projections
   sur deux TIFXYZ publics passent contre un oracle indépendant.
-  [Validation et traces](GEOMETRY_VALIDATION.md)
+  [Validation et traces](ingenierie/GEOMETRY_VALIDATION.md)
 - **Interface.** Les 384–420 ms du rappel d’ajout à froid incluaient
   203–209 ms dans la construction de l’objet `Image` sur Qt.
   Le worker construit maintenant l’objet détaché. Sur trois
@@ -194,7 +194,7 @@ Le corps de Pull Request est sous `docs/PHASE4_PR.md`.
   207 ms. L’insertion synchrone reste dominante dans les
   pauses résiduelles. Le chargement est visible et les
   révisions de chemin et de paramètres éliminent les résultats
-  obsolètes. [Profil natif](NAPARI_PERFORMANCE_PHASE4.md)
+  obsolètes. [Profil natif](ingenierie/NAPARI_PERFORMANCE_PHASE4.md)
 - **Cartes réelles.** PHerc0500P2 `20250919184428`, deux TIFF
   Atlas 8 bits des modèles `20260417190342` et `20260709123958`
   dans la même grille prise sur la pile publique. Quatre
@@ -205,12 +205,12 @@ Le corps de Pull Request est sous `docs/PHASE4_PR.md`.
   et exporté une ROI avec provenance. Jaccard positif 0,477
   au seuil de 50 % sur la fenêtre fixée. Ce chiffre mesure
   l’accord des scores, sans vérité d’encre indépendante.
-  [Catalogue, résultats et campagne RTX](INK_MODEL_COMPARISON.md)
+  [Catalogue, résultats et campagne RTX](recherche/encre/INK_MODEL_COMPARISON.md)
 - **Tests.** Suite Windows native avec moteur Python par défaut
   et tests de parité Rust. 317 réussites en Python 3.11.
   Sous Python 3.12, 82 tests ciblés et les huit tests
   réseau passent, dont le contrôle public `vc-delta3d`.
-  [Commandes et environnement](RUST_PHASE4.md)
+  [Commandes et environnement](ingenierie/RUST_PHASE4.md)
 
 ## Phase 4 · Reprise recommandée
 
@@ -254,7 +254,7 @@ Les mesures et décisions des phases 2 et 3 suivent.
   réencodage local v3 shardé. Cinq rendus de cellules de
   surfaces publiées identiques entre Python et Rust. La roue
   est facultative et l’extra codec nécessite Python 3.12.
-  [Validation et contrôles](ZARR_V3_UINT16_VALIDATION.md)
+  [Validation et contrôles](ingenierie/ZARR_V3_UINT16_VALIDATION.md)
 - Le panneau compare deux cartes sur la même grille. Il
   propose opacité, désaccord au seuil, ROI, capture PNG avec
   coordonnées et session JSON avec contrôle des sources. Les
@@ -262,7 +262,7 @@ Les mesures et décisions des phases 2 et 3 suivent.
   de validation indépendante. [Guide](COMPARAISON_PREDICTIONS.md)
 - La suite Qt Windows avec Rust actif compte 312 réussites.
   Le test du volume public `vc-delta3d` passe séparément
-  en Python 3.12. [Bilan](RUST_PHASE3.md)
+  en Python 3.12. [Bilan](ingenierie/RUST_PHASE3.md)
 
 ## Phase 3 · Limites et suite
 
@@ -288,11 +288,11 @@ Les mesures et décisions des phases 2 et 3 suivent.
 Le profil de panne injecte l’erreur avant l’appel S3. Un essai
 de coupure TCP en cours de transfert sera nécessaire pour
 quantifier le comportement du SDK pendant ses tentatives.
-[Bilan et reproductibilité](RUST_PHASE3.md)
+[Bilan et reproductibilité](ingenierie/RUST_PHASE3.md)
 
 ## Décision après la phase 2
 
-Conserver Rust en option sur les blocs CT entiers. Sur huit recadrages réels de PHerc0814, PHerc0500P2 et PHerc0139, les rendus et les coordonnées recalées coïncident. L’écart maximal est de 2,84 × 10⁻¹⁴ unité CT sur un profil. La carte gagne jusqu’à 4,90× et le chemin de rapport complet jusqu’à 2,33×. Sur le plus grand essai de rapport, le RSS passe de 250 à 158 Mio. Ces résultats couvrent Zarr v2 `uint8` et des niveaux de lecture 0 à 3. [Rapport et reproductibilité](RUST_PHASE2.md)
+Conserver Rust en option sur les blocs CT entiers. Sur huit recadrages réels de PHerc0814, PHerc0500P2 et PHerc0139, les rendus et les coordonnées recalées coïncident. L’écart maximal est de 2,84 × 10⁻¹⁴ unité CT sur un profil. La carte gagne jusqu’à 4,90× et le chemin de rapport complet jusqu’à 2,33×. Sur le plus grand essai de rapport, le RSS passe de 250 à 158 Mio. Ces résultats couvrent Zarr v2 `uint8` et des niveaux de lecture 0 à 3. [Rapport et reproductibilité](ingenierie/RUST_PHASE2.md)
 
 Les essais S3 attribuent l’essentiel du coût à froid au store. Le cache disque ramène 28 lectures réseau à sept au premier passage et à zéro pour les données lors d’une nouvelle ouverture. La médiane de lecture à chaud est de 2,34 ms. Ne pas prioriser un port du lecteur Rust. Au prochain profil, identifier les neuf réponses de métadonnées à zéro octet encore émises à la réouverture et évaluer un TTL court pour les seules clés optionnelles, avec contrôle des métadonnées mises à jour. Pour le chemin de dérive napari, comparer les accès Dask actuels à des lectures Zarr groupées hors du thread graphique et mesurer le délai jusqu’à la trame. [Trace S3](validation/zarr-navigation-windows.json) · [Trace napari](validation/napari-real-windows.json)
 
@@ -312,4 +312,4 @@ Dans napari, les gains sur le worker de dérive se traduisent par une baisse de 
 3. Faire un essai VC3D/HerculeX sur la même coupe et examiner face, coutures et trous. Pour l’encre, produire une pile orientée une fois, exécuter Reader V3 et un modèle indépendant sur les mêmes pixels avec batch et VRAM enregistrés, puis préserver cartes brutes et contrôles. Alimenter le panneau UV avec ce lot, puis évaluer une présentation côte à côte et les annotations exportables.
 4. Vérifier une roue Windows MSVC et une roue Linux/WSL2. Passer le même corpus et la même version NumPy. Geler les critères de gain du parcours complet avant de changer le réglage par défaut.
 
-Les exigences d’axes, de provenance, de compatibilité des codecs et de licence sont documentées avec la feuille de route. [Audit](RUST_AUDIT.md) · [Architecture](RUST_ARCHITECTURE.md) · [Interface](VESUVIUS_EXPLORER.md)
+Les exigences d’axes, de provenance, de compatibilité des codecs et de licence sont documentées avec la feuille de route. [Audit](ingenierie/RUST_AUDIT.md) · [Architecture](ingenierie/RUST_ARCHITECTURE.md) · [Interface](VESUVIUS_EXPLORER.md)
