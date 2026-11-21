@@ -1,5 +1,14 @@
 # Passation à Claude Opus
 
+## Phase 14 · Z_out testé comme ordre par défaut sur trois fragments réservés
+
+Branche `feat/vesuvius-phase14` depuis `main` (`3b157d0`). Découverte et protocole en `5490336`, manifestes sans étiquettes en `8f1af22`. [Rapport](PHASE14_HELDOUT_ORDER.md)
+
+- **Découverte (19 ROI vues).** Aucun sélecteur sans étiquettes ne bat « toujours Z_out » (ROC moyenne 0,675 ; oracle 0,713).
+- **Fragments réservés.** ROC-AUC de Z_out regroupée : 0,63 sur Frag2, 0,73 sur Frag5 et 0,77 sur Frag6. H3, H4 et H5 tiennent partout : Z_out est un défaut utilisable au sens du protocole. Avec les phases précédentes, 5 fragments sur 6 vont dans ce sens ; Frag3 est l'exception.
+- **Outillage.** `phase13_eval.py --protocol` refuse un protocole modifié (empreinte des fins de ligne normalisées). La fixture `async_loading` attend les threads Qt, ce qui corrige un test napari instable en CI.
+- **Non commité, d'un autre processus.** Dans `phase13_eval.py` et `test_phase13.py` : vérification du protocole centralisée et bootstrap par matrices creuses. Le JSON obtenu est identique et le calcul passe à 11 s.
+
 ## Phase 13 · Généralisation du classement de Z_out
 
 Branche `feat/vesuvius-phase13` depuis `main` (`efefd59`). Protocole et script figés en `c9f6398`, avant tout score de la phase et avant les étiquettes de Frag1 et Frag3. [Rapport](PHASE13_INK_GENERALIZATION.md)
