@@ -14,7 +14,14 @@ Les trois décisions ci-dessous ont été appliquées le 21 novembre 2026 (tolé
 | Envoi des demandes aux mainteneurs | Envoyer la note et les trois questions ; attendre | Envoyer, après relecture, la note corrigée et les questions d'attestation |
 | Fenêtre d'intensité de Frag4 | `>> 8` brut (actuel) ; fenêtre air → 0 fixée sur le CT | Fenêtre fixée sur le CT seul, gelée avant les étiquettes |
 
-## Phase 13 proposée : confirmer ou infirmer le classement de Z_out
+## Après la phase 13
+
+La phase 13 est faite ([rapport](PHASE13_INK_GENERALIZATION.md)). Z_out classe l'encre sur Frag4 (0,82) et Frag1 (0,67), pas sur Frag3 (0,52, où Z_in fait mieux) : la généralisation n'est pas établie. Prochaines étapes :
+
+1. Obtenir des mainteneurs l'ordre et la normalisation d'entraînement ([villa#2627](https://github.com/ScrollPrize/villa/issues/2627)).
+2. Pré-enregistrer un critère sans étiquettes qui prédirait l'ordre utile pour chaque fragment, puis le vérifier sur Frag2, Frag5 et Frag6.
+
+## Phase 13 (faite) : confirmer ou infirmer le classement de Z_out
 
 La phase 12 est faite ([rapport](PHASE12_INK_EVALUATION.md)). H1 et H2 sont rejetées, et Z_out classe l'encre sur les ROI 2 et 5 sans la détecter. Les ROI 2 et 5 sont désormais vues : elles ne servent plus à confirmer.
 

@@ -1,5 +1,13 @@
 # Passation à Claude Opus
 
+## Phase 13 · Généralisation du classement de Z_out
+
+Branche `feat/vesuvius-phase13` depuis `main` (`efefd59`). Protocole et script figés en `c9f6398`, avant tout score de la phase et avant les étiquettes de Frag1 et Frag3. [Rapport](PHASE13_INK_GENERALIZATION.md)
+
+- **Sans étiquettes.** La règle de sens confirme partout que l'air est du côté des couches hautes (Frag4 en contrôle positif), et la surface est à z = 32. Une fenêtre W2 est calculée par fragment ; celle de Frag4 est identique à la phase 11.
+- **Résultats.** ROC-AUC de Z_out regroupée : 0,82 sur Frag4 (nouvelles ROI), 0,67 sur Frag1 et 0,52 sur Frag3. H3, H4 et H5 tiennent sur Frag4 et Frag1, aucune sur Frag3, où Z_in fait mieux. **Généralisation non établie.** Les témoins non appris restent vers 0,5.
+- **Suite.** Attendre la réponse sur villa#2627. Pour l'idée d'un ordre propre à chaque fragment, il faudrait un critère sans étiquettes, vérifié sur Frag2, Frag5 et Frag6.
+
 ## Phase 12 · Première évaluation d'encre de A sur Frag4
 
 Branche `feat/vesuvius-phase12`, créée depuis `main` (`e13fc36`). Le protocole (`5c0602f`) et le script (`f9c965d`) ont été commités avant l'ouverture des étiquettes. [Rapport](PHASE12_INK_EVALUATION.md)
