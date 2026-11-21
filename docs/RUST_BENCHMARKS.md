@@ -1,6 +1,6 @@
 # Benchmarks du noyau Rust
 
-Les validations sur segments publiés, les mesures napari et le profil S3 sont dans le [rapport de phase 2](RUST_PHASE2.md).
+Les validations sur segments publiés, les mesures napari et le profil S3 sont dans le [rapport de phase 2](ingenierie/RUST_PHASE2.md).
 
 19 novembre 2026 · Windows x64, Intel Core i9-14900HX (24 cœurs, 32 threads, 31,6 Gio de RAM), RTX 4080 Laptop (12 282 Mio, pilote 616.64). Python 3.11.9, NumPy 2.4.6, SciPy 1.17.1, Zarr 3.1.6, Rust GNU 1.96.0, Maturin 1.10.2, roue Release. Les comparaisons ci-dessous incluent le coût du pont Python–Rust. [Mesures brutes](validation/rust-bench-windows.json) · [Script](validation/rust_bench.py)
 
@@ -34,7 +34,7 @@ Sur le petit Zarr local, la première opération Rust a pris 231,32 ms, dont 221
 | Coupe et normalisation de prévisualisation | 4,13 ms dans le petit Zarr local et 27,22 ms dans le grand, dont 3,85 et 25,44 ms dans Zarr | Coût de préparation d’une image. La latence Qt jusqu’à l’affichage relève du benchmark T6. |
 | Seuil et composantes connexes de scores synthétiques | 0,043 ms (101 × 117) et 0,300 ms (301 × 333) | Contrôle SciPy CPU de post-traitement. Les métriques complètes et l’inférence restent à mesurer avec des prédictions réelles. |
 
-Le pont n’effectue aucune copie par voxel. Les vues alignées `uint8`/`uint16` des blocs et `float64` des coordonnées passent sans copie et la sortie est écrite directement. Les copies potentielles de conversion vers `float64` et d’alignement, les allocations temporaires et le pic RSS sont documentés séparément. La durée de `normalized_preview` inclut les conversions de son propre chemin. Aucun temps GPU, transfert hôte→GPU ni pic VRAM d’inférence n’a été mesuré. [Contrat des buffers](RUST_ARCHITECTURE.md)
+Le pont n’effectue aucune copie par voxel. Les vues alignées `uint8`/`uint16` des blocs et `float64` des coordonnées passent sans copie et la sortie est écrite directement. Les copies potentielles de conversion vers `float64` et d’alignement, les allocations temporaires et le pic RSS sont documentés séparément. La durée de `normalized_preview` inclut les conversions de son propre chemin. Aucun temps GPU, transfert hôte→GPU ni pic VRAM d’inférence n’a été mesuré. [Contrat des buffers](ingenierie/RUST_ARCHITECTURE.md)
 
 ## Parité et décision
 

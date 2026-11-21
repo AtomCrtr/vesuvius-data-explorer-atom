@@ -1,6 +1,6 @@
 # Vesuvius Explorer
 
-Le plugin napari existant sert d’interface desktop au premier moteur Rust. Il donne accès au catalogue, aux volumes CT, aux segments et au contrôle qualité dans la même session. La carte de dérive appelle le nouveau noyau lorsqu’il est activé et que le volume sélectionné fournit des blocs entiers compatibles. [Décision napari](adr/0001-napari-interface-principale.md) · [Contrat et installation](RUST_ARCHITECTURE.md)
+Le plugin napari existant sert d’interface desktop au premier moteur Rust. Il donne accès au catalogue, aux volumes CT, aux segments et au contrôle qualité dans la même session. La carte de dérive appelle le nouveau noyau lorsqu’il est activé et que le volume sélectionné fournit des blocs entiers compatibles. [Décision napari](adr/0001-napari-interface-principale.md) · [Contrat et installation](ingenierie/RUST_ARCHITECTURE.md)
 
 ## Parcours local
 
