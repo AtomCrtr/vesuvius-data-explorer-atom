@@ -1,5 +1,14 @@
 # Passation à Claude Opus
 
+## Phase 15 · Audit a posteriori du résultat de la phase 14
+
+Branche `feat/vesuvius-phase15` depuis `main` (`7d56b28`). Exploratoire : les étiquettes avaient été lues en phase 14. [Rapport](PHASE15_AUDIT.md)
+
+- **Robustesse.** H3 tient pour chacun des 20 retraits d'une ROI. Pires bornes basses : 0,571 (Frag2), 0,567 (Frag5 sans la ROI 1), 0,710 (Frag6).
+- **ROI presque parfaites.** Pas d'artefact de bord : la ROC-AUC sur le cœur est identique. Chacune contient une seule composante d'encre, donc environ un seul exemple indépendant. Frag5 ROI 1 est classée aussi localement (0,90 dans les blocs de 140 µm) ; Frag6 ROI 7 n'a que 4 blocs.
+- **Échelle.** La ROC-AUC chute entre 200 et 1000 µm de décalage, à l'échelle des traits (0,4–0,6 mm de large). La ROC-AUC locale (médiane 0,585) reste sous la globale : une partie du signal se joue entre régions.
+- **Suite.** Bootstrap par ROI ou par composante dans le prochain protocole ; T2 ; inférence 3D native.
+
 ## Phase 14 · Z_out testé comme ordre par défaut sur trois fragments réservés
 
 Branche `feat/vesuvius-phase14` depuis `main` (`3b157d0`). Découverte et protocole en `5490336`, manifestes sans étiquettes en `8f1af22`. [Rapport](PHASE14_HELDOUT_ORDER.md)
