@@ -64,6 +64,6 @@ L’exemple permet d’examiner les accords et les erreurs des deux cartes sur d
 
 ## Données et licence
 
-Le projet est maintenu indépendamment des organisateurs. La licence MIT autorise l’utilisation, la modification et la redistribution du logiciel, y compris à des fins commerciales. Les copies du logiciel ou de portions substantielles doivent conserver la notice de copyright et de permission. [Licence MIT du projet](LICENSE)
+Le projet est maintenu indépendamment des organisateurs. La licence du logiciel (identifiant SPDX `MIT`) autorise son utilisation, sa modification et sa redistribution, y compris à des fins commerciales. Les copies du logiciel ou de portions substantielles doivent conserver la notice de copyright et de permission. [Licence MIT du projet](LICENSE)
 
 Les trois captures ci-dessus utilisent des extraits de **Vesuvius Challenge – CT Scans of Herculaneum Papyri**, acquisitions PHerc0800 et PHerc0332, sous CC BY-NC 4.0. Les autres scans, annotations et poids de modèles ont leurs propres conditions. Pour citer un résultat, indiquez le jeu d’origine, l’acquisition et la version du code. Les fragments historiques EduceLab-Scrolls ont une citation spécifique. [Licence des captures](https://creativecommons.org/licenses/by-nc/4.0/) · [Citations et licences par jeu de données](https://scrollprize.org/data#how-to-cite) · [Outils officiels](https://github.com/ScrollPrize/villa)
