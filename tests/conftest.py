@@ -45,3 +45,11 @@ def async_loading(make_napari_viewer):
     from napari.settings import get_settings
 
     get_settings().experimental.async_ = True
+    yield
+    # Torn down before make_napari_viewer's leak check: a worker still finishing in the global pool
+    # keeps the widget, hence the viewer, alive and fails that check at random (CI, 2026-11-21).
+    from qtpy.QtCore import QCoreApplication, QEvent, QThreadPool
+
+    assert QThreadPool.globalInstance().waitForDone(10000)
+    QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
+    QCoreApplication.processEvents()

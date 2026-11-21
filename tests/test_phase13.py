@@ -37,10 +37,11 @@ def test_sparse_bootstrap_matches_dense_integer_counts(module):
 
 def test_phase13_rechecks_protocol_before_preparation_or_report(module, monkeypatch, tmp_path):
     path = tmp_path / "phase13-protocol.json"
-    frozen = module.PROTOCOL.read_bytes().replace(b"\r\n", b"\n")
+    frozen = (module.HERE / path.name).read_bytes().replace(b"\r\n", b"\n")
     path.write_bytes(frozen.replace(b"\n", b"\r\n"))
-    assert module.read_frozen_protocol(path) == module.read_frozen_protocol(module.PROTOCOL)
     monkeypatch.setattr(module, "PROTOCOL", path)
+    monkeypatch.setattr(module, "WORK", tmp_path)
+    module.use_protocol(path)
     path.write_bytes(frozen.replace(b'"Frag3":', b'"Frag9":'))
     with pytest.raises(ValueError, match="not a frozen protocol"):
         module.prepare("Frag4")
@@ -48,6 +49,19 @@ def test_phase13_rechecks_protocol_before_preparation_or_report(module, monkeypa
     with pytest.raises(ValueError, match="not a frozen protocol"):
         module.report(output)
     assert not output.exists()
+
+
+def test_frozen_protocols_are_verified_and_modified_ones_refused(module, tmp_path):
+    source = Path(module.__file__).parent / "phase14-protocol.json"
+    text = source.read_bytes().replace(b"\r\n", b"\n")
+    crlf = tmp_path / "phase14-protocol.json"
+    crlf.write_bytes(text.replace(b"\n", b"\r\n"))  # Windows checkout with core.autocrlf.
+    module.use_protocol(crlf)
+    assert module.WORK == Path("data/phase14")
+    crlf.write_bytes(text.replace(b"Frag6", b"Frag7"))
+    with pytest.raises(ValueError, match="not a frozen protocol"):
+        module.use_protocol(crlf)
+    module.use_protocol(Path(module.__file__).parent / "phase13-protocol.json")  # Restore the default.
 
 
 def test_baselines_follow_the_surface_planes(module):

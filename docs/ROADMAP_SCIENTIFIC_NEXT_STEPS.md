@@ -14,6 +14,14 @@ Les trois décisions ci-dessous ont été appliquées le 21 novembre 2026 (tolé
 | Envoi des demandes aux mainteneurs | Envoyer la note et les trois questions ; attendre | Envoyer, après relecture, la note corrigée et les questions d'attestation |
 | Fenêtre d'intensité de Frag4 | `>> 8` brut (actuel) ; fenêtre air → 0 fixée sur le CT | Fenêtre fixée sur le CT seul, gelée avant les étiquettes |
 
+## Après la phase 14
+
+Z_out est validé comme ordre par défaut sur trois fragments réservés : ROC-AUC 0,63 sur Frag2, 0,73 sur Frag5 et 0,77 sur Frag6 ([rapport](PHASE14_HELDOUT_ORDER.md)). Prochaines étapes :
+
+1. Examiner en local les deux ROI presque parfaites (Frag5 ROI 1, Frag6 ROI 7) pour écarter un artefact d'étiquette ou de support.
+2. Comparer la préparation au pas réel de la PPM avec le pas nominal de 3,24 µm sur les ROI déjà vues (tâche T2).
+3. Comparer l'inférence 3D native depuis le CT avec la voie 2,5D sur les mêmes régions.
+
 ## Après la phase 13
 
 La phase 13 est faite ([rapport](PHASE13_INK_GENERALIZATION.md)). Z_out classe l'encre sur Frag4 (0,82) et Frag1 (0,67), pas sur Frag3 (0,52, où Z_in fait mieux) : la généralisation n'est pas établie. Prochaines étapes :
