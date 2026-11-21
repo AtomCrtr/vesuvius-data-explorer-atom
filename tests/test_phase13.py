@@ -28,6 +28,19 @@ def test_paired_bootstrap_separates_informative_and_identical_scores(module):
     assert same["diff_PR_Zout_minus_Zin"]["interval_95"] == [0.0, 0.0]
 
 
+def test_frozen_protocols_are_verified_and_modified_ones_refused(module, tmp_path):
+    source = Path(module.__file__).parent / "phase14-protocol.json"
+    text = source.read_bytes().replace(b"\r\n", b"\n")
+    crlf = tmp_path / "phase14-protocol.json"
+    crlf.write_bytes(text.replace(b"\n", b"\r\n"))  # Windows checkout with core.autocrlf.
+    module.use_protocol(crlf)
+    assert module.WORK == Path("data/phase14")
+    crlf.write_bytes(text.replace(b"Frag6", b"Frag7"))
+    with pytest.raises(ValueError, match="not a frozen protocol"):
+        module.use_protocol(crlf)
+    module.use_protocol(Path(module.__file__).parent / "phase13-protocol.json")  # Restore the default.
+
+
 def test_baselines_follow_the_surface_planes(module):
     volume = np.full((62, 64, 64), 100, np.uint8)
     volume[30:32, :, :32] = 50  # Darker surface on the left half.

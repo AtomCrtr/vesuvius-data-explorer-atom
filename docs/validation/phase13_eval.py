@@ -39,7 +39,13 @@ WORK = Path("data/phase13")
 FILES = {"Frag4": ("PHercParis1Fr39_54keV_surface_volume/{:02d}.tif", "extras/PHercParis1Fr39_54keV_surface_volume.ppm",
                    "PHercParis1Fr39_54keV_inklabels.png"),
          "Frag1": ("surface_volume/{:02d}.tif", "surface_volume.ppm", "inklabels.png"),
-         "Frag3": ("surface_volume/{:02d}.tif", "surface_volume.ppm", "inklabels.png")}
+         "Frag2": ("surface_volume/{:02d}.tif", "surface_volume.ppm", "inklabels.png"),
+         "Frag3": ("surface_volume/{:02d}.tif", "surface_volume.ppm", "inklabels.png"),
+         "Frag5": ("surface_volume/{:02d}.tif", None, "inklabels.png"),  # No identity PPM published.
+         "Frag6": ("surface_volume/{:02d}.tif", None, "inklabels.png")}
+# A protocol is accepted only with the SHA-256 it was committed with (phase 13: c9f6398).
+PROTOCOL_SHA = {"phase13-protocol.json": "d5de92ab19da707721784a3c3b8ee51ef6c5332bf1434e1711c17aad9b531017",
+                "phase14-protocol.json": "ccfd56c746815a33faa0889eb442aec1e37d99cfc62dcc0a460a662d3f56d94b"}
 FRAG4_LABELS_SHA = "a6f39eb59422a4507313ec912185eb92b44e3dd9e2e8e6a97e7b571462ce18fc"
 AIR_ENDS = {"low": range(0, 13), "high": range(52, 65)}
 SCORES = ("Z_out", "Z_in", "B1", "B2")
@@ -50,13 +56,24 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def use_protocol(path):
+    """Select a frozen protocol and its work directory; refuse a protocol whose bytes changed."""
+    global PROTOCOL, WORK
+    path = Path(path)
+    # Hash the text as Git stores it: a Windows checkout with core.autocrlf rewrites LF to CRLF.
+    if PROTOCOL_SHA.get(path.name) != hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest():
+        raise ValueError(f"{path} is not a frozen protocol (unknown name or modified content)")
+    PROTOCOL = path
+    WORK = Path(json.loads(path.read_bytes()).get("work_dir", "data/phase13"))
+
+
 class Surface:
     """Byte-range reader of one fragment's uncompressed surface-volume layers and identity PPM."""
 
     def __init__(self, fragment, shape):
         protocol = json.loads(PROTOCOL.read_bytes())
         self.base = ROOT + protocol["fragments"][fragment]["surface"]
-        self.layer_url, self.ppm_url, self.label_url = (self.base + f for f in FILES[fragment])
+        self.layer_url, self.ppm_url, self.label_url = (f and self.base + f for f in FILES[fragment])
         self.shape, self.fs, self.offsets = shape, fsspec.filesystem("https"), {}
 
     def _rows(self, url, offset, itemsize, r0, c0, h, w):
@@ -133,8 +150,8 @@ def prepare(fragment):
     surface = Surface(fragment, mask.shape)
     patches = select_patches(mask[::8, ::8])
     r, c = patches[0]
-    ppm = surface.ppm_pixel(r + PATCH // 2, c + PATCH // 2)
-    if abs(ppm[2] - 32) > 1e-6:
+    ppm = surface.ppm_pixel(r + PATCH // 2, c + PATCH // 2) if surface.ppm_url else None
+    if ppm is not None and abs(ppm[2] - 32) > 1e-6:
         raise ValueError(f"{fragment}: surface layer is z = {ppm[2]}, not 32")
     found = direction(surface, mask, patches)
     if fragment == "Frag4" and found["air"] != "high":
@@ -158,7 +175,8 @@ def prepare(fragment):
         print(fragment, name, "prepared", file=sys.stderr, flush=True)
     text = json.dumps(summary, indent=1)
     (work / "z-frag4-w2-prepare.json").write_text(text, encoding="utf-8")
-    (HERE / f"phase13-prepare-{fragment.lower()}.json").write_text(text, encoding="utf-8")
+    phase = PROTOCOL.stem.removesuffix("-protocol")
+    (HERE / f"{phase}-prepare-{fragment.lower()}.json").write_text(text, encoding="utf-8")
     print(json.dumps({k: summary[k] for k in ("direction", "w2_mean_u16", "w2_std_u16")}, indent=1))
 
 
@@ -285,7 +303,9 @@ if __name__ == "__main__":
     cli = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     cli.add_argument("--prepare", choices=sorted(FILES))
     cli.add_argument("--report", type=Path)
+    cli.add_argument("--protocol", type=Path, default=PROTOCOL)
     args = cli.parse_args()
+    use_protocol(args.protocol)
     if args.prepare:
         prepare(args.prepare)
     elif args.report:
