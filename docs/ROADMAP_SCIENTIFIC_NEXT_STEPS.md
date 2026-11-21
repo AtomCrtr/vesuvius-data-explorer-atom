@@ -14,7 +14,15 @@ Les trois décisions ci-dessous ont été appliquées le 21 novembre 2026 (tolé
 | Envoi des demandes aux mainteneurs | Envoyer la note et les trois questions ; attendre | Envoyer, après relecture, la note corrigée et les questions d'attestation |
 | Fenêtre d'intensité de Frag4 | `>> 8` brut (actuel) ; fenêtre air → 0 fixée sur le CT | Fenêtre fixée sur le CT seul, gelée avant les étiquettes |
 
-## Après la phase 14
+## Après la phase 15
+
+L'audit a posteriori est fait ([rapport](PHASE15_AUDIT.md)). H3 résiste au retrait de chaque ROI, et les ROI presque parfaites ne sont pas des artefacts de bord. Frag5 repose surtout sur une ROI. Prochaines étapes :
+
+1. Dans le prochain protocole, ajouter un bootstrap par ROI ou par composante d'encre, et un minimum de composantes par ROI.
+2. Comparer la préparation au pas réel de la PPM avec le pas nominal de 3,24 µm sur les ROI déjà vues (tâche T2).
+3. Comparer l'inférence 3D native depuis le CT avec la voie 2,5D sur les mêmes régions.
+
+## Après la phase 14 (examen fait en phase 15)
 
 Z_out est validé comme ordre par défaut sur trois fragments réservés : ROC-AUC 0,63 sur Frag2, 0,73 sur Frag5 et 0,77 sur Frag6 ([rapport](PHASE14_HELDOUT_ORDER.md)). Prochaines étapes :
 
