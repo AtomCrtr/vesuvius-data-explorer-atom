@@ -1,0 +1,32 @@
+{
+ "title": "Real lateral pitch from the mesh PPM versus the nominal 3.24 um pitch, checkpoint A, same ROIs as phases 13-14",
+ "frozen_utc": "2026-11-21",
+ "status_before_scores": "no real-pitch volume prepared and no real-pitch score computed; nominal scores and all ink labels already read in phases 13-14",
+ "label_of_results": "exploratory: the labels of all six fragments were read before this protocol",
+ "checkpoint_sha256": "36dd0de84b7b7aa6590184192c7415466cd8a1ba7c1e59f42c6373846373c3e0",
+ "work_dir": "data/phase16",
+ "fragments": {
+  "Frag4": {"surface": "Frag4/PHercParis1Fr39.volpkg/working/54keV_exposed_surface/", "ppm": "extras/PHercParis1Fr39_54keV.ppm", "patches": [0, 1, 3, 4, 6, 7], "nominal": "data/phase13/frag4"},
+  "Frag1": {"surface": "Frag1/PHercParis2Fr47.volpkg/working/54keV_exposed_surface/", "ppm": "result.ppm", "patches": [0, 1, 2, 3, 4, 5, 6, 7], "nominal": "data/phase13/frag1"},
+  "Frag3": {"surface": "Frag3/PHercParis1Fr34.volpkg/working/54keV_exposed_surface/", "ppm": "result.ppm", "patches": [0, 1, 2, 3, 4, 5, 6, 7], "nominal": "data/phase13/frag3"},
+  "Frag2": {"surface": "Frag2/PHercParis2Fr143.volpkg/working/54keV_exposed_surface/", "ppm": "result.ppm", "patches": [0, 1, 2, 3, 4, 5, 6, 7], "nominal": "data/phase14/frag2"},
+  "Frag5": {"surface": "Frag5/PHerc1667Cr1Fr3.volpkg/working/PHerc1667Cr01Fr03_70keV_3.24um/surface_processing/", "ppm": "result.ppm", "patches": [0, 1, 2, 3, 4, 5, 6, 7], "nominal": "data/phase14/frag5"},
+  "Frag6": {"surface": "Frag6/PHerc51Cr4Fr8.volpkg/working/PHerc0051Cr04Fr08_53keV_3.24um/surface_processing/", "ppm": "result.ppm", "patches": [0, 1, 2, 3, 4, 5, 6, 7], "nominal": "data/phase14/frag6"}
+ },
+ "unchanged_from_nominal": "patch centres, direction, W2 window and depth coordinates read from the committed phase13/14 prepare manifests; 1024 x 1024 output px; layers trilinear; inference phase11_z_frag4.run, both orders",
+ "pitch": {
+  "rule": "per ROI, medians of |dP/dcol| and |dP/drow| (CT voxels per UV pixel) of the published mesh PPM, finite differences on a 16 px lattice inside the nominal ROI box and the mask, pixels with a zero PPM entry skipped",
+  "output_step": "native UV px per output px, per axis: 2.215 / (3.24 * pitch); output grid centred on the patch centre, as the nominal one",
+  "voxel_um": 3.24,
+  "reported": "pitch IQR and median |cos| between dP/dcol and dP/drow (shear, not corrected)"
+ },
+ "labels": "same inklabels.png as phases 12-14, sampled nearest neighbour on the real-pitch grid",
+ "support_and_inclusion": "as phases 13-14: mask eroded 16 output px, Hann weight >= 25 % of maximum; a ROI enters the comparison only if both its nominal and real-pitch versions hold >= 1000 valid positive and >= 1000 valid negative pixels",
+ "primary": {
+  "statistic": "delta = ROC-AUC(Z_out, real pitch) - ROC-AUC(Z_out, nominal) per included ROI; mean over included ROIs",
+  "interval": "ROI bootstrap (resample included ROIs with replacement), 9999 draws, seed 216, percentile 95 %",
+  "decision": "adopt the real pitch as the default preparation if the lower 95 % bound of the mean delta > 0 and no fragment has a mean delta < -0.02; otherwise keep the nominal pitch"
+ },
+ "secondary_reported_without_decision": ["delta ROC-AUC(Z_in)", "delta of the share of valid pixels with Z_out > 0.5", "max Z_out per ROI", "per-fragment pooled ROC-AUC(Z_out) at the real pitch", "Spearman between |log(pitch_col * pitch_row)| + |log(pitch_col / pitch_row)| and delta"],
+ "not_allowed_after_scores": ["changing the pitch rule, ROIs, support, inclusion, statistic, interval or decision", "reporting a subset of ROIs or fragments"]
+}
