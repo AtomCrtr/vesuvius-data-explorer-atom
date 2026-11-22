@@ -102,8 +102,10 @@ Pour un segment tifxyz et son volume :
    `--cible` (décalage visé, en µm) pour corriger aussi un décalage d'ensemble.
 3. **Plafond de déplacement** (50 µm par défaut, `--deplacement-max`) : au-delà, la tuile a pu
    accrocher une autre feuille ; elle n'est pas déplacée et reste signalée.
-4. **Zones exclues.** Tous leurs points restent fixes. Le déplacement diminue à l'approche
-   des zones gelées sur une demi-tuile du côté des tuiles recalées.
+4. **Zones exclues.** Tous leurs points restent fixes. Depuis le 22 novembre 2026, chaque tuile
+   recalée est déplacée en bloc et le maillage forme une marche à la frontière. La transition
+   sur une demi-tuile brouillait les tuiles recalées, presque toutes en bordure, et faisait
+   échouer le critère 2b ([diagnostic](../validation/T10-carte-alignement.md#7-correctif-de-la-transition-et-critère-2b-révisé)).
 5. **Netteté des fibres.** Fibres visibles sur tous les rendus ; sur des segments publiés, déjà bien
    placés, aucun gain de netteté mesurable (intensité +0,7 à +3,4 %, contraste −0 à −5 %). Le gain
    est net sur un segment dégradé volontairement.

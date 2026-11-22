@@ -121,15 +121,16 @@ def test_unreliable_and_switch_tiles_are_not_moved(volume):
     assert np.any(grid[:, 8:24])
 
 
-def test_snap_tapers_inside_movable_tiles_on_the_original_grid(volume):
+def test_snap_moves_each_movable_tile_as_a_block_on_the_original_grid(volume):
     amap = replace(alignment_map(plane(rows=13, cols=15), *volume), stride=2)
     field = np.array([[4.0, 0.0], [4.0, 4.0]])
     grid = field_on_grid(field, amap, (26, 29))
     # The excluded tile is partial and has movable neighbours along both edges and the corner.
     np.testing.assert_array_equal(grid[:16, 16:], 0)
-    assert grid[7, 7] == pytest.approx(4)
-    assert 0 < grid[7, 15] < grid[7, 14] < grid[7, 7]
-    assert 0 < grid[16, 16] < grid[17, 17] < grid[24, 24]
+    # A taper inside a movable tile blurs its profile and halves its correction (T10, 2b):
+    # movable points up to the frozen edge get the full value.
+    np.testing.assert_allclose(grid[:16, :16], 4)
+    np.testing.assert_allclose(grid[16:, :], 4)
 
 
 def test_tifxyz_writer_round_trip_and_refuses_to_overwrite(tmp_path):

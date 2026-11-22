@@ -1,0 +1,513 @@
+[
+  {
+    "class": "~8 µm",
+    "segment": "20250919125754",
+    "volume": "20250521125136",
+    "pixel_size_um": 8.64,
+    "grid": [
+      352,
+      285
+    ],
+    "level": 0,
+    "step_um": 8.64,
+    "seconds_map": 189,
+    "voxels_read": 7742685184,
+    "tiles": {
+      "measured": 1401,
+      "reliable": 403
+    },
+    "reference_um": -14.391370895575358,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 971
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 348,
+      "within_2_steps": 0.9770114942528736,
+      "error_median_um": 0.3003259207409638
+    },
+    "snap_drifted": {
+      "tiles": 338,
+      "ramp_slope_before": -0.978130580098102,
+      "ramp_slope_after": -0.3096353670775122,
+      "drift_abs_median_before_um": 10.406500748883618,
+      "drift_abs_median_after_um": 3.9133416990924417
+    },
+    "snap_published_2b": {
+      "moved_tiles": 392,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 4.140081018066184,
+      "moved_reliability_median_after": 4.13528435461868,
+      "step_um_p95": 1.3226039867230708,
+      "step_um_max": 41.99706621741123
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 41.99706621741123,
+      "reliability_median_before": 2.182895140121828,
+      "reliability_median_after": 2.171742440656417,
+      "drift_abs_median_before_um": 9.95343089425734,
+      "drift_abs_median_after_um": 4.403760790802508,
+      "render_before": {
+        "moyenne": 99.37608337402344,
+        "contraste": 0.12411996722221375,
+        "pixels": 1042441
+      },
+      "render_after": {
+        "moyenne": 101.01495361328125,
+        "contraste": 0.12213800102472305,
+        "pixels": 1042441
+      }
+    },
+    "seconds": 243
+  },
+  {
+    "class": "~8 µm",
+    "segment": "20250502184658",
+    "volume": "20250521151220",
+    "pixel_size_um": 8.64,
+    "grid": [
+      211,
+      143
+    ],
+    "level": 0,
+    "step_um": 8.64,
+    "seconds_map": 31,
+    "voxels_read": 1461714944,
+    "tiles": {
+      "measured": 252,
+      "reliable": 0
+    },
+    "reference_um": 3.162791267044738,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "sans_feuille",
+        "tuiles": 252
+      }
+    ],
+    "ramp": {
+      "tiles": 0,
+      "within_2_steps": null,
+      "error_median_um": null
+    },
+    "snap_drifted": {
+      "tiles": 0,
+      "ramp_slope_before": null,
+      "ramp_slope_after": null,
+      "drift_abs_median_before_um": null,
+      "drift_abs_median_after_um": null
+    },
+    "snap_published_2b": {
+      "moved_tiles": 0,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": null,
+      "moved_reliability_median_after": null,
+      "step_um_p95": 0.0,
+      "step_um_max": 0.0
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 0.0,
+      "reliability_median_before": 0.6105275571811531,
+      "reliability_median_after": 0.6105275571811531,
+      "drift_abs_median_before_um": null,
+      "drift_abs_median_after_um": null,
+      "render_before": {
+        "moyenne": 110.7694091796875,
+        "contraste": 0.1254243552684784,
+        "pixels": 463420
+      },
+      "render_after": {
+        "moyenne": 110.7694091796875,
+        "contraste": 0.1254243552684784,
+        "pixels": 463420
+      }
+    },
+    "seconds": 53
+  },
+  {
+    "class": "~8 µm",
+    "segment": "20260226110425",
+    "volume": "20250804134230",
+    "pixel_size_um": 9.362,
+    "grid": [
+      115,
+      186
+    ],
+    "level": 0,
+    "step_um": 9.362,
+    "seconds_map": 35,
+    "voxels_read": 1251999744,
+    "tiles": {
+      "measured": 214,
+      "reliable": 108
+    },
+    "reference_um": -10.47585775957767,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 4
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 30
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 18
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 15
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 12
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 10
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 97,
+      "within_2_steps": 1.0,
+      "error_median_um": 0.3573830594739492
+    },
+    "snap_drifted": {
+      "tiles": 94,
+      "ramp_slope_before": -0.9968069324483526,
+      "ramp_slope_after": -0.3457607804180061,
+      "drift_abs_median_before_um": 14.470732448977614,
+      "drift_abs_median_after_um": 5.812672961104262
+    },
+    "snap_published_2b": {
+      "moved_tiles": 105,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 4.469637870366913,
+      "moved_reliability_median_after": 4.599319386078266,
+      "step_um_p95": 1.8987687347685243,
+      "step_um_max": 45.674806591222
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 45.674806591222016,
+      "reliability_median_before": 3.027568173562814,
+      "reliability_median_after": 2.930485453227603,
+      "drift_abs_median_before_um": 13.084831103786065,
+      "drift_abs_median_after_um": 5.959604931704803,
+      "render_before": {
+        "moyenne": 109.28705596923828,
+        "contraste": 0.20954571664333344,
+        "pixels": 311641
+      },
+      "render_after": {
+        "moyenne": 110.92191314697266,
+        "contraste": 0.20501869916915894,
+        "pixels": 311641
+      }
+    },
+    "seconds": 49
+  }
+]

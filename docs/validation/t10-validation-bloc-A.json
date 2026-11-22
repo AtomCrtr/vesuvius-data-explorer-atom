@@ -1,0 +1,1974 @@
+[
+  {
+    "class": "~8 µm",
+    "segment": "20250925212701",
+    "volume": "20250804134230",
+    "pixel_size_um": 9.362,
+    "grid": [
+      204,
+      345
+    ],
+    "level": 0,
+    "step_um": 9.362,
+    "seconds_map": 67,
+    "voxels_read": 2279604224,
+    "tiles": {
+      "measured": 567,
+      "reliable": 263
+    },
+    "reference_um": -17.90542764464419,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 36
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 28
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 26
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 16
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 12
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 11
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 11
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 11
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 11
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 9
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 9
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 7
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 6
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 6
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 6
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 6
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 6
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 234,
+      "within_2_steps": 0.9829059829059829,
+      "error_median_um": 0.3031318467444334
+    },
+    "snap_drifted": {
+      "tiles": 223,
+      "ramp_slope_before": -0.7765604296076837,
+      "ramp_slope_after": -0.02302732983487825,
+      "drift_abs_median_before_um": 14.993443019180658,
+      "drift_abs_median_after_um": 4.759230320315028
+    },
+    "snap_published_2b": {
+      "moved_tiles": 262,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 4.343492676569417,
+      "moved_reliability_median_after": 4.405902269512634,
+      "step_um_p95": 1.6488410782318583,
+      "step_um_max": 40.362500603282946
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 40.362500603282946,
+      "reliability_median_before": 2.8401066986848873,
+      "reliability_median_after": 2.8204163738957844,
+      "drift_abs_median_before_um": 11.925155518408127,
+      "drift_abs_median_after_um": 5.299260631507825,
+      "render_before": {
+        "moyenne": 104.68553924560547,
+        "contraste": 0.17790290713310242,
+        "pixels": 400683
+      },
+      "render_after": {
+        "moyenne": 106.50910949707031,
+        "contraste": 0.17566852271556854,
+        "pixels": 400683
+      }
+    },
+    "seconds": 100
+  },
+  {
+    "class": "~8 µm",
+    "segment": "20250919184432",
+    "volume": "20250820143440",
+    "pixel_size_um": 9.362,
+    "grid": [
+      107,
+      122
+    ],
+    "level": 0,
+    "step_um": 9.362,
+    "seconds_map": 16,
+    "voxels_read": 230686720,
+    "tiles": {
+      "measured": 166,
+      "reliable": 142
+    },
+    "reference_um": -0.844263201302893,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 8
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 135,
+      "within_2_steps": 0.9703703703703703,
+      "error_median_um": 0.4348403472812553
+    },
+    "snap_drifted": {
+      "tiles": 134,
+      "ramp_slope_before": -0.8556080816577,
+      "ramp_slope_after": 0.11987623374404337,
+      "drift_abs_median_before_um": 10.365385289312075,
+      "drift_abs_median_after_um": 3.858168789846584
+    },
+    "snap_published_2b": {
+      "moved_tiles": 140,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 7.000050156795465,
+      "moved_reliability_median_after": 7.081701223263927,
+      "step_um_p95": 1.0873838714962436,
+      "step_um_max": 17.65684536267742
+    },
+    "snap_published": {
+      "moved_median_um": 2.508555316582426,
+      "moved_max_um": 18.556911747261346,
+      "reliability_median_before": 6.594332682739378,
+      "reliability_median_after": 6.301117159188186,
+      "drift_abs_median_before_um": 5.189159980936346,
+      "drift_abs_median_after_um": 3.1717827647660317,
+      "render_before": {
+        "moyenne": 110.19156646728516,
+        "contraste": 0.15215466916561127,
+        "pixels": 754921
+      },
+      "render_after": {
+        "moyenne": 112.08834075927734,
+        "contraste": 0.14864127337932587,
+        "pixels": 754921
+      }
+    },
+    "seconds": 25
+  },
+  {
+    "class": "~8 µm",
+    "segment": "20250919124722",
+    "volume": "20250521125136",
+    "pixel_size_um": 8.64,
+    "grid": [
+      366,
+      250
+    ],
+    "level": 0,
+    "step_um": 8.64,
+    "seconds_map": 158,
+    "voxels_read": 5779750912,
+    "tiles": {
+      "measured": 1071,
+      "reliable": 373
+    },
+    "reference_um": -2.104753760836905,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 630
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 43
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 326,
+      "within_2_steps": 0.99079754601227,
+      "error_median_um": 0.30504786784527
+    },
+    "snap_drifted": {
+      "tiles": 285,
+      "ramp_slope_before": -0.9676250440138275,
+      "ramp_slope_after": -0.177939559740904,
+      "drift_abs_median_before_um": 9.859065579620133,
+      "drift_abs_median_after_um": 2.9175951554512847
+    },
+    "snap_published_2b": {
+      "moved_tiles": 361,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 4.132298915395512,
+      "moved_reliability_median_after": 4.1736389749005625,
+      "step_um_p95": 1.095560862643809,
+      "step_um_max": 47.801006865782036
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 47.801006865782036,
+      "reliability_median_before": 2.3531882426036064,
+      "reliability_median_after": 2.3535129885798645,
+      "drift_abs_median_before_um": 10.023803968372574,
+      "drift_abs_median_after_um": 3.3118053930093563,
+      "render_before": {
+        "moyenne": 98.48522186279297,
+        "contraste": 0.11907092481851578,
+        "pixels": 991601
+      },
+      "render_after": {
+        "moyenne": 100.10595703125,
+        "contraste": 0.11617757380008698,
+        "pixels": 991601
+      }
+    },
+    "seconds": 249
+  },
+  {
+    "class": "~2,4 µm",
+    "segment": "20260220214732",
+    "volume": "20260319124803",
+    "pixel_size_um": 2.403,
+    "grid": [
+      232,
+      236
+    ],
+    "level": 2,
+    "step_um": 9.610733579602957,
+    "seconds_map": 94,
+    "voxels_read": 2965372928,
+    "tiles": {
+      "measured": 582,
+      "reliable": 131
+    },
+    "reference_um": -7.772225707966017,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 443
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 104,
+      "within_2_steps": 0.8846153846153846,
+      "error_median_um": 0.7396665789600881
+    },
+    "snap_drifted": {
+      "tiles": 99,
+      "ramp_slope_before": -0.6973020485158753,
+      "ramp_slope_after": -0.27770013897206247,
+      "drift_abs_median_before_um": 16.219603501405675,
+      "drift_abs_median_after_um": 4.8760160956772856
+    },
+    "snap_published_2b": {
+      "moved_tiles": 121,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 3.857678074633094,
+      "moved_reliability_median_after": 3.8769337002168567,
+      "step_um_p95": 0.9907561023692859,
+      "step_um_max": 40.5924174400791
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 40.59241744007911,
+      "reliability_median_before": 1.7728210214177016,
+      "reliability_median_after": 1.7488419922136458,
+      "drift_abs_median_before_um": 14.154118551008352,
+      "drift_abs_median_after_um": 3.5381383062869682,
+      "render_before": {
+        "moyenne": 82.46455383300781,
+        "contraste": 0.17420656979084015,
+        "pixels": 926916
+      },
+      "render_after": {
+        "moyenne": 83.58489227294922,
+        "contraste": 0.1721428483724594,
+        "pixels": 926916
+      }
+    },
+    "seconds": 141
+  },
+  {
+    "class": "~2,4 µm",
+    "segment": "20260226123353",
+    "volume": "20260309142202",
+    "pixel_size_um": 2.399,
+    "grid": [
+      91,
+      217
+    ],
+    "level": 2,
+    "step_um": 9.59573223952228,
+    "seconds_map": 45,
+    "voxels_read": 1189085184,
+    "tiles": {
+      "measured": 224,
+      "reliable": 58
+    },
+    "reference_um": -11.672835391089224,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 165
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 43,
+      "within_2_steps": 0.9302325581395349,
+      "error_median_um": 0.8833150872230936
+    },
+    "snap_drifted": {
+      "tiles": 42,
+      "ramp_slope_before": -0.6957174133007473,
+      "ramp_slope_after": -0.35696942548594063,
+      "drift_abs_median_before_um": 13.62328686520774,
+      "drift_abs_median_after_um": 3.564812402361763
+    },
+    "snap_published_2b": {
+      "moved_tiles": 52,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 4.070259798224335,
+      "moved_reliability_median_after": 4.106769494905636,
+      "step_um_p95": 0.9877287112258364,
+      "step_um_max": 38.0387034796093
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 38.03870347960931,
+      "reliability_median_before": 1.9118284936424508,
+      "reliability_median_after": 1.9024527507976332,
+      "drift_abs_median_before_um": 13.568735008951577,
+      "drift_abs_median_after_um": 3.103088984121189,
+      "render_before": {
+        "moyenne": 98.34269714355469,
+        "contraste": 0.187067449092865,
+        "pixels": 318636
+      },
+      "render_after": {
+        "moyenne": 98.80391693115234,
+        "contraste": 0.18695732951164246,
+        "pixels": 318636
+      }
+    },
+    "seconds": 59
+  },
+  {
+    "class": "~2,4 µm",
+    "segment": "20250825181928",
+    "volume": "20250526151718",
+    "pixel_size_um": 2.215,
+    "grid": [
+      298,
+      166
+    ],
+    "level": 2,
+    "step_um": 8.85902701515483,
+    "seconds_map": 90,
+    "voxels_read": 2644508672,
+    "tiles": {
+      "measured": 509,
+      "reliable": 356
+    },
+    "reference_um": -5.2223119544286405,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 37
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 37
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 11
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 9
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 330,
+      "within_2_steps": 0.9727272727272728,
+      "error_median_um": 0.5622689160144084
+    },
+    "snap_drifted": {
+      "tiles": 320,
+      "ramp_slope_before": -1.0529284008362165,
+      "ramp_slope_after": -0.26535969202933074,
+      "drift_abs_median_before_um": 8.862442560299181,
+      "drift_abs_median_after_um": 4.505288113854833
+    },
+    "snap_published_2b": {
+      "moved_tiles": 352,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 5.31910436331435,
+      "moved_reliability_median_after": 5.3731156362956956,
+      "step_um_p95": 1.3255695628786655,
+      "step_um_max": 34.23811783436825
+    },
+    "snap_published": {
+      "moved_median_um": 2.099888029170251,
+      "moved_max_um": 34.23811783436825,
+      "reliability_median_before": 4.2669793725416705,
+      "reliability_median_after": 4.336382948340258,
+      "drift_abs_median_before_um": 8.334298062883908,
+      "drift_abs_median_after_um": 4.663921712474272,
+      "render_before": {
+        "moyenne": 98.84272766113281,
+        "contraste": 0.09245312213897705,
+        "pixels": 923648
+      },
+      "render_after": {
+        "moyenne": 100.23747253417969,
+        "contraste": 0.0900697112083435,
+        "pixels": 923648
+      }
+    },
+    "seconds": 114
+  },
+  {
+    "class": "~1,1 µm",
+    "segment": "20260226113324",
+    "volume": "20260521123630",
+    "pixel_size_um": 1.129,
+    "grid": [
+      247,
+      408
+    ],
+    "level": 3,
+    "step_um": 9.030682701739085,
+    "seconds_map": 50,
+    "voxels_read": 1046478848,
+    "tiles": {
+      "measured": 683,
+      "reliable": 284
+    },
+    "reference_um": -6.353256345084189,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 6
+      },
+      {
+        "type": "derive",
+        "tuiles": 5
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 3
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 2
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 154
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 98
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 41
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 28
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 14
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 10
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 8
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 7
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 247,
+      "within_2_steps": 0.9230769230769231,
+      "error_median_um": 0.5059686752458814
+    },
+    "snap_drifted": {
+      "tiles": 226,
+      "ramp_slope_before": -0.7498351696689559,
+      "ramp_slope_after": -0.4941027623681964,
+      "drift_abs_median_before_um": 18.370674129780117,
+      "drift_abs_median_after_um": 5.445260924206169
+    },
+    "snap_published_2b": {
+      "moved_tiles": 258,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 4.8655100390461286,
+      "moved_reliability_median_after": 4.854657887153538,
+      "step_um_p95": 1.1480355800383628,
+      "step_um_max": 48.1045741287494
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 48.104574128749405,
+      "reliability_median_before": 2.8768887048200913,
+      "reliability_median_after": 2.750426630462632,
+      "drift_abs_median_before_um": 17.487045345648358,
+      "drift_abs_median_after_um": 6.288462185839034,
+      "render_before": {
+        "moyenne": 41.057899475097656,
+        "contraste": 0.3344876766204834,
+        "pixels": 448873
+      },
+      "render_after": {
+        "moyenne": 42.28540802001953,
+        "contraste": 0.3201124668121338,
+        "pixels": 448873
+      }
+    },
+    "seconds": 93
+  },
+  {
+    "class": "~1,1 µm",
+    "segment": "20260316000000",
+    "volume": "20260413113053",
+    "pixel_size_um": 1.129,
+    "grid": [
+      291,
+      339
+    ],
+    "level": 3,
+    "step_um": 9.03030354389366,
+    "seconds_map": 105,
+    "voxels_read": 3751804928,
+    "tiles": {
+      "measured": 615,
+      "reliable": 489
+    },
+    "reference_um": -8.488926592406273,
+    "spacing_um": null,
+    "zones": [
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "derive",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 32
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 9
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 8
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 7
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 6
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 5
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 4
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 3
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 2
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      },
+      {
+        "type": "sans_feuille",
+        "tuiles": 1
+      }
+    ],
+    "ramp": {
+      "tiles": 480,
+      "within_2_steps": 0.9791666666666666,
+      "error_median_um": 0.2699352424829533
+    },
+    "snap_drifted": {
+      "tiles": 479,
+      "ramp_slope_before": -0.8873614808484822,
+      "ramp_slope_after": 0.0556774372704788,
+      "drift_abs_median_before_um": 11.851599849720053,
+      "drift_abs_median_after_um": 3.577888337003529
+    },
+    "snap_published_2b": {
+      "moved_tiles": 483,
+      "frozen_points_identical": true,
+      "moved_reliability_median_before": 8.16981926828545,
+      "moved_reliability_median_after": 8.211995423252505,
+      "step_um_p95": 0.7301549033876962,
+      "step_um_max": 31.201410357374243
+    },
+    "snap_published": {
+      "moved_median_um": 0.0,
+      "moved_max_um": 31.201410357374247,
+      "reliability_median_before": 6.523136922369592,
+      "reliability_median_after": 6.50773598506225,
+      "drift_abs_median_before_um": 6.436629586310081,
+      "drift_abs_median_after_um": 3.907158977110512,
+      "render_before": {
+        "moyenne": 129.2263641357422,
+        "contraste": 0.095737986266613,
+        "pixels": 1018081
+      },
+      "render_after": {
+        "moyenne": 131.4191131591797,
+        "contraste": 0.09312450140714645,
+        "pixels": 1018081
+      }
+    },
+    "seconds": 132
+  }
+]

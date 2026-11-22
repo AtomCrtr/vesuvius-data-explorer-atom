@@ -3,7 +3,9 @@
 Usage: python T10_validation.py OUTPUT_DIR
 
 Environment: SEED (7), PER_CLASS (3), MIN_KB / MAX_KB (size of x.tif, to keep segments of a few
-hundred tiles), DRIFT_UM (40: ramp imposed across the columns), TILE (8).
+hundred tiles), DRIFT_UM (40: ramp imposed across the columns), TILE (8), EXCLUDE (comma-separated
+segment ids never drawn, e.g. those of an earlier sample), SEGMENTS (segment:volume,... run
+exactly these segments instead of drawing).
 
 For each drawn segment (S3 volumes only, three resolution classes):
 
@@ -47,6 +49,9 @@ PER_CLASS = int(os.environ.get("PER_CLASS", "3"))
 MIN_KB, MAX_KB = int(os.environ.get("MIN_KB", "40")), int(os.environ.get("MAX_KB", "400"))
 DRIFT_UM = float(os.environ.get("DRIFT_UM", "40"))
 TILE = int(os.environ.get("TILE", "8"))
+EXCLUDE = set(filter(None, os.environ.get("EXCLUDE", "").split(",")))
+# SEGMENTS=segment:volume,... replays a fixed sample: the catalogue grows, so a seed alone does not.
+SEGMENTS = {tuple(item.split(":")) for item in os.environ.get("SEGMENTS", "").split(",") if item}
 
 out = Path(sys.argv[1])
 out.mkdir(parents=True, exist_ok=True)
@@ -69,8 +74,11 @@ rng = random.Random(SEED)
 drawn = []
 for label, (low, high) in CLASSES.items():
     candidates = [s for s in catalog.segments if not s.superseded
-                  and s.target_volume_id in volumes
+                  and s.segment_id not in EXCLUDE and s.target_volume_id in volumes
                   and low <= (volumes[s.target_volume_id].pixel_size_um or 0) <= high]
+    if SEGMENTS:  # Explicit list: no draw, no size filter.
+        drawn += [(label, s) for s in candidates if (s.segment_id, s.target_volume_id) in SEGMENTS]
+        continue
     rng.shuffle(candidates)
     picked = []
     for segment in candidates:
@@ -176,6 +184,23 @@ for label, segment in drawn:
         (out / f"{name}-apres.png").write_bytes(grey_png(render_after))
         valid = np.isfinite(surface.points).all(axis=2)
         snapped_reliable = reliable_tiles(amap)
+        moved_tiles = field != 0
+        span = base.tile * base.stride
+        frozen = ~moved_tiles[np.arange(valid.shape[0])[:, None] // span,
+                              np.arange(valid.shape[1])[None, :] // span]
+        # Revised 2b (frozen 2026-11-22): frozen points bit-identical, moved tiles' reliability.
+        steps = np.concatenate([np.abs(np.diff(grid, axis=a))[np.diff(valid, axis=a) == 0]
+                                for a in (0, 1)]) * px
+        record["snap_published_2b"] = {
+            "moved_tiles": int(moved_tiles.sum()),
+            "frozen_points_identical": bool(np.array_equal(snapped.points[frozen & valid],
+                                                           surface.points[frozen & valid])),
+            "moved_reliability_median_before": float(np.nanmedian(base.reliability[moved_tiles]))
+            if moved_tiles.any() else None,
+            "moved_reliability_median_after": float(np.nanmedian(amap.reliability[moved_tiles]))
+            if moved_tiles.any() else None,
+            "step_um_p95": float(np.percentile(steps, 95)) if steps.size else None,
+            "step_um_max": float(steps.max()) if steps.size else None}
         record["snap_published"] = {
             "moved_median_um": float(np.median(np.abs(grid[valid]))) * px,
             "moved_max_um": float(np.max(np.abs(grid[valid]))) * px,

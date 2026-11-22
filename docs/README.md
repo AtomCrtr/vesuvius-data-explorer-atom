@@ -19,6 +19,7 @@
 | Phases 4 à 8 | [Géométrie et réactivité](ingenierie/RUST_PHASE4.md) · [Consensus](recherche/phase-05/VESUVIUS_PHASE5.md) · [Désaccord](recherche/phase-06/VESUVIUS_PHASE6.md) · [Ordre des couches](recherche/phase-07/VESUVIUS_PHASE7.md) · [Robustesse spatiale](recherche/phase-08/VESUVIUS_PHASE8.md) |
 | Phases 9 et 10 | [Recalage CT et optique](recherche/phase-09/VESUVIUS_PHASE9.md) · [Recherche de références indépendantes](recherche/phase-10/VESUVIUS_PHASE10.md) |
 | Phases 11 à 13 | [Frag4 et référence infrarouge](VESUVIUS_PHASE11.md) · [Première évaluation d’encre](PHASE12_INK_EVALUATION.md) · [Généralisation sur trois fragments](PHASE13_INK_GENERALIZATION.md) |
+| Phases 14 à 16 | [Ordre Z sur fragments réservés](PHASE14_HELDOUT_ORDER.md) · [Audit a posteriori](PHASE15_AUDIT.md) · [Pas réel de la PPM](PHASE16_REAL_PITCH.md) |
 | Expériences à venir | [Feuille de route scientifique](ROADMAP_SCIENTIFIC_NEXT_STEPS.md) |
 
 Les scripts de reproduction, protocoles gelés, métriques et captures se trouvent dans [validation/](validation/). Les chemins commençant par `data/` désignent des fichiers produits localement lors des expériences. Les documents cités par empreinte dans le [manifeste de phase 11](validation/phase11-manifest.json) gardent leur chemin d’archive.

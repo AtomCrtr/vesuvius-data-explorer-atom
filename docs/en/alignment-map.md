@@ -55,26 +55,55 @@ tiles with weak or missing measurements. Selecting a review region centres the s
    this is not an error to correct.
 5. **Regions to review**: reliable drift beyond 30 µm, and measured tiles without a reliable sheet.
 6. **Snapping**: weighted least squares with a smoothness term on the reliable tiles only, capped
-   at 50 µm. Every point of an excluded tile stays fixed. The displacement tapers on the moving
-   side of each boundary. `--cible` sets the target offset (µm) to correct a global shift too.
+   at 50 µm. Every point of an excluded tile stays fixed and every point of a snapped tile moves
+   by its full value, so the mesh steps at the boundary (at most the 50 µm cap). `--cible` sets
+   the target offset (µm) to correct a global shift too.
 
-## Initial validation (8 published segments, 3 resolutions)
+## Natural drift on every published PHerc0814 segment
 
-| Test | Result |
-|---|---|
-| Slow drift imposed (0 to 40 µm ramp), recovered within 2 sampling steps on reliable tiles | **96 %** of 1,649 tiles (88 % to 100 % per segment) |
-| Median drift after snapping a drifted segment | **3.5 to 5.8 µm** (sampling step ≈ 9 µm) |
-| Snapping a published segment lowers reliability | never (8 / 8) |
-| Map time, from S3, download included | 10 to 80 s per segment |
+Selection rule committed before the run: all 19 published segments of PHerc0814 volume
+`20250804134230` (9.362 µm), default settings, and every snapped tile whose drift exceeded
+25 µm. The illustrated tile is the one with the largest drift *before* snapping, chosen without
+looking at the result.
 
-With strict tile freezing, the median residual after snapping the ramp was **4.4 to 8.8 µm**,
-below one sampling step on all seven measurable segments. Median reliability of the published
-surfaces fell on five of the eight segments, by up to 0.20 on the score's scale.
-[Rerun data](../validation/t10-validation-gel-strict.json)
+| | Before | After snapping |
+|---|---:|---:|
+| Tiles with \|drift\| > 25 µm (19 / 19 segments) | 1,648 | — |
+| Median \|drift\| | **31.3 µm** | **14.4 µm** |
+| Tiles whose drift decreased | — | **94.7 %** |
+| Tiles back under 25 µm | — | 82 % (7 % overshoot to the other side) |
+| Median reliability of these tiles | 4.60 | 4.50 |
 
-On the published PHerc0814 segment `20260226110425`, local drift fell from +45.7 to +16.7 µm
-in the illustrated tile. All 6,686 valid points in excluded tiles kept their coordinates.
-[CT cross-sections and reproduction steps](../validation/T10-carte-alignement.md#dérive-naturelle-sur-pherc0814)
+![Two CT cross-sections through segment 20250925204843, tile (20, 57): the published trace (cyan)
+and the snapped trace (orange)](../validation/t10-coupes-20250925204843.png)
+
+The snapped trace moves about 18 µm towards the bright band and stays on the same sheet. The
+lower section shows the step at the tile boundary (column 159 to 160): points of the
+neighbouring tile are frozen. Fibres remain visible on the snapped surface; the flattened render
+shows no clear gain in sharpness. [Flattened render](../validation/t10-rendu-20250925204843.png) ·
+[Data](../validation/t10-derive-naturelle.json) · [Script](../validation/T10_derive_naturelle.py)
+
+<sub>PHerc0814, segment `20250925204843`. Data: Vesuvius Challenge, CC BY-NC 4.0.</sub>
+
+## Validation with imposed drift (16 published segments, 3 resolutions)
+
+Criteria frozen before each campaign. Sample B (8 new segments) is the confirmation sample;
+sample A (the original 8) had been used for diagnosis.
+[Report (French)](../validation/T10-carte-alignement.md#7-correctif-de-la-transition-et-critère-2b-révisé)
+
+| Test | Sample B | Sample A |
+|---|---|---|
+| 0–40 µm ramp recovered within 2 sampling steps on ≥ 80 % of reliable tiles | 7 / 7 measurable segments (89 % to 100 %) | 7 / 7 |
+| Median drift after snapping the ramp, below one sampling step (≈ 9 µm) | 7 / 7 (3.8 to 5.2 µm) | 7 / 7 (2.9 to 5.8 µm) |
+| Points of non-snapped tiles bit-identical | 8 / 8 | 8 / 8 |
+| Median reliability of snapped tiles does not drop | **failed: 4 / 8 dropped** (−0.05 to −0.13) | 5 / 7 (−0.005, −0.011) |
+| Mesh step between neighbouring points, p95 / max | ≤ 1.7 / up to 49.6 µm | ≤ 1.9 / up to 48.1 µm |
+| Full run per segment (4 maps and renders), from S3, download included | 52 s to 3.4 min | 25 s to 4.2 min |
+
+A first version tapered the correction over half a tile. Reliable tiles are mostly isolated, so
+they received about half their correction, with a gradient that blurred their profile. Each
+snapped tile now moves as a block; the cost is the step above. The remaining reliability drops
+may come from steps of 40–50 µm tilting the normals at tile edges: not yet tested.
 
 ## Limits
 
@@ -83,8 +112,10 @@ in the illustrated tile. All 6,686 valid points in excluded tiles kept their coo
   residues on 2 × 2 loops) works on synthetic sheets, but on real scrolls the sheets are not
   regularly spaced at tile scale and the spacing cannot be measured. A real switch shows up as an
   unreliable region or a strong drift.
-- Published segments are already well placed: snapping moves them by a few µm at most and gives
-  no measurable gain in fibre sharpness; the gain is clear on a deliberately drifted segment.
+- Published segments are mostly well placed: snapping moves the median point by a few µm and
+  gives no measurable gain in fibre sharpness; the gain is clear on a deliberately drifted
+  segment. Locally, strong natural drift is common and is reduced (table above).
+- Snapped and frozen tiles meet at a step of up to the 50 µm cap.
 - The first map of a large segment downloads every chunk the surface crosses (up to several GB
   for uncompressed HTTPS volumes such as Scroll 1); later runs use the local cache.
 
