@@ -14,7 +14,15 @@ Les trois décisions ci-dessous ont été appliquées le 21 novembre 2026 (tolé
 | Envoi des demandes aux mainteneurs | Envoyer la note et les trois questions ; attendre | Envoyer, après relecture, la note corrigée et les questions d'attestation |
 | Fenêtre d'intensité de Frag4 | `>> 8` brut (actuel) ; fenêtre air → 0 fixée sur le CT | Fenêtre fixée sur le CT seul, gelée avant les étiquettes |
 
-## Après la phase 15
+## Après la phase 16
+
+T2 est faite ([rapport](PHASE16_REAL_PITCH.md)) : le pas réel de la PPM n'améliore pas le classement (−0,009 [−0,022 ; +0,004] sur 37 ROI). On garde le pas nominal. Le travail sur le checkpoint A et les fragments EduceLab est mis en pause au profit de T10 (Progress Prize). Si l'axe encre reprend :
+
+1. Viser un volume admissible aux prix plutôt que les fragments EduceLab.
+2. Comparer l'inférence 3D native depuis le CT avec la voie 2,5D sur les mêmes régions.
+3. Bootstrap par ROI ou par composante d'encre dans tout nouveau protocole (déjà appliqué en phase 16).
+
+## Après la phase 15 (suite faite en phase 16)
 
 L'audit a posteriori est fait ([rapport](PHASE15_AUDIT.md)). H3 résiste au retrait de chaque ROI, et les ROI presque parfaites ne sont pas des artefacts de bord. Frag5 repose surtout sur une ROI. Prochaines étapes :
 
