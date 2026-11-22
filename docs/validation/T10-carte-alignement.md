@@ -232,7 +232,53 @@ mesure.
 - Interdit après les mesures : changer un seuil, un paramètre (fiabilité ≥ 3, lissage 0,5,
   plafond de 50 µm) ou l'échantillon, ou ne rapporter qu'une partie des segments.
 
+### Résultats (22 novembre 2026)
+
+**Verdict sur B : 1a, 2a et 2b-1 tenus ; 2b-2 échoue sur 4 segments sur 8.** Les critères et
+les paramètres restent ceux figés ci-dessus. Données :
+[B](t10-validation-bloc-B.json) · [A, tirage de la graine 7](t10-validation-bloc-A.json) ·
+[A, trois segments d'origine](t10-validation-bloc-A-origine.json).
+
+**Glissement de l'échantillon A.** Le catalogue a grossi depuis le 18 novembre : la graine 7 a
+tiré trois autres segments à environ 8 µm. Les trois segments d'origine ont été relancés à part
+(`SEGMENTS=…`), si bien que A est rapporté tel qu'il est défini. B ne recoupe ni les uns ni les
+autres.
+
+| Échantillon · segment | Volume | 1a | 2a, dérive (µm) avant → après | 2b-2, fiabilité des tuiles recalées | Marche p95 / max (µm) |
+|---|---|---:|---|---|---|
+| B · `20250825181922` | `20250820143440` | 99 % | 9,2 → 4,3 | 6,093 → 6,136 | 1,0 / 36,6 |
+| B · `20250919140325` | `20250521125136` | 98 % | 13,5 → 5,2 | 4,446 → **4,350** | 1,6 / 39,7 |
+| B · `20250502185519` | `20250521151220` | — (1 tuile fiable) | — | 3,648 → **3,600** (1 tuile) | 0,0 / 5,4 |
+| B · `20260226121302` | `20260309142202` | 89 % | 17,0 → 4,6 | 4,121 → 4,148 | 1,6 / 47,8 |
+| B · `20260302000001` | `20260319133554` | 93 % | 17,4 → 4,6 | 6,436 → **6,360** | 1,7 / 49,6 |
+| B · `20250904233748` | `20260304131111` | 89 % | 18,3 → 3,8 | 3,967 → 4,033 | 1,2 / 39,6 |
+| B · `20260302000001` | `20260413113053` | 100 % | 10,8 → 3,8 | 8,374 → **8,240** | 0,8 / 27,1 |
+| B · `20250929040153` | `20260521123630` | 98 % | 13,4 → 4,6 | 4,462 → 4,546 | 1,3 / 47,0 |
+| A · `20260226110425` | `20250804134230` | 100 % | 14,5 → 5,8 | 4,470 → 4,599 | 1,9 / 45,7 |
+| A · `20250919125754` | `20250521125136` | 98 % | 10,4 → 3,9 | 4,140 → **4,135** | 1,3 / 42,0 |
+| A · `20250502184658` | `20250521151220` | — | — | aucune tuile recalée | 0 / 0 |
+| A · `20260220214732` | `20260319124803` | 89 % | 16,2 → 4,9 | 3,858 → 3,877 | 1,0 / 40,6 |
+| A · `20260226123353` | `20260309142202` | 93 % | 13,6 → 3,6 | 4,070 → 4,107 | 1,0 / 38,0 |
+| A · `20250825181928` | `20250526151718` | 97 % | 8,9 → 4,5 | 5,319 → 5,373 | 1,3 / 34,2 |
+| A · `20260226113324` | `20260521123630` | 92 % | 18,4 → 5,4 | 4,866 → **4,855** | 1,1 / 48,1 |
+| A · `20260316000000` | `20260413113053` | 98 % | 11,9 → 3,6 | 8,170 → 8,212 | 0,7 / 31,2 |
+
+- **2b-1 tient partout** : sur les 16 segments, les points des tuiles non recalées sont
+  identiques au bit près.
+- **2b-2** : 4 baisses sur 8 dans B (−0,05 à −0,13) et 2 sur 7 dans A (−0,005 et −0,011). Les
+  baisses sont faibles devant les médianes (3,6 à 8,4), mais le critère « ne baisse pas »
+  n'est pas tenu.
+- **Ce que le recalage apporte** : la dérive médiane des tuiles fiables des segments publiés
+  recalés baisse sur chaque segment mesurable, par exemple de 11,1 à 5,0 µm ou de 13,7 à 5,4 µm
+  (champ `drift_abs_median_*` des JSON).
+- **La marche** reste sous 2 µm au p95, mais atteint 50 µm au maximum, le plafond.
+- Le segment `20260302000001` figure deux fois dans B, sur deux volumes : il s'agit
+  probablement de la même surface, donc pas de deux mesures indépendantes.
+- Hypothèse non testée pour les baisses : au bord d'une tuile, une marche de 40 à 50 µm incline
+  les normales recalculées et brouille le profil. La tester demanderait un nouveau correctif,
+  puis un échantillon neuf.
+
 ## 8. Reste à faire
 
-- Campagne A et B avec le correctif, puis rapport.
+- Décider des suites à donner à l'échec de 2b-2 avant la candidature.
 - L'écart de la section 4 reste : les sauts de feuille ne sont pas revendiqués dans la candidature.

@@ -4,7 +4,8 @@ Usage: python T10_validation.py OUTPUT_DIR
 
 Environment: SEED (7), PER_CLASS (3), MIN_KB / MAX_KB (size of x.tif, to keep segments of a few
 hundred tiles), DRIFT_UM (40: ramp imposed across the columns), TILE (8), EXCLUDE (comma-separated
-segment ids never drawn, e.g. those of an earlier sample).
+segment ids never drawn, e.g. those of an earlier sample), SEGMENTS (segment:volume,... run
+exactly these segments instead of drawing).
 
 For each drawn segment (S3 volumes only, three resolution classes):
 
@@ -49,6 +50,8 @@ MIN_KB, MAX_KB = int(os.environ.get("MIN_KB", "40")), int(os.environ.get("MAX_KB
 DRIFT_UM = float(os.environ.get("DRIFT_UM", "40"))
 TILE = int(os.environ.get("TILE", "8"))
 EXCLUDE = set(filter(None, os.environ.get("EXCLUDE", "").split(",")))
+# SEGMENTS=segment:volume,... replays a fixed sample: the catalogue grows, so a seed alone does not.
+SEGMENTS = {tuple(item.split(":")) for item in os.environ.get("SEGMENTS", "").split(",") if item}
 
 out = Path(sys.argv[1])
 out.mkdir(parents=True, exist_ok=True)
@@ -73,6 +76,9 @@ for label, (low, high) in CLASSES.items():
     candidates = [s for s in catalog.segments if not s.superseded
                   and s.segment_id not in EXCLUDE and s.target_volume_id in volumes
                   and low <= (volumes[s.target_volume_id].pixel_size_um or 0) <= high]
+    if SEGMENTS:  # Explicit list: no draw, no size filter.
+        drawn += [(label, s) for s in candidates if (s.segment_id, s.target_volume_id) in SEGMENTS]
+        continue
     rng.shuffle(candidates)
     picked = []
     for segment in candidates:
