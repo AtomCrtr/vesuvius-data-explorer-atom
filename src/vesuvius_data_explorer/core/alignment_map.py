@@ -501,8 +501,10 @@ def field_on_grid(field: np.ndarray, amap: AlignmentMap, grid_shape,
     """Per-tile field interpolated onto the full grid of the tifxyz files.
 
     ``moving`` marks the tiles whose value counts (default: tiles with a non-zero value).
-    Normalised bilinear interpolation uses only those tiles' values. The correction tapers
-    over half a tile towards fixed points, entirely on the moving side of each boundary.
+    Normalised bilinear interpolation uses only those tiles' values. Every point of a moving
+    tile gets its full value and every point of a fixed tile stays at 0, so the mesh steps at
+    the boundary. A taper inside moving tiles would blur their profile and halve the correction
+    of the isolated reliable tiles, which are most of them (T10, criterion 2b).
     """
     from scipy import ndimage
 
@@ -519,11 +521,7 @@ def field_on_grid(field: np.ndarray, amap: AlignmentMap, grid_shape,
     coords /= span
     values = ndimage.map_coordinates(np.where(moving, field, 0.0), coords, order=1, mode="nearest")
     share = ndimage.map_coordinates(moving.astype(float), coords, order=1, mode="nearest")
-    out = np.divide(values, share, out=np.zeros_like(values), where=movable_points & (share > 0))
-    if not movable_points.all():
-        distance = ndimage.distance_transform_cdt(movable_points, metric="chessboard")
-        out *= np.minimum(distance / (span / 2), 1)
-    return out
+    return np.divide(values, share, out=np.zeros_like(values), where=movable_points & (share > 0))
 
 
 def snap_points(points: np.ndarray, field_grid: np.ndarray) -> np.ndarray:

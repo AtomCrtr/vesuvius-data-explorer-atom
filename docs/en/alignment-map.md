@@ -55,8 +55,9 @@ tiles with weak or missing measurements. Selecting a review region centres the s
    this is not an error to correct.
 5. **Regions to review**: reliable drift beyond 30 µm, and measured tiles without a reliable sheet.
 6. **Snapping**: weighted least squares with a smoothness term on the reliable tiles only, capped
-   at 50 µm. Every point of an excluded tile stays fixed. The displacement tapers on the moving
-   side of each boundary. `--cible` sets the target offset (µm) to correct a global shift too.
+   at 50 µm. Every point of an excluded tile stays fixed and every point of a snapped tile moves
+   by its full value, so the mesh steps at the boundary (at most the 50 µm cap). `--cible` sets
+   the target offset (µm) to correct a global shift too.
 
 ## Initial validation (8 published segments, 3 resolutions)
 

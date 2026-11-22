@@ -190,9 +190,49 @@ Données PHerc0814 par Vesuvius Challenge, *CT Scans of Herculaneum Papyri*.
 [Citation des données](https://github.com/ScrollPrize/open-data#support-and-citation) ·
 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)
 
-## 7. Reste à faire
+## 7. Correctif de la transition et critère 2b révisé
 
-- Décision du PO sur l'écart de la section 4.
-- Décision sur le critère de fiabilité avant la candidature, au vu des baisses mesurées avec
-  le gel strict.
-- Seuils provisoires à confirmer : fiabilité ≥ 3, lissage 0,5, plafond de 50 µm.
+### Diagnostic (22 novembre 2026)
+
+Les tuiles recalées sont les tuiles fiables, souvent isolées : 101 sur 105, 248 sur 258 et 52
+sur 52 touchent une tuile gelée sur les trois segments examinés. Avec le gel strict, la
+correction s'atténuait sur une demi-tuile du côté recalé. Une tuile isolée ne recevait donc son
+déplacement complet qu'au centre, soit environ 47 % en moyenne, avec un gradient interne qui
+brouille son profil moyen. Variation de la fiabilité des tuiles recalées en bordure, et dérive
+résiduelle médiane des tuiles fiables, selon la largeur de transition :
+
+| Segment | Transition sur 4 points (gel strict) | 2 points | 1 point (en bloc) |
+|---|---|---|---|
+| `20260226110425` | −0,060 · 6,4 µm | +0,085 · 5,7 µm | +0,120 · 6,0 µm |
+| `20260226113324` | −0,165 · 10,3 µm | −0,169 · 7,5 µm | −0,088 · 6,3 µm |
+| `20260226123353` | −0,116 · 6,8 µm | −0,069 · 4,3 µm | +0,019 · 3,1 µm |
+
+Les rares tuiles recalées entourées de tuiles recalées gagnent nettement (+0,39 et +0,17).
+L'ancien critère 2b, la médiane sur **toutes** les tuiles, tombe près du seuil de 3 qui définit
+une tuile libre : il dépend surtout de tuiles gelées dont la fiabilité varie de quelques
+centièmes quand les normales sont recalculées au bord des zones déplacées.
+
+Décision du PO : chaque tuile recalée est déplacée en bloc, ce qui laisse une marche à la
+frontière, au plus égale au plafond de 50 µm. Le critère 2b est révisé avant toute nouvelle
+mesure.
+
+### Critères figés avant la campagne
+
+- **1a** (inchangé) : rampe retrouvée à 2 pas près sur au moins 80 % des tuiles fiables.
+- **2a** (inchangé) : après recalage de la rampe, dérive médiane sous 1 pas, sur chaque segment
+  mesurable.
+- **2b révisé**, sur chaque segment publié recalé :
+  1. les points des tuiles non recalées sont identiques au bit près ;
+  2. la fiabilité médiane des tuiles recalées ne baisse pas.
+- Rapportés sans seuil : marche entre points voisins (p95 et maximum, en µm), médiane de
+  toutes les tuiles (ancien 2b).
+- **Échantillons.** A : les 8 segments de la graine 7. Il n'est plus aveugle, car trois de ses
+  segments ont servi au diagnostic. B : 8 segments neufs, graine 8, en excluant ceux de A. Les
+  critères se jugent sur B, et A est rapporté.
+- Interdit après les mesures : changer un seuil, un paramètre (fiabilité ≥ 3, lissage 0,5,
+  plafond de 50 µm) ou l'échantillon, ou ne rapporter qu'une partie des segments.
+
+## 8. Reste à faire
+
+- Campagne A et B avec le correctif, puis rapport.
+- L'écart de la section 4 reste : les sauts de feuille ne sont pas revendiqués dans la candidature.
