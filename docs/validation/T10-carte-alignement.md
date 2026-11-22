@@ -282,7 +282,7 @@ autres.
 
 - Décision du PO (22 novembre 2026) : candidater en novembre en déclarant l'échec de 2b-2, puis
   tester en décembre l'hypothèse des marches sur un échantillon neuf.
-- Section 9 : preuve sur dérive naturelle, puis dossier en anglais.
+- Section 9 : preuve sur dérive naturelle (faite). [Réponse au formulaire de novembre](T10-progress-prize-2026-11-en.md), à soumettre après fusion sur `main`.
 - L'écart de la section 4 reste : les sauts de feuille ne sont pas revendiqués dans la candidature.
 
 ## 9. Dérive naturelle sur PHerc0814, règle figée avant calcul
@@ -303,3 +303,30 @@ candidature :
 - **Figure** : la tuile de la population à la plus forte dérive avant recalage, choisie sans voir
   le résultat. Deux coupes CT et le rendu aplati des 3 × 3 tuiles autour, avant et après.
 - Interdit après calcul : changer de segments, de seuil, de réglages ou de tuile illustrée.
+
+### Résultats (22 novembre 2026)
+
+19 segments sur 19 traités, sans erreur, et tous ont des tuiles dans la population.
+[Données](t10-derive-naturelle.json)
+
+| | Avant | Après recalage |
+|---|---:|---:|
+| Tuiles recalées à \|dérive\| > 25 µm | 1 648 | — |
+| \|Dérive\| médiane (quartiles) | 31,3 µm (27,8–37,6) | 14,4 µm (7,7–22,0) |
+| Part dont la dérive diminue | — | 94,7 % |
+| Part revenue sous 25 µm | — | 82 % |
+| Part qui dépasse la cible (changement de signe) | — | 7 % |
+| Fiabilité médiane | 4,60 | 4,50 |
+
+Tuile illustrée par la règle : segment `20250925204843`, tuile (20, 57), dérive −49,9 → −32,5 µm.
+
+![Coupes CT de la tuile (20, 57)](t10-coupes-20250925204843.png)
+
+- Le tracé corrigé se déplace d'environ 18 µm vers la bande claire et reste sur la même feuille.
+- La coupe du bas montre la marche à la frontière de tuile (colonnes 159-160) : les points de la
+  tuile voisine sont gelés.
+- Rendu aplati des 3 × 3 tuiles : les fibres restent visibles, sans gain net de netteté.
+  [Rendu](t10-rendu-20250925204843.png)
+
+Données PHerc0814 par Vesuvius Challenge, *CT Scans of Herculaneum Papyri*,
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
