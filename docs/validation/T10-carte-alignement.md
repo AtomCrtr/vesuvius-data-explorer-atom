@@ -280,5 +280,26 @@ autres.
 
 ## 8. Reste à faire
 
-- Décider des suites à donner à l'échec de 2b-2 avant la candidature.
+- Décision du PO (22 novembre 2026) : candidater en novembre en déclarant l'échec de 2b-2, puis
+  tester en décembre l'hypothèse des marches sur un échantillon neuf.
+- Section 9 : preuve sur dérive naturelle, puis dossier en anglais.
 - L'écart de la section 4 reste : les sauts de feuille ne sont pas revendiqués dans la candidature.
+
+## 9. Dérive naturelle sur PHerc0814, règle figée avant calcul
+
+L'exemple de la section 6 (tuile (5, 17)) avait été choisi après inspection. Cette règle,
+commitée avec son [script](T10_derive_naturelle.py) avant toute exécution, le remplace pour la
+candidature :
+
+- **Segments** : tous les segments publiés non remplacés du volume `20250804134230` (PHerc0814,
+  9,362 µm, codec standard).
+- **Traitement** : carte, recalage et nouvelle carte avec les réglages par défaut de
+  `vesuvius-qc carte --recaler` (tuile 8, fiabilité ≥ 3, lissage 0,5, plafond 50 µm, cible =
+  décalage habituel du segment).
+- **Population** : les tuiles recalées dont la dérive dépasse 25 µm en valeur absolue avant
+  recalage. La dérive après recalage est mesurée par rapport à la référence de la carte d'avant.
+- **Rapporté** : nombre de tuiles, part dont la dérive diminue, médianes avant et après,
+  fiabilité avant et après. Aucun seuil de réussite : c'est une description.
+- **Figure** : la tuile de la population à la plus forte dérive avant recalage, choisie sans voir
+  le résultat. Deux coupes CT et le rendu aplati des 3 × 3 tuiles autour, avant et après.
+- Interdit après calcul : changer de segments, de seuil, de réglages ou de tuile illustrée.
