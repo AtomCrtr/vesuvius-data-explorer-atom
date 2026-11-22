@@ -46,7 +46,8 @@ FILES = {"Frag4": ("PHercParis1Fr39_54keV_surface_volume/{:02d}.tif", "extras/PH
          "Frag6": ("surface_volume/{:02d}.tif", None, "inklabels.png")}
 # A protocol is accepted only with the SHA-256 it was committed with (phase 13: c9f6398).
 PROTOCOL_SHA = {"phase13-protocol.json": "d5de92ab19da707721784a3c3b8ee51ef6c5332bf1434e1711c17aad9b531017",
-                "phase14-protocol.json": "ccfd56c746815a33faa0889eb442aec1e37d99cfc62dcc0a460a662d3f56d94b"}
+                "phase14-protocol.json": "ccfd56c746815a33faa0889eb442aec1e37d99cfc62dcc0a460a662d3f56d94b",
+                "phase16-protocol.json": "49c50171d06ebee07d0050984a849a220af7c983a30d8b299c0b834f12815582"}
 FRAG4_LABELS_SHA = "a6f39eb59422a4507313ec912185eb92b44e3dd9e2e8e6a97e7b571462ce18fc"
 AIR_ENDS = {"low": range(0, 13), "high": range(52, 65)}
 SCORES = ("Z_out", "Z_in", "B1", "B2")
