@@ -1,0 +1,1366 @@
+{
+  "PHerc0343P": {
+    "343P_inklabels.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/343P_inklabels.png",
+      "kind": "metadata_only",
+      "bytes": 988746
+    },
+    "343P_ir.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/343P_ir.png",
+      "kind": "metadata_only",
+      "bytes": 13605950
+    },
+    "343P_mask.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/343P_mask.png",
+      "kind": "mask",
+      "bytes": 799920,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 6
+    },
+    "layers/00.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/00.png",
+      "kind": "layer",
+      "bytes": 27077800,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/01.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/01.png",
+      "kind": "layer",
+      "bytes": 27221078,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/02.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/02.png",
+      "kind": "layer",
+      "bytes": 27358257,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/03.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/03.png",
+      "kind": "layer",
+      "bytes": 27484463,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/04.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/04.png",
+      "kind": "layer",
+      "bytes": 27605751,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/05.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/05.png",
+      "kind": "layer",
+      "bytes": 27724286,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/06.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/06.png",
+      "kind": "layer",
+      "bytes": 27831168,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/07.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/07.png",
+      "kind": "layer",
+      "bytes": 27932174,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/08.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/08.png",
+      "kind": "layer",
+      "bytes": 28028586,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/09.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/09.png",
+      "kind": "layer",
+      "bytes": 28129986,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/10.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/10.png",
+      "kind": "layer",
+      "bytes": 28229357,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/11.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/11.png",
+      "kind": "layer",
+      "bytes": 28326861,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/12.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/12.png",
+      "kind": "layer",
+      "bytes": 28425696,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/13.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/13.png",
+      "kind": "layer",
+      "bytes": 28528869,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/14.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/14.png",
+      "kind": "layer",
+      "bytes": 28634511,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/15.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/15.png",
+      "kind": "layer",
+      "bytes": 28743580,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/16.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/16.png",
+      "kind": "layer",
+      "bytes": 28850265,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/17.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/17.png",
+      "kind": "layer",
+      "bytes": 28951057,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/18.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/18.png",
+      "kind": "layer",
+      "bytes": 29053967,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/19.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/19.png",
+      "kind": "layer",
+      "bytes": 29154527,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/20.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/20.png",
+      "kind": "layer",
+      "bytes": 29257218,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/21.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/21.png",
+      "kind": "layer",
+      "bytes": 29360931,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/22.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/22.png",
+      "kind": "layer",
+      "bytes": 29467259,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/23.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/23.png",
+      "kind": "layer",
+      "bytes": 29573083,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/24.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/24.png",
+      "kind": "layer",
+      "bytes": 29681640,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/25.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/25.png",
+      "kind": "layer",
+      "bytes": 29786792,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/26.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/26.png",
+      "kind": "layer",
+      "bytes": 29890493,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/27.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/27.png",
+      "kind": "layer",
+      "bytes": 29994133,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/28.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/28.png",
+      "kind": "layer",
+      "bytes": 30097281,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/29.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/29.png",
+      "kind": "layer",
+      "bytes": 30196302,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/30.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/30.png",
+      "kind": "layer",
+      "bytes": 30290424,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/31.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/31.png",
+      "kind": "layer",
+      "bytes": 30378308,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/32.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/32.png",
+      "kind": "layer",
+      "bytes": 30459359,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/33.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/33.png",
+      "kind": "layer",
+      "bytes": 30532837,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/34.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/34.png",
+      "kind": "layer",
+      "bytes": 30599681,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/35.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/35.png",
+      "kind": "layer",
+      "bytes": 30663681,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/36.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/36.png",
+      "kind": "layer",
+      "bytes": 30716098,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/37.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/37.png",
+      "kind": "layer",
+      "bytes": 30759598,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/38.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/38.png",
+      "kind": "layer",
+      "bytes": 30798847,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/39.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/39.png",
+      "kind": "layer",
+      "bytes": 30832277,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/40.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/40.png",
+      "kind": "layer",
+      "bytes": 30865943,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/41.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/41.png",
+      "kind": "layer",
+      "bytes": 30897925,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/42.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/42.png",
+      "kind": "layer",
+      "bytes": 30927940,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/43.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/43.png",
+      "kind": "layer",
+      "bytes": 30956322,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/44.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/44.png",
+      "kind": "layer",
+      "bytes": 30981937,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/45.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/45.png",
+      "kind": "layer",
+      "bytes": 31004860,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/46.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/46.png",
+      "kind": "layer",
+      "bytes": 31024295,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/47.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/47.png",
+      "kind": "layer",
+      "bytes": 31039372,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/48.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/48.png",
+      "kind": "layer",
+      "bytes": 31052262,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/49.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/49.png",
+      "kind": "layer",
+      "bytes": 31064838,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/50.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/50.png",
+      "kind": "layer",
+      "bytes": 31074702,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/51.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/51.png",
+      "kind": "layer",
+      "bytes": 31083805,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/52.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/52.png",
+      "kind": "layer",
+      "bytes": 31089689,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/53.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/53.png",
+      "kind": "layer",
+      "bytes": 31096976,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/54.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/54.png",
+      "kind": "layer",
+      "bytes": 31106495,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/55.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/55.png",
+      "kind": "layer",
+      "bytes": 31119154,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/56.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/56.png",
+      "kind": "layer",
+      "bytes": 31129985,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/57.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/57.png",
+      "kind": "layer",
+      "bytes": 31142390,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/58.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/58.png",
+      "kind": "layer",
+      "bytes": 31154008,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/59.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/59.png",
+      "kind": "layer",
+      "bytes": 31165294,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/60.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/60.png",
+      "kind": "layer",
+      "bytes": 31168796,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/61.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/61.png",
+      "kind": "layer",
+      "bytes": 31171828,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/62.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/62.png",
+      "kind": "layer",
+      "bytes": 31179339,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/63.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/63.png",
+      "kind": "layer",
+      "bytes": 31185146,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/64.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/64.png",
+      "kind": "layer",
+      "bytes": 31191530,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/65.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/layers/65.png",
+      "kind": "layer",
+      "bytes": 31195421,
+      "format": "PNG",
+      "width": 8416,
+      "height": 13924,
+      "bit_depth": 8,
+      "color_type": 0
+    }
+  },
+  "PHerc0500P2": {
+    "500P2_inklabels.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/500P2_inklabels.png",
+      "kind": "metadata_only",
+      "bytes": 3668079
+    },
+    "500P2_ir.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/500P2_ir.png",
+      "kind": "metadata_only",
+      "bytes": 52144204
+    },
+    "500P2_mask.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/500P2_mask.png",
+      "kind": "mask",
+      "bytes": 2095523,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 6
+    },
+    "layers/00.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/00.png",
+      "kind": "layer",
+      "bytes": 86883382,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/01.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/01.png",
+      "kind": "layer",
+      "bytes": 87074068,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/02.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/02.png",
+      "kind": "layer",
+      "bytes": 87290887,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/03.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/03.png",
+      "kind": "layer",
+      "bytes": 87537005,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/04.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/04.png",
+      "kind": "layer",
+      "bytes": 87814626,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/05.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/05.png",
+      "kind": "layer",
+      "bytes": 88133377,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/06.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/06.png",
+      "kind": "layer",
+      "bytes": 88497782,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/07.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/07.png",
+      "kind": "layer",
+      "bytes": 88904405,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/08.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/08.png",
+      "kind": "layer",
+      "bytes": 89359095,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/09.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/09.png",
+      "kind": "layer",
+      "bytes": 89851797,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/10.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/10.png",
+      "kind": "layer",
+      "bytes": 90388702,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/11.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/11.png",
+      "kind": "layer",
+      "bytes": 90959798,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/12.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/12.png",
+      "kind": "layer",
+      "bytes": 91555927,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/13.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/13.png",
+      "kind": "layer",
+      "bytes": 92187671,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/14.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/14.png",
+      "kind": "layer",
+      "bytes": 92838741,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/15.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/15.png",
+      "kind": "layer",
+      "bytes": 93517604,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/16.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/16.png",
+      "kind": "layer",
+      "bytes": 94220676,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/17.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/17.png",
+      "kind": "layer",
+      "bytes": 94934799,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/18.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/18.png",
+      "kind": "layer",
+      "bytes": 95660891,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/19.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/19.png",
+      "kind": "layer",
+      "bytes": 96391458,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/20.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/20.png",
+      "kind": "layer",
+      "bytes": 97111548,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/21.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/21.png",
+      "kind": "layer",
+      "bytes": 97797895,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/22.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/22.png",
+      "kind": "layer",
+      "bytes": 98447417,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/23.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/23.png",
+      "kind": "layer",
+      "bytes": 99048537,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/24.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/24.png",
+      "kind": "layer",
+      "bytes": 99594250,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/25.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/25.png",
+      "kind": "layer",
+      "bytes": 100084962,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/26.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/26.png",
+      "kind": "layer",
+      "bytes": 100514624,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/27.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/27.png",
+      "kind": "layer",
+      "bytes": 100877510,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/28.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/28.png",
+      "kind": "layer",
+      "bytes": 101171385,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/29.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/29.png",
+      "kind": "layer",
+      "bytes": 101403832,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/30.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/30.png",
+      "kind": "layer",
+      "bytes": 101590145,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/31.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/31.png",
+      "kind": "layer",
+      "bytes": 101718556,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/32.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/32.png",
+      "kind": "layer",
+      "bytes": 101801736,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/33.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/33.png",
+      "kind": "layer",
+      "bytes": 101851017,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/34.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/34.png",
+      "kind": "layer",
+      "bytes": 101870009,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/35.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/35.png",
+      "kind": "layer",
+      "bytes": 101850861,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/36.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/36.png",
+      "kind": "layer",
+      "bytes": 101806039,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/37.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/37.png",
+      "kind": "layer",
+      "bytes": 101735577,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/38.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/38.png",
+      "kind": "layer",
+      "bytes": 101647771,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/39.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/39.png",
+      "kind": "layer",
+      "bytes": 101544050,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/40.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/40.png",
+      "kind": "layer",
+      "bytes": 101429457,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/41.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/41.png",
+      "kind": "layer",
+      "bytes": 101311052,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/42.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/42.png",
+      "kind": "layer",
+      "bytes": 101204516,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/43.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/43.png",
+      "kind": "layer",
+      "bytes": 101095333,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/44.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/44.png",
+      "kind": "layer",
+      "bytes": 100997572,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/45.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/45.png",
+      "kind": "layer",
+      "bytes": 100906125,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/46.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/46.png",
+      "kind": "layer",
+      "bytes": 100833827,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/47.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/47.png",
+      "kind": "layer",
+      "bytes": 100776963,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/48.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/48.png",
+      "kind": "layer",
+      "bytes": 100740392,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/49.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/49.png",
+      "kind": "layer",
+      "bytes": 100717745,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/50.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/50.png",
+      "kind": "layer",
+      "bytes": 100703168,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/51.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/51.png",
+      "kind": "layer",
+      "bytes": 100689783,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/52.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/52.png",
+      "kind": "layer",
+      "bytes": 100694137,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/53.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/53.png",
+      "kind": "layer",
+      "bytes": 100713387,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/54.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/54.png",
+      "kind": "layer",
+      "bytes": 100740938,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/55.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/55.png",
+      "kind": "layer",
+      "bytes": 100778619,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/56.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/56.png",
+      "kind": "layer",
+      "bytes": 100823821,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/57.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/57.png",
+      "kind": "layer",
+      "bytes": 100871854,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/58.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/58.png",
+      "kind": "layer",
+      "bytes": 100922511,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/59.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/59.png",
+      "kind": "layer",
+      "bytes": 100981227,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/60.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/60.png",
+      "kind": "layer",
+      "bytes": 101042906,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/61.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/61.png",
+      "kind": "layer",
+      "bytes": 101111216,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/62.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/62.png",
+      "kind": "layer",
+      "bytes": 101185835,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/63.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/63.png",
+      "kind": "layer",
+      "bytes": 101255634,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/64.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/64.png",
+      "kind": "layer",
+      "bytes": 101327040,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    },
+    "layers/65.png": {
+      "url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/layers/65.png",
+      "kind": "layer",
+      "bytes": 101391608,
+      "format": "PNG",
+      "width": 14990,
+      "height": 27160,
+      "bit_depth": 8,
+      "color_type": 0
+    }
+  }
+}

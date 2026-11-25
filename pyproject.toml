@@ -53,7 +53,7 @@ napari = ["napari[all]>=0.5"]
 # Optional codec of recent Vesuvius Challenge volumes (zarr v3 shards); registers itself with zarr.
 # vc-delta3d is published for Python >= 3.12 only.
 vcdelta3d = ["vc-delta3d[zarr]>=0.3.2; python_version >= '3.12'"]
-dev = ["pytest>=8", "ruff>=0.7", "jsonschema>=4.23"]
+dev = ["pytest>=8", "ruff>=0.7", "jsonschema>=4.23", "pypng>=0.20220715.0"]
 
 [project.entry-points."napari.manifest"]
 vesuvius-data-explorer = "vesuvius_data_explorer.napari:napari.yaml"

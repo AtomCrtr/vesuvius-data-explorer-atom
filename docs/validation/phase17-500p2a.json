@@ -1,0 +1,25 @@
+{
+  "classification": "plausible",
+  "villa_commit": "c8f3ba45304f0a317a49a155929e30d294f201eb",
+  "training_directory": "2um_dataset/500p2a/layers/",
+  "training_indices_in_model_order": {"first": 62, "last": 1, "step": -1},
+  "public_directory": "PHerc0500P2/paths/2um_front_surface/layers/",
+  "public_indices_available": [0, 65],
+  "econlearn_indices_reversed": {"first": 63, "last": 2, "step": -1},
+  "public_width_height": [14990, 27160],
+  "training_native_width_height": null,
+  "pred_shape": {"height_width": [4608, 13824], "source": "padded validation mask of l5_0_crop"},
+  "physical_training_order": null,
+  "reason": "Le nom du fragment, le répertoire 2 µm et la disponibilité de la fenêtre 01–62 sont compatibles. Les chemins et fenêtres utilisés diffèrent. Le chargeur déduit les dimensions du premier plan. Aucun identifiant de rendu ni manifeste de fichiers commun dans le script épinglé.",
+  "source_lines": {
+    "training_id": "deprecated/ink-detection/train_resnet3d_3d_decoder.py#L202",
+    "default_layer_range": "deprecated/ink-detection/train_resnet3d_3d_decoder.py#L264-L270",
+    "reverse_flag": "deprecated/ink-detection/train_resnet3d_3d_decoder.py#L296-L297",
+    "call": "deprecated/ink-detection/train_resnet3d_3d_decoder.py#L386-L393",
+    "validation_shape": "deprecated/ink-detection/train_resnet3d_3d_decoder.py#L795-L806",
+    "forward": "deprecated/ink-detection/train_resnet3d_lib/legacy_segment_adapter.py#L42-L46",
+    "indices": "deprecated/ink-detection/train_resnet3d_lib/data_ops.py#L59-L74",
+    "path_and_dimensions": "deprecated/ink-detection/train_resnet3d_lib/data_ops.py#L82-L113",
+    "reverse_after_read": "deprecated/ink-detection/train_resnet3d_lib/data_ops.py#L159-L166"
+  }
+}
