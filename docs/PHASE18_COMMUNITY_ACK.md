@@ -14,7 +14,7 @@ Thanks, this is exactly what we needed, and no apology needed for the detour.
 
 **SHA-256.** Yes please, the per-layer SHA-256 would help. We will publish ours for the same files, so anyone can match them against a training copy if the maintainers can say whether `500p2a` was built from this render.
 
-Two small questions, so our rebuild matches yours:
+Two details we will infer from your counts anyway, so a confirmation is enough if you have it at hand. We will try a small, pre-declared set of choices and keep the one that reproduces your five counts:
 
-1. How did you go from the 2 µm canvas to the 8.64 µm grid, for the labels and the mask, and for the score map (nearest, area average, other)?
-2. Are the 10 px mask erosion and the infrared median computed on the 8.64 µm grid or on the canvas?
+1. How did you go from the ~2.215 µm canvas to the 8.64 µm grid, for the labels and the mask, and for the score map (nearest, area average, other)?
+2. Are the 10 px mask erosion and the infrared median computed on the 8.64 µm grid or on the canvas, and over which pixels is the median taken?

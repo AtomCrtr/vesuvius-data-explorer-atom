@@ -1,5 +1,14 @@
 # Passation à Claude Opus
 
+## Phase 18 · Les deux ordres sur PHerc0343P, supports N et E (en cours)
+
+Commit 1 fait : protocole figé, script et tests, avant tout téléchargement de phase 18. [Protocole](validation/phase18-protocol.json) · [Script](validation/phase18_eval.py) · [Prompt et reprise](tasks/T12-reproduction-343p-nos-negatifs.md) · [Audit de la mesure d'EconLearn](AUDIT_ECONLEARN_2026-11-25.md)
+
+- **Ce que la phase corrige.** L'écart 0,599 → 0,936 d'EconLearn mélange l'ordre et le pavage (pas de 256 contre pas de 128). Ici les deux ordres ont le même pavage. Le plan ordre × pas mesure l'effet du pavage à part.
+- **Supports.** N : négatifs au-delà de 301 µm (136 px de 2,215 µm). E : support d'EconLearn, choisi parmi 216 interprétations sur ses cinq effectifs publiés, avant toute ROC-AUC.
+- **Indépendance.** PHerc0343P n'est pas nommé dans `TRAIN_FRAGMENT_IDS`. Plusieurs identifiants sont opaques : indépendance probable, pas attestée.
+- **Suite.** Étapes 2 à 5 sur la machine du PO (inférence CUDA). Suite hors réseau : 327 réussis, 13 ignorés, 8 désélectionnés.
+
 ## Phase 17 · Orientation des piles frontales
 
 Sur PHerc0343P, la règle de texture situe l’air côté 02–14 (r = 5,83). Sur PHerc0500P2, elle désigne aussi les couches basses (r = 2,50). L’ordre inversé d’EconLearn correspond à `Z_out` sur PHerc0343P. La correspondance de la pile publique de PHerc0500P2 avec `500p2a` est plausible. Villa lit 01–62 avant inversion. Les licences de l’étape B sont documentées. L’étape B attend la réponse d’EconLearn sur son script et sa sélection des négatifs. [Rapport](PHASE17_ORIENTATION_2UM.md) · [Réponse publiée](PHASE17_COMMUNITY_REPLY.md)

@@ -1,0 +1,139 @@
+{
+  "phase": 18,
+  "title": "Depth order of checkpoint A on PHerc0343P with identical tiling, on our support (N) and on EconLearn's rebuilt support (E)",
+  "frozen_before": "any phase 18 download of layers, infrared photo or ink labels, and any phase 18 inference",
+  "not_blind": "EconLearn's ROC-AUCs (0.599 stored order at stride 256, 0.936 reversed at stride 128) and his selection rules were known when this protocol was written.",
+  "base_commit": "f2d2c936b57435bc33fa0507dd628f507e19da56",
+  "work_dir": "data/phase18",
+  "training_list_check": {
+    "source": "https://github.com/ScrollPrize/villa/blob/c8f3ba45304f0a317a49a155929e30d294f201eb/deprecated/ink-detection/train_resnet3d_3d_decoder.py#L200-L207",
+    "source_sha256": "3b36d25e479bf9980d1ca5945a4c8c7554b6f64f6c6679848b69a1e3d74e5b69",
+    "result": "No identifier names PHerc0343P (no '0343', '343p', '343_' or 'PHerc'). The only '343' substring is inside the timestamp 'auto_grown_20250918234353791'. Several identifiers are opaque ('-1', '658', 'l_2' ... 'w00'), so absence from training is probable, not attested.",
+    "consequence": "Report the phase as exploratory with probable, not attested, independence."
+  },
+  "fragment": {
+    "name": "PHerc0343P",
+    "base_url": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/",
+    "layers": "layers/{:02d}.png",
+    "mask": "343P_mask.png",
+    "infrared": "343P_ir.png",
+    "ink_labels": "343P_inklabels.png",
+    "canvas_shape_hw": [13924, 8416],
+    "canvas_um_per_px": 2.215,
+    "canvas_um_reason": "EconLearn's factor 0.2564 to his 8.64 um grid gives 8.64 x 0.2564 = 2.215 um, the resolution of checkpoint A's recipe; '2um' in the path is rounded. Stop if the package metadata says otherwise.",
+    "licence": "CC BY-NC 4.0 (https://dl.ash2txt.org/fragments/PHerc0343P/LICENSE.txt). Infrared photo, registration and tracing by the Vesuvius Challenge team. Only aggregate statistics are published."
+  },
+  "count_check_fragment": {
+    "name": "PHerc0500P2",
+    "base_url": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/",
+    "files": ["500P2_mask.png", "500P2_ir.png", "500P2_inklabels.png"],
+    "canvas_shape_hw": [27160, 14990],
+    "use": "Support E count search only (no layer, no inference, no score)."
+  },
+  "inputs": {
+    "primary_window": [2, 63],
+    "secondary_window": [1, 62],
+    "orders": {
+      "Z_out": "planes in descending layer number (63 -> 02, or 62 -> 01): papyrus -> air, by the phase 17 texture rule (air at layers 02-14, r = 5.83)",
+      "Z_in": "planes in ascending layer number (02 -> 63, or 01 -> 62)"
+    },
+    "intensity": "uint8 PNG as published, then the phase 6 rule: min(x, 200) / 200 (prepare_tile). No W2 window, no resampling.",
+    "padding": "The canvas is padded with zeros at the bottom and right to a multiple of 256 px so that both strides tile it exactly.",
+    "tiles_run": "A tile is run when it contains at least one pixel of the published mask (alpha > 0, phase 17 load_mask rule). Other tiles stay empty (weight 0, score NaN).",
+    "tile_px": 256,
+    "blend": "Hann window hanning(258)[1:-1] outer product, accumulated score x weight divided by accumulated weight (phase 11).",
+    "weights": "r152_3ddec_v2_l5_epoch13.ckpt, SHA-256 checked by the phase 6 constants, weights_only=True, FP32, deterministic cuDNN, TF32 off (phase 11 run code).",
+    "maps": {
+      "Z_out_s128": {"window": [2, 63], "order": "Z_out", "stride": 128},
+      "Z_in_s128": {"window": [2, 63], "order": "Z_in", "stride": 128},
+      "Z_out_s256": {"window": [2, 63], "order": "Z_out", "stride": 256},
+      "Z_in_s256": {"window": [2, 63], "order": "Z_in", "stride": 256},
+      "Z_out_s128_w0162": {"window": [1, 62], "order": "Z_out", "stride": 128},
+      "Z_in_s128_w0162": {"window": [1, 62], "order": "Z_in", "stride": 128}
+    },
+    "baselines": "B1 and B2 exactly as phase13_eval.baselines, on the window 02-63 stack in Z_out order (planes 30-31 and 26-35, i.e. layers 33-32 and 37-28), computed in row strips with a 32 px halo.",
+    "determinism": "The central run tile of each map is inferred again at the end of the run; the maximum absolute difference is reported."
+  },
+  "support_N": {
+    "grid": "canvas (2.215 um)",
+    "valid": "phase 11 rule: published mask eroded by 16 px (scipy binary_erosion, default cross, iterations=16), Hann weight of Z_out_s128 >= 25 % of its maximum, and Z_out_s128, Z_in_s128, B1, B2 all finite.",
+    "positives": "valid pixels whose ink label is > 127 after conversion to 8-bit grey.",
+    "tolerance_um": 301,
+    "negatives": "valid pixels with label <= 127 whose Euclidean distance to the nearest positive label pixel exceeds the tolerance (301 um = 135.9 px). The ring between 0 and the tolerance is excluded from both classes.",
+    "tolerance_sensitivity_um": [100, 0],
+    "rois": {"size_px": 2048, "origin": "canvas origin, row-major", "keep_if_mask_fraction_at_least": 0.5},
+    "inclusion": "A ROI enters the pooled N metrics if it has at least 1000 positives and 1000 negatives (MIN_CLASS) at the 301 um tolerance; excluded ROIs are counted and reported.",
+    "score_bins": "4096 bins on [0, 1] (phase 12 binned/ranking)."
+  },
+  "support_E": {
+    "source": "EconLearn, villa#2627, 25 November 2026: truth on a grid 0.2564 x the canvas (8.64 um per pixel); ink = traced letters shrunk by 2 px; negatives ('photo-clean') = pixels at least 12 px from any traced letter where the infrared photo is brighter than its median over the fragment; region = fragment mask shrunk by 10 px where the tiles produced a value; AUC after quantising the map to 256 levels between its 0.1 and 99.9 percentiles.",
+    "published_counts": {
+      "PHerc0343P": {"ink": 247538, "clean": 2021316, "valid": 4292390},
+      "PHerc0500P2": {"ink": 1004495, "clean": 8052681}
+    },
+    "scale": 0.2564,
+    "interpretations": {
+      "order": "itertools.product over the keys in this order; the index of a combination is its position in that product (0-based).",
+      "grid_size": ["round", "floor"],
+      "label_and_mask_reduction": ["nearest", "area_half", "any"],
+      "infrared_reduction": ["area", "nearest"],
+      "morphology_grid": ["grid", "canvas"],
+      "metric": ["euclidean", "taxicab", "chessboard"],
+      "median_population": ["region", "mask", "region_non_ink"]
+    },
+    "definitions": {
+      "grid_size": "(H_g, W_g) = round or floor of 0.2564 x (H, W). Cell i spans canvas rows floor(i H / H_g) to floor((i+1) H / H_g).",
+      "nearest": "the canvas pixel that contains the cell centre: floor((i + 0.5) H / H_g), clipped.",
+      "area_half": "cell mean of the binary image >= 0.5.",
+      "any": "cell mean > 0.",
+      "infrared_luma": "grey images as is; RGB(A) as 0.299 R + 0.587 G + 0.114 B in float; 16-bit as float.",
+      "erosion": "shrunk by r px = keep pixels whose inside distance to the background (pixels outside the image count as background) is > r, in the chosen metric. Euclidean = distance_transform_edt; taxicab and chessboard = distance_transform_cdt (equal to r iterations of binary_erosion with the cross and the 3x3 square).",
+      "distance_to_letters": "distance from a non-letter pixel to the nearest letter pixel in the chosen metric (outside the image is not a letter); 'at least 12 px' = distance >= 12.",
+      "morphology_grid_grid": "letters and mask are reduced to the grid first; radii 2, 12, 10 grid px.",
+      "morphology_grid_canvas": "morphology on the canvas with radii 2 / 0.2564, 12 / 0.2564 and 10 / 0.2564 canvas px; the binary results are then reduced with the chosen label reduction.",
+      "covered": "grid cells whose canvas area is entirely inside run tiles at stride 128 (tile rule above, computed from the mask alone).",
+      "region": "eroded mask (radius 10) AND covered.",
+      "ink": "eroded letters (radius 2) AND region.",
+      "median": "median of the reduced infrared luma over the chosen population: region; mask = reduced, uneroded mask; region_non_ink = region minus reduced uneroded letters.",
+      "clean": "region AND distance to letters >= 12 AND infrared luma > median."
+    },
+    "selection": "For each combination compute the five counts (PHerc0343P ink, clean, valid; PHerc0500P2 ink, clean) and their maximal relative error to the published counts. Keep the combination with the smallest error; ties go to the lower index.",
+    "reconstructed_if_max_relative_error_at_most": 0.02,
+    "otherwise": "Support E is 'approximate' and every E result is descriptive only.",
+    "published_in": "phase18-supports.json holds the counts and errors of all 216 combinations, written before any ROC-AUC.",
+    "score_reduction": "area mean of the finite canvas scores in the cell; a cell with less than 50 % finite pixels is NaN. Sensitivity: nearest canvas pixel.",
+    "evaluated_cells": "ink or clean cells where every compared score is finite.",
+    "quantisation": "per map, 256 levels: clip(floor((x - p0.1) / (p99.9 - p0.1) x 256), 0, 255), percentiles over the region cells with finite scores. Sensitivity: raw scores in 4096 bins on [0, 1].",
+    "without_infrared_filter": "sensitivity: clean = region AND distance to letters >= 12 AND not ink (no infrared condition)."
+  },
+  "hypotheses": {
+    "per_support": "Each hypothesis is tested separately on N (raw scores, tolerance 301 um) and on E (quantised scores); one verdict per support. On E the verdict is confirmatory only if E is reconstructed.",
+    "H1": "ROC-AUC(Z_out_s128) - ROC-AUC(Z_in_s128) > 0: lower bound of the 95 % interval above 0.",
+    "H2": "ROC-AUC(Z_out_s128) > 0.5: lower bound of the 95 % interval above 0.5.",
+    "H3": "ROC-AUC(Z_out_s128) - max(ROC-AUC(B1), ROC-AUC(B2)) > 0, the maximum taken per draw: lower bound above 0.",
+    "also_reported": "PR-AUC (average precision) and prevalence for every score."
+  },
+  "uncertainty": {
+    "primary": "Paired bootstrap over ink connected components (8-connectivity), phase 15 recommendation. Every evaluated positive belongs to its component; every evaluated negative is attached to the nearest component (Euclidean, on the evaluation grid; for N computed on 4 x 4 canvas blocks, each block taking the largest component label it contains, then broadcast back). Each draw resamples components with replacement; the same draws serve every score. 1999 draws, seed 218, percentile 95 % interval.",
+    "secondary": ["ROI bootstrap (N: the 2048 px ROIs; E: the ROI of each cell centre), 1999 draws, seed 219", "64 x 64 px block bootstrap on each support's own grid, 1999 draws, seed 220, known to be optimistic"]
+  },
+  "tiling_effect": "Descriptive, on E (quantised) and on N: ROC-AUC of Z_out_s128, Z_in_s128, Z_out_s256, Z_in_s256; order effect at each stride and stride effect at each order, each with its component-bootstrap interval.",
+  "placement_test": {
+    "status": "secondary, descriptive",
+    "support": "E (selected combination), quantised Z_out_s128 and Z_in_s128",
+    "rule": "2000 cyclic rolls of the reduced uneroded letters and of their distance map by (dy, dx) drawn uniformly on the grid, seed 1802, redrawn while sqrt(dy^2 + dx^2) < 64 grid px. Ink = rolled eroded letters AND region; clean = region AND rolled distance >= 12 AND infrared luma > median (same median as the selected combination) AND not rolled ink.",
+    "reported": "the rank of the true placement among the 2000, the maximum and the 99th percentile of the rolled ROC-AUCs, compared with EconLearn's best random 0.722."
+  },
+  "comparison_with_EconLearn": "Descriptive only: our E ROC-AUC of Z_out_s128 against 0.936 and of Z_in_s256 against 0.599. Supports, rounding and seeds may differ; a gap proves no error on either side.",
+  "secondary_window": "Window 01-62 maps on N and E: estimates and the order difference with its component interval, no decision.",
+  "steps": [
+    "1. Commit this protocol, phase18_eval.py and tests/test_phase18.py. No phase 18 download.",
+    "2. --prepare (layers 01-63 and mask only, SHA-256 of each file), --run on CUDA, --baselines, --hash: commit phase18-prepare.json and phase18-scores.json (SHA-256 of every map, label-free statistics). Maps stay outside Git. Commit message: cartes de scores hachées avant ouverture des étiquettes.",
+    "3. --supports: download the PHerc0343P infrared and labels and the three PHerc0500P2 files, record SHA-256, write phase18-supports.json (N counts, all 216 E combinations, selection). No ROC-AUC. Refuses to run before phase18-scores.json exists and matches the maps.",
+    "4. --report: phase18-eval.json. Refuses any map whose SHA-256 differs from phase18-scores.json.",
+    "5. Report PHASE18_REPRODUCTION_343P.md, handoff, PR description, draft follow-up."
+  ],
+  "budget_bytes": 6442450944,
+  "optional_step_C": "PHerc0500P2 (in A's training list as 500p2a): the same maps and supports, descriptive only, no hypothesis. Run only if the measured PHerc0343P GPU time projects to at most 6 h for PHerc0500P2; otherwise the PO decides.",
+  "frozen_rules": "No threshold, radius, tolerance, bin count, seed, draw count, ROI size, MIN_CLASS or selection rule changes after the labels are opened. A rule that proves inapplicable is reported as such."
+}
