@@ -1,0 +1,19 @@
+{
+  "base_commit": "7ea40135ebe2f3815e3bc0bf38c1e7d19841c7df",
+  "fragments": {
+    "PHerc0343P": "https://dl.ash2txt.org/fragments/PHerc0343P/paths/2um_front_surface/",
+    "PHerc0500P2": "https://dl.ash2txt.org/fragments/PHerc0500P2/paths/2um_front_surface/"
+  },
+  "low": [2, 14],
+  "high": [51, 63],
+  "primary": "Phase13 direction() on the eight deterministic phase11_geometry.select_patches(mask[::8,::8]) positions. Per-layer median of eight masked population SDs in centred 64 px squares. Arithmetic mean of the 13 medians per end.",
+  "mask": "Published RGBA mask. Use visible non-black pixels (luminance > 0 and alpha > 0). If RGB is constant and alpha varies, use alpha > 0. Stop on empty or fully uniform support.",
+  "minimum_ratio": 2,
+  "decision": "Lower mean SD identifies air only if larger/smaller >= 2. Two zero ends are indeterminate. One zero end and one positive end give infinite ratio.",
+  "secondary_seed": 1701,
+  "secondary_sampling": "Eight uniformly drawn distinct centres from the same 20-step 3x3 eroded 1/8 grid. Primary has no seed.",
+  "secondary_descriptors": "Over the primary masked patch pixels: pooled mean by layer, maximum-mean and maximum-median-SD layers among the 26 sampled (first tie); pooled fraction <= 2 DN per end on original uint8.",
+  "budget_bytes_per_fragment": 8589934592,
+  "budget_stop": "Include PNG header inventory (33 bytes per layer/mask), mask and layer body attempts. Reserve full file sizes before requests, including retries; stop before exceeding budget. No IR, photos or labels.",
+  "interpretation": "For PHerc0343P, low air makes reversed Z_out; high air makes reversed Z_in; indeterminate leaves both open. Physical training order for 500P2 also requires established render identity."
+}
