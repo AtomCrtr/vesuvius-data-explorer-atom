@@ -1,7 +1,7 @@
 # T12 · Phase 18 : les deux ordres sur PHerc0343P, sur notre support et sur celui d'EconLearn · prompt Codex
 
 - **Origine :** décision du PO du 25 novembre 2026 de ne pas attendre EconLearn. Le même matin, EconLearn a publié sur [villa#2627](https://github.com/ScrollPrize/villa/issues/2627) ses règles de sélection, ses effectifs et ses réglages d'inférence. La phase 18 évalue donc les deux ordres **sur deux supports** : le nôtre, dans la continuité des phases 12 à 16, et le sien, reconstruit à partir de ses règles.
-- **Statut :** à lancer.
+- **Statut :** commit 1 fait le 25 novembre 2026 (protocole figé, script, tests, sans aucun téléchargement de phase 18). Codex reprend à l'étape 2, voir « Reprise » ci-dessous. Le protocole figé fait foi là où il précise ou corrige ce prompt.
 - **Branche :** `feat/vesuvius-phase18`, créée depuis `main`.
 - **Lien avec `phase17b-protocol.json` :** ce projet non figé est remplacé par le support E de la phase 18. Ne modifie pas le fichier : le rapport de phase 18 dit qu'il est remplacé.
 
@@ -11,6 +11,37 @@
 2. **Son support est reconstructible.** Couches, IR, lettres tracées et masque partagent le même canevas. La vérité est construite sur une grille de 0,2564 × le canevas, soit 8,64 µm par pixel. Ses effectifs publiés permettent de vérifier la reconstruction avant tout calcul de ROC-AUC.
 3. **Son incertitude ne porte pas sur l'écart entre ordres.** Ses 2 000 placements aléatoires des lettres (meilleure ROC-AUC aléatoire 0,722) testent l'écart au hasard d'un seul passage. Notre bootstrap apparié par composante donne un intervalle sur la différence `Z_out` − `Z_in`.
 4. **Pour 500p2a, rien de nouveau sur le rendu.** Il a lu le paquet public tel qu'il est servi aujourd'hui (couches 02–63) et propose de publier le SHA-256 de chaque couche. On compare ses empreintes aux nôtres. Le lien avec le rendu d'entraînement reste une question pour les mainteneurs.
+
+## Reprise à l'étape 2 (le commit 1 est fait)
+
+Le commit 1 contient `docs/validation/phase18-protocol.json` (SHA-256 `1c115794…be26`), `docs/validation/phase18_eval.py` et `tests/test_phase18.py` (13 tests ; suite complète : 327 réussis, 13 ignorés, 8 désélectionnés). Les étapes `--hash`, `--supports` et `--report` ont tourné de bout en bout sur un fragment synthétique. La recherche y a retrouvé l'interprétation génératrice (écart 0 %). L'inférence CUDA n'a pas pu être exécutée hors de la machine du PO.
+
+Ce que le protocole fixe en plus du prompt :
+
+- PHerc0343P n'apparaît pas dans `TRAIN_FRAGMENT_IDS` du script Villa épinglé. Plusieurs identifiants sont opaques, donc l'indépendance est probable, pas attestée ;
+- le canevas est complété par des zéros jusqu'à un multiple de 256 px, pour que les deux pas le pavent exactement. Une tuile est calculée si elle contient au moins un pixel du masque ;
+- six cartes (`Z_out`/`Z_in` × pas de 128/256, plus la fenêtre 01–62 au pas de 128), et B1/B2 comme en phase 13 ;
+- 216 interprétations du support E, avec la métrique des érosions en plus ;
+- bootstrap : 1999 tirages, graine 218 (composantes), 219 (ROI), 220 (blocs). Placement : 2000 décalages cycliques, graine 1802, décalage d'au moins 64 px de grille.
+
+Commandes, depuis la racine, sur la machine du PO :
+
+```
+.venv/Scripts/python.exe docs/validation/phase18_eval.py --prepare
+data/phase6-cuda/Scripts/python.exe docs/validation/phase18_eval.py --run
+.venv/Scripts/python.exe docs/validation/phase18_eval.py --baselines
+.venv/Scripts/python.exe docs/validation/phase18_eval.py --hash        # puis commit 2
+.venv/Scripts/python.exe docs/validation/phase18_eval.py --supports    # puis commit 3
+.venv/Scripts/python.exe docs/validation/phase18_eval.py --report docs/validation/phase18-eval.json   # commit 4
+```
+
+Ressources à prévoir :
+
+- **Disque :** environ 1,8 Go de couches PNG et 7,4 Go pour la pile `layers01_63.npy`, plus environ 3,5 Go de cartes, le tout dans `data/phase18/`, hors Git.
+- **Mémoire :** `--supports` et `--report` dépassent 10 Go de RAM au pic (transformées de distance sur les 407 Mpx de PHerc0500P2).
+- **GPU :** temps inconnu. `run.json` note les secondes par carte ; si l'étape C est envisagée, extrapole à partir de ces temps.
+
+Si EconLearn publie ses SHA-256 de couches, enregistre-les dans un JSON `{nom de fichier: sha}` et passe-le avec `--econlearn-sha` à l'étape `--hash`.
 
 ---
 
@@ -78,10 +109,11 @@ Il ne précise ni la méthode de réduction vers la grille de 8,64 µm, ni sur q
 - **Réduction de l'IR :** moyenne de zone ou plus proche voisin.
 - **Grille des opérations morphologiques** (érosion de 2 px de l'encre, distance de 12 px, érosion de 10 px du masque) : grille de 8,64 µm, ou canevas avec les rayons multipliés par 1/0,2564, puis réduction.
 - **Population de la médiane IR :** région érodée, masque entier, ou région hors encre.
-- Cela fait au plus 2 × 3 × 2 × 2 × 3 = 72 combinaisons. Elles sont toutes énumérées dans le protocole, dans un ordre fixé.
-- **Critère de choix :** l'écart relatif maximal sur les **six effectifs publiés** (PHerc0343P : encre, propres, valides ; PHerc0500P2 : encre, propres). Retiens la combinaison qui minimise cet écart. Le support E est déclaré **reconstruit** si cet écart est ≤ 2 %, et **approché** sinon (résultats alors seulement descriptifs). En cas d'égalité, prends la première combinaison dans l'ordre fixé.
+- **Métrique des érosions et distances :** euclidienne, taxicab (érosion itérée en croix) ou échiquier (carré 3 × 3). Ajoutée au moment du gel : « shrunk by 2 px » ne dit pas laquelle.
+- Cela fait 2 × 3 × 2 × 2 × 3 × 3 = 216 combinaisons. Elles sont toutes énumérées dans le protocole, dans un ordre fixé.
+- **Critère de choix :** l'écart relatif maximal sur les **cinq effectifs publiés** (PHerc0343P : encre, propres, valides ; PHerc0500P2 : encre, propres). Retiens la combinaison qui minimise cet écart. Le support E est déclaré **reconstruit** si cet écart est ≤ 2 %, et **approché** sinon (résultats alors seulement descriptifs). En cas d'égalité, prends la première combinaison dans l'ordre fixé.
 - Pour PHerc0500P2, ce calcul n'utilise que `500P2_inklabels.png`, `500P2_ir.png` et `500P2_mask.png`, soit environ 58 Mo, sans aucune couche ni inférence.
-- Publie dans `phase18-supports.json` les effectifs des 72 combinaisons, pas seulement ceux de la combinaison retenue.
+- Publie dans `phase18-supports.json` les effectifs des 216 combinaisons, pas seulement ceux de la combinaison retenue.
 - Les effectifs se calculent **avant** toute ROC-AUC sur les cartes. Ils ne dépendent que des étiquettes, de l'IR et du masque, et pas des scores. La recherche ne peut donc pas favoriser un ordre.
 - Si EconLearn répond entre-temps sur ses choix, note sa réponse dans le protocole et vérifie qu'elle correspond à la combinaison retenue. Le critère de choix reste celui des effectifs.
 

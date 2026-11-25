@@ -30,7 +30,7 @@ Sources : ses commentaires sur [villa#2627](https://github.com/ScrollPrize/villa
 ## Nos propres faiblesses, à corriger dans T12
 
 1. **Le pixel du canevas mesure environ 2,215 µm, pas 2 µm.** Son facteur 0,2564 × 8,64 µm donne 2,215 µm, la résolution de la recette de A, et le corps du ticket parle déjà d'un rendu à 2,215 µm. Toute conversion de µm en pixels (la tolérance de 301 µm, par exemple) doit utiliser 2,215 µm. Le nom `2um_front_surface` est arrondi.
-2. **L'interprétation principale et le repli de T12 étaient trop rigides.** Si les deux échouaient, le support E devenait « approché ». Ses effectifs suffisent pourtant à trancher. On a six contraintes en tout (encre, propres et valides sur PHerc0343P ; encre et propres sur PHerc0500P2). Les effectifs ne dépendent que des étiquettes, de l'IR et du masque, et pas des cartes de scores, donc les chercher ne biaise aucune ROC-AUC. Les fichiers de PHerc0500P2 nécessaires pèsent environ 58 Mo, sans aucune couche.
+2. **L'interprétation principale et le repli de T12 étaient trop rigides.** Si les deux échouaient, le support E devenait « approché ». Ses effectifs suffisent pourtant à trancher. On a cinq contraintes en tout (encre, propres et valides sur PHerc0343P ; encre et propres sur PHerc0500P2, dont il ne donne pas les pixels valides). Les effectifs ne dépendent que des étiquettes, de l'IR et du masque, et pas des cartes de scores, donc les chercher ne biaise aucune ROC-AUC. Les fichiers de PHerc0500P2 nécessaires pèsent environ 58 Mo, sans aucune couche.
 3. **Les effectifs publiés sont cohérents avec une grille de 8,64 µm.** Sur le masque de 8416 × 13 924 px, la grille réduite fait 2158 × 3570 px. Ses 4 292 390 pixels valides en couvrent 56 %. Encre et propres représentent 53 % des valides, ce qui va avec le choix des pixels plus clairs que la médiane, calculée sur la région.
 4. **T = 301 µm avait été fixé pour l'erreur de recalage de Frag4.** Sur un canevas commun, c'est très prudent : on écarte presque tous les négatifs difficiles proches des lettres. On le garde pour la continuité avec les phases 12 à 16, avec les sensibilités 100 µm et 0. Le rapport doit le dire.
 5. **Notre décompte « 5 sur 6 » inclut Frag1 et Frag3,** fragments du concours Kaggle de 2023 dont l'absence de l'ascendance de A n'est pas attestée.
@@ -40,7 +40,7 @@ Sources : ses commentaires sur [villa#2627](https://github.com/ScrollPrize/villa
 | Manque | Réponse de notre côté | Où |
 | --- | --- | --- |
 | Effet du pavage | Plan ordre × pas, mêmes cartes pour les deux ordres | T12, section 4.1 (déjà prévu) |
-| Détails de reconstruction | Recherche dans un ensemble fini d'interprétations déclarées d'avance, choisie sur ses six effectifs, avant toute ROC-AUC | T12, section 4.3 (mis à jour) |
+| Détails de reconstruction | Recherche dans un ensemble fini d'interprétations déclarées d'avance, choisie sur ses cinq effectifs, avant toute ROC-AUC | T12, section 4.3 ; protocole figé de la phase 18 (216 interprétations) |
 | Facilité de ses négatifs | Sensibilité « E sans filtre IR » et support N | T12, section 4.4 (ajouté) |
 | Intervalle sur la différence | Bootstrap apparié par composante d'encre, avec son test de placement en complément | T12, section 4.4 (déjà prévu) |
 | Taille du pixel | 2,215 µm, vérifiée par la cohérence avec son facteur 0,2564 | T12, section 4.1 (ajouté) |
