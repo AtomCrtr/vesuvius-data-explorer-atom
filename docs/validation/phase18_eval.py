@@ -87,19 +87,23 @@ def fetch(url, path, budget):
     return path
 
 
-def load_grey(path):
-    """Ink labels as booleans (> 127 in 8-bit grey), the phase 13 rule."""
+def open_image(path):
+    """Open a published image; PHerc0500P2 files (407 Mpx) exceed PIL's decompression-bomb limit."""
     from PIL import Image
 
-    with Image.open(path) as image:
+    Image.MAX_IMAGE_PIXELS = None  # Same choice as phases 15 and 16 for published label images.
+    return Image.open(path)
+
+
+def load_grey(path):
+    """Ink labels as booleans (> 127 in 8-bit grey), the phase 13 rule."""
+    with open_image(path) as image:
         return np.asarray(image.convert("L")) > 127
 
 
 def load_luma(path):
     """Infrared as float luma: grey as is, RGB(A) 0.299 R + 0.587 G + 0.114 B, 16-bit as float."""
-    from PIL import Image
-
-    with Image.open(path) as image:
+    with open_image(path) as image:
         if image.mode in ("RGB", "RGBA"):
             rgb = np.asarray(image.convert("RGB"))
             return (0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2]).astype(np.float32)
@@ -109,6 +113,7 @@ def load_luma(path):
 def load_mask(path):
     from phase17_orientation import load_mask as phase17_mask
 
+    open_image(path).close()  # Lifts the PIL pixel limit before the phase 17 reader opens the file.
     return phase17_mask(path)
 
 
@@ -436,8 +441,6 @@ def work_dir(protocol):
 
 
 def prepare(protocol):
-    from PIL import Image
-
     work, frag = work_dir(protocol), protocol["fragment"]
     budget = [protocol["budget_bytes"]]
     files = {}
@@ -452,7 +455,7 @@ def prepare(protocol):
         name = frag["layers"].format(k)
         path = fetch(frag["base_url"] + name, work / "raw" / name, budget)
         files[name] = sha(path)
-        with Image.open(path) as image:
+        with open_image(path) as image:
             if image.mode != "L" or image.size != (mask.shape[1], mask.shape[0]):
                 raise ValueError(f"{name}: expected 8-bit grey on the mask canvas")
             stack[k - 1, :mask.shape[0], :mask.shape[1]] = np.asarray(image)
@@ -504,9 +507,19 @@ def run(protocol, phase6):
     tiles = json.loads((work / "tiles.json").read_bytes())
     height, width = protocol["fragment"]["canvas_shape_hw"]
     weight = hann()
+    run_json = work / "run.json"
     report = {"weights_sha256": WEIGHTS_SHA, "torch": torch.__version__, "cuda": torch.version.cuda,
               "gpu": torch.cuda.get_device_name(), "inference": "eval_fp32_no_tf32_deterministic_cudnn", "maps": {}}
+    if run_json.exists():  # Resume after an interruption: maps already written and recorded are kept.
+        previous = json.loads(run_json.read_bytes())
+        if {k: previous[k] for k in ("weights_sha256", "torch", "cuda", "gpu")} != {
+                k: report[k] for k in ("weights_sha256", "torch", "cuda", "gpu")}:
+            raise ValueError("run.json comes from another setup: move it away to restart")
+        report["maps"] = {k: v for k, v in previous["maps"].items() if (work / f"{k}.npy").exists()}
     for name, spec in protocol["inputs"]["maps"].items():
+        if name in report["maps"]:
+            print(name, "already done", flush=True)
+            continue
         start = time.time()
         planes = plane_indices(spec["window"], spec["order"])
         origins = [tuple(o) for o in tiles[str(spec["stride"])]]
@@ -524,8 +537,8 @@ def run(protocol, phase6):
             np.save(work / "weight_s128.npy", wsum[:height, :width].astype(np.float32))
         report["maps"][name] = {"tiles": len(origins), "seconds": round(time.time() - start, 1),
                                 "repeat_max_abs_diff": float(np.abs(first - again).max())}
+        run_json.write_text(json.dumps(report, indent=1), encoding="utf-8")
         print(name, report["maps"][name], flush=True)
-    (work / "run.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
 
 
 def baselines(protocol, strip=512, halo=32):

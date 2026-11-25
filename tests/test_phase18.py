@@ -173,3 +173,18 @@ def test_maps_must_match_their_frozen_hashes(phase, tmp_path, monkeypatch):
     np.save(tmp_path / "B1.npy", np.ones(3, np.float32))
     with pytest.raises(ValueError, match="B1"):
         phase.check_maps(protocol)
+
+
+def test_large_published_images_open(phase, tmp_path, monkeypatch):
+    from PIL import Image
+
+    labels = np.zeros((40, 50), np.uint8)
+    labels[5:9, 5:20] = 255
+    Image.fromarray(labels).save(tmp_path / "labels.png")
+    rgba = np.zeros((40, 50, 4), np.uint8)
+    rgba[..., :3], rgba[10:30, 10:40, 3] = 255, 255
+    Image.fromarray(rgba, "RGBA").save(tmp_path / "mask.png")
+    monkeypatch.setattr(Image, "MAX_IMAGE_PIXELS", 10)  # Every image above is a "bomb" for PIL now.
+    assert phase.load_grey(tmp_path / "labels.png").sum() == 60
+    assert phase.load_luma(tmp_path / "labels.png").dtype == np.float32
+    assert phase.load_mask(tmp_path / "mask.png").sum() == 600
