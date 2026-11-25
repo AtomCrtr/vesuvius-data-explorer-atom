@@ -44,7 +44,8 @@ Commit 1, **avant** de télécharger la moindre couche nouvelle, l'IR ou les ét
 
 #### 4.1 Entrées et inférence
 
-- Couches 02 à 63 de `PHerc0343P/paths/2um_front_surface/layers/` : 62 plans à 2 µm, sans rééchantillonnage, comme EconLearn.
+- Couches 02 à 63 de `PHerc0343P/paths/2um_front_surface/layers/` : 62 plans, sans rééchantillonnage, comme EconLearn.
+- **Taille du pixel du canevas : 2,215 µm, et non 2 µm.** Le nom `2um` est arrondi. Le facteur 0,2564 d'EconLearn vers sa grille de 8,64 µm donne 2,215 µm, la résolution de la recette de A. Toute conversion de µm en pixels utilise 2,215 µm, par exemple 301 µm ≈ 136 px. Si les métadonnées du paquet donnent une autre valeur, arrête-toi et documente l'écart.
 - `Z_out` = plans 63 → 02 ; `Z_in` = plans 02 → 63. Mêmes tableaux, seul l'axe de profondeur est inversé.
 - Normalisation de la recette, qui est aussi celle d'EconLearn : écrêtage à 200, puis ÷ 200. Pas de fenêtre W2.
 - **Pavage principal, identique pour les deux ordres :** tuiles de 256, pas de 128, fusion Hann.
@@ -70,12 +71,19 @@ D'après son commentaire :
 - ROC-AUC calculée après **quantification de la carte en 256 niveaux entre ses percentiles 0,1 et 99,9** ;
 - effectifs publiés pour PHerc0343P : **247 538 pixels d'encre, 2 021 316 propres, 4 292 390 valides** (et pour PHerc0500P2 : 1 004 495 encre, 8 052 681 propres).
 
-Il ne précise pas la méthode de réduction vers la grille de 8,64 µm, ni sur quelle grille s'appliquent l'érosion de 10 px et la médiane de l'IR. Fige donc, avant toute lecture :
+Il ne précise ni la méthode de réduction vers la grille de 8,64 µm, ni sur quelle grille s'appliquent l'érosion de 10 px et la médiane de l'IR. **On ne l'attend pas : ses effectifs suffisent à trancher.** Fige, avant toute lecture, un **ensemble fini d'interprétations**, puis choisis celle qui reproduit ses effectifs :
 
-- **Interprétation principale :** tout se fait sur la grille de 8,64 µm (érosions, distance de 12 px, médiane IR calculée sur la région). Les étiquettes et le masque sont réduits au plus proche voisin, l'IR et les cartes de scores par moyenne de zone. Note la règle d'arrondi de la taille de grille.
-- **Interprétation de repli, déclarée à l'avance :** érosions et distances en pixels du canevas, réduction ensuite.
-- **Critère de reconstruction :** les trois effectifs à ± 2 % des siens. On teste d'abord l'interprétation principale, puis le repli si elle échoue. Si aucune ne passe, le support E est déclaré « approché » et ses résultats sont seulement descriptifs.
-- Les effectifs se calculent **avant** toute ROC-AUC sur les cartes. Ils ne dépendent que des étiquettes, de l'IR et du masque.
+- **Taille de la grille :** `round` ou `floor` de 0,2564 × (largeur, hauteur) du canevas. Pour PHerc0343P (8416 × 13 924), on obtient environ 2158 × 3570.
+- **Réduction des étiquettes et du masque :** plus proche voisin, ou moyenne de zone suivie d'un seuil à 0,5, ou « au moins un pixel ».
+- **Réduction de l'IR :** moyenne de zone ou plus proche voisin.
+- **Grille des opérations morphologiques** (érosion de 2 px de l'encre, distance de 12 px, érosion de 10 px du masque) : grille de 8,64 µm, ou canevas avec les rayons multipliés par 1/0,2564, puis réduction.
+- **Population de la médiane IR :** région érodée, masque entier, ou région hors encre.
+- Cela fait au plus 2 × 3 × 2 × 2 × 3 = 72 combinaisons. Elles sont toutes énumérées dans le protocole, dans un ordre fixé.
+- **Critère de choix :** l'écart relatif maximal sur les **six effectifs publiés** (PHerc0343P : encre, propres, valides ; PHerc0500P2 : encre, propres). Retiens la combinaison qui minimise cet écart. Le support E est déclaré **reconstruit** si cet écart est ≤ 2 %, et **approché** sinon (résultats alors seulement descriptifs). En cas d'égalité, prends la première combinaison dans l'ordre fixé.
+- Pour PHerc0500P2, ce calcul n'utilise que `500P2_inklabels.png`, `500P2_ir.png` et `500P2_mask.png`, soit environ 58 Mo, sans aucune couche ni inférence.
+- Publie dans `phase18-supports.json` les effectifs des 72 combinaisons, pas seulement ceux de la combinaison retenue.
+- Les effectifs se calculent **avant** toute ROC-AUC sur les cartes. Ils ne dépendent que des étiquettes, de l'IR et du masque, et pas des scores. La recherche ne peut donc pas favoriser un ordre.
+- Si EconLearn répond entre-temps sur ses choix, note sa réponse dans le protocole et vérifie qu'elle correspond à la combinaison retenue. Le critère de choix reste celui des effectifs.
 
 #### 4.4 Scores, hypothèses, incertitude
 
@@ -85,6 +93,7 @@ Il ne précise pas la méthode de réduction vers la grille de 8,64 µm, ni sur 
   - **H2** : ROC-AUC(`Z_out`) > 0,5, borne basse au-dessus de 0,5 ;
   - **H3** : ROC-AUC(`Z_out`) − meilleur témoin > 0, borne basse au-dessus de 0.
 - Sur N, la ROC-AUC se calcule sur les scores bruts. Sur E, elle se calcule avec sa quantification, et la version sur scores bruts est donnée en sensibilité.
+- **Effet du choix des négatifs, sans décision :** support E **sans le filtre IR** (tous les pixels à au moins 12 px des lettres). Ses négatifs « plus clairs que la médiane IR » écartent le papyrus sombre ou abîmé, qui est justement le plus difficile. Rapporte, pour E, E sans filtre IR et N, la ROC-AUC de chaque ordre et leur différence.
 - **Incertitude principale :** bootstrap apparié par composante connexe d'encre (phase 15). Les négatifs sont rattachés à la composante la plus proche, selon une règle écrite dans le protocole. Mêmes tirages pour tous les scores ; nombre de tirages et graine fixés. En secondaire : bootstrap par ROI, et bootstrap par blocs de 64², signalé comme optimiste.
 - **Effet du pavage, descriptif :** sur le support E, les 4 ROC-AUC du plan ordre × pas, l'écart dû à l'ordre à pas égal, et l'écart dû au pas à ordre égal.
 - **Test de placement d'EconLearn, secondaire :** 2 000 placements aléatoires des lettres sur le fragment, graine fixée, pour `Z_out` et `Z_in`. Il sert à comparer avec sa meilleure ROC-AUC aléatoire, 0,722.
@@ -102,7 +111,7 @@ Commit 2, toujours **sans** IR ni étiquettes :
 
 ### 6. Évaluation
 
-- **Commit 3 :** télécharge `343P_inklabels.png` et `343P_ir.png` et note leur SHA-256. Construis les supports N et E. Commite `docs/validation/phase18-supports.json` avec les effectifs, le résultat du critère de reconstruction de E et l'interprétation retenue. **Aucune ROC-AUC dans ce commit.**
+- **Commit 3 :** télécharge `343P_inklabels.png` et `343P_ir.png`, ainsi que `500P2_inklabels.png`, `500P2_ir.png` et `500P2_mask.png` pour la recherche sur les effectifs, et note leur SHA-256. Construis les supports N et E. Commite `docs/validation/phase18-supports.json` avec les effectifs, le résultat du critère de reconstruction de E et l'interprétation retenue. **Aucune ROC-AUC dans ce commit.**
 - **Commit 4 :** `phase18_eval.py --report docs/validation/phase18-eval.json`, sur les cartes dont l'empreinte correspond à `phase18-scores.json`. Le script refuse toute carte différente.
 - Aucune règle ne change après ouverture. Si une règle se révèle inapplicable, documente l'échec, sans correction silencieuse.
 
