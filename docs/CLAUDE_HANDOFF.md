@@ -1,5 +1,9 @@
 # Passation à Claude Opus
 
+## Phase 17 · Orientation des piles frontales
+
+Sur PHerc0343P, la règle de texture situe l’air côté 02–14 (r = 5,83). Sur PHerc0500P2, elle désigne aussi les couches basses (r = 2,50). L’ordre inversé d’EconLearn correspond à `Z_out` sur PHerc0343P. La correspondance de la pile publique de PHerc0500P2 avec `500p2a` est plausible. Villa lit 01–62 avant inversion. Étape B soumise à l’accord du PO. [Rapport](PHASE17_ORIENTATION_2UM.md) · [Réponse à relire](PHASE17_COMMUNITY_REPLY.md)
+
 ## Phase 15 · Audit a posteriori du résultat de la phase 14
 
 Branche `feat/vesuvius-phase15` depuis `main` (`7d56b28`). Exploratoire : les étiquettes avaient été lues en phase 14. [Rapport](PHASE15_AUDIT.md)

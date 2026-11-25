@@ -1,0 +1,13 @@
+{
+  "statut": "Projet non figé, en attente de l’accord du PO",
+  "fragment": "PHerc0343P",
+  "objectif": "Reproduction exploratoire des ROC-AUC par ordre, non aveugle car les scores publiés sont connus.",
+  "préalables": [
+    "Vérifier séparément les conditions des lettres tracées, de la photo IR et de ir-truth-9um.",
+    "Confirmer avec EconLearn la définition des négatifs photo-propres, l’emprise, la résolution et la référence utilisée.",
+    "Fixer et commiter avant lecture les ROI tirées sur le masque seul, la tolérance de recalage, le support commun et les exclusions."
+  ],
+  "inférence_prévue": "Même checkpoint A, W2, deux ordres sur les mêmes entrées, tuiles de 256 px au pas de 128, fusion Hann.",
+  "évaluation_prévue": "ROC-AUC appariées et différence sur le même support. Définir un bootstrap par ROI ou composante, publier la prévalence et le nombre d’unités indépendantes. Évaluer séparément les références optiques.",
+  "à_figer": ["identifiants et licences des références", "sélection exacte des ROI et des négatifs", "tolérance en µm", "unité et graine du bootstrap"]
+}
