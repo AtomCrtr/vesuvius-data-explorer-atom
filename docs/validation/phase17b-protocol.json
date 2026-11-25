@@ -1,13 +1,37 @@
 {
-  "statut": "Projet non figé, en attente de l’accord du PO",
+  "statut": "Préparation documentaire, protocole non figé. Script et support d’évaluation à demander dans la réponse soumise à relecture.",
   "fragment": "PHerc0343P",
   "objectif": "Reproduction exploratoire des ROC-AUC par ordre, non aveugle car les scores publiés sont connus.",
   "préalables": [
-    "Vérifier séparément les conditions des lettres tracées, de la photo IR et de ir-truth-9um.",
     "Confirmer avec EconLearn la définition des négatifs photo-propres, l’emprise, la résolution et la référence utilisée.",
     "Fixer et commiter avant lecture les ROI tirées sur le masque seul, la tolérance de recalage, le support commun et les exclusions."
   ],
   "inférence_prévue": "Même checkpoint A, W2, deux ordres sur les mêmes entrées, tuiles de 256 px au pas de 128, fusion Hann.",
   "évaluation_prévue": "ROC-AUC appariées et différence sur le même support. Définir un bootstrap par ROI ou composante, publier la prévalence et le nombre d’unités indépendantes. Évaluer séparément les références optiques.",
-  "à_figer": ["identifiants et licences des références", "sélection exacte des ROI et des négatifs", "tolérance en µm", "unité et graine du bootstrap"]
+  "à_figer": [
+    "versions exactes des références utilisées par EconLearn",
+    "sélection exacte des ROI et des négatifs",
+    "tolérance en µm",
+    "unité et graine du bootstrap"
+  ],
+  "licences_consultées": {
+    "IR_et_tracés": {
+      "fichiers": [
+        "343P_ir.png",
+        "343P_inklabels.png"
+      ],
+      "crédit": "Équipe du Vesuvius Challenge, photo IR, recalage et tracé.",
+      "licence_du_fragment": "CC BY-NC 4.0 (attribution, indication des modifications, usage non commercial).",
+      "source": "https://dl.ash2txt.org/fragments/PHerc0343P/LICENSE.txt"
+    },
+    "ir-truth-9um": {
+      "scripts": "MIT, Domenico Russo.",
+      "données_et_cartes": "Le dépôt renvoie aux conditions des données du Vesuvius Challenge. Le recalage sur le canevas 8,64 µm et les masques de score constituent une référence distincte.",
+      "source": "https://github.com/DomRusso2/ir-truth-9um/blob/7e96b969d3a1407504db4826543136573bda78b8/LICENSE"
+    },
+    "conditions_du_serveur": {
+      "source": "https://dl.ash2txt.org/LICENSE.txt",
+      "portée": "Le texte général encadre la redistribution de données et les révélations de texte. Travail prévu sur copies locales pour l’analyse, avec attribution et publication de statistiques agrégées."
+    }
+  }
 }
