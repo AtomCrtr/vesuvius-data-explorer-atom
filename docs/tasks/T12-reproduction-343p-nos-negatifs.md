@@ -39,7 +39,13 @@ Ressources à prévoir :
 
 - **Disque :** environ 1,8 Go de couches PNG et 7,4 Go pour la pile `layers01_63.npy`, plus environ 3,5 Go de cartes, le tout dans `data/phase18/`, hors Git.
 - **Mémoire :** `--supports` et `--report` dépassent 10 Go de RAM au pic (transformées de distance sur les 407 Mpx de PHerc0500P2).
-- **GPU :** temps inconnu. `run.json` note les secondes par carte ; si l'étape C est envisagée, extrapole à partir de ces temps.
+- **GPU :** le masque réel demande 4 687 tuiles par carte au pas de 128 et 1 180 au pas de 256, soit 21 108 tuiles pour les six cartes. À 0,235 s par tuile (RTX 4080 Laptop, phase 6), il faut compter environ 1 h 30 de GPU. Sur le processeur de la session cloud (7 s par tuile), il faudrait environ 41 h, ce qui écarte cette voie.
+- **Reprise :** `--run` écrit `run.json` après chaque carte. Relancé après une coupure, il saute les cartes déjà faites.
+- **Contrôle du code d'inférence :** le chargement du modèle utilisé par `--run` reproduit sur processeur les logits de référence GPU de la phase 6, sur sa tuile publique de PHerc0500P2 (−1,6106 à 1,7299, écart inférieur à 10⁻⁶).
+
+### Sans Codex
+
+Les six commandes ci-dessus suffisent : aucune étape ne demande d'agent. Après `--hash`, commite `docs/validation/phase18-prepare.json` et `docs/validation/phase18-scores.json` avec le message « Phase 18 : cartes de scores hachées avant ouverture des étiquettes ». Après `--supports`, commite `phase18-supports.json`. Après `--report`, commite `phase18-eval.json`. Pousse ensuite sur une branche : Claude relit la reconstruction du support E, puis les résultats, et rédige le rapport.
 
 Si EconLearn publie ses SHA-256 de couches, enregistre-les dans un JSON `{nom de fichier: sha}` et passe-le avec `--econlearn-sha` à l'étape `--hash`.
 
