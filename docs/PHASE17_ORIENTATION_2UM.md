@@ -40,7 +40,7 @@ La décision utilise la moyenne de 13 écarts-types médians à chaque extrémit
 
 ## Limites et suite
 
-La règle identifie un côté par sa texture sur huit régions. Une validation physique demanderait, par exemple, le sens de la normale du rendu dans le volume CT. Cette étape utilise uniquement les couches et le masque. Les scores d’encre rapportés par EconLearn étaient connus avant le gel. Pour préparer l’étape B, le brouillon demande à EconLearn son script et sa sélection des négatifs. La référence 9 µm de Russo repart du tracé de l’équipe sur un autre canevas. Une comparaison appariée demande le support exact utilisé par EconLearn. Le projet de protocole consigne les licences consultées avant toute lecture des références optiques. [Projet non figé](validation/phase17b-protocol.json)
+La règle identifie un côté par sa texture sur huit régions. Une validation physique demanderait, par exemple, le sens de la normale du rendu dans le volume CT. Cette étape utilise uniquement les couches et le masque. Les scores d’encre rapportés par EconLearn étaient connus avant le gel. Pour préparer l’étape B, le [commentaire publié](https://github.com/ScrollPrize/villa/issues/2627#issuecomment-7154345093) demande à EconLearn son script et sa sélection des négatifs. La référence 9 µm de Russo repart du tracé de l’équipe sur un autre canevas. Une comparaison appariée demande le support exact utilisé par EconLearn. Le projet de protocole consigne les licences consultées avant toute lecture des références optiques. [Projet non figé](validation/phase17b-protocol.json)
 
 ## Reproduction
 
