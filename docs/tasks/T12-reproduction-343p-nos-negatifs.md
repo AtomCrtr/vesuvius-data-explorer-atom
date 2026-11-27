@@ -1,7 +1,7 @@
 # T12 · Phase 18 : les deux ordres sur PHerc0343P, sur notre support et sur celui d'EconLearn · prompt Codex
 
 - **Origine :** décision du PO du 25 novembre 2026 de ne pas attendre EconLearn. Le même matin, EconLearn a publié sur [villa#2627](https://github.com/ScrollPrize/villa/issues/2627) ses règles de sélection, ses effectifs et ses réglages d'inférence. La phase 18 évalue donc les deux ordres **sur deux supports** : le nôtre, dans la continuité des phases 12 à 16, et le sien, reconstruit à partir de ses règles.
-- **Statut :** commit 1 fait le 25 novembre 2026 (protocole figé, script, tests, sans aucun téléchargement de phase 18). Codex reprend à l'étape 2, voir « Reprise » ci-dessous. Le protocole figé fait foi là où il précise ou corrige ce prompt.
+- **Statut :** protocole figé le 25 novembre 2026. Le 27 novembre, `--prepare --compact-stack` a produit la pile et le manifeste des couches 01–63 et du masque. La reprise se fait à l'inférence CUDA de l'étape 2. [Manifeste de préparation](../validation/phase18-prepare.json)
 - **Branche :** `feat/vesuvius-phase18`, créée depuis `main`.
 - **Lien avec `phase17b-protocol.json` :** ce projet non figé est remplacé par le support E de la phase 18. Ne modifie pas le fichier : le rapport de phase 18 dit qu'il est remplacé.
 
@@ -44,9 +44,9 @@ Ressources à prévoir :
 - **Reprise :** `--run` écrit `run.json` après chaque carte. Relancé après une coupure, il saute les cartes déjà faites.
 - **Contrôle du code d'inférence :** le chargement du modèle utilisé par `--run` reproduit sur processeur les logits de référence GPU de la phase 6, sur sa tuile publique de PHerc0500P2 (−1,6106 à 1,7299, écart inférieur à 10⁻⁶).
 
-### Sans Codex
+### Reprise sur CUDA
 
-Les six commandes ci-dessus suffisent : aucune étape ne demande d'agent. Après `--hash`, commite `docs/validation/phase18-prepare.json` et `docs/validation/phase18-scores.json` avec le message « Phase 18 : cartes de scores hachées avant ouverture des étiquettes ». Après `--supports`, commite `phase18-supports.json`. Après `--report`, commite `phase18-eval.json`. Pousse ensuite sur une branche : Claude relit la reconstruction du support E, puis les résultats, et rédige le rapport.
+Avec le cache préparé, commence à `--run`. Sur une autre machine, copie `data/phase18/` ou relance `--prepare --compact-stack` pour reconstituer la pile. Après `--hash`, commite `docs/validation/phase18-prepare.json` si le format a changé, et `docs/validation/phase18-scores.json` avec le message « Phase 18 : cartes de scores hachées avant ouverture des étiquettes ». Après `--supports`, commite `phase18-supports.json`. Après `--report`, commite `phase18-eval.json`.
 
 Si EconLearn publie ses SHA-256 de couches, enregistre-les dans un JSON `{nom de fichier: sha}` et passe-le avec `--econlearn-sha` à l'étape `--hash`.
 
