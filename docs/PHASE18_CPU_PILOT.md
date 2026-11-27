@@ -20,3 +20,40 @@ Pour reproduire le pilote depuis la racine du dépôt, utiliser l’environnemen
 ```sh
 python docs/validation/phase18_cpu_pilot.py --output data/phase18/cpu-pilot.json
 ```
+
+## Réplication et contrôles du tuilage
+
+Les deux nouvelles fenêtres visent les lignes qui cumulent 25 % et 75 % de la surface du masque, à l’abscisse de son centroïde. Chacune suit la même grille de 256 px et contient un cœur entièrement masqué. Les fenêtres de 512 px sont disjointes entre elles et de celle du premier pilote. La règle et les tests ont été commités avant les inférences des deux régions (`3e90dcd`).
+
+Les contrôles réutilisent les neuf tuiles par ordre et comparent les scores sur le même cœur dans chaque région.
+
+| Contrôle | Comparaison |
+| --- | --- |
+| Décalage de grille | Pas de 256 px dans les deux cas, avec un décalage de 128 px sur les deux axes. La tuile centrale couvre alors exactement le cœur. |
+| Recouvrement | Pas de 256 px et pas de 128 px, avec des poids uniformes dans les deux cas. |
+| Pondération | Poids uniformes puis Hann, au même pas de 128 px et sur les mêmes tuiles. |
+
+### Effet de l’ordre dans les trois régions
+
+| Région et origine V/U du cœur | Spearman au pas 256 | Spearman au pas 128 | Pixels communs dans le top 1 %, pas 256 / 128 |
+| --- | ---: | ---: | ---: |
+| Centrale `(6016, 4480)` | 0,021 | −0,007 | 0 / 15 |
+| Haute `(3456, 4480)` | −0,492 | −0,606 | 0 / 0 |
+| Basse `(8320, 4480)` | −0,676 | −0,410 | 0 / 0 |
+
+Chaque classement retient 656 pixels sur 65 536. Les deux ordres ont aussi des top 1 % disjoints dans les deux nouvelles régions avec la grille décalée au pas de 256 et avec les poids uniformes au pas de 128. Le changement de classement se répète dans le fragment, avec des corrélations plus négatives dans les deux nouvelles régions. [Région haute](validation/phase18-cpu-upper.json) · [Région basse](validation/phase18-cpu-lower.json)
+
+### Pixels du top 1 % conservés par chaque contrôle
+
+| Contrôle | Haute `Z_in` | Haute `Z_out` | Basse `Z_in` | Basse `Z_out` |
+| --- | ---: | ---: | ---: | ---: |
+| Décalage de la grille au pas 256 | 0 | 0 | 2 | 0 |
+| Recouvrement avec poids uniformes | 41 | 0 | 175 | 0 |
+| Ajout de Hann au pas 128 | 258 | 39 | 389 | 0 |
+
+Le décalage de la grille change presque entièrement le top 1 %, même quand le pas et la fusion restent identiques. Le changement de pondération à tuiles identiques a un effet variable selon la région et l’ordre. Dans la région haute en `Z_in`, passer du pas 256 au pas 128 avec Hann déplace les scores de 0,008 en moyenne absolue et remplace tous les pixels du top 1 %. L’origine de la grille et les poids de fusion font donc partie des paramètres à fixer pour une comparaison de cartes. Ces mesures décrivent trois régions du même fragment à un seul checkpoint et portent sur les scores. [Données des deux contrôles](validation/phase18-cpu-upper.json) · [Région basse](validation/phase18-cpu-lower.json)
+
+```sh
+python docs/validation/phase18_cpu_pilot.py --region upper --output data/phase18/cpu-upper.json
+python docs/validation/phase18_cpu_pilot.py --region lower --output data/phase18/cpu-lower.json
+```

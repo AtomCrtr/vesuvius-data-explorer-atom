@@ -10,7 +10,8 @@ Commit 1 fait : protocole figé, script et tests, avant tout téléchargement de
 - **Préparation réalisée le 27 novembre.** 63 couches et le masque hachés, 4 687 tuiles au pas de 128 et 1 180 au pas de 256. La pile sans perte occupe 2,87 Go en Zarr pour 7,49 Go d'octets décodés. Les PNG restent dans le cache local. [Manifeste](validation/phase18-prepare.json)
 - **Vérifications sur PHerc0343P.** Les 27 empreintes communes à la phase 17 concordent. Sur la tuile d'origine `(v=5888, u=4352)`, les 62 plans lus en Zarr sont identiques aux PNG. Avec le checkpoint A vérifié, les deux ordres donnent des cartes finies sur processeur. Les témoins B1 et B2 ont été calculés sur le canevas entier. L'IR et les étiquettes attendent le gel des cartes CUDA.
 - **Pilote CPU croisé.** Sur 65 536 pixels communs, la corrélation de Spearman entre les deux ordres vaut 0,021 au pas 256 et −0,007 au pas 128. Le recouvrement parmi les 1 % des scores les plus élevés est de 0 et 15 pixels sur 656. Les quatre cartes du pilote ont demandé 18 inférences sur une seule région. [Résultats et reproduction](PHASE18_CPU_PILOT.md)
-- **Suite.** Inférence des six cartes sur CUDA, puis `--hash` avant l'ouverture de l'IR et des étiquettes. Suite hors réseau avec le pilote : 332 réussis, 13 ignorés, 8 désélectionnés.
+- **Réplication CPU.** Deux cœurs disjoints supplémentaires montrent des corrélations entre ordres de −0,68 à −0,41 aux deux pas et des top 1 % sans pixel commun. Un décalage de 128 px de la grille à pas identique conserve de 0 à 2 pixels sur 656 selon l’ordre et la région. [Contrôles de tuilage](PHASE18_CPU_PILOT.md#réplication-et-contrôles-du-tuilage)
+- **Suite.** Inférence des six cartes sur CUDA, puis `--hash` avant l'ouverture de l'IR et des étiquettes. Suite hors réseau avec la réplication : 334 réussis, 13 ignorés, 8 désélectionnés.
 
 ## Phase 17 · Orientation des piles frontales
 
