@@ -7,8 +7,8 @@
 
 ## Ce que la réponse d'EconLearn change
 
-1. **Son écart 0,599 → 0,936 mélange deux effets.** Le passage en ordre stocké utilisait des tuiles sans chevauchement (pas de 256), le passage inversé le pas de 128 avec fusion Hann. L'effet de l'ordre n'est donc pas isolé dans ses chiffres. Notre phase 18 compare les deux ordres avec un pavage identique, et mesure à part l'effet du pavage.
-2. **Son support est reconstructible.** Couches, IR, lettres tracées et masque partagent le même canevas. La vérité est construite sur une grille de 0,2564 × le canevas, soit 8,64 µm par pixel. Ses effectifs publiés permettent de vérifier la reconstruction avant tout calcul de ROC-AUC.
+1. **La comparaison appariée du 27 novembre isole l'effet de l'ordre.** Sur PHerc0343P, la ROC-AUC passe de 0,598 en ordre stocké à 0,919 en ordre inversé (+0,321) avec les mêmes tuiles de 256 px sans recouvrement, les mêmes poids uniformes, les mêmes 227 278 pixels d'encre et 1 827 547 négatifs, et le même calcul. En ordre inversé, le pas de 128 et la fusion Hann donnent 0,936. La case « ordre stocké, pas 128 » reste à mesurer. Notre plan croise les deux ordres et les deux pavages et estime, avec les mêmes tirages du bootstrap par composante, la différence entre leurs effets d'ordre. [Comparaison appariée d'EconLearn](https://github.com/ScrollPrize/villa/issues/2627#issuecomment-7209601820)
+2. **Ses effectifs donnent un critère pour la reconstruction du support.** Couches, IR, lettres tracées et masque partagent le même canevas. La vérité est construite sur une grille de 0,2564 × le canevas, soit 8,64 µm par pixel. Le support E est choisi sur les cinq effectifs détaillés le 25 novembre, avant tout calcul de ROC-AUC. Le sous-ensemble apparié publié le 27 novembre fournit un repère descriptif supplémentaire. [Méthode et effectifs du 25 novembre](https://github.com/ScrollPrize/villa/issues/2627#issuecomment-7154464352)
 3. **Son incertitude ne porte pas sur l'écart entre ordres.** Ses 2 000 placements aléatoires des lettres (meilleure ROC-AUC aléatoire 0,722) testent l'écart au hasard d'un seul passage. Notre bootstrap apparié par composante donne un intervalle sur la différence `Z_out` − `Z_in`.
 4. **Pour 500p2a, rien de nouveau sur le rendu.** Il a lu le paquet public tel qu'il est servi aujourd'hui (couches 02–63) et propose de publier le SHA-256 de chaque couche. On compare ses empreintes aux nôtres. Le lien avec le rendu d'entraînement reste une question pour les mainteneurs.
 
@@ -38,6 +38,7 @@ data/phase6-cuda/Scripts/python.exe docs/validation/phase18_eval.py --run
 Ressources à prévoir :
 
 - **Disque :** environ 1,8 Go de couches PNG et 7,4 Go pour la pile `layers01_63.npy`, plus environ 3,5 Go de cartes, le tout dans `data/phase18/`, hors Git.
+- **Pile compressée :** `--prepare --compact-stack` stocke les mêmes octets décodés en Zarr, sans perte. `--run` et `--baselines` choisissent le format indiqué dans `phase18-prepare.json`. Avec ce mode, les deux environnements Python doivent avoir Zarr 3. La préparation garde les PNG et leurs empreintes pour la reprise.
 - **Mémoire :** `--supports` et `--report` dépassent 10 Go de RAM au pic (transformées de distance sur les 407 Mpx de PHerc0500P2).
 - **GPU :** le masque réel demande 4 687 tuiles par carte au pas de 128 et 1 180 au pas de 256, soit 21 108 tuiles pour les six cartes. À 0,235 s par tuile (RTX 4080 Laptop, phase 6), il faut compter environ 1 h 30 de GPU. Sur le processeur de la session cloud (7 s par tuile), il faudrait environ 41 h, ce qui écarte cette voie.
 - **Reprise :** `--run` écrit `run.json` après chaque carte. Relancé après une coupure, il saute les cartes déjà faites.
@@ -134,6 +135,7 @@ Il ne précise ni la méthode de réduction vers la grille de 8,64 µm, ni sur q
 - **Effet du choix des négatifs, sans décision :** support E **sans le filtre IR** (tous les pixels à au moins 12 px des lettres). Ses négatifs « plus clairs que la médiane IR » écartent le papyrus sombre ou abîmé, qui est justement le plus difficile. Rapporte, pour E, E sans filtre IR et N, la ROC-AUC de chaque ordre et leur différence.
 - **Incertitude principale :** bootstrap apparié par composante connexe d'encre (phase 15). Les négatifs sont rattachés à la composante la plus proche, selon une règle écrite dans le protocole. Mêmes tirages pour tous les scores ; nombre de tirages et graine fixés. En secondaire : bootstrap par ROI, et bootstrap par blocs de 64², signalé comme optimiste.
 - **Effet du pavage, descriptif :** sur le support E, les 4 ROC-AUC du plan ordre × pas, l'écart dû à l'ordre à pas égal, et l'écart dû au pas à ordre égal.
+- **Interaction, descriptive :** `order_by_tiling_interaction` dans le JSON donne `Δordre(pas 128) − Δordre(pas 256)`, où `Δordre = ROC-AUC(Z_out) − ROC-AUC(Z_in)`. L'intervalle est calculé tirage par tirage sur le même support, pour N et E.
 - **Test de placement d'EconLearn, secondaire :** 2 000 placements aléatoires des lettres sur le fragment, graine fixée, pour `Z_out` et `Z_in`. Il sert à comparer avec sa meilleure ROC-AUC aléatoire, 0,722.
 - **Comparaison avec ses chiffres, indicative :** écart entre notre ROC-AUC sur E et ses 0,936 (`Z_out`, pas de 128), et entre notre `Z_in` au pas de 256 et son 0,599.
 

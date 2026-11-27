@@ -1,14 +1,14 @@
 # Réponse courte à EconLearn sur ScrollPrize/villa#2627 (brouillon, non envoyé)
 
-*Brouillon du 25 novembre 2026, en réponse à son commentaire du même jour, qui donne sa méthode. À poster par le PO après relecture.*
+*Brouillon actualisé le 27 novembre 2026 après la comparaison à tuilage identique. À poster par le PO après relecture.*
 
 ---
 
-Thanks, this is exactly what we needed, and no apology needed for the detour.
+Thanks for rerunning both layer orders on the same pixels with identical tiling.
 
-**Tiling.** Your note on tiling matters. The stored-order run used stride 256 and the reversed run stride 128, so the 0.599 → 0.936 gap combines the order effect with the tiling effect. We will rerun both orders with identical tiling (256 px tiles, stride 128, Hann blend), plus both orders at stride 256, so the two effects can be separated.
+**Tiling.** On PHerc0343P the matched runs at stride 256 give 0.598 for stored order and 0.919 for reversed order, a difference of 0.321. Our protocol also evaluates both orders at stride 128 with Hann blending. With all four runs, we can estimate how much the order effect changes with tiling and put a paired interval on that difference.
 
-**Your support.** We will rebuild it from your rules: an 8.64 µm truth grid, letters shrunk by 2 px, clean pixels at least 12 px from any letter and brighter than the infrared median, the mask shrunk by 10 px, and 256-level quantisation between the 0.1 and 99.9 percentiles. We will check that our rebuild reproduces your counts (247,538 ink, 2,021,316 clean, 4,292,390 valid) before scoring anything. We will also score both orders on our own support from earlier phases, with a 301 µm exclusion ring.
+**Your support.** We will rebuild it from your rules for the 8.64 µm grid and check it against the counts you gave on 25 November (247,538 ink, 2,021,316 clean, 4,292,390 valid on PHerc0343P) before scoring. The matched subset from 27 November (227,278 ink, 1,827,547 clean) gives us a separate reference. We will also score both orders on our own support from earlier phases, with a 301 µm exclusion ring.
 
 **Before the labels.** The protocol is committed first. The score maps are hashed before the labels or the infrared photo are opened. We will report paired intervals on the `Z_out` − `Z_in` difference, bootstrapped over ink components, alongside your placement test. This is not blind, since your numbers are known.
 

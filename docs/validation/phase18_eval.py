@@ -137,15 +137,7 @@ def tile_origins(shape_p, stride, tile=TILE):
 def run_tiles(mask, stride, tile=TILE):
     """Origins of the tiles that contain at least one mask pixel, on the padded canvas."""
     shape_p = padded_shape(mask.shape, tile)
-    padded = np.zeros(shape_p, bool)
-    padded[:mask.shape[0], :mask.shape[1]] = mask
-    integral = np.pad(padded.astype(np.int64).cumsum(0).cumsum(1), ((1, 0), (1, 0)))
-    keep = []
-    for v, u in tile_origins(shape_p, stride, tile):
-        total = integral[v + tile, u + tile] - integral[v, u + tile] - integral[v + tile, u] + integral[v, u]
-        if total:
-            keep.append((v, u))
-    return keep
+    return [(v, u) for v, u in tile_origins(shape_p, stride, tile) if mask[v:v + tile, u:u + tile].any()]
 
 
 def coverage(shape, origins, tile=TILE):
@@ -400,6 +392,17 @@ def differences(estimate, per_draw, pairs):
                            "interval_95": interval(per_draw[a][:, 1] - per_draw[b][:, 1])} for a, b in pairs}
 
 
+def tiling_interaction(estimate, per_draw):
+    """Change in the order effect from stride 256 to stride 128, paired by draw."""
+    out_128, in_128 = PRIMARY
+    out_256, in_256 = "Z_out_s256", "Z_in_s256"
+    point = ((estimate[out_128][1] - estimate[in_128][1]) -
+             (estimate[out_256][1] - estimate[in_256][1]))
+    draws = ((per_draw[out_128][:, 1] - per_draw[in_128][:, 1]) -
+             (per_draw[out_256][:, 1] - per_draw[in_256][:, 1]))
+    return {"estimate": point, "interval_95": interval(draws)}
+
+
 def placement_test(maps_q, support, rolls, seed, min_shift, metric):
     """Rank of the true letters among cyclic rolls of the letters (EconLearn's control, our rule)."""
     letters, region, bright = support["letters"], support["region"], support["bright"]
@@ -440,7 +443,35 @@ def work_dir(protocol):
     return Path(protocol["work_dir"])
 
 
-def prepare(protocol):
+def open_stack(protocol):
+    """Open the lossless padded stack from either a new or a legacy prepare manifest."""
+    work = work_dir(protocol)
+    manifest = json.loads(PREPARE_JSON.read_bytes())
+    if manifest["protocol_sha256"] != PROTOCOL_SHA[PROTOCOL.name]:
+        raise ValueError("phase18-prepare.json was written under another protocol")
+    stack_format = manifest.get("stack_format", "npy")
+    if stack_format == "zarr":
+        import zarr
+
+        stack = zarr.open_array(work / "layers01_63.zarr", mode="r")
+    elif stack_format == "npy":
+        stack = np.load(work / "layers01_63.npy", mmap_mode="r")
+    else:
+        raise ValueError(f"Unknown phase 18 stack format: {stack_format}")
+    if stack.dtype != np.uint8 or stack.shape != (63, *padded_shape(protocol["fragment"]["canvas_shape_hw"])):
+        raise ValueError("Unexpected phase 18 stack shape or dtype")
+    return stack
+
+
+def read_stack_window(stack, window, order, rows, cols):
+    """Read contiguous planes, then put them in model order in memory."""
+    planes = plane_indices(window, order)
+    lo, hi = sorted((planes[0], planes[-1]))
+    volume = stack[lo:hi + 1, rows, cols]
+    return volume[::-1] if planes[0] > planes[-1] else volume
+
+
+def prepare(protocol, *, compact_stack=False):
     work, frag = work_dir(protocol), protocol["fragment"]
     budget = [protocol["budget_bytes"]]
     files = {}
@@ -450,7 +481,16 @@ def prepare(protocol):
     if list(mask.shape) != frag["canvas_shape_hw"]:
         raise ValueError(f"Unexpected canvas {mask.shape}")
     shape_p = padded_shape(mask.shape)
-    stack = np.lib.format.open_memmap(work / "layers01_63.npy", mode="w+", dtype=np.uint8, shape=(63, *shape_p))
+    if compact_stack:
+        import zarr
+
+        stack_format = "zarr"
+        stack = zarr.open_array(work / "layers01_63.zarr", mode="w", shape=(63, *shape_p),
+                                chunks=(1, 512, 512), dtype="uint8", fill_value=0)
+    else:
+        stack_format = "npy"
+        stack = np.lib.format.open_memmap(work / "layers01_63.npy", mode="w+", dtype=np.uint8,
+                                          shape=(63, *shape_p))
     for k in range(1, 64):
         name = frag["layers"].format(k)
         path = fetch(frag["base_url"] + name, work / "raw" / name, budget)
@@ -459,10 +499,12 @@ def prepare(protocol):
             if image.mode != "L" or image.size != (mask.shape[1], mask.shape[0]):
                 raise ValueError(f"{name}: expected 8-bit grey on the mask canvas")
             stack[k - 1, :mask.shape[0], :mask.shape[1]] = np.asarray(image)
-    stack.flush()
+    if not compact_stack:
+        stack.flush()
     tiles = {str(s): run_tiles(mask, s) for s in (128, 256)}
     manifest = {"protocol_sha256": PROTOCOL_SHA[PROTOCOL.name], "files_sha256": files, "padded_shape": shape_p,
-                "run_tiles": {s: len(t) for s, t in tiles.items()}, "stack": "layers01_63.npy (outside Git)"}
+                "run_tiles": {s: len(t) for s, t in tiles.items()}, "stack_format": stack_format,
+                "stack": f"layers01_63.{stack_format} (outside Git)"}
     (work / "tiles.json").write_text(json.dumps(tiles), encoding="utf-8")
     PREPARE_JSON.write_text(json.dumps(manifest, indent=1), encoding="utf-8")
     print(json.dumps({k: manifest[k] for k in ("padded_shape", "run_tiles")}, indent=1))
@@ -474,9 +516,10 @@ def run(protocol, phase6):
     import torch
     from phase6_cuda import CHECKPOINT, CODE, WEIGHTS_SHA, prepare_tile
 
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA is required for the frozen phase 18 inference")
     work = work_dir(protocol)
-    if json.loads(PREPARE_JSON.read_bytes())["protocol_sha256"] != PROTOCOL_SHA[PROTOCOL.name]:
-        raise ValueError("phase18-prepare.json was written under another protocol")
+    stack = open_stack(protocol)
     ckpt = phase6 / "canonical" / CHECKPOINT
     if sha(ckpt) != WEIGHTS_SHA or any(sha(phase6 / "villa" / p) != h for p, h in CODE.items()):
         raise ValueError("The checkpoint or the audited model code changed")
@@ -503,7 +546,6 @@ def run(protocol, phase6):
                                                     align_corners=False)
         return score[0, 0].cpu().numpy().astype(np.float64)
 
-    stack = np.load(work / "layers01_63.npy", mmap_mode="r")
     tiles = json.loads((work / "tiles.json").read_bytes())
     height, width = protocol["fragment"]["canvas_shape_hw"]
     weight = hann()
@@ -521,16 +563,17 @@ def run(protocol, phase6):
             print(name, "already done", flush=True)
             continue
         start = time.time()
-        planes = plane_indices(spec["window"], spec["order"])
         origins = [tuple(o) for o in tiles[str(spec["stride"])]]
         acc = np.zeros(stack.shape[1:])
         wsum = np.zeros(stack.shape[1:])
         for v, u in origins:
-            acc[v:v + TILE, u:u + TILE] += weight * infer(stack[planes, v:v + TILE, u:u + TILE])
+            tile = read_stack_window(stack, spec["window"], spec["order"], slice(v, v + TILE), slice(u, u + TILE))
+            acc[v:v + TILE, u:u + TILE] += weight * infer(tile)
             wsum[v:v + TILE, u:u + TILE] += weight
         v, u = origins[len(origins) // 2]
-        first = infer(stack[planes, v:v + TILE, u:u + TILE])
-        again = infer(stack[planes, v:v + TILE, u:u + TILE])
+        tile = read_stack_window(stack, spec["window"], spec["order"], slice(v, v + TILE), slice(u, u + TILE))
+        first = infer(tile)
+        again = infer(tile)
         with np.errstate(invalid="ignore", divide="ignore"):
             np.save(work / f"{name}.npy", (acc / wsum)[:height, :width].astype(np.float32))
         if name == "Z_out_s128":
@@ -545,13 +588,13 @@ def baselines(protocol, strip=512, halo=32):
     from phase13_eval import baselines as phase13_baselines
 
     work = work_dir(protocol)
-    stack = np.load(work / "layers01_63.npy", mmap_mode="r")
+    stack = open_stack(protocol)
     height, width = protocol["fragment"]["canvas_shape_hw"]
-    planes = plane_indices(protocol["inputs"]["primary_window"], "Z_out")
+    window = protocol["inputs"]["primary_window"]
     b1, b2 = np.full((height, width), np.nan, np.float32), np.full((height, width), np.nan, np.float32)
     for top in range(0, height, strip):
         lo, hi = max(top - halo, 0), min(top + strip + halo, height)
-        volume = stack[planes, lo:hi, :width]
+        volume = read_stack_window(stack, window, "Z_out", slice(lo, hi), slice(0, width))
         x1, x2 = phase13_baselines(volume)
         b1[top:top + strip] = x1[top - lo:top - lo + strip]
         b2[top:top + strip] = x2[top - lo:top - lo + strip]
@@ -685,7 +728,8 @@ def evaluate(maps, positives, negatives, nbins, step=1):
     units, n_units = attach_units(positives, positives | negatives, step)
     estimate, per_draw = bootstrap(maps, positives, negatives, units, n_units, nbins, DRAWS, SEED_COMPONENTS)
     return {"components": n_units, **summarize(estimate, per_draw, positives, negatives),
-            "differences": differences(estimate, per_draw, PAIRS)}, estimate, per_draw
+            "differences": differences(estimate, per_draw, PAIRS),
+            "order_by_tiling_interaction": tiling_interaction(estimate, per_draw)}, estimate, per_draw
 
 
 def report(protocol, out):
@@ -774,12 +818,15 @@ if __name__ == "__main__":
     for flag in ("--prepare", "--run", "--baselines", "--hash", "--supports"):
         step.add_argument(flag, action="store_true")
     step.add_argument("--report", type=Path)
+    cli.add_argument("--compact-stack", action="store_true", help="Store the prepared stack as lossless Zarr")
     cli.add_argument("--phase6", type=Path, default=Path("data/phase6"))
     cli.add_argument("--econlearn-sha", type=Path, help="JSON {layer file name: SHA-256} posted by EconLearn")
     args = cli.parse_args()
     protocol = read_protocol()
+    if args.compact_stack and not args.prepare:
+        cli.error("--compact-stack requires --prepare")
     if args.prepare:
-        prepare(protocol)
+        prepare(protocol, compact_stack=args.compact_stack)
     elif args.run:
         run(protocol, args.phase6)
     elif args.baselines:
