@@ -75,6 +75,21 @@ def compare(a, b):
             "top_1_percent": rank_agreement(a, b, (0.01,))[0]}
 
 
+def predict_tiles(stack, infer, window, origin, order, region):
+    predictions, tile_seconds = {}, []
+    v0, u0 = origin
+    for index, (v, u) in enumerate(local_origins(128), 1):
+        vv, uu = v0 + v, u0 + u
+        tile = phase.read_stack_window(stack, window, order, slice(vv, vv + TILE), slice(uu, uu + TILE))
+        start = perf_counter()
+        predictions[v, u] = infer(tile)
+        if not np.isfinite(predictions[v, u]).all():
+            raise ValueError(f"Non-finite scores on {order} tile {(vv, uu)}")
+        tile_seconds.append(perf_counter() - start)
+        print(f"{region} {order} {index}/9 {(vv, uu)} · {tile_seconds[-1]:.1f} s", flush=True)
+    return predictions, tile_seconds
+
+
 def run(phase6, threads, region="central"):
     import torch
 
@@ -92,16 +107,8 @@ def run(phase6, threads, region="central"):
     alternatives = {}
     tile_seconds = []
     for order in ORDERS:
-        predictions = {}
-        for index, (v, u) in enumerate(local_origins(128), 1):
-            vv, uu = v0 + v, u0 + u
-            tile = phase.read_stack_window(stack, window, order, slice(vv, vv + TILE), slice(uu, uu + TILE))
-            start = perf_counter()
-            predictions[v, u] = infer(tile)
-            if not np.isfinite(predictions[v, u]).all():
-                raise ValueError(f"Non-finite scores on {order} tile {(vv, uu)}")
-            tile_seconds.append(perf_counter() - start)
-            print(f"{region} {order} {index}/9 {(vv, uu)} · {tile_seconds[-1]:.1f} s", flush=True)
+        predictions, seconds = predict_tiles(stack, infer, window, (v0, u0), order, region)
+        tile_seconds.extend(seconds)
         for stride in STRIDES:
             maps[order, stride] = stitch_core(predictions, stride)
         alternatives[order] = {"shifted_256": predictions[TILE // 2, TILE // 2].astype(np.float32),
