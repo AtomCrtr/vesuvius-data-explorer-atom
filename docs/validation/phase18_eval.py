@@ -510,42 +510,50 @@ def prepare(protocol, *, compact_stack=False):
     print(json.dumps({k: manifest[k] for k in ("padded_shape", "run_tiles")}, indent=1))
 
 
-def run(protocol, phase6):
-    import time
-
+def make_tile_infer(phase6, device):
+    """Load the verified checkpoint and return the common FP32 tile evaluator."""
     import torch
     from phase6_cuda import CHECKPOINT, CODE, WEIGHTS_SHA, prepare_tile
 
-    if not torch.cuda.is_available():
-        raise RuntimeError("CUDA is required for the frozen phase 18 inference")
-    work = work_dir(protocol)
-    stack = open_stack(protocol)
     ckpt = phase6 / "canonical" / CHECKPOINT
     if sha(ckpt) != WEIGHTS_SHA or any(sha(phase6 / "villa" / p) != h for p, h in CODE.items()):
         raise ValueError("The checkpoint or the audited model code changed")
     sys.path.insert(0, str((phase6 / "villa").resolve()))
     from model_resnet3d_3d_decoder import RegressionModel, _strip_known_prefixes
 
-    dev = torch.device("cuda:0")
-    torch.backends.cudnn.benchmark = False
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.allow_tf32 = torch.backends.cuda.matmul.allow_tf32 = False
     blob = torch.load(ckpt, map_location="cpu", weights_only=True, mmap=True)
     state = _strip_known_prefixes(blob["state_dict"])
     with torch.device("meta"):
         model = RegressionModel(with_norm=any(k.startswith("normalization.") for k in state))
     model.load_state_dict(state, strict=True, assign=True)
-    model = model.to(dev).eval()
+    model = model.to(device).eval()
     del blob, state
 
     def infer(tile):
         prepared, _ = prepare_tile(np.ascontiguousarray(tile), False)  # planes already in model order
         with torch.inference_mode():
-            logits = model(torch.from_numpy(prepared).to(dev))
+            logits = model(torch.from_numpy(prepared).to(device))
             score = torch.nn.functional.interpolate(logits.sigmoid(), size=(TILE, TILE), mode="bilinear",
                                                     align_corners=False)
         return score[0, 0].cpu().numpy().astype(np.float64)
 
+    return infer
+
+
+def run(protocol, phase6):
+    import time
+
+    import torch
+    from phase6_cuda import WEIGHTS_SHA
+
+    if not torch.cuda.is_available():
+        raise RuntimeError("CUDA is required for the frozen phase 18 inference")
+    work = work_dir(protocol)
+    stack = open_stack(protocol)
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.allow_tf32 = torch.backends.cuda.matmul.allow_tf32 = False
+    infer = make_tile_infer(phase6, torch.device("cuda:0"))
     tiles = json.loads((work / "tiles.json").read_bytes())
     height, width = protocol["fragment"]["canvas_shape_hw"]
     weight = hann()
