@@ -35,6 +35,51 @@ def test_z_reversal_only_changes_plane_order(phase):
     np.testing.assert_array_equal(out, inn[::-1])
 
 
+def test_compact_preparation_preserves_padded_stack_and_baselines(phase, tmp_path, monkeypatch):
+    from PIL import Image
+
+    protocol = phase.read_protocol()
+    source = tmp_path / "source"
+    (source / "layers").mkdir(parents=True)
+    height, width = 24, 35
+    row, col = np.indices((height, width))
+    protocol["fragment"].update(base_url=source.as_uri() + "/", canvas_shape_hw=[height, width])
+    mask = np.full((height, width, 4), 255, dtype=np.uint8)
+    mask[0, :, 3] = 0
+    Image.fromarray(mask).save(source / protocol["fragment"]["mask"])
+    for k in range(1, 64):
+        Image.fromarray((row + 2 * col + k).astype(np.uint8)).save(source / "layers" / f"{k:02}.png")
+
+    stacks = []
+    baselines = []
+    manifests = []
+    for name, compact in [("dense", False), ("compact", True)]:
+        work = tmp_path / name
+        manifest = tmp_path / f"{name}.json"
+        monkeypatch.setattr(phase, "PREPARE_JSON", manifest)
+        protocol["work_dir"] = str(work)
+        phase.prepare(protocol, compact_stack=compact)
+        stack = phase.open_stack(protocol)
+        assert tuple(stack.shape) == (63, 256, 256)
+        assert stack.dtype == np.uint8
+        if compact:
+            assert (work / "layers01_63.zarr").is_dir()
+            assert not (work / "layers01_63.npy").exists()
+        for window, order, first, last in [((2, 63), "Z_out", 63, 2), ((1, 62), "Z_in", 1, 62)]:
+            tile = phase.read_stack_window(stack, window, order, slice(5, 32), slice(7, 48))
+            np.testing.assert_array_equal(tile[[0, -1], 0, 0], [19 + first, 19 + last])
+            assert not tile[:, -1].any() and not tile[:, :, -1].any()
+        stacks.append(np.asarray(stack))
+        phase.baselines(protocol)
+        baselines.append([np.load(work / f"{key}.npy") for key in ("B1", "B2")])
+        manifests.append(json.loads(manifest.read_text()))
+
+    np.testing.assert_array_equal(*stacks)
+    np.testing.assert_array_equal(*baselines)
+    assert manifests[0]["files_sha256"] == manifests[1]["files_sha256"]
+    assert manifests[0]["run_tiles"] == manifests[1]["run_tiles"] == {"128": 1, "256": 1}
+
+
 @pytest.mark.parametrize("stride, overlap", [(256, 1), (128, 4)])
 def test_strides_tile_the_padded_canvas(phase, stride, overlap):
     shape = (300, 520)
@@ -47,9 +92,11 @@ def test_strides_tile_the_padded_canvas(phase, stride, overlap):
     assert count.min() >= 1 and (interior == overlap).all()
     mask = np.zeros(shape, bool)
     mask[10:20, 10:20] = True
+    mask[-1, -1] = True
     kept = phase.run_tiles(mask, stride)
-    assert all(v < 20 and u < 20 for v, u in kept) and (0, 0) in kept
-    assert phase.coverage(shape, kept)[10:20, 10:20].all()
+    assert kept == ([(0, 0), (128, 384), (128, 512), (256, 384), (256, 512)] if stride == 128
+                    else [(0, 0), (256, 512)])
+    assert phase.coverage(shape, kept)[mask].all()
 
 
 def test_grid_reductions(phase):
@@ -143,6 +190,16 @@ def test_paired_component_bootstrap(phase):
     assert estimate["Z_out_s128"][1] == pytest.approx(1.0)
     verdict = phase.hypotheses(estimate, per_draw)
     assert verdict["H1"]["supported"] and verdict["H2"]["supported"] and verdict["H3"]["supported"]
+
+
+def test_tiling_interaction_uses_the_same_draw_for_all_four_conditions(phase):
+    roc = {"Z_out_s128": 0.9, "Z_in_s128": 0.6, "Z_out_s256": 0.8, "Z_in_s256": 0.6}
+    estimate = {name: (0.5, value) for name, value in roc.items()}
+    common_variations = np.array([-0.1, 0.0, 0.05])
+    per_draw = {name: np.column_stack(([0.5] * 3, value + common_variations)) for name, value in roc.items()}
+    interaction = phase.tiling_interaction(estimate, per_draw)
+    assert interaction["estimate"] == pytest.approx(0.1)
+    assert interaction["interval_95"] == pytest.approx([0.1, 0.1])
 
 
 def test_placement_test_ranks_true_letters_first(phase):

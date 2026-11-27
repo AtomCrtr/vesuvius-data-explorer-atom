@@ -4,10 +4,15 @@
 
 Commit 1 fait : protocole figé, script et tests, avant tout téléchargement de phase 18. [Protocole](validation/phase18-protocol.json) · [Script](validation/phase18_eval.py) · [Prompt et reprise](tasks/T12-reproduction-343p-nos-negatifs.md) · [Audit de la mesure d'EconLearn](AUDIT_ECONLEARN_2026-11-25.md)
 
-- **Ce que la phase corrige.** L'écart 0,599 → 0,936 d'EconLearn mélange l'ordre et le pavage (pas de 256 contre pas de 128). Ici les deux ordres ont le même pavage. Le plan ordre × pas mesure l'effet du pavage à part.
+- **Résultat externe apparié.** À pas 256 et sur les mêmes pixels, EconLearn mesure une ROC-AUC de 0,598 en ordre stocké et de 0,919 en ordre inversé. La carte inversée au pas 128 avec Hann atteint 0,936. La phase 18 ajoute les deux ordres au pas 128 sur le même support et estime si l'effet de l'ordre varie avec le pavage, avec un intervalle apparié par composante d'encre. [Commentaire du 27 novembre](https://github.com/ScrollPrize/villa/issues/2627#issuecomment-7209601820)
 - **Supports.** N : négatifs au-delà de 301 µm (136 px de 2,215 µm). E : support d'EconLearn, choisi parmi 216 interprétations sur ses cinq effectifs publiés, avant toute ROC-AUC.
 - **Indépendance.** PHerc0343P n'est pas nommé dans `TRAIN_FRAGMENT_IDS`. Plusieurs identifiants sont opaques : indépendance probable, pas attestée.
-- **Suite.** Étapes 2 à 5 sur la machine du PO (inférence CUDA). Suite hors réseau : 327 réussis, 13 ignorés, 8 désélectionnés.
+- **Préparation réalisée le 27 novembre.** 63 couches et le masque hachés, 4 687 tuiles au pas de 128 et 1 180 au pas de 256. La pile sans perte occupe 2,87 Go en Zarr pour 7,49 Go d'octets décodés. Les PNG restent dans le cache local. [Manifeste](validation/phase18-prepare.json)
+- **Vérifications sur PHerc0343P.** Les 27 empreintes communes à la phase 17 concordent. Sur la tuile d'origine `(v=5888, u=4352)`, les 62 plans lus en Zarr sont identiques aux PNG. Avec le checkpoint A vérifié, les deux ordres donnent des cartes finies sur processeur. Les témoins B1 et B2 ont été calculés sur le canevas entier. L'IR et les étiquettes attendent le gel des cartes CUDA.
+- **Pilote CPU croisé.** Sur 65 536 pixels communs, la corrélation de Spearman entre les deux ordres vaut 0,021 au pas 256 et −0,007 au pas 128. Le recouvrement parmi les 1 % des scores les plus élevés est de 0 et 15 pixels sur 656. Les quatre cartes du pilote ont demandé 18 inférences sur une seule région. [Résultats et reproduction](PHASE18_CPU_PILOT.md)
+- **Réplication CPU.** Deux cœurs disjoints supplémentaires montrent des corrélations entre ordres de −0,68 à −0,41 aux deux pas et des top 1 % sans pixel commun. Un décalage de 128 px de la grille à pas identique conserve de 0 à 2 pixels sur 656 selon l’ordre et la région. [Contrôles de tuilage](PHASE18_CPU_PILOT.md#réplication-et-contrôles-du-tuilage)
+- **Note mathématique et audit CPU.** Sur le cœur central, la fusion uniforme à pas 128 coïncide exactement avec la moyenne de quatre grilles au pas 256. Les six perturbations testées dépassent la marge suffisante pour garantir le top 1 %. La note relie ces mesures aux travaux sur l’équivariance, la calibration et la dépendance spatiale. [Note et mesures](PHASE18_MATHEMATIQUES_ML.md)
+- **Suite.** Inférence des six cartes sur CUDA, puis `--hash` avant l'ouverture de l'IR et des étiquettes. Suite hors réseau avec l’audit : 336 réussis, 13 ignorés, 8 désélectionnés.
 
 ## Phase 17 · Orientation des piles frontales
 
